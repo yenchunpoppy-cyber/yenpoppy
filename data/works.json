@@ -1,0 +1,40 @@
+{
+  "homeColumns": "3",
+  "homeGutter": "12",
+  "homeBg": "",
+  "works": [
+    {
+      "id": "et-seq-nail",
+      "title": "et seq. Nail Polish 商標設計/包裝設計",
+      "caption": "Branding, Packaging Design",
+      "thumbnail": "",
+      "thumbnailAlt": "",
+      "tags": ["Packaging"],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "heath-forest-app",
+      "title": "Heath Forest APP 介面設計",
+      "caption": "App Interface Redesign",
+      "thumbnail": "",
+      "thumbnailAlt": "",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "lazy-point-visual",
+      "title": "Lazy Point 客座調酒視覺",
+      "caption": "Visual Design, Social Graphics",
+      "thumbnail": "",
+      "thumbnailAlt": "",
+      "tags": ["Social Media", "Banner"],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    }
+  ]
+}

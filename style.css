@@ -1,0 +1,435 @@
+/* ═══════════════════════════════════════════════
+   YEN POPPY — 全站樣式
+   規格書 v1 完整對應
+   ═══════════════════════════════════════════════ */
+
+/* ── CSS 自訂屬性（品牌色票，JS 啟動後動態覆寫） ── */
+:root {
+  --header-bg:    #F9EDC5;
+  --site-bg:      #FAFAFA;
+  --text-color:   #121212;
+  --sub-color:    #4A4A4A;
+  --deco-line:    #424242;
+  --deco-line-w:  6px;
+
+  /* 字級比例 25px:14px */
+  --title-size:   clamp(18px, 2.1vw, 25px);
+  --sub-size:     clamp(11px, 1.17vw, 14px);
+  --body-size:    clamp(12px, 1.2vw, 14px);
+  --nav-size:     clamp(13px, 1.3vw, 16px); /* 導覽 > 副標 */
+
+  /* 全站 gutter 預設 */
+  --gutter:       12px;
+
+  /* 頁面邊界（斷點覆寫） */
+  --page-pad:     24px;
+
+  /* 字體（JS 依設定覆寫 font-family） */
+  --font-title:   'Poppins', 'Noto Serif TC', sans-serif;
+  --font-body:    'Poppins', 'Noto Sans TC', sans-serif;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--site-bg);
+  color: var(--text-color);
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  font-weight: 200;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ════════════════════════════════════════════════
+   HEADER
+   ════════════════════════════════════════════════ */
+#site-header {
+  background: var(--header-bg);
+  padding: 0 var(--page-pad);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Logo 區塊 */
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  flex-shrink: 0;
+}
+.header-logo img.logo-mark     { height: 40px; width: auto; }
+.header-logo img.logo-wordmark { height: 20px; width: auto; }
+.header-logo .logo-fallback {
+  font-family: var(--font-title);
+  font-weight: 200;
+  font-size: 1rem;
+  letter-spacing: .2em;
+  color: var(--text-color);
+}
+
+/* ════════════════════════════════════════════════
+   NAVIGATION
+   ════════════════════════════════════════════════ */
+#site-nav {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(12px, 2vw, 32px);
+  padding-bottom: 10px;
+  flex-wrap: wrap;
+}
+#site-nav a {
+  font-family: var(--font-title);
+  font-size: var(--nav-size);
+  font-weight: 200;
+  color: var(--text-color);
+  white-space: nowrap;
+  letter-spacing: .05em;
+  transition: opacity .2s;
+}
+#site-nav a:hover,
+#site-nav a.active { opacity: .55; }
+
+/* 漢堡按鈕（手機） */
+#hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 12px 0;
+  flex-direction: column;
+  gap: 5px;
+  flex-shrink: 0;
+}
+#hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--text-color);
+  transition: transform .25s, opacity .25s;
+}
+#hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+#hamburger.open span:nth-child(2) { opacity: 0; }
+#hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* 手機下拉選單 */
+#mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--header-bg);
+  z-index: 99;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+#mobile-nav.open { display: flex; }
+#mobile-nav a {
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  font-weight: 200;
+  letter-spacing: .1em;
+  color: var(--text-color);
+}
+
+/* ════════════════════════════════════════════════
+   PAGE CONTAINER（內容區）
+   ════════════════════════════════════════════════ */
+#page-content {
+  padding: 0 var(--page-pad);
+  max-width: 100%;
+}
+
+/* ════════════════════════════════════════════════
+   WORKS GRID（作品列表頁）
+   ════════════════════════════════════════════════ */
+#works-grid {
+  display: grid;
+  /* 欄數 / gutter 由 JS 動態注入 */
+}
+
+/* 每張卡片 */
+.work-card {
+  cursor: pointer;
+  overflow: hidden;
+}
+.work-card img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+/* 卡片無縮圖時佔位 */
+.work-card .thumb-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: #e8e0d0;
+}
+.work-card .card-caption {
+  padding: 8px 0 4px;
+  font-size: var(--sub-size);
+  font-weight: 200;
+  color: var(--sub-color);
+}
+.work-card .card-title {
+  font-size: var(--sub-size);
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+/* ════════════════════════════════════════════════
+   MODULE PAGE LAYOUT
+   ════════════════════════════════════════════════ */
+.module-wrap { width: 100%; }
+
+/* ── 模塊 A ── */
+.module-a { margin-bottom: 48px; }
+
+/* 標題列（豎線 + 大標 + 副標） */
+.module-a__header {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+.module-a__deco-line {
+  width: var(--deco-line-w);
+  background: var(--deco-line);
+  flex-shrink: 0;
+  border-radius: 2px;
+  /* 高度由 JS 動態設定 = headline top 到 subheadline bottom */
+}
+.module-a__text {}
+.module-a__headline {
+  font-family: var(--font-title);
+  font-size: var(--title-size);
+  font-weight: 200;
+  color: var(--text-color);
+  line-height: 1.3;
+}
+.module-a__body {
+  font-size: var(--sub-size);
+  font-weight: 200;
+  color: var(--sub-color);
+  margin-top: 4px;
+}
+.module-a__body p { margin: 0; }
+.module-a__body a { text-decoration: underline; }
+
+/* 圖片網格 */
+.module-a__images {
+  display: grid;
+  /* cols / gap 由 JS 注入 */
+}
+/* 修正 Grid + aspect-ratio 撐破容器的問題（規格書 §6） */
+.module-a__images > * { min-width: 0; }
+.module-b__grid > * { min-width: 0; }
+#works-grid > * { min-width: 0; }
+
+/* 圖片 wrapper（用於疊字） */
+.img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+/* 兩欄/三欄：裁切對齊高度 */
+.img-wrap--crop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+}
+/* 單張置中：不裁切 */
+.img-wrap--fit img {
+  width: 100%;
+  height: auto;
+  max-width: 720px;
+  margin: 0 auto;
+}
+/* 疊字漸層 */
+.img-overlay-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0));
+  pointer-events: none;
+}
+/* 疊字文字 */
+.img-overlay-text {
+  position: absolute;
+  color: #fff;
+  font-size: var(--sub-size);
+  font-weight: 400;
+  padding: 8px 10px;
+  /* 位置由 JS data-pos 套 class 決定 */
+}
+/* 九宮格定位 class */
+.pos-tl { top: 8px;    left: 8px;                   }
+.pos-tc { top: 8px;    left: 50%; transform: translateX(-50%); }
+.pos-tr { top: 8px;    right: 8px;                  }
+.pos-ml { top: 50%;    left: 8px;    transform: translateY(-50%); }
+.pos-mc { top: 50%;    left: 50%;   transform: translate(-50%,-50%); }
+.pos-mr { top: 50%;    right: 8px;   transform: translateY(-50%); }
+.pos-bl { bottom: 8px; left: 8px;                   }
+.pos-bc { bottom: 8px; left: 50%; transform: translateX(-50%); }
+.pos-br { bottom: 8px; right: 8px;                  }
+
+/* ── 滿版模塊（跨出容器貼視窗邊緣） ── */
+.module-a--fullwidth {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  /* 防手機水平捲動：父層須 overflow-x:hidden，body 已設 */
+}
+.module-a--fullwidth img {
+  width: 100%;
+  height: auto;
+}
+
+/* ── 模塊 B 相簿 ── */
+.module-b { margin-bottom: 48px; }
+.module-b__grid {
+  display: grid;
+}
+.module-b__grid .img-wrap img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+/* 純文字模塊的對齊 */
+.module-a--text-left   .module-a__body,
+.module-a--text-left   .module-a__headline { text-align: left; }
+.module-a--text-center .module-a__body,
+.module-a--text-center .module-a__headline { text-align: center; }
+.module-a--text-right  .module-a__body,
+.module-a--text-right  .module-a__headline { text-align: right; }
+
+/* ════════════════════════════════════════════════
+   DECORATIVE PATTERNS（裝飾花紋）
+   固定在瀏覽器視窗角落，捲動不移動
+   ════════════════════════════════════════════════ */
+.deco-pattern {
+  position: fixed;
+  z-index: 10;
+  pointer-events: none;
+  user-select: none;
+}
+.deco-pattern img {
+  display: block;
+}
+/* 六個定位 */
+.deco-tl { top: 0;    left: 0; }
+.deco-tc { top: 0;    left: 50%; transform: translateX(-50%); }
+.deco-tr { top: 0;    right: 0; }
+.deco-bl { bottom: 0; left: 0; }
+.deco-bc { bottom: 0; left: 50%; transform: translateX(-50%); }
+.deco-br { bottom: 0; right: 0; }
+/* 三種尺寸 */
+.deco-small  img { width: 60px;  height: auto; }
+.deco-medium img { width: 100px; height: auto; }
+.deco-large  img { width: 160px; height: auto; }
+
+/* ════════════════════════════════════════════════
+   LOADING / EMPTY STATE
+   ════════════════════════════════════════════════ */
+.loading-indicator {
+  text-align: center;
+  padding: 48px;
+  font-size: var(--sub-size);
+  color: var(--sub-color);
+  font-weight: 200;
+}
+
+/* ════════════════════════════════════════════════
+   RWD — 斷點
+   規格書 §6
+   ════════════════════════════════════════════════ */
+
+/* ── 大螢幕 ≥ 1200px ── */
+@media (min-width: 1200px) {
+  :root { --page-pad: 80px; }
+}
+/* ── 超寬螢幕 ≥ 1800px ── */
+@media (min-width: 1800px) {
+  :root { --page-pad: 160px; }
+}
+
+/* ── 平板 600–1024px ── */
+@media (max-width: 1024px) {
+  #site-nav { gap: 16px; }
+}
+
+/* ── 手機 < 600px ── */
+@media (max-width: 599px) {
+  #hamburger { display: flex; }
+  #site-nav  { display: none; }   /* 收進漢堡選單 */
+  :root { --page-pad: 16px; }
+
+  /* 裝飾花紋手機自動縮小（JS 可依設定 hide） */
+  .deco-small  img { width: 40px; }
+  .deco-medium img { width: 64px; }
+  .deco-large  img { width: 100px; }
+
+  /* 滿版模塊不出現水平捲動（已在 body 設 overflow-x:hidden 兜底） */
+}
+
+/* ════════════════════════════════════════════════
+   欄數 RWD 降欄（JS 注入 data-cols 後套用）
+   規格書 §6 降欄規則
+   ════════════════════════════════════════════════ */
+
+/* 平板：4欄→2欄、3欄→2欄、2欄→2欄 */
+@media (max-width: 1024px) {
+  #works-grid[data-cols="4"],
+  #works-grid[data-cols="3"],
+  #works-grid[data-cols="2"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .module-a__images[data-cols="3"],
+  .module-a__images[data-cols="2"],
+  .module-b__grid[data-cols="3"],
+  .module-b__grid[data-cols="4"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 手機：全部→1欄（除 module-b 2欄維持） */
+@media (max-width: 599px) {
+  #works-grid,
+  .module-a__images {
+    grid-template-columns: 1fr !important;
+  }
+  /* module-b 手機 2欄 */
+  .module-b__grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* 滿版模塊在手機不裁切  */
+  .module-a--fullwidth .img-wrap--crop img {
+    aspect-ratio: auto;
+    height: auto;
+  }
+}
+
+/* ════════════════════════════════════════════════
+   觸控最小點擊區 44×44px（規格書 §6）
+   ════════════════════════════════════════════════ */
+#site-nav a,
+#mobile-nav a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: flex-end;
+}

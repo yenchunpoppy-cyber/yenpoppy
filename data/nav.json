@@ -1,0 +1,10 @@
+{
+  "items": [
+    { "label": "WORKS",         "type": "works", "page": null },
+    { "label": "#Packaging",    "type": "page",  "page": "packaging" },
+    { "label": "#Social Media", "type": "page",  "page": "social-media" },
+    { "label": "#Banner",       "type": "page",  "page": "banner" },
+    { "label": "ABOUT",         "type": "page",  "page": "about" },
+    { "label": "CONTACT",       "type": "page",  "page": "contact" }
+  ]
+}

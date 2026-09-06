@@ -1,0 +1,453 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: public/uploads
+public_folder: /uploads
+
+locale: zh-Hant
+
+# ─────────────────────────────────────────────
+# Collections
+# ─────────────────────────────────────────────
+
+collections:
+
+  # ── 1. 網站設定 + 導覽列（singleton files）──
+  - name: site
+    label: 網站設定
+    files:
+
+      - name: settings
+        label: 網站設定
+        file: data/settings.json
+        fields:
+
+          - label: Logo 圖標（線條標誌）
+            name: logoMark
+            widget: image
+            required: false
+            hint: "header 高度連動此圖標高度，更換後記得存檔確認"
+
+          - label: 標準字（YENPOPPY 字樣）
+            name: logoWordmark
+            widget: image
+            required: false
+
+          - label: Favicon
+            name: favicon
+            widget: image
+            required: false
+            hint: "建議正方形，至少 512×512px，系統自動產生各裝置尺寸"
+
+          - label: 頭部背景色
+            name: headerBg
+            widget: color
+            default: "#F9EDC5"
+
+          - label: 全站背景色
+            name: siteBg
+            widget: color
+            default: "#FAFAFA"
+
+          - label: 首頁背景色（不填沿用全站背景色）
+            name: homeBg
+            widget: color
+            required: false
+
+          - label: 主要文字／線條色
+            name: textColor
+            widget: color
+            default: "#121212"
+
+          - label: 標題字體
+            name: titleFont
+            widget: select
+            default: poppins-extralight
+            options:
+              - { label: "組合一：Poppins Extra Light", value: poppins-extralight }
+              - { label: "組合二：Noto Serif TC", value: noto-serif-tc }
+              - { label: "組合三：全襯線", value: all-serif }
+
+          - label: 內文字體
+            name: bodyFont
+            widget: select
+            default: poppins-extralight
+            options:
+              - { label: "組合一：Poppins Extra Light", value: poppins-extralight }
+              - { label: "組合二：Noto Sans TC", value: noto-sans-tc }
+              - { label: "組合三：全襯線", value: all-serif }
+
+          - label: 裝飾花紋
+            name: decorations
+            widget: list
+            required: false
+            hint: "每筆花紋各自設定圖片、位置、尺寸；固定在瀏覽器視窗角落，捲動不移動"
+            fields:
+              - label: 花紋圖片
+                name: image
+                widget: image
+
+              - label: 位置
+                name: position
+                widget: select
+                options:
+                  - { label: "左上", value: tl }
+                  - { label: "上緣置中", value: tc }
+                  - { label: "右上", value: tr }
+                  - { label: "左下", value: bl }
+                  - { label: "下緣置中", value: bc }
+                  - { label: "右下", value: br }
+
+              - label: 尺寸
+                name: size
+                widget: select
+                default: medium
+                options:
+                  - { label: "小", value: small }
+                  - { label: "中", value: medium }
+                  - { label: "大", value: large }
+
+              - label: 手機版隱藏
+                name: mobileHide
+                widget: boolean
+                default: false
+
+      - name: nav
+        label: 導覽列
+        file: data/nav.json
+        fields:
+          - label: 導覽項目
+            name: items
+            widget: list
+            hint: "拖曳可調整順序；WORKS 類型固定連到作品列表頁"
+            fields:
+              - label: 顯示文字
+                name: label
+                widget: string
+
+              - label: 類型
+                name: type
+                widget: select
+                options:
+                  - { label: "作品列表頁（WORKS）", value: works }
+                  - { label: "模塊頁面", value: page }
+
+              - label: 連到的頁面（slug，類型選模塊頁面時填）
+                name: page
+                widget: string
+                required: false
+
+  # ── 2. 頁面（模塊頁引擎）──
+  - name: pages
+    label: 頁面
+    folder: data/pages
+    create: true
+    slug: "{{slug}}"
+    extension: json
+    format: json
+    summary: "{{title}}"
+    fields:
+
+      - label: 頁面名稱
+        name: title
+        widget: string
+
+      - label: SEO 頁面標題（選填，不填自動帶入頁面名稱）
+        name: seoTitle
+        widget: string
+        required: false
+
+      - label: SEO 簡短描述（選填）
+        name: seoDesc
+        widget: string
+        required: false
+
+      - label: 頁面背景色（選填，不填沿用全站背景色）
+        name: bg
+        widget: color
+        required: false
+
+      - label: 模塊列表
+        name: modules
+        widget: list
+        types:
+
+          # ── 模塊 A ──
+          - name: module_a
+            label: "模塊 A：標題＋圖組"
+            summary: "A｜{{fields.headline}}（{{fields.columns}}欄）"
+            fields:
+
+              - label: 標題（選填）
+                name: headline
+                widget: string
+                required: false
+
+              - label: 內文段落（選填，支援粗體/斜體/超連結）
+                name: body
+                widget: markdown
+                required: false
+                minimal: true
+
+              - label: 圖片欄數
+                name: columns
+                widget: select
+                default: "1"
+                options:
+                  - { label: "0 — 純文字（不放圖）", value: "0" }
+                  - { label: "1 — 單張置中", value: "1" }
+                  - { label: "2 欄", value: "2" }
+                  - { label: "3 欄", value: "3" }
+                  - { label: "滿版（跨出容器貼齊視窗）", value: fullwidth }
+
+              - label: 純文字對齊（欄數為 0 時有效）
+                name: textAlign
+                widget: select
+                default: left
+                required: false
+                options:
+                  - { label: "靠左", value: left }
+                  - { label: "置中", value: center }
+                  - { label: "靠右", value: right }
+
+              - label: 圖片間距（選填，不填沿用全站預設）
+                name: gutter
+                widget: select
+                default: "default"
+                required: false
+                options:
+                  - { label: "沿用全站預設", value: "default" }
+                  - { label: "0px", value: "0" }
+                  - { label: "8px", value: "8" }
+                  - { label: "12px", value: "12" }
+                  - { label: "16px", value: "16" }
+                  - { label: "24px", value: "24" }
+
+              - label: 背景色（選填，不填沿用頁面背景色）
+                name: bg
+                widget: color
+                required: false
+
+              - label: 圖片列表
+                name: images
+                widget: list
+                required: false
+                fields:
+                  - label: 圖片
+                    name: src
+                    widget: image
+
+                  - label: 圖片說明（SEO用，不填自動帶入標題，不顯示在前台）
+                    name: alt
+                    widget: string
+                    required: false
+
+                  - label: 疊加文字（選填，會印在圖片上）
+                    name: overlayText
+                    widget: string
+                    required: false
+
+                  - label: 文字位置（九宮格）
+                    name: overlayPos
+                    widget: select
+                    default: bc
+                    required: false
+                    options:
+                      - { label: "左上", value: tl }
+                      - { label: "上置中", value: tc }
+                      - { label: "右上", value: tr }
+                      - { label: "左置中", value: ml }
+                      - { label: "正中央", value: mc }
+                      - { label: "右置中", value: mr }
+                      - { label: "左下", value: bl }
+                      - { label: "下置中", value: bc }
+                      - { label: "右下", value: br }
+
+          # ── 模塊 B ──
+          - name: module_b
+            label: "模塊 B：相簿"
+            summary: "B｜相簿（{{fields.columns}}欄，{{fields.images.length}}張）"
+            fields:
+
+              - label: 欄數
+                name: columns
+                widget: select
+                default: "3"
+                options:
+                  - { label: "2 欄", value: "2" }
+                  - { label: "3 欄", value: "3" }
+                  - { label: "4 欄", value: "4" }
+
+              - label: 圖片間距（選填，不填沿用全站預設）
+                name: gutter
+                widget: select
+                default: "default"
+                required: false
+                options:
+                  - { label: "沿用全站預設", value: "default" }
+                  - { label: "0px", value: "0" }
+                  - { label: "8px", value: "8" }
+                  - { label: "12px", value: "12" }
+                  - { label: "16px", value: "16" }
+                  - { label: "24px", value: "24" }
+
+              - label: 背景色（選填）
+                name: bg
+                widget: color
+                required: false
+
+              - label: 圖片列表
+                name: images
+                widget: list
+                fields:
+                  - label: 圖片
+                    name: src
+                    widget: image
+
+                  - label: 圖片說明（SEO用）
+                    name: alt
+                    widget: string
+                    required: false
+
+  # ── 3. 作品清單 ──
+  - name: works
+    label: 作品清單
+    files:
+
+      - name: works_index
+        label: 作品清單
+        file: data/works.json
+        fields:
+
+          - label: WORKS 首頁欄數
+            name: homeColumns
+            widget: select
+            default: "3"
+            options:
+              - { label: "2 欄", value: "2" }
+              - { label: "3 欄", value: "3" }
+              - { label: "4 欄", value: "4" }
+
+          - label: 圖片間距
+            name: homeGutter
+            widget: select
+            default: "12"
+            options:
+              - { label: "0px", value: "0" }
+              - { label: "8px", value: "8" }
+              - { label: "12px", value: "12" }
+              - { label: "16px", value: "16" }
+              - { label: "24px", value: "24" }
+
+          - label: 首頁背景色（選填，不填沿用全站背景色）
+            name: homeBg
+            widget: color
+            required: false
+
+          - label: 作品列表
+            name: works
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+
+              - label: 作品 ID（英文，無空格，例：et-seq-nail）
+                name: id
+                widget: string
+
+              - label: 作品標題
+                name: title
+                widget: string
+
+              - label: 圖說（顯示在首頁縮圖下，選填）
+                name: caption
+                widget: string
+                required: false
+
+              - label: 縮圖
+                name: thumbnail
+                widget: image
+
+              - label: 縮圖說明（SEO／無障礙用，不填自動帶入標題）
+                name: thumbnailAlt
+                widget: string
+                required: false
+
+              - label: 分類標籤（可複選）
+                name: tags
+                widget: list
+                required: false
+
+              - label: 作品內頁 SEO 標題（選填）
+                name: seoTitle
+                widget: string
+                required: false
+
+              - label: 作品內頁 SEO 描述（選填）
+                name: seoDesc
+                widget: string
+                required: false
+
+              - label: 作品內頁模塊（與一般頁面相同的模塊編輯器）
+                name: modules
+                widget: list
+                required: false
+                types:
+
+                  - name: module_a
+                    label: "模塊 A：標題＋圖組"
+                    summary: "A｜{{fields.headline}}（{{fields.columns}}欄）"
+                    fields:
+                      - { label: 標題（選填）, name: headline, widget: string, required: false }
+                      - { label: 內文（選填）, name: body, widget: markdown, required: false, minimal: true }
+                      - label: 圖片欄數
+                        name: columns
+                        widget: select
+                        default: "1"
+                        options:
+                          - { label: "0 — 純文字", value: "0" }
+                          - { label: "1 — 單張置中", value: "1" }
+                          - { label: "2 欄", value: "2" }
+                          - { label: "3 欄", value: "3" }
+                          - { label: "滿版", value: fullwidth }
+                      - { label: 純文字對齊, name: textAlign, widget: select, default: left, required: false, options: [{label: 靠左, value: left},{label: 置中, value: center},{label: 靠右, value: right}] }
+                      - { label: 圖片間距, name: gutter, widget: select, default: "default", required: false, options: [{label: 沿用全站, value: "default"},{label: "0px", value: "0"},{label: "8px", value: "8"},{label: "12px", value: "12"},{label: "16px", value: "16"},{label: "24px", value: "24"}] }
+                      - { label: 背景色（選填）, name: bg, widget: color, required: false }
+                      - label: 圖片列表
+                        name: images
+                        widget: list
+                        required: false
+                        fields:
+                          - { label: 圖片, name: src, widget: image }
+                          - { label: 圖片說明, name: alt, widget: string, required: false }
+                          - { label: 疊加文字, name: overlayText, widget: string, required: false }
+                          - { label: 文字位置, name: overlayPos, widget: select, default: bc, required: false, options: [{label: 左上, value: tl},{label: 上置中, value: tc},{label: 右上, value: tr},{label: 左置中, value: ml},{label: 正中央, value: mc},{label: 右置中, value: mr},{label: 左下, value: bl},{label: 下置中, value: bc},{label: 右下, value: br}] }
+
+                  - name: module_b
+                    label: "模塊 B：相簿"
+                    fields:
+                      - { label: 欄數, name: columns, widget: select, default: "3", options: [{label: "2欄", value: "2"},{label: "3欄", value: "3"},{label: "4欄", value: "4"}] }
+                      - { label: 圖片間距, name: gutter, widget: select, default: "default", required: false, options: [{label: 沿用全站, value: "default"},{label: "0px", value: "0"},{label: "8px", value: "8"},{label: "12px", value: "12"},{label: "16px", value: "16"},{label: "24px", value: "24"}] }
+                      - { label: 背景色（選填）, name: bg, widget: color, required: false }
+                      - label: 圖片列表
+                        name: images
+                        widget: list
+                        fields:
+                          - { label: 圖片, name: src, widget: image }
+                          - { label: 圖片說明, name: alt, widget: string, required: false }
+
+  # ── 4. 分類標籤 ──
+  - name: tags
+    label: 分類標籤
+    files:
+      - name: tags_list
+        label: 分類標籤
+        file: data/tags.json
+        fields:
+          - label: 標籤列表
+            name: tags
+            widget: list
+            hint: "這裡管理的標籤會出現在導覽列 # 分類與作品編輯的勾選清單裡"
+            fields:
+              - { label: 標籤名稱, name: name, widget: string }
+              - { label: 對應頁面 slug（選填），name: page, widget: string, required: false }
