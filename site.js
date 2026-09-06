@@ -282,8 +282,9 @@ async function renderModulePage() {
   const slug = getCurrentSlug();
   if (!slug) return;
 
-  const [pageData, worksData, settings] = await Promise.all([
+  const [pageData, tagsData, worksData, settings] = await Promise.all([
     fetchJSON(`/data/pages/${slug}.json`),
+    fetchJSON('/data/tags.json'),
     fetchJSON('/data/works.json'),
     fetchJSON('/data/settings.json'),
   ]);
@@ -302,10 +303,41 @@ async function renderModulePage() {
   const container = document.getElementById('page-content');
   if (!container) return;
 
+  // 靜態模塊
   (pageData.modules || []).forEach(mod => {
     const el = renderModule(mod, settings, pageData.bg);
     if (el) container.appendChild(el);
   });
+
+  // 標籤過濾頁：若此 slug 對應某個 tag，顯示過濾後的作品格
+  const matchingTag = (tagsData.tags || []).find(t => t.page === slug);
+  if (matchingTag) {
+    const tagName = matchingTag.name;
+    const filtered = (worksData.works || []).filter(w =>
+      (w.tags || []).includes(tagName)
+    );
+
+    if (filtered.length > 0) {
+      const cols    = parseInt(worksData.homeColumns || '3', 10);
+      const gutter  = parseInt(worksData.homeGutter  || '12', 10);
+      const outerPad = gutter * 2;
+
+      const gridWrap = document.createElement('div');
+      gridWrap.style.padding = outerPad ? `${outerPad}px` : '0';
+
+      const grid = document.createElement('div');
+      grid.id = 'works-grid';
+      grid.setAttribute('role', 'list');
+      grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+      grid.style.gap = `${gutter}px`;
+      grid.dataset.cols = cols;
+
+      filtered.forEach(work => grid.appendChild(createWorkCard(work)));
+
+      gridWrap.appendChild(grid);
+      container.appendChild(gridWrap);
+    }
+  }
 }
 
 // ─────────────────────────────────────────────
