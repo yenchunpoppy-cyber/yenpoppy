@@ -10,11 +10,35 @@
 // ─────────────────────────────────────────────
 const Cache = {};
 
+// ─────────────────────────────────────────────
+// UTF-8 雙重編碼修復
+// ─────────────────────────────────────────────
+function fixUtf8(val) {
+  if (typeof val === 'string') {
+    for (let i = 0; i < val.length; i++) if (val.charCodeAt(i) > 255) return val;
+    let hasHigh = false;
+    for (let i = 0; i < val.length; i++) if (val.charCodeAt(i) > 127) { hasHigh = true; break; }
+    if (!hasHigh) return val;
+    try {
+      const b = new Uint8Array(val.length);
+      for (let i = 0; i < val.length; i++) b[i] = val.charCodeAt(i) & 0xFF;
+      return new TextDecoder('utf-8').decode(b);
+    } catch(e) { return val; }
+  }
+  if (Array.isArray(val)) return val.map(fixUtf8);
+  if (val && typeof val === 'object') {
+    const o = {};
+    for (const k of Object.keys(val)) o[k] = fixUtf8(val[k]);
+    return o;
+  }
+  return val;
+}
+
 async function fetchJSON(path) {
   if (Cache[path]) return Cache[path];
   const res = await fetch(path);
   if (!res.ok) throw new Error(`fetch ${path} → ${res.status}`);
-  const data = await res.json();
+  const data = fixUtf8(await res.json());
   Cache[path] = data;
   return data;
 }
