@@ -450,4 +450,4 @@ collections:
             hint: "這裡管理的標籤會出現在導覽列 # 分類與作品編輯的勾選清單裡"
             fields:
               - { label: 標籤名稱, name: name, widget: string }
-              - { label: 對應頁面 slug（選填），name: page, widget: string, required: false }
+              - { label: "對應頁面 slug（選填）", name: page, widget: string, required: false }
