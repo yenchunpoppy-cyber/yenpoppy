@@ -4,34 +4,296 @@
   "homeBg": "",
   "works": [
     {
-      "id": "et-seq-nail",
-      "title": "et seq. Nail Polish 商標設計/包裝設計",
-      "caption": "Branding, Packaging Design",
-      "thumbnail": "",
-      "thumbnailAlt": "",
-      "tags": ["Packaging"],
-      "seoTitle": "",
-      "seoDesc": "",
-      "modules": []
-    },
-    {
-      "id": "heath-forest-app",
-      "title": "Heath Forest APP 介面設計",
-      "caption": "App Interface Redesign",
-      "thumbnail": "",
-      "thumbnailAlt": "",
+      "id": "ee-branding",
+      "title": "E.e Branding",
+      "caption": "品牌識別系統設計",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_d18776d9781e42249b4269436cd5b07e~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_d18776d9781e42249b4269436cd5b07e~mv2.png",
+      "thumbnailAlt": "E.e Branding 品牌識別系統設計",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
       "modules": []
     },
     {
-      "id": "lazy-point-visual",
-      "title": "Lazy Point 客座調酒視覺",
-      "caption": "Visual Design, Social Graphics",
-      "thumbnail": "",
-      "thumbnailAlt": "",
-      "tags": ["Social Media", "Banner"],
+      "id": "et-seq-nail",
+      "title": "et seq. Nail Polish",
+      "caption": "商標設計／包裝設計",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_cce6bcca3fae4870b8a3fb87ec57d017~mv2_d_4902_3268_s_4_2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_cce6bcca3fae4870b8a3fb87ec57d017~mv2_d_4902_3268_s_4_2.png",
+      "thumbnailAlt": "et seq. Nail Polish 商標設計包裝設計",
+      "tags": [
+        "Packaging"
+      ],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "heath-forest",
+      "title": "Heath Forest APP",
+      "caption": "介面設計",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_bc30038b4e3b48b7b4e2fa81095d2dbd~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_bc30038b4e3b48b7b4e2fa81095d2dbd~mv2.png",
+      "thumbnailAlt": "Heath Forest APP 介面設計",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "tianyi-tcm",
+      "title": "天一愛中醫調理",
+      "caption": "網頁設計",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_0e1faac41a7c41b18fb900ada543a101~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_0e1faac41a7c41b18fb900ada543a101~mv2.png",
+      "thumbnailAlt": "天一愛中醫調理 網頁設計",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "aio-sales",
+      "title": "AIO Sales Kit",
+      "caption": "Editorial Design",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_f8054983c7d540f1a725e6a0f487733a~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_f8054983c7d540f1a725e6a0f487733a~mv2.png",
+      "thumbnailAlt": "AIO Sales Kit Editorial Design",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "lazy-point",
+      "title": "Lazy Point",
+      "caption": "客座調酒視覺",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_87380d0da42f4ff6b0ce73403fd02d02~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_87380d0da42f4ff6b0ce73403fd02d02~mv2.png",
+      "thumbnailAlt": "Lazy Point 客座調酒視覺",
+      "tags": [
+        "Social Media",
+        "Banner"
+      ],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "aluxe-display",
+      "title": "ALUXE 門市陳列優化",
+      "caption": "Display Design",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_c2934075bab54506836fb2a90f4b0b7b~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_c2934075bab54506836fb2a90f4b0b7b~mv2.png",
+      "thumbnailAlt": "ALUXE 門市陳列優化專案",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "poppy-stationery",
+      "title": "罌粟果紙製文具",
+      "caption": "Graphic Design／Illustration",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_70eb3be162d44286a37ff992f8f5f393~mv2.jpg/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_70eb3be162d44286a37ff992f8f5f393~mv2.jpg",
+      "thumbnailAlt": "罌粟果紙製文具",
+      "tags": [
+        "Packaging"
+      ],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "yihuan-jewelry",
+      "title": "逸歡聯名輕珠寶",
+      "caption": "Art Direction／Photography",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_15f058046b124c8b8c162ddab56e9e59~mv2.png/v1/fill/w_800,h_600,fp_0.44_0.67,q_85,usm_0.66_1.00_0.01/3b1007_15f058046b124c8b8c162ddab56e9e59~mv2.png",
+      "thumbnailAlt": "逸歡聯名輕珠寶形象",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "lovers-video",
+      "title": "LOVERS 戀人系列婚戒",
+      "caption": "形象影片",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_da8099cc3bc94222b7ef83affe982cbd~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_da8099cc3bc94222b7ef83affe982cbd~mv2.png",
+      "thumbnailAlt": "LOVERS 戀人系列婚戒形象影片",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "et-seq-leonardo",
+      "title": "et seq. 達文西系列",
+      "caption": "Art Direction／Photography",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_9f69c5de46d24210b7e9d7ad69db9a99~mv2.jpg/v1/fill/w_800,h_600,fp_0.55_0.24,q_85,usm_0.66_1.00_0.01/3b1007_9f69c5de46d24210b7e9d7ad69db9a99~mv2.jpg",
+      "thumbnailAlt": "et seq. 達文西系列指彩形象",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "kite-flying",
+      "title": "Kite Flying Band",
+      "caption": "專輯包裝／字體設計",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_a6bfdc09f6d04b7dbf71b237cdd95691~mv2_d_2500_1834_s_2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_a6bfdc09f6d04b7dbf71b237cdd95691~mv2_d_2500_1834_s_2.png",
+      "thumbnailAlt": "Kite Flying Band 同名專輯包裝字體設計",
+      "tags": [
+        "Packaging"
+      ],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "vacs",
+      "title": "VACS Branding",
+      "caption": "品牌規劃／商標設計",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_e8411c37e7b846abaaa68201fce35627~mv2.jpg/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_e8411c37e7b846abaaa68201fce35627~mv2.jpg",
+      "thumbnailAlt": "VACS 品牌規劃商標設計",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "acredo",
+      "title": "acredo DM",
+      "caption": "Editorial Design",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_48ebac850d3b47038d0def8602e3c4ba~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_48ebac850d3b47038d0def8602e3c4ba~mv2.png",
+      "thumbnailAlt": "acredo DM Editorial Design",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "lovers-ad",
+      "title": "LOVERS 婚戒廣告",
+      "caption": "Advertising／Visual Design",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_55c92f9ca407431da7805d2fc0647174~mv2.png/v1/fill/w_800,h_600,fp_0.53_0.37,q_85,usm_0.66_1.00_0.01/3b1007_55c92f9ca407431da7805d2fc0647174~mv2.png",
+      "thumbnailAlt": "LOVERS 戀人系列婚戒廣告",
+      "tags": [
+        "Banner"
+      ],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "et-seq-quiz",
+      "title": "et seq. 心理測驗",
+      "caption": "Graphic Design／UI Design",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_44324ea9fdae47878b3048680796b001~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_44324ea9fdae47878b3048680796b001~mv2.png",
+      "thumbnailAlt": "et seq. 找出你的病心理測驗",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "computer-show",
+      "title": "電腦展展場牆面設計",
+      "caption": "Environmental Visual Design",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_e1d687997ff840d9abb358f4368572cb~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_e1d687997ff840d9abb358f4368572cb~mv2.png",
+      "thumbnailAlt": "電腦展展場牆面設計",
+      "tags": [
+        "Banner"
+      ],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "aluxe-passport",
+      "title": "ALUXE 年度婚禮護照",
+      "caption": "Branding／Editorial Design",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_8360cd2c886e4ef7a80efa739716a00b~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_8360cd2c886e4ef7a80efa739716a00b~mv2.png",
+      "thumbnailAlt": "ALUXE 年度婚禮護照",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "wf-flower",
+      "title": "w/f flower 情人節",
+      "caption": "攝影設定／社群視覺設計",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_cc4293aeca22401e9205db429f218f51~mv2_d_2501_1834_s_2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_cc4293aeca22401e9205db429f218f51~mv2_d_2501_1834_s_2.png",
+      "thumbnailAlt": "w/f flower 情人節社群視覺設計",
+      "tags": [
+        "Social Media",
+        "Banner"
+      ],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "bridal-photo",
+      "title": "婚紗形象攝影",
+      "caption": "Art Direction／Editorial Design",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_a3f93ad490ca481da6e822c632bf63ec~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_a3f93ad490ca481da6e822c632bf63ec~mv2.png",
+      "thumbnailAlt": "婚紗形象攝影",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "made-by-aha",
+      "title": "made by AHA",
+      "caption": "社群視覺設計",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_622c4c2fde8b4e97a80dae486af679ea~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_622c4c2fde8b4e97a80dae486af679ea~mv2.png",
+      "thumbnailAlt": "made by AHA 社群視覺設計",
+      "tags": [
+        "Social Media"
+      ],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "disney-press",
+      "title": "Disney 婚戒記者會",
+      "caption": "Display Design／Main Visual",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_29d02bba4a2c413291de499f8b7b7bd7~mv2.jpg/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_29d02bba4a2c413291de499f8b7b7bd7~mv2.jpg",
+      "thumbnailAlt": "Disney系列婚戒記者會展示設計",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "aladdin-bag",
+      "title": "阿拉丁魔毯珠寶收納袋",
+      "caption": "Packaging Design",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_168a1bb64a9a4dbe870b05b1fd3fd183~mv2.jpg/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_168a1bb64a9a4dbe870b05b1fd3fd183~mv2.jpg",
+      "thumbnailAlt": "阿拉丁魔毯珠寶收納袋",
+      "tags": [
+        "Packaging"
+      ],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "taiwan-tcm",
+      "title": "台灣女中醫師協會",
+      "caption": "名片／網站視覺設計",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_ae822092716e4f2eaeb6b4239e69c543~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_ae822092716e4f2eaeb6b4239e69c543~mv2.png",
+      "thumbnailAlt": "台灣女中醫師協會名片網站視覺設計",
+      "tags": [],
+      "seoTitle": "",
+      "seoDesc": "",
+      "modules": []
+    },
+    {
+      "id": "disney-princess",
+      "title": "Disney 公主系列珠寶展示",
+      "caption": "Display Design／Prop Design",
+      "thumbnail": "https://static.wixstatic.com/media/3b1007_f5ec7bde6f494d9f9571e8eb68cd8684~mv2.png/v1/fill/w_800,h_600,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/3b1007_f5ec7bde6f494d9f9571e8eb68cd8684~mv2.png",
+      "thumbnailAlt": "Disney公主系列珠寶展示",
+      "tags": [],
       "seoTitle": "",
       "seoDesc": "",
       "modules": []
