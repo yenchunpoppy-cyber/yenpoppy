@@ -1,12 +1,12 @@
 {
-  "logoMark": "",
-  "logoWordmark": "",
-  "favicon": "",
-  "headerBg": "#F9EDC5",
-  "siteBg": "#FAFAFA",
+  "logoWordmark": "/uploads/20190630_yenpoppy網站logo-06.png",
+  "decorations": [],
   "homeBg": "",
-  "textColor": "#121212",
   "titleFont": "poppins-extralight",
+  "siteBg": "#FAFAFA",
   "bodyFont": "poppins-extralight",
-  "decorations": []
+  "headerBg": "#F9EDC5",
+  "favicon": "/uploads/20190630_yenpoppy網站logo-13.png",
+  "textColor": "#121212",
+  "logoMark": "/uploads/20190630_yenpoppy網站logo-05.png"
 }
