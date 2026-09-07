@@ -41,7 +41,7 @@ function fixUtf8(val) {
 function fixImgUrl(url) {
   if (!url) return url;
   if (url.startsWith('/uploads/')) {
-    return 'https://static.wixstatic.com/media/' + url.slice(9);
+    return '/public' + url;
   }
   return url;
 }
