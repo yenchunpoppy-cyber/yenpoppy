@@ -314,7 +314,7 @@ function createWorkCard(work) {
     card.appendChild(tit);
   }
 
-  const navigate = () => { location.href = `/work/${work.id}`; };
+  const navigate = () => { location.href = `/works/${work.id}`; };
   card.addEventListener('click', navigate);
   card.addEventListener('keydown', e => { if (e.key === 'Enter') navigate(); });
 
@@ -619,7 +619,7 @@ function markdownToHTML(md) {
 async function init() {
   // URL-based SPA routing（Cloudflare 所有路徑都回傳 index.html）
   const path = location.pathname;
-  if (path.startsWith('/work/')) document.body.dataset.page = 'work';
+  if (path.startsWith('/works/')) document.body.dataset.page = 'work';
   else if (path.startsWith('/page/')) document.body.dataset.page = 'page';
   else document.body.dataset.page = 'works';
   const page = document.body.dataset.page;
