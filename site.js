@@ -34,6 +34,28 @@ function fixUtf8(val) {
   return val;
 }
 
+
+// ─────────────────────────────────────────────
+// 圖片路徑修復（Wix uploads → Wix CDN）
+// ─────────────────────────────────────────────
+function fixImgUrl(url) {
+  if (!url) return url;
+  if (url.startsWith('/uploads/')) {
+    return 'https://static.wixstatic.com/media/' + url.slice(9);
+  }
+  return url;
+}
+
+// ─────────────────────────────────────────────
+// 圖片路徑修復（Wix uploads → Wix CDN）
+// ─────────────────────────────────────────────
+function fixImgUrl(url) {
+  if (!url) return url;
+  if (url.startsWith('/uploads/')) {
+    return 'https://static.wixstatic.com/media/' + url.slice(9);
+  }
+  return url;
+}
 async function fetchJSON(path) {
   if (Cache[path]) return Cache[path];
   const res = await fetch(path);
@@ -107,7 +129,7 @@ function renderDecorations(decorations) {
     el.setAttribute('aria-hidden', 'true');
 
     const img = document.createElement('img');
-    img.src = d.image;
+    img.src = fixImgUrl(d.image);
     img.alt = '';
     el.appendChild(img);
     document.body.appendChild(el);
@@ -266,7 +288,7 @@ function createWorkCard(work) {
 
   if (work.thumbnail) {
     const img = document.createElement('img');
-    img.src = work.thumbnail;
+    img.src = fixImgUrl(work.thumbnail);
     img.alt = imgAlt;
     img.loading = 'lazy';
     // 保留長寬比避免版面跳動
@@ -512,7 +534,7 @@ function appendImg(imgWrap, imgData, fallbackAlt) {
   if (!imgData.src) return;
 
   const img = document.createElement('img');
-  img.src = imgData.src;
+  img.src = fixImgUrl(imgData.src);
   img.alt = imgData.alt || fallbackAlt || '';
   img.loading = 'lazy';
   imgWrap.appendChild(img);
@@ -554,7 +576,7 @@ function renderModuleB(mod, settings, pageBg) {
     imgWrap.className = 'img-wrap';
     if (imgData.src) {
       const img = document.createElement('img');
-      img.src     = imgData.src;
+      img.src = fixImgUrl(imgData.src);
       img.alt     = imgData.alt || '';
       img.loading = 'lazy';
       imgWrap.appendChild(img);
