@@ -96,15 +96,15 @@ async function applySettings() {
   if (header) {
     const logoMark = header.querySelector('.logo-mark');
     const logoWordmark = header.querySelector('.logo-wordmark');
-    if (logoMark && s.logoMark)     { logoMark.src = s.logoMark; logoMark.style.display = 'block'; }
-    if (logoWordmark && s.logoWordmark) { logoWordmark.src = s.logoWordmark; logoWordmark.style.display = 'block'; }
+    if (logoMark && s.logoMark)     { logoMark.src = fixImgUrl(s.logoMark); logoMark.style.display = 'block'; }
+    if (logoWordmark && s.logoWordmark) { logoWordmark.src = fixImgUrl(s.logoWordmark); logoWordmark.style.display = 'block'; }
   }
 
   // Favicon
   if (s.favicon) {
     let link = document.querySelector("link[rel~='icon']");
     if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
-    link.href = s.favicon;
+    link.href = fixImgUrl(s.favicon);
   }
 
   // 裝飾花紋
@@ -617,6 +617,11 @@ function markdownToHTML(md) {
 // 初始化
 // ─────────────────────────────────────────────
 async function init() {
+  // URL-based SPA routing（Cloudflare 所有路徑都回傳 index.html）
+  const path = location.pathname;
+  if (path.startsWith('/work/')) document.body.dataset.page = 'work';
+  else if (path.startsWith('/page/')) document.body.dataset.page = 'page';
+  else document.body.dataset.page = 'works';
   const page = document.body.dataset.page;
 
   // 先套設定（logo、色票、花紋），再算版面
