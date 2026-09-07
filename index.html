@@ -3,50 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="YEN POPPY — 作品集">
+  <meta name="description" content="台灣數位設計師 Yen Poppy 的作品集，涵蓋品牌識別、包裝設計、UI/UX、社群視覺等專案。">
   <title>WORKS | YEN POPPY</title>
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://yenpoppy.pages.dev/">
+  <meta property="og:site_name"   content="YEN POPPY">
+  <meta property="og:locale"      content="zh_TW">
+  <meta property="og:title"       content="YEN POPPY — 設計作品集">
+  <meta property="og:description" content="台灣數位設計師 Yen Poppy 的作品集，涵蓋品牌識別、包裝設計、UI/UX、社群視覺等專案。">
+  <meta property="og:image"       content="https://yenpoppy.pages.dev/uploads/20190630_yenpoppy%E7%B6%B2%E7%AB%99logo-13.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="YEN POPPY — 設計作品集">
+  <meta name="twitter:description" content="台灣數位設計師 Yen Poppy 的作品集，涵蓋品牌識別、包裝設計、UI/UX、社群視覺等專案。">
+  <meta name="twitter:image"       content="https://yenpoppy.pages.dev/uploads/20190630_yenpoppy%E7%B6%B2%E7%AB%99logo-13.png">
+
+  <!-- Theme & canonical -->
+  <meta name="theme-color" content="#F9EDC5">
+  <link rel="canonical" href="https://yenpoppy.pages.dev/">
+  <link rel="icon" href="/uploads/20190630_yenpoppy%E7%B6%B2%E7%AB%99logo-13.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&family=Noto+Serif+TC:wght@200;400&family=Noto+Sans+TC:wght@200;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
-  <!-- Netlify Identity（後台登入用） -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body data-page="works">
-
-  <!-- Header -->
+  <a class="skip-to-main" href="#page-content">跳到主要內容</a>
   <header id="site-header">
     <a class="header-logo" href="/" aria-label="YEN POPPY 首頁">
       <img class="logo-mark"     src="" alt="YEN POPPY 圖標" style="display:none;">
       <img class="logo-wordmark" src="" alt="YEN POPPY"       style="display:none;">
       <span class="logo-fallback">YEN POPPY</span>
     </a>
-    <!-- 導覽列（JS 動態填入） -->
     <nav id="site-nav" aria-label="主導覽"></nav>
-    <!-- 漢堡按鈕（手機） -->
     <button id="hamburger" aria-label="開啟選單" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </header>
-
-  <!-- 手機導覽選單 -->
   <nav id="mobile-nav" aria-label="手機導覽" role="dialog" aria-modal="true"></nav>
-
-  <!-- 作品網格 -->
   <main id="page-content">
     <div id="works-grid" role="list"></div>
   </main>
-
   <script src="/site.js"></script>
-  <script>
-    // Netlify Identity redirect
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on('init', user => {
-        if (!user) {
-          window.netlifyIdentity.on('login', () => document.location.href = '/admin/');
-        }
-      });
-    }
-  </script>
 </body>
 </html>
