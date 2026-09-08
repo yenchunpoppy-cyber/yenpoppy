@@ -14,7 +14,7 @@ const Cache = {};
 // UTF-8 雙重編碼修復
 // ─────────────────────────────────────────────
 function fixUtf8(val) {
-  if (typeof val === 'string') {
+  if (typeof val === 'string') { 
     for (let i = 0; i < val.length; i++) if (val.charCodeAt(i) > 255) return val;
     let hasHigh = false;
     for (let i = 0; i < val.length; i++) if (val.charCodeAt(i) > 127) { hasHigh = true; break; }
