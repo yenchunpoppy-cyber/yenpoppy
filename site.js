@@ -1,20 +1,20 @@
 /**
- * YEN POPPY — 前台核心 JS
- * 規格書 v1 完整對應
+ * YEN POPPY â åå°æ ¸å¿ JS
+ * è¦æ ¼æ¸ v1 å®æ´å°æ
  */
 
 'use strict';
 
-// ─────────────────────────────────────────────
-// 資料快取
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// è³æå¿«å
+// âââââââââââââââââââââââââââââââââââââââââââââ
 const Cache = {};
 
-// ─────────────────────────────────────────────
-// UTF-8 雙重編碼修復
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// UTF-8 ééç·¨ç¢¼ä¿®å¾©
+// âââââââââââââââââââââââââââââââââââââââââââââ
 function fixUtf8(val) {
-  if (typeof val === 'string') { 
+  if (typeof val === 'string') {
     for (let i = 0; i < val.length; i++) if (val.charCodeAt(i) > 255) return val;
     let hasHigh = false;
     for (let i = 0; i < val.length; i++) if (val.charCodeAt(i) > 127) { hasHigh = true; break; }
@@ -35,9 +35,9 @@ function fixUtf8(val) {
 }
 
 
-// ─────────────────────────────────────────────
-// 圖片路徑修復（Wix uploads → Wix CDN）
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// åçè·¯å¾ä¿®å¾©ï¼Wix uploads â Wix CDNï¼
+// âââââââââââââââââââââââââââââââââââââââââââââ
 function fixImgUrl(url) {
   if (!url) return url;
   if (url.startsWith('/uploads/')) {
@@ -46,28 +46,19 @@ function fixImgUrl(url) {
   return url;
 }
 
-// ─────────────────────────────────────────────
-// 圖片路徑修復（Wix uploads → Wix CDN）
-// ─────────────────────────────────────────────
-function fixImgUrl(url) {
-  if (!url) return url;
-  if (url.startsWith('/uploads/')) {
-    return 'https://static.wixstatic.com/media/' + url.slice(9);
-  }
-  return url;
-}
+
 async function fetchJSON(path) {
   if (Cache[path]) return Cache[path];
   const res = await fetch(path);
-  if (!res.ok) throw new Error(`fetch ${path} → ${res.status}`);
+  if (!res.ok) throw new Error(`fetch ${path} â ${res.status}`);
   const data = fixUtf8(await res.json());
   Cache[path] = data;
   return data;
 }
 
-// ─────────────────────────────────────────────
-// 應用品牌設定
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// æç¨åçè¨­å®
+// âââââââââââââââââââââââââââââââââââââââââââââ
 async function applySettings() {
   const s = await fetchJSON('/data/settings.json');
   const root = document.documentElement;
@@ -76,7 +67,7 @@ async function applySettings() {
   if (s.siteBg)    root.style.setProperty('--site-bg',     s.siteBg);
   if (s.textColor) root.style.setProperty('--text-color',  s.textColor);
 
-  // 字體
+  // å­é«
   const fontMap = {
     'poppins-extralight': "'Poppins', sans-serif",
     'noto-serif-tc':      "'Noto Serif TC', serif",
@@ -86,7 +77,7 @@ async function applySettings() {
   if (s.titleFont) root.style.setProperty('--font-title', fontMap[s.titleFont] || fontMap['poppins-extralight']);
   if (s.bodyFont)  root.style.setProperty('--font-body',  fontMap[s.bodyFont]  || fontMap['poppins-extralight']);
 
-  // 全站 gutter 預設
+  // å¨ç« gutter é è¨­
   if (s.worksGutter !== undefined) {
     root.style.setProperty('--gutter', s.worksGutter + 'px');
   }
@@ -107,7 +98,7 @@ async function applySettings() {
     link.href = fixImgUrl(s.favicon);
   }
 
-  // 裝飾花紋
+  // è£é£¾è±ç´
   if (Array.isArray(s.decorations)) {
     renderDecorations(s.decorations);
   }
@@ -115,9 +106,9 @@ async function applySettings() {
   return s;
 }
 
-// ─────────────────────────────────────────────
-// 裝飾花紋（固定視窗角落）
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// è£é£¾è±ç´ï¼åºå®è¦çªè§è½ï¼
+// âââââââââââââââââââââââââââââââââââââââââââââ
 function renderDecorations(decorations) {
   const isMobile = window.innerWidth < 600;
   decorations.forEach((d, i) => {
@@ -136,9 +127,9 @@ function renderDecorations(decorations) {
   });
 }
 
-// ─────────────────────────────────────────────
-// 導覽列
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// å°è¦½å
+// âââââââââââââââââââââââââââââââââââââââââââââ
 async function renderNav() {
   const data = await fetchJSON('/data/nav.json');
   const nav = document.getElementById('site-nav');
@@ -149,7 +140,7 @@ async function renderNav() {
   const currentPage = document.body.dataset.page; // 'works' | 'page' | 'work'
 
   data.items.forEach(item => {
-    const href = item.type === 'works' ? '/' : `/page/${item.page}`;
+    const href = item.type === 'works' ? '/' : `/pages/${item.page}`;
     const isActive = (item.type === 'works' && currentPage === 'works') ||
                      (item.type === 'page' && currentSlug === item.page);
 
@@ -167,7 +158,7 @@ async function renderNav() {
   });
 }
 
-// 漢堡選單
+// æ¼¢å ¡é¸å®
 function initHamburger() {
   const btn = document.getElementById('hamburger');
   const mobileNav = document.getElementById('mobile-nav');
@@ -177,7 +168,7 @@ function initHamburger() {
     const open = btn.classList.toggle('open');
     if (open) {
       mobileNav.classList.add('open');
-      // 鍵盤焦點鎖定在面板內（規格書 §5.5）
+      // éµç¤ç¦é»éå®å¨é¢æ¿å§ï¼è¦æ ¼æ¸ Â§5.5ï¼
       mobileNav.setAttribute('tabindex', '-1');
       mobileNav.focus();
     } else {
@@ -185,7 +176,7 @@ function initHamburger() {
     }
   });
 
-  // Esc 關閉（規格書 §5.5）
+  // Esc ééï¼è¦æ ¼æ¸ Â§5.5ï¼
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeMobileNav();
   });
@@ -198,19 +189,19 @@ function closeMobileNav() {
   if (mobileNav) mobileNav.classList.remove('open');
 }
 
-// ─────────────────────────────────────────────
-// URL 工具
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// URL å·¥å·
+// âââââââââââââââââââââââââââââââââââââââââââââ
 function getCurrentSlug() {
-  // /page/social-media → 'social-media'
-  // /work/et-seq-nail  → 'et-seq-nail'
+  // /page/social-media â 'social-media'
+  // /work/et-seq-nail  â 'et-seq-nail'
   const parts = location.pathname.split('/').filter(Boolean);
   return parts[1] || '';
 }
 
-// ─────────────────────────────────────────────
-// WORKS 網格頁
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// WORKS ç¶²æ ¼é 
+// âââââââââââââââââââââââââââââââââââââââââââââ
 const WORKS_PAGE_SIZE = 24;
 
 async function renderWorksGrid() {
@@ -219,7 +210,7 @@ async function renderWorksGrid() {
     fetchJSON('/data/settings.json'),
   ]);
 
-  // 首頁背景色
+  // é¦é èæ¯è²
   const homeBg = worksData.homeBg || settings.homeBg || settings.siteBg;
   if (homeBg) document.body.style.background = homeBg;
 
@@ -232,7 +223,7 @@ async function renderWorksGrid() {
   const cols   = parseInt(worksData.homeColumns || '3', 10);
   const gutter = parseInt(worksData.homeGutter  || '12', 10);
 
-  // 計算外邊界（gutter × 2，gutter=0時外邊界也=0）
+  // è¨ç®å¤éçï¼gutter Ã 2ï¼gutter=0æå¤éçä¹=0ï¼
   const outerPad = gutter * 2;
   const content = document.getElementById('page-content');
   if (content) {
@@ -253,11 +244,11 @@ async function renderWorksGrid() {
     batch.forEach(work => grid.appendChild(createWorkCard(work)));
     offset += batch.length;
 
-    // 移除舊哨兵
+    // ç§»é¤èå¨åµ
     const old = document.getElementById('scroll-sentinel');
     if (old) old.remove();
 
-    // 若還有更多，新增哨兵觸發 infinite scroll
+    // è¥éææ´å¤ï¼æ°å¢å¨åµè§¸ç¼ infinite scroll
     if (offset < works.length) {
       const sentinel = document.createElement('div');
       sentinel.id = 'scroll-sentinel';
@@ -291,7 +282,7 @@ function createWorkCard(work) {
     img.src = fixImgUrl(work.thumbnail);
     img.alt = imgAlt;
     img.loading = 'lazy';
-    // 保留長寬比避免版面跳動
+    // ä¿çé·å¯¬æ¯é¿åçé¢è·³å
     img.style.aspectRatio = '4/3';
     img.style.objectFit = 'cover';
     card.appendChild(img);
@@ -321,9 +312,9 @@ function createWorkCard(work) {
   return card;
 }
 
-// ─────────────────────────────────────────────
-// 模塊頁渲染（page.html）
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// æ¨¡å¡é æ¸²æï¼page.htmlï¼
+// âââââââââââââââââââââââââââââââââââââââââââââ
 async function renderModulePage() {
   const slug = getCurrentSlug();
   if (!slug) return;
@@ -342,20 +333,20 @@ async function renderModulePage() {
     metaDesc.content = pageData.seoDesc || pageData.title;
   }
 
-  // 頁面背景色
+  // é é¢èæ¯è²
   const bg = pageData.bg || settings.siteBg;
   if (bg) document.body.style.background = bg;
 
   const container = document.getElementById('page-content');
   if (!container) return;
 
-  // 靜態模塊
+  // éææ¨¡å¡
   (pageData.modules || []).forEach(mod => {
     const el = renderModule(mod, settings, pageData.bg);
     if (el) container.appendChild(el);
   });
 
-  // 標籤過濾頁：若此 slug 對應某個 tag，顯示過濾後的作品格
+  // æ¨ç±¤éæ¿¾é ï¼è¥æ­¤ slug å°ææå tagï¼é¡¯ç¤ºéæ¿¾å¾çä½åæ ¼
   const matchingTag = (tagsData.tags || []).find(t => t.page === slug);
   if (matchingTag) {
     const tagName = matchingTag.name;
@@ -386,9 +377,9 @@ async function renderModulePage() {
   }
 }
 
-// ─────────────────────────────────────────────
-// 作品內頁渲染（work.html）
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// ä½åå§é æ¸²æï¼work.htmlï¼
+// âââââââââââââââââââââââââââââââââââââââââââââ
 async function renderWorkPage() {
   const slug = getCurrentSlug();
   if (!slug) return;
@@ -400,7 +391,7 @@ async function renderWorkPage() {
 
   const work = (worksData.works || []).find(w => w.id === slug);
   if (!work) {
-    document.getElementById('page-content').textContent = '找不到此作品';
+    document.getElementById('page-content').textContent = 'æ¾ä¸å°æ­¤ä½å';
     return;
   }
 
@@ -409,7 +400,7 @@ async function renderWorkPage() {
   const metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc && work.seoDesc) metaDesc.content = work.seoDesc;
 
-  // 背景色沿用全站
+  // èæ¯è²æ²¿ç¨å¨ç«
   if (settings.siteBg) document.body.style.background = settings.siteBg;
 
   const container = document.getElementById('page-content');
@@ -421,9 +412,9 @@ async function renderWorkPage() {
   });
 }
 
-// ─────────────────────────────────────────────
-// 通用：渲染一個模塊
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// éç¨ï¼æ¸²æä¸åæ¨¡å¡
+// âââââââââââââââââââââââââââââââââââââââââââââ
 function renderModule(mod, settings, pageBg) {
   if (!mod || !mod.type) return null;
   if (mod.type === 'module_a') return renderModuleA(mod, settings, pageBg);
@@ -431,7 +422,7 @@ function renderModule(mod, settings, pageBg) {
   return null;
 }
 
-// ── 模塊 A ──
+// ââ æ¨¡å¡ A ââ
 function renderModuleA(mod, settings, pageBg) {
   const wrap = document.createElement('div');
   wrap.className = 'module-wrap';
@@ -446,17 +437,17 @@ function renderModuleA(mod, settings, pageBg) {
   if (isFullWidth) section.classList.add('module-a--fullwidth');
   if (mod.bg) section.style.background = mod.bg;
 
-  // 標題 + 豎線
+  // æ¨é¡ + è±ç·
   const hasHeadline = !!(mod.headline || (mod.body && mod.body.trim()));
   if (hasHeadline) {
     const header = document.createElement('div');
     header.className = 'module-a__header';
 
-    // 豎線（有標題才加）
+    // è±ç·ï¼ææ¨é¡æå ï¼
     if (mod.headline) {
       const decoLine = document.createElement('div');
       decoLine.className = 'module-a__deco-line';
-      // 高度靠 flexbox 自動撐到 header 高度
+      // é«åº¦é  flexbox èªåæå° header é«åº¦
       header.appendChild(decoLine);
     }
 
@@ -479,22 +470,22 @@ function renderModuleA(mod, settings, pageBg) {
     header.appendChild(textDiv);
     section.appendChild(header);
 
-    // 豎線高度對齊：headline 頂到 body 底（用 flexbox align-stretch 自然達成）
+    // è±ç·é«åº¦å°é½ï¼headline é å° body åºï¼ç¨ flexbox align-stretch èªç¶éæï¼
     const decoLineEl = header.querySelector('.module-a__deco-line');
     if (decoLineEl) decoLineEl.style.alignSelf = 'stretch';
   }
 
-  // 純文字對齊（cols=0）
+  // ç´æå­å°é½ï¼cols=0ï¼
   if (cols === '0') {
     const align = mod.textAlign || 'left';
     section.classList.add(`module-a--text-${align}`);
   }
 
-  // 圖片區
+  // åçå
   const images = mod.images || [];
   if (images.length && cols !== '0') {
     if (isFullWidth) {
-      // 滿版：一張或多張直接全寬
+      // æ»¿çï¼ä¸å¼µæå¤å¼µç´æ¥å¨å¯¬
       images.forEach(img => {
         const imgWrap = document.createElement('div');
         imgWrap.className = 'img-wrap img-wrap--fit';
@@ -506,7 +497,7 @@ function renderModuleA(mod, settings, pageBg) {
       grid.className = 'module-a__images';
 
       const numCols = parseInt(cols, 10) || 1;
-      const isCrop  = numCols >= 2; // 兩欄/三欄裁切
+      const isCrop  = numCols >= 2; // å©æ¬/ä¸æ¬è£å
 
       grid.style.gridTemplateColumns = cols === '1'
         ? '1fr'
@@ -529,7 +520,7 @@ function renderModuleA(mod, settings, pageBg) {
   return wrap;
 }
 
-// 在 imgWrap 內建圖片 + 疊字
+// å¨ imgWrap å§å»ºåç + çå­
 function appendImg(imgWrap, imgData, fallbackAlt) {
   if (!imgData.src) return;
 
@@ -552,7 +543,7 @@ function appendImg(imgWrap, imgData, fallbackAlt) {
   }
 }
 
-// ── 模塊 B ──
+// ââ æ¨¡å¡ B ââ
 function renderModuleB(mod, settings, pageBg) {
   const wrap = document.createElement('div');
   wrap.className = 'module-wrap';
@@ -589,9 +580,9 @@ function renderModuleB(mod, settings, pageBg) {
   return wrap;
 }
 
-// ─────────────────────────────────────────────
-// 工具：解析 gutter
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// å·¥å·ï¼è§£æ gutter
+// âââââââââââââââââââââââââââââââââââââââââââââ
 function resolveGutter(modGutter, settings) {
   if (!modGutter || modGutter === 'default') {
     return parseInt(settings?.worksGutter || '12', 10);
@@ -599,9 +590,9 @@ function resolveGutter(modGutter, settings) {
   return parseInt(modGutter, 10);
 }
 
-// ─────────────────────────────────────────────
-// 最小 Markdown → HTML（粗體/斜體/連結）
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// æå° Markdown â HTMLï¼ç²é«/æé«/é£çµï¼
+// âââââââââââââââââââââââââââââââââââââââââââââ
 function markdownToHTML(md) {
   if (!md) return '';
   return md
@@ -613,18 +604,18 @@ function markdownToHTML(md) {
     .replace(/$/, '</p>');
 }
 
-// ─────────────────────────────────────────────
-// 初始化
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
+// åå§å
+// âââââââââââââââââââââââââââââââââââââââââââââ
 async function init() {
-  // URL-based SPA routing（Cloudflare 所有路徑都回傳 index.html）
+  // URL-based SPA routingï¼Cloudflare ææè·¯å¾é½åå³ index.htmlï¼
   const path = location.pathname;
   if (path.startsWith('/works/')) document.body.dataset.page = 'work';
-  else if (path.startsWith('/page/')) document.body.dataset.page = 'page';
+  else if (path.startsWith('/pages/')) document.body.dataset.page = 'page';
   else document.body.dataset.page = 'works';
   const page = document.body.dataset.page;
 
-  // 先套設定（logo、色票、花紋），再算版面
+  // åå¥è¨­å®ï¼logoãè²ç¥¨ãè±ç´ï¼ï¼åç®çé¢
   await applySettings().catch(console.warn);
   await renderNav().catch(console.warn);
   initHamburger();
