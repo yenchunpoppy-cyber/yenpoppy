@@ -406,6 +406,18 @@ async function renderWorkPage() {
   const container = document.getElementById('page-content');
   if (!container) return;
 
+  // Work detail header: back link + title + caption
+  const header = document.createElement('div');
+  header.className = 'work-header';
+  header.innerHTML = `
+    <a class="work-header__back" href="/">← WORKS</a>
+    <div class="work-header__titles">
+      <h1 class="work-header__title">${work.title || ''}</h1>
+      ${work.caption ? `<p class="work-header__caption">${work.caption}</p>` : ''}
+    </div>
+  `;
+  container.appendChild(header);
+
   (work.modules || []).forEach(mod => {
     const el = renderModule(mod, settings, '');
     if (el) container.appendChild(el);
