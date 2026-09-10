@@ -518,3 +518,52 @@ a { color: inherit; text-decoration: none; }
   outline-offset: 4px;
   border-radius: 2px;
 }
+
+
+/* ══ Work Detail Page ══ */
+.work-header {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 var(--side-pad);
+}
+
+.work-header__back {
+  display: inline-block;
+  font-family: var(--font-title);
+  font-size: var(--sub-size);
+  font-weight: 300;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-color);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity .2s;
+  margin-bottom: 24px;
+}
+
+.work-header__back:hover {
+  opacity: 1;
+}
+
+.work-header__titles {
+  border-top: 1px solid rgba(0,0,0,.12);
+  padding-top: 20px;
+}
+
+.work-header__title {
+  font-family: var(--font-title);
+  font-size: clamp(22px, 3vw, 38px);
+  font-weight: 200;
+  letter-spacing: .06em;
+  color: var(--text-color);
+  margin: 0 0 6px;
+}
+
+.work-header__caption {
+  font-family: var(--font-title);
+  font-size: var(--sub-size);
+  font-weight: 300;
+  color: var(--sub-color);
+  letter-spacing: .04em;
+  margin: 0;
+}
