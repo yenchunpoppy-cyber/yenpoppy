@@ -6,27 +6,114 @@
     {
       "id": "ee-branding",
       "title": "E.e Branding",
-      "caption": "品牌識別系統設計",
+      "caption": "åçè­å¥ç³»çµ±è¨­è¨",
       "thumbnail": "/uploads/3b1007_d18776d9781e42249b4269436cd5b07e~mv2.png",
-      "thumbnailAlt": "E.e Branding 品牌識別系統設計",
+      "thumbnailAlt": "E.e Branding åçè­å¥ç³»çµ±è¨­è¨",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
       "modules": [
         {
-          "type": "module_a",
-          "headline": "",
-          "body": "",
-          "columns": "1",
-          "textAlign": "left",
+          "type": "module_b",
+          "columns": "3",
           "gutter": "default",
           "bg": "",
           "images": [
             {
-              "src": "/uploads/3b1007_d18776d9781e42249b4269436cd5b07e~mv2.png",
-              "alt": "",
-              "overlayText": "",
-              "overlayPos": "bc"
+              "src": "https://static.wixstatic.com/media/3b1007_15f3961f8a8c4f9ab7b7879716a7a750~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_6b15cc3c700e41cca0cefd67d636d333~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_b100c735db5242cf9ddc5856fa3438b9~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_1f50b67ab06b436fa63ff4a8f9d69879~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_a8ac4ab95a334bd39344e2683bc57446~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_adf1acc5400f48978e3048e8686921df~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_acd64a8a94254fc88c63a06c85274c70~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_704cedce7c37455982753c02765fc650~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_04220fa78b1c4318a069e882818ef091~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_791cb9a6796a430b816e91a74934f2b5~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_06e3e29c9d97431281c47daa2a5e9dfb~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_3d28a798f1ed44009b84837a35436e75~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_e5fa2dbf486a41e48601d661ebd0fbd5~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_bc4bf56cdfd045bfadd9877c2db671a1~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_d76d4b4d2c7b4cacaa55aaed75130c93~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_bea002a6f32545a59f1cc299dcdcc9c9~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_cbf2ac4b54fc4976a2b76a2c1441859f~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_761d6c9ea8034200bc55fe89c88a2dc1~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_1b7085de77be421894da0656c306a2e8~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_8c08dcb05a9647349872bc77c7cb2281~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_38edce4497174c78ac3a87bd53f5e109~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_35f60710af314a62a4eb9028c28fbf0b~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_51c69e6a2b2f4fb1820317ef18ed8493~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_3de0dd1449c14c62965d957525975e74~mv2.jpg",
+              "alt": ""
             }
           ]
         }
@@ -35,9 +122,9 @@
     {
       "id": "et-seq-nail",
       "title": "et seq. Nail Polish",
-      "caption": "商標設計／包裝設計",
+      "caption": "åæ¨è¨­è¨ï¼åè£è¨­è¨",
       "thumbnail": "/uploads/3b1007_cce6bcca3fae4870b8a3fb87ec57d017~mv2_d_4902_3268_s_4_2.png",
-      "thumbnailAlt": "et seq. Nail Polish 商標設計包裝設計",
+      "thumbnailAlt": "et seq. Nail Polish åæ¨è¨­è¨åè£è¨­è¨",
       "tags": [
         "Packaging"
       ],
@@ -66,9 +153,9 @@
     {
       "id": "heath-forest",
       "title": "Heath Forest APP",
-      "caption": "介面設計",
+      "caption": "ä»é¢è¨­è¨",
       "thumbnail": "/uploads/3b1007_bc30038b4e3b48b7b4e2fa81095d2dbd~mv2.png",
-      "thumbnailAlt": "Heath Forest APP 介面設計",
+      "thumbnailAlt": "Heath Forest APP ä»é¢è¨­è¨",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
@@ -83,7 +170,31 @@
           "bg": "",
           "images": [
             {
-              "src": "/uploads/3b1007_bc30038b4e3b48b7b4e2fa81095d2dbd~mv2.png",
+              "src": "https://static.wixstatic.com/media/3b1007_aaeb9b84871f4665a644235332873e0b~mv2.png",
+              "alt": "",
+              "overlayText": "",
+              "overlayPos": "bc"
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_8ebe3184862f41999f3b0a67799f651e~mv2.png",
+              "alt": "",
+              "overlayText": "",
+              "overlayPos": "bc"
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_1c31d37b2e7c403cb7b3a9dd3d1f5253~mv2.png",
+              "alt": "",
+              "overlayText": "",
+              "overlayPos": "bc"
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_8cf9ab2018724c838f6bc79b7fd5374f~mv2.png",
+              "alt": "",
+              "overlayText": "",
+              "overlayPos": "bc"
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_56decc8dd0a243fa8df01267c0cf1112~mv2.png",
               "alt": "",
               "overlayText": "",
               "overlayPos": "bc"
@@ -94,28 +205,103 @@
     },
     {
       "id": "tianyi-tcm",
-      "title": "天一愛中醫調理",
-      "caption": "網頁設計",
+      "title": "å¤©ä¸æä¸­é«èª¿ç",
+      "caption": "ç¶²é è¨­è¨",
       "thumbnail": "/uploads/3b1007_0e1faac41a7c41b18fb900ada543a101~mv2.png",
-      "thumbnailAlt": "天一愛中醫調理 網頁設計",
+      "thumbnailAlt": "å¤©ä¸æä¸­é«èª¿ç ç¶²é è¨­è¨",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
       "modules": [
         {
-          "type": "module_a",
-          "headline": "",
-          "body": "",
-          "columns": "1",
-          "textAlign": "left",
+          "type": "module_b",
+          "columns": "3",
           "gutter": "default",
           "bg": "",
           "images": [
             {
               "src": "/uploads/3b1007_0e1faac41a7c41b18fb900ada543a101~mv2.png",
-              "alt": "",
-              "overlayText": "",
-              "overlayPos": "bc"
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_67d52a0706ef44d0b96edbb2712f32a6~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_bbeee20c7e5b40c7938892f45a7cfe1f~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_9305681716c7408880fa6ac497f18cec~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_fd05d31ae7aa4a5cb07285e9aa804382~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_bbd78bb267ef4ba8b41293c37689ea8d~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_8a9d2f42de434e0589cc36d98e9191a1~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_aa71e0e4270f4543bb64946981667b1b~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_8765510c6cce45229b7d27c2db98b321~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_b5f3584febd44f3ca2fa36f80a7284c2~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_61cea4b9b4a84828844ec5e721616a75~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_2360c544db614237a8423f9383a022c1~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_eef0847f3cad4830ac58fb41c96b6794~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_83187bea57ad43999ed95fe1da5c36ac~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_3f49157f13984a308d38b6e83967c67e~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_9f99b3ccdd9444c8acd6f7db32cd6003~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_fe7aa920589943cb8b77aef489733f44~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_a342bad293bd421db33149b8e51e6c75~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_4849066c1c594a68917dc263a1e7ba75~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_3997940dc4f94774bde61034ee8a37c9~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_6be0a2041b9c49078ef1c7f9929bfc85~mv2.png",
+              "alt": ""
             }
           ]
         }
@@ -196,9 +382,9 @@
     {
       "id": "lazy-point",
       "title": "Lazy Point",
-      "caption": "客座調酒視覺",
+      "caption": "å®¢åº§èª¿éè¦è¦º",
       "thumbnail": "/uploads/3b1007_87380d0da42f4ff6b0ce73403fd02d02~mv2.png",
-      "thumbnailAlt": "Lazy Point 客座調酒視覺",
+      "thumbnailAlt": "Lazy Point å®¢åº§èª¿éè¦è¦º",
       "tags": [
         "Social Media",
         "Banner"
@@ -227,10 +413,10 @@
     },
     {
       "id": "aluxe-display",
-      "title": "ALUXE 門市陳列優化",
+      "title": "ALUXE éå¸é³ååªå",
       "caption": "Display Design",
       "thumbnail": "/uploads/3b1007_c2934075bab54506836fb2a90f4b0b7b~mv2.png",
-      "thumbnailAlt": "ALUXE 門市陳列優化專案",
+      "thumbnailAlt": "ALUXE éå¸é³ååªåå°æ¡",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
@@ -299,10 +485,10 @@
     },
     {
       "id": "poppy-stationery",
-      "title": "罌粟果紙製文具",
-      "caption": "Graphic Design／Illustration",
+      "title": "ç½ç²æç´è£½æå·",
+      "caption": "Graphic Designï¼Illustration",
       "thumbnail": "/uploads/3b1007_70eb3be162d44286a37ff992f8f5f393~mv2.jpg",
-      "thumbnailAlt": "罌粟果紙製文具",
+      "thumbnailAlt": "ç½ç²æç´è£½æå·",
       "tags": [
         "Packaging"
       ],
@@ -330,28 +516,95 @@
     },
     {
       "id": "yihuan-jewelry",
-      "title": "逸歡聯名輕珠寶",
-      "caption": "Art Direction／Photography",
+      "title": "é¸æ­¡è¯åè¼ç å¯¶",
+      "caption": "Art Directionï¼Photography",
       "thumbnail": "/uploads/3b1007_15f058046b124c8b8c162ddab56e9e59~mv2.png",
-      "thumbnailAlt": "逸歡聯名輕珠寶形象",
+      "thumbnailAlt": "é¸æ­¡è¯åè¼ç å¯¶å½¢è±¡",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
       "modules": [
         {
-          "type": "module_a",
-          "headline": "",
-          "body": "",
-          "columns": "1",
-          "textAlign": "left",
+          "type": "module_b",
+          "columns": "3",
           "gutter": "default",
           "bg": "",
           "images": [
             {
               "src": "/uploads/3b1007_15f058046b124c8b8c162ddab56e9e59~mv2.png",
-              "alt": "",
-              "overlayText": "",
-              "overlayPos": "bc"
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_f9025cd699554a048fca03e1a8eef2dc~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_05ecd13ad3c04253b87695baa812c8dd~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_7c7c719b0e9f490ba7216df801d1270e~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_78a02e5eeee24b75931a8bdd9933afc3~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_397fa50a7bf0415383ec02b65dcc0ee0~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_151b8c4afb3a43c8ba178fcaf02d87fc~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_c1848dc1393e49919a3588b205ff7bce~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_47c40c777383452687134e5e47e99187~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_d07dfef2e46944dc9d3e611bc1d86aba~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_f7adf010ccc0443a90d8c94c56dd2d2f~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_363f5c59f866462a8d25d18b5c5305f9~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_8578ff8a47bf4c759e8016829be183a2~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_e78306cc770048b3bc48b21c0dc5d1e4~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_5888b38cffa340619c01bf00a2ee022d~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_e3c7a39129a540858a3215298324fc3e~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_cf74b967c1cc4a51b64bd50946531720~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_795c70890c8648eb8649bfe3971dbd13~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_3f8f05c4fd7c4fbb9f2f6c0bc2ba6cda~mv2.png",
+              "alt": ""
             }
           ]
         }
@@ -359,10 +612,10 @@
     },
     {
       "id": "lovers-video",
-      "title": "LOVERS 戀人系列婚戒",
-      "caption": "形象影片",
+      "title": "LOVERS æäººç³»åå©æ",
+      "caption": "å½¢è±¡å½±ç",
       "thumbnail": "/uploads/3b1007_da8099cc3bc94222b7ef83affe982cbd~mv2.png",
-      "thumbnailAlt": "LOVERS 戀人系列婚戒形象影片",
+      "thumbnailAlt": "LOVERS æäººç³»åå©æå½¢è±¡å½±ç",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
@@ -388,10 +641,10 @@
     },
     {
       "id": "et-seq-leonardo",
-      "title": "et seq. 達文西系列",
-      "caption": "Art Direction／Photography",
+      "title": "et seq. éæè¥¿ç³»å",
+      "caption": "Art Directionï¼Photography",
       "thumbnail": "/uploads/3b1007_9f69c5de46d24210b7e9d7ad69db9a99~mv2.jpg",
-      "thumbnailAlt": "et seq. 達文西系列指彩形象",
+      "thumbnailAlt": "et seq. éæè¥¿ç³»åæå½©å½¢è±¡",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
@@ -424,9 +677,9 @@
     {
       "id": "kite-flying",
       "title": "Kite Flying Band",
-      "caption": "專輯包裝／字體設計",
+      "caption": "å°è¼¯åè£ï¼å­é«è¨­è¨",
       "thumbnail": "/uploads/3b1007_a6bfdc09f6d04b7dbf71b237cdd95691~mv2_d_2500_1834_s_2.png",
-      "thumbnailAlt": "Kite Flying Band 同名專輯包裝字體設計",
+      "thumbnailAlt": "Kite Flying Band ååå°è¼¯åè£å­é«è¨­è¨",
       "tags": [
         "Packaging"
       ],
@@ -455,9 +708,9 @@
     {
       "id": "vacs",
       "title": "VACS Branding",
-      "caption": "品牌規劃／商標設計",
+      "caption": "åçè¦åï¼åæ¨è¨­è¨",
       "thumbnail": "/uploads/3b1007_e8411c37e7b846abaaa68201fce35627~mv2.jpg",
-      "thumbnailAlt": "VACS 品牌規劃商標設計",
+      "thumbnailAlt": "VACS åçè¦ååæ¨è¨­è¨",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
@@ -501,13 +754,19 @@
           "type": "module_a",
           "headline": "",
           "body": "",
-          "columns": "1",
+          "columns": "2",
           "textAlign": "left",
           "gutter": "default",
           "bg": "",
           "images": [
             {
               "src": "/uploads/3b1007_48ebac850d3b47038d0def8602e3c4ba~mv2.png",
+              "alt": "",
+              "overlayText": "",
+              "overlayPos": "bc"
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_9febaa2f74104c4782d645ad9df6d510~mv2.png",
               "alt": "",
               "overlayText": "",
               "overlayPos": "bc"
@@ -518,10 +777,10 @@
     },
     {
       "id": "lovers-ad",
-      "title": "LOVERS 婚戒廣告",
-      "caption": "Advertising／Visual Design",
+      "title": "LOVERS å©æå»£å",
+      "caption": "Advertisingï¼Visual Design",
       "thumbnail": "/uploads/3b1007_55c92f9ca407431da7805d2fc0647174~mv2.png",
-      "thumbnailAlt": "LOVERS 戀人系列婚戒廣告",
+      "thumbnailAlt": "LOVERS æäººç³»åå©æå»£å",
       "tags": [
         "Banner"
       ],
@@ -529,19 +788,114 @@
       "seoDesc": "",
       "modules": [
         {
-          "type": "module_a",
-          "headline": "",
-          "body": "",
-          "columns": "1",
-          "textAlign": "left",
+          "type": "module_b",
+          "columns": "3",
           "gutter": "default",
           "bg": "",
           "images": [
             {
-              "src": "/uploads/3b1007_55c92f9ca407431da7805d2fc0647174~mv2.png",
-              "alt": "",
-              "overlayText": "",
-              "overlayPos": "bc"
+              "src": "https://static.wixstatic.com/media/3b1007_c7f4003a0253489d9ce6d4b935bb5e3e~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_57152e592d6f46979677daf19716acdf~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_d08315b7069d4874808b6560a6e469ac~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_884637c5cc3346d0bead7becb1d08045~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_9a2465419b7b45a589c96b7bb50544c2~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_d5019b4645f34c19bfe2113ff9792f9d~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_00edc9a406874f58b6e2782250073ca7~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_f8525c77e4b9436e9de148cba2932fd8~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_5c6e9c13e73a4b07802b1f490d59fe93~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_07289da1b53d414283cc67fad6f8766d~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_dfad8e1717b74d4c81fc5338a18245fb~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_924c92353f204acd91a076268b82fefd~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_05e674ed86484c46ae1e5cda87ee0a18~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_f10beebbc15646f08bc6f0adf25b9c35~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_fcb14132be5b4d45bf467ddce5b2c4a7~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_551beb285f7c4f17ab07068710f4ab11~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_0436fe9780784fe687f4863ef60d4633~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_fb8de80310944ee8a5418d3aa00ad05d~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_5dbb1f62db924e018f09661ed4583264~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_ce1334ca512a4d818f67703b21f7d96a~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_158bfe376347471586ef58103d670ddc~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_87da55a0a5dd4c7ba97a227636c9ffbc~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_4505d0e73c1f4187b03a222649efa99d~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_1bb0412cb9554de9a0cde7c1b94eebad~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_cbe9dc702275497784869c23341d99bf~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_791e27e8cb114c2a8d5946ae6ed9375d~mv2.jpg",
+              "alt": ""
             }
           ]
         }
@@ -549,28 +903,59 @@
     },
     {
       "id": "et-seq-quiz",
-      "title": "et seq. 心理測驗",
-      "caption": "Graphic Design／UI Design",
+      "title": "et seq. å¿çæ¸¬é©",
+      "caption": "Graphic Designï¼UI Design",
       "thumbnail": "/uploads/3b1007_44324ea9fdae47878b3048680796b001~mv2.png",
-      "thumbnailAlt": "et seq. 找出你的病心理測驗",
+      "thumbnailAlt": "et seq. æ¾åºä½ ççå¿çæ¸¬é©",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
       "modules": [
         {
-          "type": "module_a",
-          "headline": "",
-          "body": "",
-          "columns": "1",
-          "textAlign": "left",
+          "type": "module_b",
+          "columns": "3",
           "gutter": "default",
           "bg": "",
           "images": [
             {
-              "src": "/uploads/3b1007_44324ea9fdae47878b3048680796b001~mv2.png",
-              "alt": "",
-              "overlayText": "",
-              "overlayPos": "bc"
+              "src": "https://static.wixstatic.com/media/3b1007_ee946d4ca94844bd9c00166a31ef78e3~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_f69213c73bdf41609fa17b03b1a7d5e3~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_b0bdd826bec441c49b684820dde8ccc6~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_ce4d10d734ec4070800c9bf1d67c876b~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_2047af3077c04dd89e664b5efe5d045f~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_f2e9fce5285e4b48ad1cbdd327f01a78~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_08af03715b5a49fca3f70950fc4362ba~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_98036da6ea6744cba5dccb20f415bfc6~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_9e61e794ecfe4290a24eb3c2ac2bc6c3~mv2.jpg",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_57aed003330d4bce8763b9fabb9d32a6~mv2.jpg",
+              "alt": ""
             }
           ]
         }
@@ -578,10 +963,10 @@
     },
     {
       "id": "computer-show",
-      "title": "電腦展展場牆面設計",
+      "title": "é»è¦å±å±å ´çé¢è¨­è¨",
       "caption": "Environmental Visual Design",
       "thumbnail": "/uploads/3b1007_e1d687997ff840d9abb358f4368572cb~mv2.png",
-      "thumbnailAlt": "電腦展展場牆面設計",
+      "thumbnailAlt": "é»è¦å±å±å ´çé¢è¨­è¨",
       "tags": [
         "Banner"
       ],
@@ -598,7 +983,7 @@
           "bg": "",
           "images": [
             {
-              "src": "/uploads/3b1007_e1d687997ff840d9abb358f4368572cb~mv2.png",
+              "src": "https://static.wixstatic.com/media/3b1007_3b8544a01ee3434c9f0d54878c4d99a3~mv2.png",
               "alt": "",
               "overlayText": "",
               "overlayPos": "bc"
@@ -609,28 +994,123 @@
     },
     {
       "id": "aluxe-passport",
-      "title": "ALUXE 年度婚禮護照",
-      "caption": "Branding／Editorial Design",
+      "title": "ALUXE å¹´åº¦å©ç¦®è­·ç§",
+      "caption": "Brandingï¼Editorial Design",
       "thumbnail": "/uploads/3b1007_8360cd2c886e4ef7a80efa739716a00b~mv2.png",
-      "thumbnailAlt": "ALUXE 年度婚禮護照",
+      "thumbnailAlt": "ALUXE å¹´åº¦å©ç¦®è­·ç§",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
       "modules": [
         {
-          "type": "module_a",
-          "headline": "",
-          "body": "",
-          "columns": "1",
-          "textAlign": "left",
+          "type": "module_b",
+          "columns": "3",
           "gutter": "default",
           "bg": "",
           "images": [
             {
               "src": "/uploads/3b1007_8360cd2c886e4ef7a80efa739716a00b~mv2.png",
-              "alt": "",
-              "overlayText": "",
-              "overlayPos": "bc"
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_96afcd7921384739b03d9e63f6e4074c~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_78803a6c8c3247838df4f05e1ebcc947~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_0fb55d55f3d64f409f826720b1d78dea~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_a3ccfa40138b4e21a74a70e780c36b4a~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_e18a0539d05b4ae2b49f87024e3b30f6~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_91394d6efac24560ae303793feca4d46~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_c4e57922c7364a5db3eda6b6c558d3e3~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_2d0fb19762e14189a50a0cdf4785449f~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_6fbc989626eb4033b07a80a35a5b8f44~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_73102676d1e94be5ab91b7d13a090be6~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_abfd46a0f0804241b769e380355de002~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_040b2e587ea346a5b2d18a8538b48f31~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_092ead07371941f3b1e8d5504c2d5e41~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_89cf574650114947a94a0c7274f29f01~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_2560feae12cb458f8d488e9a3362a1e1~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_ce0de33cf3b9493b986974027bc66eaa~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_a04bcd3c056d499dbff2f6045abea28b~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_bd54a9e3f2534aa38daae7570f07e92f~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_ba912d5e0d83406892d962151519adee~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_4ce0653d78da463fbd6a495dfd881b77~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_d408e0beab364d8ebe90a637876078ed~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_ce6d61dbe40b4657ac0b3d486636a50b~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_580e75a99f98438a885f98050a179bab~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_8beb1a09f68c44dbae70b8d2bcdf2965~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_25c6d7481fe54c78940ebe1136bb1cb8~mv2.png",
+              "alt": ""
             }
           ]
         }
@@ -638,10 +1118,10 @@
     },
     {
       "id": "wf-flower",
-      "title": "w/f flower 情人節",
-      "caption": "攝影設定／社群視覺設計",
+      "title": "w/f flower æäººç¯",
+      "caption": "æå½±è¨­å®ï¼ç¤¾ç¾¤è¦è¦ºè¨­è¨",
       "thumbnail": "/uploads/3b1007_cc4293aeca22401e9205db429f218f51~mv2_d_2501_1834_s_2.png",
-      "thumbnailAlt": "w/f flower 情人節社群視覺設計",
+      "thumbnailAlt": "w/f flower æäººç¯ç¤¾ç¾¤è¦è¦ºè¨­è¨",
       "tags": [
         "Social Media",
         "Banner"
@@ -663,6 +1143,18 @@
               "alt": "",
               "overlayText": "",
               "overlayPos": "bc"
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_9a55fed7ab6a4dfaa40eefe7f0886265~mv2",
+              "alt": "",
+              "overlayText": "",
+              "overlayPos": "bc"
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_2f7eeb8f6bfe40348ec7581ecae98591~mv2",
+              "alt": "",
+              "overlayText": "",
+              "overlayPos": "bc"
             }
           ]
         }
@@ -670,10 +1162,10 @@
     },
     {
       "id": "bridal-photo",
-      "title": "婚紗形象攝影",
-      "caption": "Art Direction／Editorial Design",
+      "title": "å©ç´å½¢è±¡æå½±",
+      "caption": "Art Directionï¼Editorial Design",
       "thumbnail": "/uploads/3b1007_a3f93ad490ca481da6e822c632bf63ec~mv2.png",
-      "thumbnailAlt": "婚紗形象攝影",
+      "thumbnailAlt": "å©ç´å½¢è±¡æå½±",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
@@ -967,9 +1459,9 @@
     {
       "id": "made-by-aha",
       "title": "made by AHA",
-      "caption": "社群視覺設計",
+      "caption": "ç¤¾ç¾¤è¦è¦ºè¨­è¨",
       "thumbnail": "/uploads/3b1007_622c4c2fde8b4e97a80dae486af679ea~mv2.png",
-      "thumbnailAlt": "made by AHA 社群視覺設計",
+      "thumbnailAlt": "made by AHA ç¤¾ç¾¤è¦è¦ºè¨­è¨",
       "tags": [
         "Social Media"
       ],
@@ -977,19 +1469,26 @@
       "seoDesc": "",
       "modules": [
         {
-          "type": "module_a",
-          "headline": "",
-          "body": "",
-          "columns": "1",
-          "textAlign": "left",
+          "type": "module_b",
+          "columns": "2",
           "gutter": "default",
           "bg": "",
           "images": [
             {
-              "src": "/uploads/3b1007_622c4c2fde8b4e97a80dae486af679ea~mv2.png",
-              "alt": "",
-              "overlayText": "",
-              "overlayPos": "bc"
+              "src": "https://static.wixstatic.com/media/3b1007_05474fc4f48d4be7a1961267e4c45dbb~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_beea7fc06bed41249a8fa7445c455785~mv2",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_fdc86a38558c4172bb9af65ab1e85e84~mv2.png",
+              "alt": ""
+            },
+            {
+              "src": "https://static.wixstatic.com/media/3b1007_ef385fa3df9b46018de1192d900e5a90~mv2.png",
+              "alt": ""
             }
           ]
         }
@@ -997,10 +1496,10 @@
     },
     {
       "id": "disney-press",
-      "title": "Disney 婚戒記者會",
-      "caption": "Display Design／Main Visual",
+      "title": "Disney å©æè¨èæ",
+      "caption": "Display Designï¼Main Visual",
       "thumbnail": "/uploads/3b1007_29d02bba4a2c413291de499f8b7b7bd7~mv2.jpg",
-      "thumbnailAlt": "Disney系列婚戒記者會展示設計",
+      "thumbnailAlt": "Disneyç³»åå©æè¨èæå±ç¤ºè¨­è¨",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
@@ -1125,10 +1624,10 @@
     },
     {
       "id": "aladdin-bag",
-      "title": "阿拉丁魔毯珠寶收納袋",
+      "title": "é¿æä¸é­æ¯¯ç å¯¶æ¶ç´è¢",
       "caption": "Packaging Design",
       "thumbnail": "/uploads/3b1007_168a1bb64a9a4dbe870b05b1fd3fd183~mv2.jpg",
-      "thumbnailAlt": "阿拉丁魔毯珠寶收納袋",
+      "thumbnailAlt": "é¿æä¸é­æ¯¯ç å¯¶æ¶ç´è¢",
       "tags": [
         "Packaging"
       ],
@@ -1156,10 +1655,10 @@
     },
     {
       "id": "taiwan-tcm",
-      "title": "台灣女中醫師協會",
-      "caption": "名片／網站視覺設計",
+      "title": "å°ç£å¥³ä¸­é«å¸«åæ",
+      "caption": "åçï¼ç¶²ç«è¦è¦ºè¨­è¨",
       "thumbnail": "/uploads/3b1007_ae822092716e4f2eaeb6b4239e69c543~mv2.png",
-      "thumbnailAlt": "台灣女中醫師協會名片網站視覺設計",
+      "thumbnailAlt": "å°ç£å¥³ä¸­é«å¸«åæåçç¶²ç«è¦è¦ºè¨­è¨",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
@@ -1197,10 +1696,10 @@
     },
     {
       "id": "disney-princess",
-      "title": "Disney 公主系列珠寶展示",
-      "caption": "Display Design／Prop Design",
+      "title": "Disney å¬ä¸»ç³»åç å¯¶å±ç¤º",
+      "caption": "Display Designï¼Prop Design",
       "thumbnail": "/uploads/3b1007_f5ec7bde6f494d9f9571e8eb68cd8684~mv2.png",
-      "thumbnailAlt": "Disney公主系列珠寶展示",
+      "thumbnailAlt": "Disneyå¬ä¸»ç³»åç å¯¶å±ç¤º",
       "tags": [],
       "seoTitle": "",
       "seoDesc": "",
