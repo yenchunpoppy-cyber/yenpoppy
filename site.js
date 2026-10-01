@@ -88,7 +88,7 @@ async function applySettings() {
     const logoMark = header.querySelector('.logo-mark');
     const logoWordmark = header.querySelector('.logo-wordmark');
     if (logoMark && s.logoMark)     { logoMark.src = fixImgUrl(s.logoMark); logoMark.style.display = 'block'; }
-    if (logoWordmark && s.logoWordmark) { logoWordmark.src = fixImgUrl(s.logoWordmark); logoWordmark.style.display = 'block'; }
+    if (logoWordmark && s.logoWordmark) { logoWordmark.src = fixImgUrl(s.logoWordmark); logoWordmark.style.display = 'block'; const fb = header.querySelector('.logo-fallback'); if (fb) fb.style.display = 'none'; }
   }
 
   // Favicon
