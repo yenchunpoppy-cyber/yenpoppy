@@ -654,16 +654,6 @@ a { color: inherit; text-decoration: none; }
 }
 .work-header__link:hover { background: var(--header-bg); }
 
-/* Logo fills the header band top to bottom */
-#site-header { height: 64px; align-items: stretch; }
-.header-logo { padding: 0; align-items: stretch; }
-.header-logo img.logo-wordmark { height: 100%; width: auto; }
-#site-nav { align-items: flex-end; }
-#hamburger { align-self: center; }
-@media (max-width: 599px) {
-  #site-header { height: 52px; }
-}
-
 /* Card: title is primary, caption secondary */
 .work-card .card-title {
   padding-top: 12px;
