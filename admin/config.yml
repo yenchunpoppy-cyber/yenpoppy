@@ -460,7 +460,7 @@ collections:
                   - name: module_b
                     label: "模塊 B：相簿"
                     fields:
-                      - { label: 欄數, name: columns, widget: select, default: "3", options: [{label: "2欄", value: "2"},{label: "3欄", value: "3"},{label: "4欄", value: "4"}] }
+                      - { label: 欄數, name: columns, widget: select, default: "1", options: [{label: "1欄（單欄大圖）", value: "1"},{label: "2欄", value: "2"},{label: "3欄", value: "3"},{label: "4欄", value: "4"}] }
                       - { label: 圖片間距, name: gutter, widget: select, default: "default", required: false, options: [{label: 沿用全站, value: "default"},{label: "0px", value: "0"},{label: "8px", value: "8"},{label: "12px", value: "12"},{label: "16px", value: "16"},{label: "24px", value: "24"}] }
                       - { label: 背景色（選填）, name: bg, widget: color, required: false }
                       - label: 圖片列表

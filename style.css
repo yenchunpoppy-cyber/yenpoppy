@@ -691,7 +691,12 @@ a { color: inherit; text-decoration: none; }
   .module-b__grid[data-cols="4"] { column-count: 2; }
 }
 @media (max-width: 599px) {
-  .module-b__grid { column-count: 2; }
+  .module-b__grid:not([data-cols="1"]) { column-count: 2; }
+}
+/* Single-column album: one large image after another */
+.module-b__grid[data-cols="1"] {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 /* Hover lifts the image only, not the text block */
