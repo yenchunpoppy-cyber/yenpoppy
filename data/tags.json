@@ -1,7 +1,12 @@
 {
   "tags": [
-    { "name": "Packaging",    "page": "packaging" },
-    { "name": "Social Media", "page": "social-media" },
-    { "name": "Banner",       "page": "banner" }
+    { "name": "Branding",        "page": "branding" },
+    { "name": "Packaging",       "page": "packaging" },
+    { "name": "UI/UX",           "page": "ui-ux" },
+    { "name": "Web Design",      "page": "web-design" },
+    { "name": "Motion Graphics", "page": "motion-graphics" },
+    { "name": "Illustration",    "page": "illustration" },
+    { "name": "Exhibition",      "page": "exhibition" },
+    { "name": "Social Media",    "page": "social-media" }
   ]
 }
