@@ -620,8 +620,9 @@ function renderModuleB(mod, settings, pageBg) {
 
   const grid = document.createElement('div');
   grid.className = 'module-b__grid';
-  grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-  grid.style.gap = `${gutter}px`;
+  // Masonry columns: images keep their full aspect ratio (no cropping)
+  grid.style.setProperty('--cols', cols);
+  grid.style.setProperty('--gap', `${gutter}px`);
   grid.dataset.cols = cols;
 
   images.forEach(imgData => {

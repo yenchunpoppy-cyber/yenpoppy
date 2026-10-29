@@ -666,3 +666,46 @@ a { color: inherit; text-decoration: none; }
   font-size: 12px;
   letter-spacing: .04em;
 }
+
+/* Show whole images: album = masonry columns, multi-column module A = no crop */
+.module-b__grid {
+  display: block;
+  column-count: var(--cols, 3);
+  column-gap: var(--gap, 12px);
+}
+.module-b__grid .img-wrap {
+  break-inside: avoid;
+  margin-bottom: var(--gap, 12px);
+}
+.module-b__grid .img-wrap img {
+  aspect-ratio: auto;
+  height: auto;
+}
+.module-a__images { align-items: start; }
+.img-wrap--crop img {
+  aspect-ratio: auto;
+  height: auto;
+}
+@media (max-width: 1024px) {
+  .module-b__grid[data-cols="3"],
+  .module-b__grid[data-cols="4"] { column-count: 2; }
+}
+@media (max-width: 599px) {
+  .module-b__grid { column-count: 2; }
+}
+
+/* Hover lifts the image only, not the text block */
+.work-card { overflow: visible; }
+.work-card:hover,
+.work-card:focus-visible {
+  transform: none;
+  box-shadow: none;
+}
+.work-card img {
+  transition: transform .22s ease, box-shadow .22s ease, opacity .22s ease;
+}
+.work-card:hover img,
+.work-card:focus-visible img {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+}
