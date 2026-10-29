@@ -334,17 +334,17 @@ function createWorkCard(work) {
     card.appendChild(ph);
   }
 
-  if (work.caption) {
-    const cap = document.createElement('div');
-    cap.className = 'card-caption';
-    cap.textContent = work.caption;
-    card.appendChild(cap);
-  }
   if (work.title) {
     const tit = document.createElement('div');
     tit.className = 'card-title';
     tit.textContent = work.title;
     card.appendChild(tit);
+  }
+  if (work.caption) {
+    const cap = document.createElement('div');
+    cap.className = 'card-caption';
+    cap.textContent = work.caption;
+    card.appendChild(cap);
   }
 
   const navigate = () => { location.href = `/works/${work.id}`; };
