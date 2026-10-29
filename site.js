@@ -69,6 +69,7 @@ async function applySettings() {
 
   // å­é«
   const fontMap = {
+    'brand':              "'Montserrat', 'Glow Sans TC', 'Noto Sans TC', sans-serif",
     'poppins-extralight': "'Poppins', sans-serif",
     'noto-serif-tc':      "'Noto Serif TC', serif",
     'noto-sans-tc':       "'Noto Sans TC', sans-serif",
@@ -227,8 +228,9 @@ async function renderWorksGrid() {
   const outerPad = gutter * 2;
   const content = document.getElementById('page-content');
   if (content) {
+    // Side padding follows the header so the grid lines up with the logo
     content.style.padding = outerPad
-      ? `${outerPad}px ${outerPad}px`
+      ? `${outerPad}px var(--page-pad)`
       : '0';
   }
 
@@ -236,8 +238,48 @@ async function renderWorksGrid() {
   grid.style.gap = `${gutter}px`;
   grid.dataset.cols = cols;
 
-  const works = worksData.works || [];
+  const allWorks = worksData.works || [];
+  const tagsData = await fetchJSON('/data/tags.json').catch(() => ({ tags: [] }));
+  let works = allWorks;
   let offset = 0;
+
+  // Tag filter bar: ALL + tags that have at least one work
+  const usedTags = (tagsData.tags || [])
+    .map(t => t.name)
+    .filter(name => allWorks.some(w => (w.tags || []).includes(name)));
+  let activeTag = new URLSearchParams(location.search).get('tag');
+  if (!usedTags.includes(activeTag)) activeTag = null;
+
+  if (usedTags.length) {
+    const bar = document.createElement('nav');
+    bar.className = 'tag-filter';
+    bar.setAttribute('aria-label', 'Filter works by tag');
+    [null, ...usedTags].forEach(name => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = name || 'ALL';
+      btn.dataset.tag = name || '';
+      btn.addEventListener('click', () => applyFilter(name));
+      bar.appendChild(btn);
+    });
+    grid.parentElement.insertBefore(bar, grid);
+  }
+
+  function applyFilter(name) {
+    activeTag = name;
+    works = name ? allWorks.filter(w => (w.tags || []).includes(name)) : allWorks;
+    document.querySelectorAll('.tag-filter button').forEach(b => {
+      const on = b.dataset.tag === (name || '');
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    const url = new URL(location.href);
+    if (name) url.searchParams.set('tag', name); else url.searchParams.delete('tag');
+    history.replaceState(null, '', url);
+    grid.innerHTML = '';
+    offset = 0;
+    loadMore();
+  }
 
   function loadMore() {
     const batch = works.slice(offset, offset + WORKS_PAGE_SIZE);
@@ -265,7 +307,7 @@ async function renderWorksGrid() {
     }
   }
 
-  loadMore();
+  applyFilter(activeTag);
 }
 
 function createWorkCard(work) {
@@ -292,17 +334,17 @@ function createWorkCard(work) {
     card.appendChild(ph);
   }
 
-  if (work.caption) {
-    const cap = document.createElement('div');
-    cap.className = 'card-caption';
-    cap.textContent = work.caption;
-    card.appendChild(cap);
-  }
   if (work.title) {
     const tit = document.createElement('div');
     tit.className = 'card-title';
     tit.textContent = work.title;
     card.appendChild(tit);
+  }
+  if (work.caption) {
+    const cap = document.createElement('div');
+    cap.className = 'card-caption';
+    cap.textContent = work.caption;
+    card.appendChild(cap);
   }
 
   const navigate = () => { location.href = `/works/${work.id}`; };
@@ -398,7 +440,7 @@ async function renderWorkPage() {
   // SEO
   document.title = (work.seoTitle || work.title) + ' | YEN POPPY';
   const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc && work.seoDesc) metaDesc.content = work.seoDesc;
+  if (metaDesc && (work.seoDesc || work.description)) metaDesc.content = work.seoDesc || work.description;
 
   // èæ¯è²æ²¿ç¨å¨ç«
   if (settings.siteBg) document.body.style.background = settings.siteBg;
@@ -409,11 +451,19 @@ async function renderWorkPage() {
   // Work detail header: back link + title + caption
   const header = document.createElement('div');
   header.className = 'work-header';
+  const esc = v => String(v == null ? '' : v)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const tools = Array.isArray(work.tools) ? work.tools.filter(Boolean).join(', ') : (work.tools || '');
+  const meta = [work.year, work.client, tools].filter(Boolean).map(esc);
+  const link = /^https?:\/\//.test(work.link || '') ? work.link : '';
   header.innerHTML = `
     <a class="work-header__back" href="/">← WORKS</a>
     <div class="work-header__titles">
-      <h1 class="work-header__title">${work.title || ''}</h1>
-      ${work.caption ? `<p class="work-header__caption">${work.caption}</p>` : ''}
+      ${work.caption ? `<p class="work-header__caption">${esc(work.caption)}</p>` : ''}
+      <h1 class="work-header__title">${esc(work.title)}</h1>
+      ${meta.length ? `<p class="work-header__meta">${meta.join('<span aria-hidden="true">｜</span>')}</p>` : ''}
+      ${work.description ? `<p class="work-header__desc">${esc(work.description)}</p>` : ''}
+      ${link ? `<a class="work-header__link" href="${esc(link)}" target="_blank" rel="noopener">VIEW PROJECT ↗</a>` : ''}
     </div>
   `;
   container.appendChild(header);
@@ -570,8 +620,9 @@ function renderModuleB(mod, settings, pageBg) {
 
   const grid = document.createElement('div');
   grid.className = 'module-b__grid';
-  grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-  grid.style.gap = `${gutter}px`;
+  // Masonry columns: images keep their full aspect ratio (no cropping)
+  grid.style.setProperty('--cols', cols);
+  grid.style.setProperty('--gap', `${gutter}px`);
   grid.dataset.cols = cols;
 
   images.forEach(imgData => {
