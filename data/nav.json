@@ -1,7 +1,25 @@
 {
   "items": [
-    { "label": "WORKS",   "type": "works", "page": null },
-    { "label": "ABOUT",   "type": "page",  "page": "about" },
-    { "label": "CONTACT", "type": "page",  "page": "contact" }
+    {
+      "label": "WORKS",
+      "type": "works",
+      "page": null
+    },
+    {
+      "label": "ABOUT",
+      "type": "page",
+      "page": "about"
+    },
+    {
+      "label": "ESTIMATE",
+      "type": "link",
+      "page": null,
+      "url": "/quote/"
+    },
+    {
+      "label": "CONTACT",
+      "type": "page",
+      "page": "contact"
+    }
   ]
 }

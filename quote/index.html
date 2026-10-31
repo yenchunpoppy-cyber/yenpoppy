@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="zh-Hant" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ESTIMATE | YENPOPPY 設計報價試算</title>
+<link rel="icon" href="/public/uploads/yenpoppy-favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/public/uploads/yenpoppy-favicon.png">
+<link rel="canonical" href="https://yenpoppy.pages.dev/quote/">
+<meta name="theme-color" content="#FAECCC">
+<meta name="description" content="選好想做的項目和風格，就能先看到 YENPOPPY 的預算範圍和完成時間。">
+<meta property="og:title" content="YENPOPPY 設計報價試算">
+<meta property="og:description" content="品牌識別、包裝、印刷品、社群素材，選一選就能看到預算和完成時間。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://yenpoppy.pages.dev/quote/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="/fonts/glow-sans-tc.css">
+<link rel="stylesheet" href="/style.css">
+<style>
+/* 左：四個步驟；右：固定估價結果；手機時結果收在底部
+   字級 12 / 14 / 16 / 20 / 28 / 40；間距 4 / 8 / 12 / 16 / 24 / 40
+   圓角：按鈕 999、輸入框 8、卡片 12；選取狀態用底色＋勾選，不加粗框 */
+:root {
+  --bg: #ffffff;
+  --paper: #ffffff;
+  --soft: #edeae6;
+  --ink: #000000;
+  --muted: #5e5c59;
+  --line: #e3e0db;
+  --cream: #faeccc;
+  --band: #faeccc;
+  --gold: #c5b27a;
+  --accent: #000000;
+  --accent-ink: #ffffff;
+  --warn: #9a5a17;
+  --ok: #3f6b45;
+  --logo-filter: none;
+  --qf-display: "Montserrat", "Glow Sans TC", system-ui, sans-serif;
+  --qf-body: "Glow Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d0d0c; --paper: #181816; --soft: #24231f; --ink: #f4f1ea; --muted: #b0aca3; --line: #34322d;
+    --cream: #3a3426; --band: #1f1d18; --gold: #c5b27a; --accent: #faeccc; --accent-ink: #000000; --warn: #e3a964; --ok: #93c39a; --logo-filter: invert(1);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d0d0c; --paper: #181816; --soft: #24231f; --ink: #f4f1ea; --muted: #b0aca3; --line: #34322d;
+    --cream: #3a3426; --band: #1f1d18; --gold: #c5b27a; --accent: #faeccc; --accent-ink: #000000; --warn: #e3a964; --ok: #93c39a; --logo-filter: invert(1);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--qf-body); font-size: 16px; font-weight: 400; line-height: 1.7; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { background: var(--band); }
+.topin { height: 56px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.mark { display: flex; align-items: center; gap: 12px; color: var(--ink); }
+header.top .mark .lk { height: 28px; width: auto; }
+header.top img { height: 14px; display: block; filter: var(--logo-filter); }
+header.top a { color: var(--muted); text-decoration: none; font-family: var(--qf-display); letter-spacing: .2em; font-size: 12px; }
+header.top a:hover { color: var(--ink); }
+.hero { padding-block: 40px; display: grid; gap: 8px; position: relative; overflow: hidden; }
+.hero > * { position: relative; z-index: 1; }
+.hero > .stripes { position: absolute; right: 0; bottom: 0; height: 130%; width: auto; z-index: 0; }
+.hero .eyebrow, .step-h .no, .result .eyebrow { font-family: var(--qf-display); letter-spacing: .3em; font-size: 12px; color: var(--muted); }
+.hero h1 { margin: 0; font-size: 40px; font-weight: 300; letter-spacing: .12em; line-height: 1.3; }
+.hero p { margin: 0; color: var(--muted); font-size: 16px; max-width: 36em; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 40px; padding-block: 24px 80px; align-items: start; border-top: 1px solid var(--line); }
+.steps { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.steps > section { padding-block: 40px; }
+.steps > section:not(:first-child) { border-top: 1px solid var(--line); }
+.steps > section:first-child { padding-top: 16px; }
+.step-h { display: grid; gap: 4px; margin-bottom: 24px; }
+.step-h h2 { margin: 0; font-size: 20px; font-weight: 500; letter-spacing: .04em; line-height: 1.4; }
+.step-h p { margin: 0; color: var(--muted); font-size: 14px; }
+.lbl, .field > label:not(.drop) { font-size: 14px; color: var(--ink); font-weight: 500; }
+
+/* 關於你 */
+.about { display: grid; gap: 32px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { height: 36px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); cursor: pointer; font-size: 14px; color: var(--ink); }
+.chips button:hover { border-color: var(--ink); }
+.chips button[aria-pressed="true"] { background: var(--cream); border-color: var(--cream); font-weight: 500; }
+
+/* 類別分頁 */
+.cats { display: flex; gap: 4px; border-bottom: 1px solid var(--line); overflow-x: auto; margin-bottom: 16px; scrollbar-width: none; }
+.cats button { border: 0; background: none; padding: 8px 12px; cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; white-space: nowrap; margin-bottom: -1px; font-size: 14px; }
+.cats button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); font-weight: 500; }
+.cats button .n { font-size: 12px; color: var(--muted); margin-left: 4px; }
+.cat-intro { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+
+/* 項目卡（與風格卡同一種卡片） */
+.items { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.item, .style { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 8px; align-content: start; }
+.item.on, .style[aria-pressed="true"] { background: var(--cream); border-color: var(--cream); }
+.item h3 { margin: 0; font-size: 16px; font-weight: 500; line-height: 1.5; }
+.item .d { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.item .foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: auto; padding-top: 8px; }
+.item .pr { font-variant-numeric: tabular-nums; font-size: 14px; font-weight: 500; line-height: 1.4; }
+.item .pr small { display: block; color: var(--muted); font-size: 12px; font-weight: 400; }
+.item .opts { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; background: var(--soft); border-radius: 999px; padding: 4px; width: 100%; }
+.item.on .opts { background: var(--paper); }
+.item .opts button { border: 0; background: none; border-radius: 999px; height: 32px; padding: 0 4px; font-size: 13px; color: var(--muted); cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item .opts button[aria-pressed="true"] { background: var(--ink); color: var(--paper); font-weight: 500; }
+.stepper { display: inline-flex; align-items: center; background: var(--paper); border-radius: 999px; }
+.stepper button { width: 32px; height: 32px; border: 0; background: none; cursor: pointer; font-size: 16px; border-radius: 999px; }
+.stepper button:hover { background: var(--soft); }
+.stepper output { min-width: 24px; text-align: center; font-variant-numeric: tabular-nums; font-size: 14px; font-weight: 500; }
+.add { border: 1px solid var(--line); background: var(--paper); border-radius: 999px; height: 32px; padding: 0 16px; cursor: pointer; font-size: 14px; white-space: nowrap; }
+.add:hover { border-color: var(--ink); }
+
+/* 風格卡 */
+.styles { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
+.style { text-align: left; cursor: pointer; gap: 4px; }
+.style b { font-weight: 500; font-size: 16px; }
+.style .en { font-family: var(--qf-display); font-size: 12px; letter-spacing: .2em; color: var(--muted); }
+.style span { color: var(--muted); font-size: 14px; line-height: 1.6; }
+#styles [data-style="unsure"] { grid-column: 1 / -1; }
+.style .spec { color: var(--ink); font-size: 14px; }
+.plans { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.other { margin-top: 32px; }
+.other textarea { min-height: 72px; }
+.style .eg { font-size: 12px; margin-top: 4px; }
+
+/* 參考圖 */
+.refs { margin-top: 32px; display: grid; gap: 24px; }
+.drop { border: 1px dashed var(--line); border-radius: 12px; padding: 24px; text-align: center; color: var(--muted); font-size: 14px; cursor: pointer; background: var(--paper); }
+.drop:hover, .drop.over { border-color: var(--ink); color: var(--ink); }
+.drop b { color: var(--ink); font-weight: 500; }
+.drop small { display: block; font-size: 12px; margin-top: 4px; }
+.thumbs { display: flex; flex-wrap: wrap; gap: 8px; }
+.thumbs:empty { display: none; }
+.thumbs:empty { display: none; }
+.thumb { position: relative; width: 88px; height: 88px; border-radius: 8px; overflow: hidden; background: var(--soft); display: grid; place-items: center; font-size: 12px; color: var(--muted); text-align: center; padding: 4px; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.thumb button { position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; border-radius: 50%; border: 0; background: var(--ink); color: var(--paper); cursor: pointer; font-size: 12px; line-height: 1; z-index: 1; }
+.refnote { font-size: 12px; color: var(--muted); margin: 0; }
+.refnote:empty { display: none; }
+.refnote.err { color: var(--warn); }
+
+/* 表單 */
+.form { display: grid; gap: 24px; grid-template-columns: 1fr 1fr; }
+.field { display: grid; gap: 8px; min-width: 0; align-content: start; }
+.field.full { grid-column: 1 / -1; }
+input[type=text], input[type=date], input[type=email], select, textarea { width: 100%; height: 44px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 0 12px; }
+textarea { height: auto; min-height: 104px; padding: 12px; resize: vertical; }
+input:focus, textarea:focus, select:focus { border-color: var(--ink); outline: none; }
+.checks { display: grid; gap: 8px; }
+.note.inv-note { margin-top: 8px; }
+.checks label { display: flex; gap: 8px; align-items: center; cursor: pointer; font-size: 14px; }
+.checks input { width: 18px; height: 18px; accent-color: var(--ink); margin: 0; }
+.primary { display: inline-flex; align-items: center; justify-content: center; height: 48px; background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 999px; padding: 0 32px; cursor: pointer; font-weight: 500; letter-spacing: .08em; font-size: 16px; }
+.primary:disabled { opacity: .4; cursor: not-allowed; }
+.ghost { height: 40px; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 0 16px; cursor: pointer; font-size: 14px; }
+
+/* 結果 */
+.result { position: sticky; top: 24px; margin-top: 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 24px; display: grid; gap: 16px; box-shadow: 0 8px 24px rgba(40,30,10,.06); }
+.range { font-variant-numeric: tabular-nums; font-size: 28px; font-weight: 500; line-height: 1.3; }
+.opt-tag { font-size: 12px; color: var(--muted); font-weight: 400; margin-left: 4px; }
+.about input[type=text] { max-width: 360px; }
+.range.locked { color: var(--muted); font-size: 20px; }
+.range small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); margin-top: 4px; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; font-size: 14px; margin: 0; padding-top: 16px; border-top: 1px solid var(--line); }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.status { font-size: 14px; padding: 12px; border-radius: 8px; background: var(--soft); line-height: 1.6; }
+.status.warn { color: var(--warn); }
+.status.ok { color: var(--ok); }
+.picked { list-style: none; margin: 0; padding: 16px 0 0; display: grid; gap: 4px; font-size: 14px; border-top: 1px solid var(--line); }
+.picked li { display: flex; justify-content: space-between; gap: 12px; }
+.picked li span:last-child { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.note { font-size: 12px; color: var(--muted); margin: 0; line-height: 1.7; }
+.sent { background: var(--soft); border-radius: 12px; padding: 24px; display: grid; gap: 12px; }
+.sent pre { white-space: pre-wrap; font-family: inherit; font-size: 14px; margin: 0; background: var(--paper); padding: 16px; border-radius: 8px; max-height: 280px; overflow: auto; }
+footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.hp { position: absolute; left: -9999px; }
+.mbar { display: none; }
+.item .pr .hid { color: var(--muted); font-weight: 400; font-size: 13px; }
+.result-slot:empty { display: none; }
+@media (max-width: 920px) {
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 0; padding-bottom: 120px; }
+  .result { position: static; margin-top: 0; }
+  .result-slot { padding-block: 8px 24px; }
+  body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+  .hero > .stripes { height: 115%; }
+  .hero h1, .hero p { padding-right: 72px; }
+  .cats { flex-wrap: wrap; gap: 8px; border-bottom: 0; overflow: visible; }
+  .cats button { border: 1px solid var(--line); border-radius: 999px; height: 36px; padding: 0 14px; margin: 0; }
+  .cats button[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .cats button[aria-selected="true"] .n { color: var(--accent); }
+  .mbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; background: var(--accent); color: var(--accent-ink);
+    padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+    justify-content: space-between; align-items: center; gap: 12px; font-variant-numeric: tabular-nums; font-size: 16px; font-weight: 500; line-height: 1.4; }
+  .mbar small { font-size: 12px; font-weight: 400; opacity: .8; }
+  .mbar a { color: inherit; font-size: 14px; font-weight: 400; }
+  .mbtn { height: 36px; padding: 0 16px; border-radius: 999px; border: 0; background: var(--accent-ink); color: var(--accent); font-weight: 500; cursor: pointer; }
+}
+@media (max-width: 520px) {
+  .form { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 28px; }
+  .hero { padding-block: 24px; }
+  .steps > section { padding-block: 24px; }
+  .styles { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .style { padding: 12px; }
+  .style .eg { display: none; }
+  .styles.plans { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .plans .style > span:not(.spec) { display: none; }
+  .plans .style .en { letter-spacing: .1em; }
+}
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+.hero .eyebrow, .step-h .no, .result .eyebrow, .style .en, header.top a { font-weight: 500; }
+</style>
+</head>
+<body>
+<a class="skip-to-main" href="#main">跳到主要內容</a>
+<header id="site-header">
+  <a class="header-logo" href="/" aria-label="YENPOPPY 首頁">
+    <img class="logo-mark"     src="" alt="YENPOPPY 圖標" style="display:none;">
+    <img class="logo-wordmark" src="" alt="YENPOPPY"       style="display:none;">
+    <span class="logo-fallback">YENPOPPY</span>
+  </a>
+  <nav id="site-nav" aria-label="主導覽"></nav>
+  <button id="hamburger" aria-label="開啟選單" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<nav id="mobile-nav" aria-label="手機導覽" role="dialog" aria-modal="true"></nav>
+<div class="wrap" id="main">
+  <section class="hero">
+    <img class="stripes" src="/quote/pattern-br.png" alt="">
+    <div class="eyebrow">ESTIMATE</div>
+    <h1>設計報價試算</h1>
+    <p>品牌識別、包裝、印刷品和社群素材，選好項目和風格，就能先看到大概的預算和完成時間。</p>
+  </section>
+
+  <div class="layout">
+    <div class="steps">
+      <section aria-labelledby="h0">
+        <div class="step-h"><span class="no">STEP 01</span><h2 id="h0">先認識一下你</h2><p>選好身分和產業，就能看到試算金額。</p></div>
+        <div class="about">
+          <div class="field"><label for="nick">怎麼稱呼你 <small class="opt-tag">選填</small></label><input type="text" id="nick" maxlength="30" placeholder="名字、暱稱或品牌名都可以"></div>
+          <div class="field"><span class="lbl">你的身分</span><div class="chips" id="roles"></div></div>
+          <div class="field"><span class="lbl">品牌產業</span><div class="chips" id="industries"></div></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="h1">
+        <div class="step-h"><span class="no">STEP 02</span><h2 id="h1">想做哪些設計？</h2><p>可以多選，數量之後也能改。</p></div>
+        <div class="cats" role="tablist" id="cats"></div>
+        <p class="cat-intro" id="catIntro"></p>
+        <div class="items" id="items"></div>
+        <div class="field other"><label for="otherNeed">其他想做的 <small class="opt-tag">選填</small></label>
+          <textarea id="otherNeed" maxlength="300" placeholder="選單裡沒有的，或想做的和上面不太一樣，都可以寫在這裡"></textarea></div>
+      </section>
+
+      <section aria-labelledby="h2">
+        <div class="step-h"><span class="no">STEP 03</span><h2 id="h2">想要的風格方向</h2><p>可以選 1–2 種搭配，不確定也可以上傳參考圖。</p></div>
+        <div class="styles" id="styles"></div>
+        <div class="refs">
+          <div class="field"><span class="lbl">參考圖 <small class="opt-tag">選填</small></span>
+            <label class="drop" id="drop" for="refPick"><b>選擇圖片</b>或拖曳進來<small>最多 3 張，合計 8MB 以內，草圖也可以</small></label>
+            <input type="file" id="refPick" accept="image/*,application/pdf" multiple hidden>
+            <div class="thumbs" id="thumbs"></div>
+            <p class="refnote" id="refNote" role="status"></p></div>
+          <div class="field"><label for="refLinks">參考連結 <small class="opt-tag">選填</small></label>
+            <input type="text" id="refLinks" placeholder="Pinterest、IG 或喜歡的品牌網站"></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="hp">
+        <div class="step-h"><span class="no">STEP 04</span><h2 id="hp">提案與修改</h2><p>提案是一開始給你看的設計方向，修改是選定後的調整次數。</p></div>
+        <div class="styles plans" id="plans"></div>
+      </section>
+
+      <section aria-labelledby="h3">
+        <div class="step-h"><span class="no">STEP 05</span><h2 id="h3">希望什麼時候完成？</h2><p>填個日期，看看時間來不來得及。</p></div>
+        <div class="form">
+          <div class="field"><label for="want">希望完成日期</label><input type="date" id="want"></div>
+          <div class="field full"><span class="lbl">其他需求</span>
+            <div class="checks">
+              <label id="aiWrap" hidden><input type="checkbox" id="needAi"> 需要可編輯的原始檔</label>
+              <label><input type="checkbox" id="needPrint"> 需要協助印刷</label>
+              <label><input type="checkbox" id="needInvoice"> 需要開發票</label>
+            </div>
+            <p class="note inv-note">一般以勞報單請款。一定要發票的話，需要先確認能不能配合，試算會另加 5%。</p></div>
+        </div>
+      </section>
+
+      <div id="resultSlot" class="result-slot"></div>
+      <section aria-labelledby="h4">
+        <div class="step-h"><span class="no">STEP 06</span><h2 id="h4">想一起合作嗎？</h2><p>預算和時間都 OK 的話，留個聯絡方式，再一起確認細節和檔期。</p></div>
+        <form class="form" id="inq" name="inquiry" novalidate>
+          <input type="hidden" name="summary" id="summaryField">
+          <input type="hidden" name="links" id="linksField">
+          <input type="hidden" name="role" id="roleField"><input type="hidden" name="industry" id="industryField">
+          <p class="hp"><label>請勿填寫 <input name="bot-field"></label></p>
+          <div class="field"><label for="name">怎麼稱呼你</label><input type="text" id="name" name="name" required></div>
+          <div class="field"><label for="brand">品牌名稱 <small class="opt-tag">選填</small></label><input type="text" id="brand" name="brand"></div>
+          <div class="field full"><label for="contact">Email 或 LINE ID</label><input type="text" id="contact" name="contact" required></div>
+          <div class="field full"><label for="msg">想補充的內容 <small class="opt-tag">選填</small></label><textarea id="msg" name="message" placeholder="品牌介紹、使用情境、想要的感覺都可以寫"></textarea></div>
+          <div class="field full"><button class="primary" type="submit" id="send">送出</button></div>
+        </form>
+        <div class="sent" id="sent" hidden></div>
+      </section>
+    </div>
+
+    <aside class="result" id="result" aria-live="polite"></aside>
+  </div>
+
+  <footer><span>YENPOPPY</span><span>試算僅供參考，實際金額以正式報價為準。試算選項會統計，只用來了解大家的需求，不會另作他用。</span></footer>
+</div>
+<div class="mbar" id="mbar"></div>
+
+<script src="/quote/catalog.js"></script>
+<script src="/quote/common.js"></script>
+<script src="/site.js"></script>
+<script>
+(function () {
+  const C = window.CATALOG, Y = window.YP;
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const round100 = n => Math.round(n / 100) * 100;
+  const M = C.publicMenu; // 客戶看到的精簡服務清單
+  const findPub = id => { for (const c of M) for (const it of c.items) if (it.id === id) return { ...it, cat: c.id }; return null; };
+  const st = { cat: M[0].id, qty: {}, opt: {}, styles: ['unsure'], plan: 'std', role: '', industry: '', revealed: false, nudge: false };
+  // 有規格的項目：價格、單位、天數改用所選規格
+  const resolve = it => {
+    if (!it.options) return it;
+    const o = it.options.find(x => x.id === st.opt[it.id]) || it.options[0];
+    return { ...it, ...o, id: it.id, optId: o.id, desc: o.desc || it.desc, name: `${it.name}（${o.name}）`, title: it.name };
+  };
+
+  function lines() {
+    return Object.entries(st.qty).filter(([, n]) => n > 0).map(([id, n]) => ({ ...resolve(findPub(id)), qty: n }));
+  }
+  function calc() {
+    const ls = lines();
+    // 最多搭配 2 種風格：名稱相加，倍率取較高者
+    const picked = C.styles.filter(s => st.styles.includes(s.id));
+    const style = { name: picked.map(s => s.name).join('＋'),
+      rate: [Math.max(...picked.map(s => s.rate[0])), Math.max(...picked.map(s => s.rate[1]))] };
+    let min = 0, max = 0;
+    ls.forEach(l => { min += l.min * l.qty; max += l.max * l.qty; });
+    const plan = C.plans.find(p => p.id === st.plan);
+    min *= style.rate[0] * plan.rate; max *= style.rate[1] * plan.rate;
+    const aiRate = C.addons.find(a => a.id === 'ai-file').rate;
+    const socialMid = ls.filter(l => l.cat === 'social').reduce((s, l) => s + (l.min + l.max) / 2 * l.qty, 0) * (style.rate[0] + style.rate[1]) / 2;
+    const ai = $('#needAi').checked ? Math.round(socialMid * aiRate / 100) * 100 : 0;
+    // 時程
+    const start = new Date(); let left = C.leadDays; const d = new Date(start);
+    while (left > 0) { d.setDate(d.getDate() + 1); if (Y.isWorkday(d)) left--; }
+    const withPrint = ls.map(l => ({ ...l, print: l.print || $('#needPrint').checked }));
+    const sch = ls.length ? Y.schedule(Y.defaultPhases(withPrint, C.reviewDays), Y.iso(d)) : [];
+    const earliest = sch.length ? sch[sch.length - 1].end : null;
+    const workdays = sch.reduce((s, p) => s + p.days, 0);
+    const want = $('#want').value ? Y.parse($('#want').value) : null;
+    let rush = 0, fit = null;
+    if (earliest && want) {
+      fit = want >= earliest;
+      if (!fit) rush = C.addons.find(a => a.id === 'rush').rate;
+    }
+    let lo = round100((min + ai) * (1 + rush)), hi = round100((max + ai) * (1 + rush));
+    const floor = ls.length > 0 && lo < C.minFee; if (floor) { lo = C.minFee; hi = Math.max(hi, C.minFee); }
+    const tax = $('#needInvoice').checked ? C.invoiceTax : 0;
+    lo = round100(lo * (1 + tax)); hi = round100(hi * (1 + tax));
+    return { ls, style, plan, lo, hi, floor, earliest, workdays, start: d, want, fit, rush, ai, tax };
+  }
+
+  function renderCats() {
+    $('#cats').innerHTML = M.map(c => {
+      const n = c.items.filter(i => st.qty[i.id] > 0).length;
+      return `<button role="tab" type="button" data-cat="${c.id}" aria-selected="${c.id === st.cat}">${esc(c.name)}${n ? `<span class="n">${n}</span>` : ''}</button>`;
+    }).join('');
+    const cat = M.find(c => c.id === st.cat);
+    $('#catIntro').textContent = cat.intro;
+    $('#items').innerHTML = cat.items.map(it => {
+      const n = st.qty[it.id] || 0, r = resolve(it);
+      return `<article class="item ${n ? 'on' : ''}">
+        <h3>${esc(it.name)}</h3>
+        ${it.options ? `<div class="opts" role="group" aria-label="${esc(it.name)}規格">${it.options.map(o =>
+          `<button type="button" data-opt="${it.id}" data-o="${o.id}" aria-pressed="${o.id === r.optId}">${esc(o.name)}</button>`).join('')}</div>` : ''}
+        ${r.desc ? `<p class="d">${esc(r.desc)}</p>` : ''}
+        <div class="foot"><div class="pr">${st.revealed ? `${Y.money(r.min)}${r.max > r.min ? ' – ' + Y.num(r.max) : ''} / ${esc(r.unit)}` : '<span class="hid">選好身分和產業就會顯示金額</span>'}<small>約 ${r.days} 個工作天</small></div>
+          ${n ? `<span class="stepper"><button type="button" data-dec="${it.id}" aria-label="減少">−</button><output>${n}</output><button type="button" data-inc="${it.id}" aria-label="增加">＋</button></span>`
+              : `<button class="add" type="button" data-inc="${it.id}">加入</button>`}
+        </div></article>`;
+    }).join('');
+  }
+  function renderStyles() {
+    $('#styles').innerHTML = C.styles.map(s => `<button class="style" type="button" data-style="${s.id}" aria-pressed="${st.styles.includes(s.id)}">
+      <small class="en">${esc(s.en || '')}</small><b>${esc(s.name)}</b>
+      <span>${esc(s.desc)}</span>
+      ${s.eg ? `<span class="eg">例：${esc(s.eg)}</span>` : ''}</button>`).join('');
+  }
+  function renderPlans() {
+    $('#plans').innerHTML = C.plans.map(p => `<button class="style" type="button" data-plan="${p.id}" aria-pressed="${st.plan === p.id}">
+      <small class="en">${esc(p.en)}</small><b>${esc(p.name)}</b>
+      <span class="spec">提案 ${p.proposals} 款<br>修改 ${p.revisions} 次</span>
+      <span>${esc(p.desc)}</span></button>`).join('');
+  }
+  // 參考圖：最多 3 張、合計 8MB（Netlify Forms 單次上傳上限）
+  const refs = [];
+  function renderRefs(msg, err) {
+    $('#thumbs').innerHTML = refs.map((f, i) => `<div class="thumb">${f.type.startsWith('image/') ? `<img src="${URL.createObjectURL(f)}" alt="">` : esc(f.name)}
+      <button type="button" data-rmref="${i}" aria-label="移除 ${esc(f.name)}">✕</button></div>`).join('');
+    const n = $('#refNote'); n.textContent = msg || (refs.length ? `已上傳 ${refs.length} / 3 張` : ''); n.classList.toggle('err', !!err);
+  }
+  function addRefs(files) {
+    let msg = '', err = false;
+    for (const f of files) {
+      if (!/^image\/|application\/pdf/.test(f.type)) { msg = `${f.name} 不是圖片或 PDF 喔`; err = true; continue; }
+      if (refs.length >= 3) { msg = '最多 3 張，其他可以貼連結'; err = true; break; }
+      if (refs.reduce((s, x) => s + x.size, 0) + f.size > 8 * 1024 * 1024) { msg = '檔案超過 8MB 了，可以壓縮一下或改貼連結'; err = true; continue; }
+      refs.push(f);
+    }
+    renderRefs(msg, err);
+  }
+  $('#refPick').addEventListener('change', e => { addRefs([...e.target.files]); e.target.value = ''; });
+  $('#thumbs').addEventListener('click', e => { const b = e.target.closest('[data-rmref]'); if (!b) return; refs.splice(+b.dataset.rmref, 1); renderRefs(); });
+  const drop = $('#drop');
+  ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', e => addRefs([...e.dataTransfer.files]));
+  function renderResult() {
+    const r = calc();
+    if (!r.ls.length) {
+      $('#result').innerHTML = `<div class="eyebrow">YOUR ESTIMATE</div>
+        <div class="range">NT$ —<small>選好項目後，這裡會顯示試算結果</small></div>
+        <p class="note">目前最快 ${C.leadDays} 個工作天後可以開始。</p>`;
+      $('#mbar').innerHTML = '<span>還沒有選項目</span>';
+      $('#send').disabled = true;
+      return;
+    }
+    $('#send').disabled = false;
+    if (!st.revealed) { // 先藏金額：選好身分、產業後按「看試算結果」
+      const miss = [!st.role && '身分', !st.industry && '產業'].filter(Boolean);
+      $('#result').innerHTML = `<div class="eyebrow">YOUR ESTIMATE</div>
+        <div class="range locked">選好後就能看到金額<small>已選 ${r.ls.length} 個項目</small></div>
+        <ul class="picked">${r.ls.map(l => `<li><span>${esc(l.name)} × ${l.qty}</span></li>`).join('')}</ul>
+        ${miss.length ? `<div class="status${st.nudge ? ' warn' : ''}">再選一下上方的${miss.join('和')}，就能看到試算結果。</div>` : ''}
+        <button class="primary" type="button" data-reveal>看試算結果</button>
+        <p class="note">只會記錄你選的項目和稱呼，不會用來聯絡你。</p>`;
+      $('#mbar').innerHTML = `<span>已選 ${r.ls.length} 個項目</span><button class="mbtn" type="button" data-reveal>看試算結果</button>`;
+      return;
+    }
+    let status = '';
+    if (r.want && r.fit === true) status += `<div class="status ok">時間來得及，${Y.short(r.want)} 前可以完成。</div>`;
+    if (r.floor) status += `<div class="status">單次合作 NT$${Y.num(C.minFee)} 起，可以再加幾個項目一起做。</div>`;
+    if (r.want && r.fit === false) status += `<div class="status warn">這個日期比較趕，需要以急件處理，已加上急件費（設計費 +${Math.round(r.rush * 100)}%）。日期能往後一點的話就不用。</div>`;
+    $('#result').innerHTML = `<div class="eyebrow">YOUR ESTIMATE</div>
+      <div class="range">${rng(r)}<small>${r.tax ? '含 5% 營業稅，' : ''}${esc(r.plan.name)}方案，風格：${esc(r.style.name)}</small></div>
+      <dl class="kv">
+        <dt>最快開始</dt><dd>${Y.short(r.start)}</dd>
+        <dt>最快完成</dt><dd>${Y.short(r.earliest)}</dd>
+        <dt>製作時間</dt><dd>約 ${r.workdays} 個工作天</dd>
+        <dt>訂金</dt><dd>${Math.round(C.depositRate * 100)}%，付款後開始製作</dd>
+      </dl>
+      ${status}
+      <ul class="picked">${r.ls.map(l => `<li><span>${esc(l.name)} × ${l.qty}</span><span>${Y.num(l.min * l.qty)}${l.max > l.min ? '–' + Y.num(l.max * l.qty) : ''}</span></li>`).join('')}
+        ${r.ai ? `<li><span>原始檔</span><span>${Y.num(r.ai)}</span></li>` : ''}</ul>
+      <p class="note">提案 ${r.plan.proposals} 款，含 ${r.plan.revisions} 次修改，之後每次 NT$${Y.num(C.revisionFee)}。工作天不含週末，從確認報價、收到訂金和素材的隔天開始算。每個月只接少量案子，檔期以付訂順序安排。${$('#needPrint').checked || r.ls.some(l => l.print) ? '印刷和材料費另計。' : ''}</p>
+      <a href="#h4" class="primary" style="text-decoration:none">想合作，留下聯絡方式</a>`;
+    $('#mbar').innerHTML = `<span>${rng(r)}<br><small>最快 ${Y.short(r.earliest)} 完成</small></span><a href="#result">看明細</a>`;
+  }
+  function summary() {
+    const r = calc();
+    const f = id => $('#' + id).value.trim();
+    return [
+      `【YENPOPPY 合作意向】`,
+      `稱呼：${f('name')}　品牌：${f('brand') || '—'}`,
+      `身分：${st.role || '—'}　產業：${st.industry || '—'}`,
+      `聯絡方式：${f('contact')}`,
+      ``,
+      `需要項目：`,
+      ...r.ls.map(l => `・${l.name} × ${l.qty} ${l.unit}`),
+      `其他想做的：${$('#otherNeed').value.trim() || '—'}`,
+      `風格：${r.style.name}`,
+      `提案與修改：${r.plan.name}（提案 ${r.plan.proposals} 款，修改 ${r.plan.revisions} 次）`,
+      `參考圖：${refs.length ? refs.map(f => f.name).join('、') : '無'}　參考連結：${$('#refLinks').value.trim() || '無'}`,
+      `希望交件：${r.want ? Y.short(r.want) : '未指定'}`,
+      `其他：${[$('#needAi').checked && '原始檔', $('#needPrint').checked && '印刷發包', $('#needInvoice').checked && '需要發票'].filter(Boolean).join('、') || '無'}`,
+      ``,
+      `試算範圍：${rng(r)}${r.tax ? '（含稅）' : ''}`,
+      `最快交件：${r.earliest ? Y.short(r.earliest) : '—'}`,
+      ``,
+      `專案說明：${f('msg') || '—'}`
+    ].join('\n');
+  }
+
+  const rng = r => r.hi > r.lo ? `${Y.money(r.lo)} – ${Y.num(r.hi)}` : `${Y.money(r.lo)} 起`;
+  function render() { syncAi(); renderCats(); renderResult(); }
+  function syncAi() { $('#aiWrap').hidden = !Object.keys(st.qty).some(id => st.qty[id] > 0 && M.find(c => c.id === 'social').items.some(i => i.id === id)); if ($('#aiWrap').hidden) $('#needAi').checked = false; }
+
+  // 關於你：單選，可再點一次取消
+  function renderAbout() {
+    const chip = (key, v) => `<button type="button" data-${key}="${esc(v)}" aria-pressed="${st[key] === v}">${esc(v)}</button>`;
+    $('#roles').innerHTML = C.audience.roles.map(v => chip('role', v)).join('');
+    $('#industries').innerHTML = C.audience.industries.map(v => chip('industry', v)).join('');
+  }
+  document.querySelector('.about').addEventListener('click', e => {
+    const b = e.target.closest('[data-role],[data-industry]'); if (!b) return;
+    const key = b.dataset.role != null ? 'role' : 'industry', v = b.dataset[key];
+    st[key] = st[key] === v ? '' : v; renderAbout(); renderResult(); dirty = true;
+  });
+
+  $('#nick').addEventListener('input', e => { dirty = true; const n = $('#name'); if (!n.dataset.edited) n.value = e.target.value; });
+  $('#name').addEventListener('input', e => { e.target.dataset.edited = '1'; });
+  // 試算統計：離開頁面時記一筆（有選項目才記），送出詢價時再記一筆
+  const sid = Math.random().toString(36).slice(2, 10);
+  let dirty = false;
+  function track(submitted) {
+    if (!C.statsEndpoint) return;
+    const r = calc(); if (!r.ls.length) return;
+    const data = JSON.stringify({
+      sid, submitted: !!submitted, nick: $('#nick').value.trim(), role: st.role, industry: st.industry,
+      items: r.ls.map(l => `${l.name}×${l.qty}`).join('、'), cats: [...new Set(r.ls.map(l => l.cat))].join(','),
+      style: r.style.name, plan: r.plan.name, other: $('#otherNeed').value.trim(), want: r.want ? Y.iso(r.want) : '', rush: !!r.rush, lo: r.lo, hi: r.hi,
+      ref: document.referrer ? new URL(document.referrer).hostname : ''
+    });
+    try { navigator.sendBeacon(C.statsEndpoint, new Blob([data], { type: 'text/plain' })); } catch (err) {}
+  }
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && dirty && st.revealed) { track(false); dirty = false; } });
+  document.addEventListener('click', e => {
+    if (!e.target.closest('[data-reveal]')) return;
+    if (!st.role || !st.industry) { st.nudge = true; renderResult(); $('#h0').scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+    st.revealed = true; track(false); dirty = false; render();
+    if (window.innerWidth <= 920) $('#result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  ['click', 'change'].forEach(ev => document.querySelector('.steps').addEventListener(ev, () => { dirty = true; }));
+  $('#cats').addEventListener('click', e => { const b = e.target.closest('[data-cat]'); if (!b) return; st.cat = b.dataset.cat; renderCats(); });
+  $('#items').addEventListener('click', e => {
+    const opt = e.target.closest('[data-opt]');
+    if (opt) { st.opt[opt.dataset.opt] = opt.dataset.o; if (!st.qty[opt.dataset.opt]) st.qty[opt.dataset.opt] = 1; render(); return; }
+    const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]');
+    if (inc) st.qty[inc.dataset.inc] = (st.qty[inc.dataset.inc] || 0) + 1;
+    if (dec) st.qty[dec.dataset.dec] = Math.max(0, (st.qty[dec.dataset.dec] || 0) - 1);
+    if (inc || dec) render();
+  });
+  $('#styles').addEventListener('click', e => {
+    const b = e.target.closest('[data-style]'); if (!b) return;
+    const id = b.dataset.style, on = st.styles.filter(x => x !== 'unsure');
+    if (id === 'unsure') st.styles = ['unsure'];
+    else if (on.includes(id)) st.styles = on.length > 1 ? on.filter(x => x !== id) : ['unsure'];
+    else st.styles = [...on, id].slice(-2); // 最多 2 種，第 3 種會換掉最早選的
+    renderStyles(); renderResult();
+  });
+  $('#plans').addEventListener('click', e => {
+    const b = e.target.closest('[data-plan]'); if (!b) return;
+    st.plan = b.dataset.plan; renderPlans(); renderResult();
+  });
+  ['want', 'needAi', 'needPrint', 'needInvoice'].forEach(id => $('#' + id).addEventListener('change', renderResult));
+  $('#want').min = Y.iso(new Date());
+
+  // 收件網址在 data/settings.json 的 formEndpoint（Google Apps Script），試算統計也送到同一個網址
+  let epPromise;
+  const endpoint = () => epPromise || (epPromise = fetch('/data/settings.json').then(r => r.json()).then(j => j.formEndpoint || C.statsEndpoint || '').catch(() => C.statsEndpoint || ''));
+  endpoint().then(ep => { C.statsEndpoint = ep; });
+  const toB64 = f => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = no; r.readAsDataURL(f); });
+
+  $('#inq').addEventListener('submit', async e => {
+    e.preventDefault();
+    const form = $('#inq');
+    if (!form.reportValidity()) return;
+    if (form.querySelector('[name="bot-field"]').value) return;
+    const text = summary();
+    const btn = $('#send'); btn.disabled = true; btn.textContent = '送出中⋯';
+    let ok = false;
+    try {
+      const ep = await endpoint();
+      if (ep && location.protocol.startsWith('http')) {
+        const files = await Promise.all(refs.map(async f => ({ name: f.name, type: f.type, data: await toB64(f) })));
+        const f = id => $('#' + id).value.trim();
+        const res = await fetch(ep, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({
+          type: 'quote', name: f('name'), brand: f('brand'), contact: f('contact'), message: f('msg'),
+          role: st.role, industry: st.industry, links: f('refLinks'), summary: text, files }) });
+        ok = res.ok && (await res.text()).trim().startsWith('ok');
+      }
+    } catch (err) { ok = false; }
+    btn.disabled = false; btn.textContent = '送出';
+    const box = $('#sent'); box.hidden = false;
+    box.innerHTML = ok
+      ? `<b>收到了，謝謝！</b><p class="note" style="margin:0">需求已經送出，如果合適會再透過 ${esc($('#contact').value)} 跟你聯繫。這是你的試算內容，可以先留著，也可以先逛逛<a href="/">作品</a>。</p><pre>${esc(text)}</pre>`
+      : `<b>請複製下面的內容寄出</b><p class="note" style="margin:0">目前沒辦法直接送出，可以寄到 <a href="mailto:yenchunpoppy@gmail.com"><b>yenchunpoppy@gmail.com</b></a>。</p>
+         <pre id="sumText">${esc(text)}</pre><div><button class="ghost" type="button" id="copySum">複製內容</button></div>`;
+    if (ok) { track(true); dirty = false; }
+    form.hidden = ok;
+    const cp = $('#copySum');
+    if (cp) cp.addEventListener('click', () => {
+      navigator.clipboard.writeText(text).then(() => cp.textContent = '已複製', () => {
+        const r = document.createRange(); r.selectNodeContents($('#sumText')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); cp.textContent = '已選取，請按複製';
+      });
+    });
+  });
+
+  // 範例：先放主打的 LOGO 設計，讓訪客一進來就看到試算長什麼樣子
+  st.qty = { 'p-brand': 1 }; st.opt = { 'p-brand': 'std' }; st.cat = 'brand';
+  // 手機版：試算結果放在聯絡表單之前，桌機放右側欄
+  const mqMobile = matchMedia('(max-width: 920px)');
+  const placeResult = () => (mqMobile.matches ? $('#resultSlot') : $('.layout')).appendChild($('#result'));
+  mqMobile.addEventListener('change', placeResult); placeResult();
+  renderAbout(); renderStyles(); renderPlans(); render();
+})();
+</script>
+</body>
+</html>
