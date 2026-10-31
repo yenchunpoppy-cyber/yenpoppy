@@ -8,5 +8,6 @@
   "headerBg": "#FAECCC",
   "favicon": "/uploads/yenpoppy-favicon.png",
   "textColor": "#000000",
-  "logoMark": ""
+  "logoMark": "",
+  "formEndpoint": ""
 }

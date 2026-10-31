@@ -1,0 +1,156 @@
+{
+  "seoTitle": "ABOUT",
+  "seoDesc": "YENPOPPY：品牌識別、包裝設計、UI/UX、網頁設計、社群視覺、動態影像、插畫與展示陳列設計，來自台灣。服務過珠寶、美妝、金融、觀光與醫療等產業。",
+  "heroEn": "Brand, packaging & digital design. Taiwan.",
+  "heroZh": "把品牌想說的話，做成看得見、拿得到的東西。",
+  "introImage": "/uploads/about-aluxe-display.jpg",
+  "introImageAlt": "ALUXE 門市珠寶陳列設計",
+  "intro": "品牌識別、包裝、數位介面與展示設計。從品牌想說的話開始，一路跟到印刷、上架和社群。服務過珠寶、美妝、金融、觀光與醫療等產業。",
+  "stats": [
+    {
+      "value": "13",
+      "unit": "年",
+      "label": "品牌與包裝設計經驗"
+    },
+    {
+      "value": "2025",
+      "unit": "",
+      "label": "DesignBIZ 永續實踐獎"
+    },
+    {
+      "value": "",
+      "unit": "+",
+      "label": "合作品牌"
+    }
+  ],
+  "services": [
+    {
+      "en": "Branding",
+      "zh": "品牌識別",
+      "desc": "標誌、識別系統與品牌形象企劃。",
+      "tags": [
+        "Branding",
+        "Art Direction"
+      ]
+    },
+    {
+      "en": "Packaging",
+      "zh": "包裝與商品",
+      "desc": "包裝結構與視覺、贈品和周邊商品。",
+      "tags": [
+        "Packaging"
+      ]
+    },
+    {
+      "en": "Digital",
+      "zh": "數位設計",
+      "desc": "APP 與網站介面、社群視覺、動態影像。",
+      "tags": [
+        "UI/UX",
+        "Web Design",
+        "Social Media",
+        "Motion Graphics"
+      ]
+    },
+    {
+      "en": "Display & Illustration",
+      "zh": "展示與插畫",
+      "desc": "門市陳列、展場、記者會展示與插畫。",
+      "tags": [
+        "Exhibition",
+        "Illustration"
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "name": "ALUXE 亞立詩",
+      "logo": ""
+    },
+    {
+      "name": "ALUXE x Disney",
+      "logo": ""
+    },
+    {
+      "name": "台新金控",
+      "logo": ""
+    },
+    {
+      "name": "觀傳局",
+      "logo": ""
+    },
+    {
+      "name": "ANESSA",
+      "logo": ""
+    },
+    {
+      "name": "專科 SENKA",
+      "logo": ""
+    },
+    {
+      "name": "CLUB Panasonic",
+      "logo": ""
+    },
+    {
+      "name": "et seq.",
+      "logo": ""
+    },
+    {
+      "name": "LOVERS",
+      "logo": ""
+    },
+    {
+      "name": "acredo",
+      "logo": ""
+    },
+    {
+      "name": "VACS",
+      "logo": ""
+    },
+    {
+      "name": "Kite Flying Band",
+      "logo": ""
+    },
+    {
+      "name": "台灣女中醫師協會",
+      "logo": ""
+    },
+    {
+      "name": "w/f flower",
+      "logo": ""
+    },
+    {
+      "name": "Lazy Point",
+      "logo": ""
+    },
+    {
+      "name": "逸歡",
+      "logo": ""
+    }
+  ],
+  "process": [
+    {
+      "en": "Research",
+      "zh": "了解",
+      "desc": "品牌、產品、對象和競品。"
+    },
+    {
+      "en": "Strategy",
+      "zh": "策略",
+      "desc": "找出要傳達的重點和視覺方向。"
+    },
+    {
+      "en": "Design",
+      "zh": "設計",
+      "desc": "提案、討論、修改。"
+    },
+    {
+      "en": "Delivery",
+      "zh": "落地",
+      "desc": "印刷監印、上線、社群素材，一路跟到完成。"
+    }
+  ],
+  "ctaTitle": "想一起合作嗎？",
+  "ctaPrimary": "聯絡我",
+  "ctaSecondary": "看作品"
+}

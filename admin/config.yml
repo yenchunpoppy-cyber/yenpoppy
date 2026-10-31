@@ -35,6 +35,12 @@ collections:
             widget: image
             required: false
 
+          - label: 表單收件網址（Google Apps Script）
+            name: formEndpoint
+            widget: string
+            required: false
+            hint: "Contact 表單和估價表送出時寄到這裡；留空時改用客戶自己的 Email 寄出。設定方式見 apps-script/設定步驟.md"
+
           - label: Favicon
             name: favicon
             widget: image
@@ -135,11 +141,102 @@ collections:
                 options:
                   - { label: "作品列表頁（WORKS）", value: works }
                   - { label: "模塊頁面", value: page }
+                  - { label: "連結（例如估價表 /quote/）", value: link }
 
               - label: 連到的頁面（slug，類型選模塊頁面時填）
                 name: page
                 widget: string
                 required: false
+
+              - label: 連結網址（類型選連結時填）
+                name: url
+                widget: string
+                required: false
+
+      - name: about
+        label: ABOUT 頁
+        file: data/about.json
+        fields:
+          - { label: SEO 頁面標題, name: seoTitle, widget: string, required: false }
+          - { label: SEO 描述（搜尋結果顯示的介紹，建議寫進各服務關鍵字）, name: seoDesc, widget: text, required: false }
+          - { label: 英文大標, name: heroEn, widget: string }
+          - { label: 中文副標, name: heroZh, widget: string, required: false }
+          - { label: 介紹圖片（作品局部照）, name: introImage, widget: image, required: false }
+          - { label: 介紹圖片替代文字, name: introImageAlt, widget: string, required: false }
+          - { label: 品牌介紹, name: intro, widget: text }
+          - label: 數字
+            name: stats
+            widget: list
+            hint: "最多 3 個。單位填 + 且數字留空時，會自動帶入合作品牌數量"
+            max: 3
+            fields:
+              - { label: 數字, name: value, widget: string, required: false }
+              - { label: 單位, name: unit, widget: string, required: false }
+              - { label: 說明, name: label, widget: string }
+          - label: 服務項目
+            name: services
+            widget: list
+            summary: "{{fields.zh}}"
+            fields:
+              - { label: 英文名稱, name: en, widget: string }
+              - { label: 中文名稱, name: zh, widget: string }
+              - { label: 說明, name: desc, widget: string }
+              - label: 對應的作品標籤（點了會篩選作品）
+                name: tags
+                widget: select
+                multiple: true
+                options: ["Branding", "Packaging", "UI/UX", "Web Design", "Motion Graphics", "Illustration", "Art Direction", "Exhibition", "Social Media"]
+          - label: 合作品牌
+            name: clients
+            widget: list
+            summary: "{{fields.name}}"
+            hint: "有 logo 就上傳（透明背景 PNG 或 SVG，會自動轉成黑色）；沒有 logo 會顯示品牌名稱"
+            fields:
+              - { label: 品牌名稱, name: name, widget: string }
+              - { label: Logo, name: logo, widget: image, required: false }
+          - label: 設計方法
+            name: process
+            widget: list
+            summary: "{{fields.zh}}"
+            fields:
+              - { label: 英文, name: en, widget: string }
+              - { label: 中文, name: zh, widget: string }
+              - { label: 說明, name: desc, widget: string }
+          - { label: 結尾標題, name: ctaTitle, widget: string }
+          - { label: 主要按鈕文字（連到 Contact）, name: ctaPrimary, widget: string }
+          - { label: 次要按鈕文字（連到作品）, name: ctaSecondary, widget: string }
+
+      - name: contact
+        label: CONTACT 頁
+        file: data/contact.json
+        fields:
+          - { label: SEO 頁面標題, name: seoTitle, widget: string, required: false }
+          - { label: SEO 描述, name: seoDesc, widget: text, required: false }
+          - { label: 標題, name: title, widget: string }
+          - label: 兩條路卡片
+            name: paths
+            widget: list
+            max: 2
+            summary: "{{fields.title}}"
+            fields:
+              - { label: 標題, name: title, widget: string }
+              - { label: 說明, name: desc, widget: string }
+              - { label: 按鈕文字, name: button, widget: string }
+              - { label: 連結, name: href, widget: string }
+          - { label: 預算選項, name: budgets, widget: list, field: { label: 選項, name: option, widget: string } }
+          - { label: Email, name: email, widget: string }
+          - { label: Instagram 網址, name: instagram, widget: string, required: false }
+          - { label: LinkedIn 網址, name: linkedin, widget: string, required: false }
+          - label: 常見問題
+            name: faq
+            widget: list
+            summary: "{{fields.q}}"
+            hint: "回答裡可以用 [文字](網址) 放連結"
+            fields:
+              - { label: 問題, name: q, widget: string }
+              - { label: 回答, name: a, widget: text }
+          - { label: 送出成功標題, name: sentTitle, widget: string }
+          - { label: 送出成功說明, name: sentText, widget: text }
 
   # ── 2. 頁面（模塊頁引擎）──
   - name: pages
