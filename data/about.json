@@ -2,26 +2,27 @@
   "seoTitle": "ABOUT",
   "seoDesc": "YENPOPPY：品牌識別、包裝設計、UI/UX、網頁設計、社群視覺、動態影像、插畫與展示陳列設計，來自台灣。服務過珠寶、美妝、金融、觀光與醫療等產業。",
   "heroEn": "Brand, packaging & digital design. Taiwan.",
-  "heroZh": "把品牌想說的話，做成看得見、拿得到的東西。",
-  "introImage": "/uploads/about-aluxe-display.jpg",
-  "introImageAlt": "ALUXE 門市珠寶陳列設計",
+  "heroZh": "台灣品牌與包裝設計",
+  "introImage": "/uploads/about-poppy-stationery.jpg",
+  "introImageAlt": "罌粟果紙製文具",
   "intro": "品牌識別、包裝、數位介面與展示設計。從品牌想說的話開始，一路跟到印刷、上架和社群。服務過珠寶、美妝、金融、觀光與醫療等產業。",
   "stats": [
     {
       "value": "13",
       "unit": "年",
       "label": "品牌與包裝設計經驗"
-    },
-    {
-      "value": "2025",
-      "unit": "",
-      "label": "DesignBIZ 永續實踐獎"
-    },
-    {
-      "value": "",
-      "unit": "+",
-      "label": "合作品牌"
     }
+  ],
+  "awards": [
+    {
+      "title": "2025 DesignBIZ 永續實踐獎",
+      "work": "生態博覽會"
+    }
+  ],
+  "featured": [
+    "aluxe-display",
+    "et-seq-nail",
+    "disney-press"
   ],
   "services": [
     {
@@ -31,7 +32,8 @@
       "tags": [
         "Branding",
         "Art Direction"
-      ]
+      ],
+      "work": "vacs"
     },
     {
       "en": "Packaging",
@@ -39,7 +41,8 @@
       "desc": "包裝結構與視覺、贈品和周邊商品。",
       "tags": [
         "Packaging"
-      ]
+      ],
+      "work": "kite-flying"
     },
     {
       "en": "Digital",
@@ -50,7 +53,8 @@
         "Web Design",
         "Social Media",
         "Motion Graphics"
-      ]
+      ],
+      "work": "heath-forest"
     },
     {
       "en": "Display & Illustration",
@@ -59,95 +63,126 @@
       "tags": [
         "Exhibition",
         "Illustration"
-      ]
+      ],
+      "work": "disney-princess"
     }
   ],
-  "clients": [
+  "clientGroups": [
     {
-      "name": "ALUXE 亞立詩",
-      "logo": ""
+      "industry": "珠寶",
+      "clients": [
+        {
+          "name": "ALUXE 亞立詩",
+          "logo": ""
+        },
+        {
+          "name": "ALUXE x Disney",
+          "logo": ""
+        },
+        {
+          "name": "LOVERS",
+          "logo": ""
+        },
+        {
+          "name": "acredo",
+          "logo": ""
+        },
+        {
+          "name": "逸歡",
+          "logo": ""
+        }
+      ]
     },
     {
-      "name": "ALUXE x Disney",
-      "logo": ""
+      "industry": "美妝",
+      "clients": [
+        {
+          "name": "ANESSA",
+          "logo": ""
+        },
+        {
+          "name": "專科 SENKA",
+          "logo": ""
+        },
+        {
+          "name": "et seq.",
+          "logo": ""
+        }
+      ]
     },
     {
-      "name": "台新金控",
-      "logo": ""
+      "industry": "金融",
+      "clients": [
+        {
+          "name": "台新金控",
+          "logo": ""
+        }
+      ]
     },
     {
-      "name": "觀傳局",
-      "logo": ""
+      "industry": "觀光與公部門",
+      "clients": [
+        {
+          "name": "觀傳局",
+          "logo": ""
+        }
+      ]
     },
     {
-      "name": "ANESSA",
-      "logo": ""
+      "industry": "醫療",
+      "clients": [
+        {
+          "name": "台灣女中醫師協會",
+          "logo": ""
+        }
+      ]
     },
     {
-      "name": "專科 SENKA",
-      "logo": ""
-    },
-    {
-      "name": "CLUB Panasonic",
-      "logo": ""
-    },
-    {
-      "name": "et seq.",
-      "logo": ""
-    },
-    {
-      "name": "LOVERS",
-      "logo": ""
-    },
-    {
-      "name": "acredo",
-      "logo": ""
-    },
-    {
-      "name": "VACS",
-      "logo": ""
-    },
-    {
-      "name": "Kite Flying Band",
-      "logo": ""
-    },
-    {
-      "name": "台灣女中醫師協會",
-      "logo": ""
-    },
-    {
-      "name": "w/f flower",
-      "logo": ""
-    },
-    {
-      "name": "Lazy Point",
-      "logo": ""
-    },
-    {
-      "name": "逸歡",
-      "logo": ""
+      "industry": "生活與文創",
+      "clients": [
+        {
+          "name": "CLUB Panasonic",
+          "logo": ""
+        },
+        {
+          "name": "VACS",
+          "logo": ""
+        },
+        {
+          "name": "Kite Flying Band",
+          "logo": ""
+        },
+        {
+          "name": "w/f flower",
+          "logo": ""
+        },
+        {
+          "name": "Lazy Point",
+          "logo": ""
+        }
+      ]
     }
   ],
   "process": [
     {
       "en": "Research",
       "zh": "了解",
-      "desc": "品牌、產品、對象和競品。"
+      "desc": "聊品牌、看產品和通路，整理競品與目標客群。"
     },
     {
       "en": "Strategy",
       "zh": "策略",
-      "desc": "找出要傳達的重點和視覺方向。"
+      "desc": "定出要傳達的重點，提出 2～3 個視覺方向。"
     },
     {
       "en": "Design",
       "zh": "設計",
-      "desc": "提案、討論、修改。"
+      "desc": "提案、討論、修改，細節到材質和工法。"
     },
     {
       "en": "Delivery",
       "zh": "落地",
-      "desc": "印刷監印、上線、社群素材，一路跟到完成。"
+      "desc": "印刷廠監印、打樣確認，上架後接著做社群素材。"
     }
   ],
   "ctaTitle": "想一起合作嗎？",

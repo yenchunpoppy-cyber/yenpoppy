@@ -720,50 +720,74 @@ function setPageMeta(title, desc) {
 }
 
 async function renderAboutPage() {
-  const d = await fetchJSON('/data/about.json');
+  const [d, worksData] = await Promise.all([fetchJSON('/data/about.json'), fetchJSON('/data/works.json')]);
   setPageMeta(d.seoTitle || 'ABOUT', d.seoDesc);
   const container = document.getElementById('page-content');
-  const clients = (d.clients || []).filter(c => c && c.name);
-  const stats = (d.stats || []).map(s => ({ ...s, value: s.value || (s.unit === '+' ? String(clients.length) : '') })).filter(s => s.value);
+  const works = worksData.works || [];
+  const byId = id => works.find(w => w.id === id);
+  const countTag = t => works.filter(w => (w.tags || []).includes(t)).length;
+  const stats = (d.stats || []).filter(s => s.value);
+  const awards = (d.awards || []).filter(a => a.title);
+  const featured = (d.featured || []).map(byId).filter(Boolean);
+  const groups = (d.clientGroups || []).map(g => ({ ...g, clients: (g.clients || []).filter(c => c && c.name) })).filter(g => g.clients.length);
+  const thumb = w => w && w.thumbnail ? escHTML(fixImgUrl(w.thumbnail)) : '';
 
   const el = document.createElement('div');
   el.className = 'info-page about-page';
   el.innerHTML = `
     <section class="ab-hero">
       <p class="eyebrow">ABOUT</p>
-      <h1 class="ab-hero__en">${escHTML(d.heroEn)}</h1>
-      ${d.heroZh ? `<p class="ab-hero__zh">${escHTML(d.heroZh)}</p>` : ''}
+      <p class="ab-hero__en">${escHTML(d.heroEn)}</p>
+      ${d.heroZh ? `<h1 class="ab-hero__zh">${escHTML(d.heroZh)}</h1>` : ''}
     </section>
 
     <section class="ab-intro">
       ${d.introImage ? `<div class="ab-intro__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : ''}
       <div class="ab-intro__text">
         <p>${escHTML(d.intro)}</p>
-        ${stats.length ? `<dl class="ab-stats">${stats.map(s => `
-          <div><dt>${escHTML(s.value)}<small>${escHTML(s.unit)}</small></dt><dd>${escHTML(s.label)}</dd></div>`).join('')}
+        ${stats.length || awards.length ? `<dl class="ab-facts">
+          ${stats.map(s => `<div><dt>${escHTML(s.label)}</dt><dd><b>${escHTML(s.value)}</b>${escHTML(s.unit)}</dd></div>`).join('')}
+          ${awards.map(a => `<div><dt>得獎</dt><dd>${escHTML(a.title)}${a.work ? `<span>｜${escHTML(a.work)}</span>` : ''}</dd></div>`).join('')}
         </dl>` : ''}
       </div>
     </section>
 
+    ${featured.length ? `<section class="info-sec">
+      <h2 class="info-h"><span>SELECTED WORKS</span>代表作品</h2>
+      <div class="ab-featured">${featured.map(w => `
+        <a class="ab-work" href="/works/${encodeURIComponent(w.id)}">
+          <div class="ab-work__img"><img src="${thumb(w)}" alt="${escHTML(w.thumbnailAlt || w.title)}" loading="lazy"></div>
+          <h3>${escHTML(w.title)}</h3>
+          ${w.caption ? `<p>${escHTML(w.caption)}</p>` : ''}
+        </a>`).join('')}
+      </div>
+    </section>` : ''}
+
     <section class="info-sec">
       <h2 class="info-h"><span>SERVICES</span>服務項目</h2>
-      <div class="ab-services">${(d.services || []).map(s => `
+      <div class="ab-services">${(d.services || []).map(s => {
+        const tags = (s.tags || []).filter(t => countTag(t));
+        const w = byId(s.work);
+        return `
         <div class="ab-service">
+          ${w ? `<a class="ab-service__img" href="/?tag=${encodeURIComponent(tags[0] || '')}" tabindex="-1" aria-hidden="true"><img src="${thumb(w)}" alt="" loading="lazy"></a>` : ''}
           <p class="ab-service__en">${escHTML(s.en)}</p>
           <h3>${escHTML(s.zh)}</h3>
           <p class="ab-service__desc">${escHTML(s.desc)}</p>
-          <div class="ab-service__tags">${(s.tags || []).map(t =>
-            `<a href="/?tag=${encodeURIComponent(t)}">${escHTML(t)}</a>`).join('')}</div>
-        </div>`).join('')}
+          <p class="ab-service__tags">${tags.map(t =>
+            `<a href="/?tag=${encodeURIComponent(t)}">${escHTML(t)} <span>${countTag(t)}</span></a>`).join('')}</p>
+        </div>`;
+      }).join('')}
       </div>
     </section>
 
-    ${clients.length ? `<section class="info-sec">
+    ${groups.length ? `<section class="info-sec">
       <h2 class="info-h"><span>CLIENTS</span>合作品牌</h2>
-      <ul class="ab-clients">${clients.map(c => `<li>${c.logo
-        ? `<img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" loading="lazy">`
-        : `<span>${escHTML(c.name)}</span>`}</li>`).join('')}
-      </ul>
+      <dl class="ab-clients">${groups.map(g => `
+        <div><dt>${escHTML(g.industry)}</dt><dd>${g.clients.map(c => c.logo
+          ? `<img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" loading="lazy">`
+          : `<span>${escHTML(c.name)}</span>`).join('')}</dd></div>`).join('')}
+      </dl>
     </section>` : ''}
 
     <section class="info-sec">
@@ -790,6 +814,7 @@ async function renderAboutPage() {
     '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'YENPOPPY',
     url: location.origin + '/', description: d.seoDesc || d.intro, areaServed: 'TW',
     knowsAbout: (d.services || []).flatMap(s => [s.zh, ...(s.tags || [])]),
+    award: awards.map(a => a.title),
   });
   document.head.appendChild(ld);
 }

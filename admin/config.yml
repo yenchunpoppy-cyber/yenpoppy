@@ -167,12 +167,29 @@ collections:
           - label: 數字
             name: stats
             widget: list
-            hint: "最多 3 個。單位填 + 且數字留空時，會自動帶入合作品牌數量"
-            max: 3
+            max: 2
             fields:
               - { label: 數字, name: value, widget: string, required: false }
               - { label: 單位, name: unit, widget: string, required: false }
               - { label: 說明, name: label, widget: string }
+          - label: 得獎
+            name: awards
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: 獎項名稱（含年份）, name: title, widget: string }
+              - { label: 得獎作品, name: work, widget: string, required: false }
+          - label: 代表作品（3 件）
+            name: featured
+            widget: relation
+            collection: works
+            file: works_index
+            search_fields: ["works.*.title"]
+            value_field: "works.*.id"
+            display_fields: ["works.*.title"]
+            multiple: true
+            max: 3
+            required: false
           - label: 服務項目
             name: services
             widget: list
@@ -181,19 +198,26 @@ collections:
               - { label: 英文名稱, name: en, widget: string }
               - { label: 中文名稱, name: zh, widget: string }
               - { label: 說明, name: desc, widget: string }
+              - { label: 代表作品 ID（用它的封面圖）, name: work, widget: string, required: false }
               - label: 對應的作品標籤（點了會篩選作品）
                 name: tags
                 widget: select
                 multiple: true
                 options: ["Branding", "Packaging", "UI/UX", "Web Design", "Motion Graphics", "Illustration", "Art Direction", "Exhibition", "Social Media"]
-          - label: 合作品牌
-            name: clients
+          - label: 合作品牌（依產業分組）
+            name: clientGroups
             widget: list
-            summary: "{{fields.name}}"
-            hint: "有 logo 就上傳（透明背景 PNG 或 SVG，會自動轉成黑色）；沒有 logo 會顯示品牌名稱"
+            summary: "{{fields.industry}}"
             fields:
-              - { label: 品牌名稱, name: name, widget: string }
-              - { label: Logo, name: logo, widget: image, required: false }
+              - { label: 產業, name: industry, widget: string }
+              - label: 品牌
+                name: clients
+                widget: list
+                summary: "{{fields.name}}"
+                hint: "有 logo 就上傳（透明背景 PNG 或 SVG，會自動轉成黑色）；沒有 logo 會顯示品牌名稱"
+                fields:
+                  - { label: 品牌名稱, name: name, widget: string }
+                  - { label: Logo, name: logo, widget: image, required: false }
           - label: 設計方法
             name: process
             widget: list
