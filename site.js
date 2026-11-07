@@ -141,9 +141,10 @@ async function renderNav() {
   const currentPage = document.body.dataset.page; // 'works' | 'page' | 'work'
 
   data.items.forEach(item => {
-    const href = item.type === 'works' ? '/' : `/pages/${item.page}`;
+    const href = item.type === 'works' ? '/' : item.type === 'link' ? (item.url || '/') : `/pages/${item.page}`;
     const isActive = (item.type === 'works' && currentPage === 'works') ||
-                     (item.type === 'page' && currentSlug === item.page);
+                     (item.type === 'page' && currentPage === 'page' && currentSlug === item.page) ||
+                     (item.type === 'link' && href.startsWith('/') && href !== '/' && location.pathname.startsWith(href.replace(/\/$/, '')));
 
     const a = document.createElement('a');
     a.href = href;
@@ -216,7 +217,7 @@ async function renderWorksGrid() {
   if (homeBg) document.body.style.background = homeBg;
 
   // SEO title
-  document.title = 'WORKS | YEN POPPY';
+  document.title = 'WORKS | YENPOPPY';
 
   const grid = document.getElementById('works-grid');
   if (!grid) return;
@@ -360,6 +361,8 @@ function createWorkCard(work) {
 async function renderModulePage() {
   const slug = getCurrentSlug();
   if (!slug) return;
+  if (slug === 'about')   return renderAboutPage();
+  if (slug === 'contact') return renderContactPage();
 
   const [pageData, tagsData, worksData, settings] = await Promise.all([
     fetchJSON(`/data/pages/${slug}.json`),
@@ -369,7 +372,7 @@ async function renderModulePage() {
   ]);
 
   // SEO
-  document.title = (pageData.seoTitle || pageData.title) + ' | YEN POPPY';
+  document.title = (pageData.seoTitle || pageData.title) + ' | YENPOPPY';
   const metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc && (pageData.seoDesc || pageData.title)) {
     metaDesc.content = pageData.seoDesc || pageData.title;
@@ -438,7 +441,7 @@ async function renderWorkPage() {
   }
 
   // SEO
-  document.title = (work.seoTitle || work.title) + ' | YEN POPPY';
+  document.title = (work.seoTitle || work.title) + ' | YENPOPPY';
   const metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc && (work.seoDesc || work.description)) metaDesc.content = work.seoDesc || work.description;
 
@@ -673,6 +676,13 @@ function markdownToHTML(md) {
 async function init() {
   // URL-based SPA routingï¼Cloudflare ææè·¯å¾é½åå³ index.htmlï¼
   const path = location.pathname;
+  if (path.startsWith('/quote')) {
+    // 估價表是獨立頁面（quote/index.html），只套用頁首和導覽列
+    await applySettings().catch(console.warn);
+    await renderNav().catch(console.warn);
+    initHamburger();
+    return;
+  }
   if (path.startsWith('/works/')) document.body.dataset.page = 'work';
   else if (path.startsWith('/pages/')) document.body.dataset.page = 'page';
   else document.body.dataset.page = 'works';
@@ -690,6 +700,245 @@ async function init() {
   } else if (page === 'work') {
     await renderWorkPage().catch(console.error);
   }
+}
+
+
+// ─────────────────────────────────────────────
+// ABOUT / CONTACT（資料在 data/about.json、data/contact.json，CMS 可改）
+// ─────────────────────────────────────────────
+const escHTML = v => String(v == null ? '' : v)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+// 只支援 [文字](網址)，其他照原文顯示
+const inlineLinks = v => escHTML(v).replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, t, u) =>
+  /^(https?:\/\/|\/|#|mailto:)/.test(u) ? `<a href="${u}">${t}</a>` : m);
+
+function setPageMeta(title, desc) {
+  document.title = title + ' | YENPOPPY';
+  const m = document.querySelector('meta[name="description"]');
+  if (m && desc) m.content = desc;
+}
+
+async function renderAboutPage() {
+  const [d, worksData] = await Promise.all([fetchJSON('/data/about.json'), fetchJSON('/data/works.json')]);
+  setPageMeta(d.seoTitle || 'ABOUT', d.seoDesc);
+  const container = document.getElementById('page-content');
+  const works = worksData.works || [];
+  const byId = id => works.find(w => w.id === id);
+  const countTag = t => works.filter(w => (w.tags || []).includes(t)).length;
+  const stats = (d.stats || []).filter(s => s.value);
+  const awards = (d.awards || []).filter(a => a.title);
+  const featured = (d.featured || []).map(byId).filter(Boolean);
+  const groups = (d.clientGroups || []).map(g => ({ ...g, clients: (g.clients || []).filter(c => c && c.name) })).filter(g => g.clients.length);
+  const thumb = w => w && w.thumbnail ? escHTML(fixImgUrl(w.thumbnail)) : '';
+
+  const el = document.createElement('div');
+  el.className = 'info-page about-page';
+  el.innerHTML = `
+    <section class="ab-hero">
+      <p class="eyebrow">ABOUT</p>
+      <p class="ab-hero__en">${escHTML(d.heroEn)}</p>
+      ${d.heroZh ? `<h1 class="ab-hero__zh">${escHTML(d.heroZh)}</h1>` : ''}
+    </section>
+
+    <section class="ab-intro">
+      ${d.introImage ? `<div class="ab-intro__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : ''}
+      <div class="ab-intro__text">
+        <p>${escHTML(d.intro)}</p>
+        ${stats.length || awards.length ? `<dl class="ab-facts">
+          ${stats.map(s => `<div><dt>${escHTML(s.label)}</dt><dd><b>${escHTML(s.value)}</b>${escHTML(s.unit)}</dd></div>`).join('')}
+          ${awards.map(a => `<div><dt>得獎</dt><dd>${escHTML(a.title)}${a.work ? `<span>｜${escHTML(a.work)}</span>` : ''}</dd></div>`).join('')}
+        </dl>` : ''}
+      </div>
+    </section>
+
+    ${featured.length ? `<section class="info-sec">
+      <h2 class="info-h"><span>SELECTED WORKS</span>代表作品</h2>
+      <div class="ab-featured">${featured.map(w => `
+        <a class="ab-work" href="/works/${encodeURIComponent(w.id)}">
+          <div class="ab-work__img"><img src="${thumb(w)}" alt="${escHTML(w.thumbnailAlt || w.title)}" loading="lazy"></div>
+          <h3>${escHTML(w.title)}</h3>
+          ${w.caption ? `<p>${escHTML(w.caption)}</p>` : ''}
+        </a>`).join('')}
+      </div>
+    </section>` : ''}
+
+    <section class="info-sec">
+      <h2 class="info-h"><span>SERVICES</span>服務項目</h2>
+      <div class="ab-services">${(d.services || []).map(s => {
+        const tags = (s.tags || []).filter(t => countTag(t));
+        const w = byId(s.work);
+        return `
+        <div class="ab-service">
+          ${w ? `<a class="ab-service__img" href="/?tag=${encodeURIComponent(tags[0] || '')}" tabindex="-1" aria-hidden="true"><img src="${thumb(w)}" alt="" loading="lazy"></a>` : ''}
+          <p class="ab-service__en">${escHTML(s.en)}</p>
+          <h3>${escHTML(s.zh)}</h3>
+          <p class="ab-service__desc">${escHTML(s.desc)}</p>
+          <p class="ab-service__tags">${tags.map(t =>
+            `<a href="/?tag=${encodeURIComponent(t)}">${escHTML(t)} <span>${countTag(t)}</span></a>`).join('')}</p>
+        </div>`;
+      }).join('')}
+      </div>
+    </section>
+
+    ${groups.length ? `<section class="info-sec">
+      <h2 class="info-h"><span>CLIENTS</span>合作品牌</h2>
+      <dl class="ab-clients">${groups.map(g => `
+        <div><dt>${escHTML(g.industry)}</dt><dd>${g.clients.map(c => c.logo
+          ? `<img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" loading="lazy">`
+          : `<span>${escHTML(c.name)}</span>`).join('')}</dd></div>`).join('')}
+      </dl>
+    </section>` : ''}
+
+    <section class="info-sec">
+      <h2 class="info-h"><span>PROCESS</span>設計方法</h2>
+      <ol class="ab-process">${(d.process || []).map((p, i) => `
+        <li><span class="no">0${i + 1}</span><p class="ab-process__en">${escHTML(p.en)}</p>
+          <h3>${escHTML(p.zh)}</h3><p>${escHTML(p.desc)}</p></li>`).join('')}
+      </ol>
+    </section>
+
+    <section class="info-cta">
+      <h2>${escHTML(d.ctaTitle)}</h2>
+      <div class="info-cta__btns">
+        <a class="btn btn--primary" href="/pages/contact">${escHTML(d.ctaPrimary)}</a>
+        <a class="btn" href="/">${escHTML(d.ctaSecondary)}</a>
+      </div>
+    </section>`;
+  container.appendChild(el);
+
+  // 結構化資料：讓搜尋引擎認得這是設計服務
+  const ld = document.createElement('script');
+  ld.type = 'application/ld+json';
+  ld.textContent = JSON.stringify({
+    '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'YENPOPPY',
+    url: location.origin + '/', description: d.seoDesc || d.intro, areaServed: 'TW',
+    knowsAbout: (d.services || []).flatMap(s => [s.zh, ...(s.tags || [])]),
+    award: awards.map(a => a.title),
+  });
+  document.head.appendChild(ld);
+}
+
+async function renderContactPage() {
+  const [d, settings, tagsData] = await Promise.all([
+    fetchJSON('/data/contact.json'), fetchJSON('/data/settings.json'), fetchJSON('/data/tags.json'),
+  ]);
+  setPageMeta(d.seoTitle || 'CONTACT', d.seoDesc);
+  const container = document.getElementById('page-content');
+  const tags = (tagsData.tags || []).map(t => t.name).filter(Boolean);
+  const email = d.email || '';
+
+  const el = document.createElement('div');
+  el.className = 'info-page contact-page';
+  el.innerHTML = `
+    <section class="ab-hero">
+      <p class="eyebrow">CONTACT</p>
+      <h1 class="ab-hero__zh ab-hero__zh--lg">${escHTML(d.title)}</h1>
+    </section>
+
+    <section class="ct-paths">${(d.paths || []).map(p => `
+      <a class="ct-path" href="${escHTML(p.href)}">
+        <h2>${escHTML(p.title)}</h2>
+        <p>${escHTML(p.desc)}</p>
+        <span class="ct-path__go">${escHTML(p.button)} →</span>
+      </a>`).join('')}
+    </section>
+
+    <section class="info-sec" id="contact-form">
+      <h2 class="info-h"><span>FORM</span>聯絡表單</h2>
+      <form class="ct-form" novalidate>
+        <p class="hp" aria-hidden="true"><label>請勿填寫 <input name="website" tabindex="-1" autocomplete="off"></label></p>
+        <div class="f"><label for="cf-name">怎麼稱呼你</label><input id="cf-name" name="name" required maxlength="60" autocomplete="name"></div>
+        <div class="f"><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" required maxlength="120" autocomplete="email"></div>
+        <div class="f f--full"><span class="lbl" id="cf-svc-l">想做什麼 <small>可複選</small></span>
+          <div class="ct-chips" role="group" aria-labelledby="cf-svc-l">${tags.map(t =>
+            `<button type="button" aria-pressed="false" data-svc="${escHTML(t)}">${escHTML(t)}</button>`).join('')}</div>
+          <p class="ct-err" id="cf-svc-err" hidden>請至少選一項</p></div>
+        <div class="f"><label for="cf-budget">預算範圍 <small class="opt">選填</small></label>
+          <select id="cf-budget" name="budget"><option value="">請選擇</option>${(d.budgets || []).map(b =>
+            `<option>${escHTML(b)}</option>`).join('')}</select></div>
+        <div class="f"><label for="cf-date">希望完成時間 <small class="opt">選填</small></label><input id="cf-date" name="date" type="date"></div>
+        <div class="f f--full"><label for="cf-brand">公司／品牌名稱 <small class="opt">選填</small></label><input id="cf-brand" name="brand" maxlength="80" autocomplete="organization"></div>
+        <div class="f f--full"><label for="cf-msg">想說的話 <small class="opt">選填</small></label><textarea id="cf-msg" name="message" rows="5" maxlength="2000" placeholder="品牌介紹、想做的內容、使用情境都可以寫"></textarea></div>
+        <div class="f f--full"><label for="cf-link">參考資料連結 <small class="opt">選填</small></label><input id="cf-link" name="link" type="url" maxlength="300" placeholder="Google 雲端、Pinterest、品牌網站等"></div>
+        <div class="f f--full"><button class="btn btn--primary" type="submit">送出</button></div>
+      </form>
+      <div class="ct-sent" hidden></div>
+    </section>
+
+    <section class="info-sec">
+      <h2 class="info-h"><span>ELSEWHERE</span>其他聯絡方式</h2>
+      <ul class="ct-links">
+        ${email ? `<li><span class="k">EMAIL</span><a href="mailto:${escHTML(email)}">${escHTML(email)}</a><button type="button" class="ct-copy" data-copy="${escHTML(email)}">複製</button></li>` : ''}
+        ${d.instagram ? `<li><span class="k">INSTAGRAM</span><a href="${escHTML(d.instagram)}" target="_blank" rel="noopener">${escHTML(d.instagram.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
+        ${d.linkedin ? `<li><span class="k">LINKEDIN</span><a href="${escHTML(d.linkedin)}" target="_blank" rel="noopener">${escHTML(d.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
+      </ul>
+    </section>
+
+    ${(d.faq || []).length ? `<section class="info-sec">
+      <h2 class="info-h"><span>FAQ</span>常見問題</h2>
+      <div class="ct-faq">${d.faq.map(f => `
+        <details><summary>${escHTML(f.q)}</summary><p>${inlineLinks(f.a)}</p></details>`).join('')}
+      </div>
+    </section>` : ''}`;
+  container.appendChild(el);
+
+  const form = el.querySelector('.ct-form');
+  const svcErr = el.querySelector('#cf-svc-err');
+  el.querySelector('.ct-chips').addEventListener('click', e => {
+    const b = e.target.closest('[data-svc]'); if (!b) return;
+    b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    svcErr.hidden = true;
+  });
+  el.querySelectorAll('.ct-copy').forEach(b => b.addEventListener('click', () => {
+    navigator.clipboard.writeText(b.dataset.copy).then(() => { b.textContent = '已複製'; }, () => {});
+  }));
+  el.querySelector('#cf-date').min = new Date().toISOString().slice(0, 10);
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const services = [...form.querySelectorAll('[data-svc][aria-pressed="true"]')].map(b => b.dataset.svc);
+    svcErr.hidden = services.length > 0;
+    if (!form.reportValidity() || !services.length) return;
+    if (form.website.value) return; // 機器人
+
+    const data = {
+      type: 'contact', name: form.name.value.trim(), email: form.email.value.trim(), services: services.join('、'),
+      budget: form.budget.value, date: form.date.value, brand: form.brand.value.trim(),
+      message: form.message.value.trim(), link: form.link.value.trim(),
+    };
+    const summary = [
+      `稱呼：${data.name}`, `Email：${data.email}`, `想做什麼：${data.services}`,
+      `預算範圍：${data.budget || '—'}`, `希望完成：${data.date || '—'}`, `公司／品牌：${data.brand || '—'}`,
+      `參考連結：${data.link || '—'}`, '', data.message || '',
+    ].join('\n');
+
+    const btn = form.querySelector('[type="submit"]');
+    btn.disabled = true; btn.textContent = '送出中⋯';
+    let ok = false;
+    if (settings.formEndpoint) {
+      try {
+        const res = await fetch(settings.formEndpoint, {
+          method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ...data, summary }),
+        });
+        ok = res.ok && (await res.text()).trim().startsWith('ok');
+      } catch (err) { ok = false; }
+    }
+    btn.disabled = false; btn.textContent = '送出';
+
+    const box = el.querySelector('.ct-sent');
+    box.hidden = false;
+    if (ok) {
+      form.hidden = true;
+      box.innerHTML = `<h3>${escHTML(d.sentTitle)}</h3><p>${escHTML(d.sentText)}</p>`;
+    } else {
+      // 收件程式還沒設定或暫時失敗：改用 Email 寄出
+      const mail = `mailto:${email}?subject=${encodeURIComponent('合作詢問：' + data.name)}&body=${encodeURIComponent(summary)}`;
+      box.innerHTML = `<h3>改用 Email 寄出</h3><p>目前沒辦法直接送出，按下面的按鈕會打開 Email，內容已經幫你填好。</p>
+        <a class="btn btn--primary" href="${escHTML(mail)}">用 Email 寄出</a>`;
+    }
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
 }
 
 document.addEventListener('DOMContentLoaded', init);
