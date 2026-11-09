@@ -179,7 +179,7 @@ collections:
             fields:
               - { label: 獎項名稱（含年份）, name: title, widget: string }
               - { label: 得獎作品, name: work, widget: string, required: false }
-          - label: 代表作品（3 件）
+          - label: 精選作品（3 或 6 件）
             name: featured
             widget: relation
             collection: works
@@ -188,7 +188,7 @@ collections:
             value_field: "works.*.id"
             display_fields: ["works.*.title"]
             multiple: true
-            max: 3
+            max: 6
             required: false
           - label: 服務項目
             name: services
@@ -198,7 +198,8 @@ collections:
               - { label: 英文名稱, name: en, widget: string }
               - { label: 中文名稱, name: zh, widget: string }
               - { label: 說明, name: desc, widget: string }
-              - { label: 代表作品 ID（用它的封面圖）, name: work, widget: string, required: false }
+              - { label: 圖示（SVG）, name: icon, widget: image, required: false }
+              - { label: 代表作品 ID（沒有圖示時用它的封面圖）, name: work, widget: string, required: false }
               - label: 對應的作品標籤（點了會篩選作品）
                 name: tags
                 widget: select

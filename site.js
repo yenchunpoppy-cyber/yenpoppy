@@ -753,7 +753,7 @@ async function renderAboutPage() {
     </section>
 
     ${featured.length ? `<section class="info-sec">
-      <h2 class="info-h"><span>SELECTED WORKS</span>代表作品</h2>
+      <h2 class="info-h"><span>SELECTED WORKS</span>精選作品</h2>
       <div class="ab-featured">${featured.map(w => `
         <a class="ab-work" href="/works/${encodeURIComponent(w.id)}">
           <div class="ab-work__img"><img src="${thumb(w)}" alt="${escHTML(w.thumbnailAlt || w.title)}" loading="lazy"></div>
@@ -770,7 +770,8 @@ async function renderAboutPage() {
         const w = byId(s.work);
         return `
         <div class="ab-service">
-          ${w ? `<a class="ab-service__img" href="/?tag=${encodeURIComponent(tags[0] || '')}" tabindex="-1" aria-hidden="true"><img src="${thumb(w)}" alt="" loading="lazy"></a>` : ''}
+          ${s.icon ? `<img class="ab-service__icon" src="${escHTML(fixImgUrl(s.icon))}" alt="" aria-hidden="true">`
+            : w ? `<a class="ab-service__img" href="/?tag=${encodeURIComponent(tags[0] || '')}" tabindex="-1" aria-hidden="true"><img src="${thumb(w)}" alt="" loading="lazy"></a>` : ''}
           <p class="ab-service__en">${escHTML(s.en)}</p>
           <h3>${escHTML(s.zh)}</h3>
           <p class="ab-service__desc">${escHTML(s.desc)}</p>

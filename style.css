@@ -777,6 +777,7 @@ a { color: inherit; text-decoration: none; }
 
 .ab-services { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 16px; }
 .ab-service { display: grid; gap: 4px; align-content: start; }
+.ab-service__icon { width: 48px; height: 48px; margin-bottom: 16px; }
 .ab-service__en { font-family: var(--font-title); font-size: 12px; font-weight: 500; letter-spacing: .2em; color: var(--sub-color); }
 .ab-service h3 { font-size: 20px; }
 .ab-service__desc { font-size: 14px; color: var(--sub-color); line-height: 1.7; }
@@ -874,7 +875,6 @@ a { color: inherit; text-decoration: none; }
   .ab-intro { grid-template-columns: 1fr; gap: 24px; padding: 24px 0 40px; }
   .ct-paths, .ct-form { grid-template-columns: 1fr; }
   .ab-featured { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .ab-work:first-child { grid-column: 1 / -1; }
   .ab-services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ab-facts > div, .ab-clients > div { grid-template-columns: 1fr; gap: 4px; }
   .ab-process { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }

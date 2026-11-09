@@ -3,8 +3,8 @@
   "seoDesc": "YENPOPPY：品牌識別、包裝設計、UI/UX、網頁設計、社群視覺、動態影像、插畫與展示陳列設計，來自台灣。服務過珠寶、美妝、金融、觀光與醫療等產業。",
   "heroEn": "Brand, packaging & digital design. Taiwan.",
   "heroZh": "台灣品牌與包裝設計",
-  "introImage": "/uploads/about-poppy-stationery.jpg",
-  "introImageAlt": "罌粟果紙製文具",
+  "introImage": "/uploads/about-brand-graphic.svg",
+  "introImageAlt": "",
   "intro": "品牌識別、包裝、數位介面與展示設計。從品牌想說的話開始，一路跟到印刷、上架和社群。服務過珠寶、美妝、金融、觀光與醫療等產業。",
   "stats": [
     {
@@ -20,9 +20,12 @@
     }
   ],
   "featured": [
-    "aluxe-display",
+    "disney-princess",
+    "aluxe-passport",
     "et-seq-nail",
-    "disney-press"
+    "coexist-popup-shop",
+    "heath-forest",
+    "kite-flying"
   ],
   "services": [
     {
@@ -33,7 +36,8 @@
         "Branding",
         "Art Direction"
       ],
-      "work": "vacs"
+      "work": "vacs",
+      "icon": "/uploads/icon-branding.svg"
     },
     {
       "en": "Packaging",
@@ -42,7 +46,8 @@
       "tags": [
         "Packaging"
       ],
-      "work": "kite-flying"
+      "work": "kite-flying",
+      "icon": "/uploads/icon-packaging.svg"
     },
     {
       "en": "Digital",
@@ -54,7 +59,8 @@
         "Social Media",
         "Motion Graphics"
       ],
-      "work": "heath-forest"
+      "work": "heath-forest",
+      "icon": "/uploads/icon-digital.svg"
     },
     {
       "en": "Display & Illustration",
@@ -64,7 +70,8 @@
         "Exhibition",
         "Illustration"
       ],
-      "work": "disney-princess"
+      "work": "disney-princess",
+      "icon": "/uploads/icon-display.svg"
     }
   ],
   "clientGroups": [
