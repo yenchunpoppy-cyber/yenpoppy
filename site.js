@@ -467,22 +467,41 @@ async function renderWorkPage() {
   const tools = Array.isArray(work.tools) ? work.tools.filter(Boolean).join(', ') : (work.tools || '');
   const meta = [work.year, work.client, tools].filter(Boolean).map(esc);
   const link = /^https?:\/\//.test(work.link || '') ? work.link : '';
-  header.innerHTML = `
-    <a class="work-header__back" href="/">← WORKS</a>
-    <div class="work-header__titles">
-      ${work.caption ? `<p class="work-header__caption">${esc(work.caption)}</p>` : ''}
-      <h1 class="work-header__title">${esc(work.title)}</h1>
-      ${meta.length ? `<p class="work-header__meta">${meta.join('<span aria-hidden="true">｜</span>')}</p>` : ''}
-      ${work.description ? `<p class="work-header__desc">${esc(work.description)}</p>` : ''}
-      ${link ? `<a class="work-header__link" href="${esc(link)}" target="_blank" rel="noopener">VIEW PROJECT ↗</a>` : ''}
-    </div>
-  `;
+  const all = worksData.works || [];
+  const idx = all.findIndex(w => w.id === work.id);
+  const pad = n => String(n).padStart(2, '0');
+  const home = await fetchJSON('/data/home.json').catch(() => ({}));
+  const sel = (home.selected || []).find(x => x.id === work.id);
+  const tagLine = (work.tags || []).map(t => `<a href="/?tag=${encodeURIComponent(t)}#index">[ ${esc(t)} ]</a>`).join(' ');
+  header.className = 'work-header work-header--hero';
+  header.innerHTML = pageHero({
+    title: work.title,
+    sub: work.caption || '',
+    line: (sel && sel.statement) || '',
+    info: [tagLine, ...meta].filter(Boolean),
+    meta: `<a href="/#index">← INDEX</a><br>( ${pad(idx + 1)} / ${pad(all.length)} )`,
+    small: true,
+  }) + `
+    ${work.description ? `<p class="work-header__desc">${esc(work.description)}</p>` : ''}
+    ${link ? `<a class="work-header__link" href="${esc(link)}" target="_blank" rel="noopener">VIEW PROJECT ↗</a>` : ''}`;
   container.appendChild(header);
 
   (work.modules || []).forEach(mod => {
     const el = renderModule(mod, settings, '');
     if (el) container.appendChild(el);
   });
+
+  // 上一件／下一件
+  const prev = all[(idx - 1 + all.length) % all.length];
+  const next = all[(idx + 1) % all.length];
+  const pager = document.createElement('nav');
+  pager.className = 'work-pager';
+  pager.setAttribute('aria-label', '其他作品');
+  pager.innerHTML = `
+    <a class="work-pager__prev" href="/works/${encodeURIComponent(prev.id)}"><span class="micro">[ PREV ]</span><b>${esc(prev.title)}</b></a>
+    <span class="micro">( ${pad(idx + 1)} / ${pad(all.length)} )</span>
+    <a class="work-pager__next" href="/works/${encodeURIComponent(next.id)}"><span class="micro">[ NEXT ]</span><b>${esc(next.title)}</b></a>`;
+  container.appendChild(pager);
 }
 
 // âââââââââââââââââââââââââââââââââââââââââââââ
@@ -746,17 +765,19 @@ async function renderAboutPage() {
   const el = document.createElement('div');
   el.className = 'info-page about-page';
   el.innerHTML = `
-    <section class="ab-hero">
-      <p class="eyebrow">ABOUT</p>
-      ${d.heroZh ? `<p class="ab-hero__en">${escHTML(d.heroEn)}</p><h1 class="ab-hero__zh">${escHTML(d.heroZh)}</h1>`
-        : `<h1 class="ab-hero__en">${escHTML(d.heroEn)}</h1>`}
-      ${d.heroMicro ? `<p class="micro ab-hero__micro">${escHTML(d.heroMicro)}</p>` : ''}
-    </section>
+    ${pageHero({
+      title: 'ABOUT',
+      sub: d.heroEn,
+      line: d.heroLine || '',
+      info: [escHTML(d.heroMicro || 'TAIWAN')],
+      meta: 'PROFILE<br>( 01 )',
+    })}
 
-    <section class="ab-intro">
-      ${d.introImage ? `<div class="ab-intro__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : ''}
-      <div class="ab-intro__text">
-        <p>${escHTML(d.intro)}</p>
+    <section class="hm-row ab-introrow">
+      ${d.introImage ? `<div class="hm-row__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : ''}
+      <div class="hm-row__panel">
+        <p class="micro">( INTRODUCTION )</p>
+        <p class="hm-row__statement">${escHTML(d.intro)}</p>
         ${stats.length || awards.length ? `<dl class="ab-facts">
           ${stats.map(s => `<div><dt>${escHTML(s.label)}</dt><dd><b>${escHTML(s.value)}</b>${escHTML(s.unit)}</dd></div>`).join('')}
           ${awards.map(a => `<div><dt>得獎</dt><dd>${escHTML(a.title)}${a.work ? `<span>｜${escHTML(a.work)}</span>` : ''}</dd></div>`).join('')}
@@ -844,10 +865,13 @@ async function renderContactPage() {
   const el = document.createElement('div');
   el.className = 'info-page contact-page';
   el.innerHTML = `
-    <section class="ab-hero">
-      <p class="eyebrow">CONTACT</p>
-      <h1 class="ab-hero__zh ab-hero__zh--lg">${escHTML(d.title)}</h1>
-    </section>
+    ${pageHero({
+      title: 'CONTACT',
+      sub: "LET'S WORK TOGETHER",
+      line: d.title,
+      info: [email ? `<a href="mailto:${escHTML(email)}">${escHTML(email)}</a>` : '', 'TAIWAN'].filter(Boolean),
+      meta: 'GET IN TOUCH<br><a href="#contact-form">( FORM ↓ )</a>',
+    })}
 
     <section class="ct-paths">${(d.paths || []).map(p => `
       <a class="ct-path" href="${escHTML(p.href)}">
@@ -1041,4 +1065,19 @@ function renderRails() {
   r.className = 'rail rail--r'; r.setAttribute('aria-hidden', 'true');
   r.innerHTML = '<span>TAIWAN — ( 2013—2026 )</span>';
   document.body.append(l, r);
+}
+
+
+// 每一頁共用的開場（和首頁同一套編排）
+function pageHero({ title, sub, line, info = [], meta = '', small = false }) {
+  return `
+    <section class="hm-hero hm-hero--page${small ? ' hm-hero--small' : ''}">
+      <div class="hm-hero__text">
+        <h1 class="hm-hero__title">${escHTML(title)}</h1>
+        ${sub ? `<p class="hm-hero__sub">${escHTML(sub)}</p>` : ''}
+        ${line ? `<p class="hm-hero__note">${escHTML(line)}</p>` : ''}
+      </div>
+      ${info.length ? `<p class="hm-hero__info">${info.join('<br>')}</p>` : ''}
+      ${meta ? `<p class="hm-hero__meta micro">${meta}</p>` : ''}
+    </section>`;
 }
