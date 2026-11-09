@@ -975,6 +975,7 @@ async function renderHomeIntro(grid, works) {
       <div class="hm-hero__text">
         <h1 class="hm-hero__title">${escHTML(d.heroTitle || 'YENPOPPY')}</h1>
         <p class="hm-hero__sub">${escHTML(d.heroSub)}</p>
+        ${d.heroLine ? `<p class="hm-hero__note">${escHTML(d.heroLine)}</p>` : ''}
       </div>
       <p class="hm-hero__info">${(d.heroInfo || []).map(l => /@/.test(l)
         ? `<a href="mailto:${escHTML(l)}">${escHTML(l)}</a>` : escHTML(l)).join('<br>')}</p>
