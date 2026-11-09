@@ -758,7 +758,7 @@ async function renderAboutPage() {
   const countTag = t => works.filter(w => (w.tags || []).includes(t)).length;
   const stats = (d.stats || []).filter(s => s.value);
   const awards = (d.awards || []).filter(a => a.title);
-  const featured = (d.featured || []).map(byId).filter(Boolean);
+  const featured = [].map(byId).filter(Boolean);
   const groups = (d.clientGroups || []).map(g => ({ ...g, clients: (g.clients || []).filter(c => c && c.name) })).filter(g => g.clients.length);
   const thumb = w => w && w.thumbnail ? escHTML(fixImgUrl(w.thumbnail)) : '';
 
@@ -869,7 +869,7 @@ async function renderContactPage() {
       title: 'CONTACT',
       sub: "LET'S WORK TOGETHER",
       line: d.title,
-      info: [email ? `<a href="mailto:${escHTML(email)}">${escHTML(email)}</a>` : '', 'TAIWAN'].filter(Boolean),
+      info: ['TAIWAN'],
       meta: 'GET IN TOUCH<br><a href="#contact-form">( FORM ↓ )</a>',
     })}
 
