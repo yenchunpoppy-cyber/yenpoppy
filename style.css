@@ -5,7 +5,7 @@
 
 /* ── CSS 自訂屬性（品牌色票，JS 啟動後動態覆寫） ── */
 :root {
-  --header-bg:    #FAECCC;
+  --header-bg:    #FEFCBE;
   --site-bg:      #FFFFFF;
   --text-color:   #000000;
   --sub-color:    #4A4A4A;
@@ -888,7 +888,7 @@ a { color: inherit; text-decoration: none; }
    參考：Lotta Nieminen（左圖右文）、佐藤可士和（作品清單）、日系作品集（直排標籤）
    ════════════════════════════════════════════════ */
 :root {
-  --cream: #FAECCC;
+  --cream: #FEFCBE;
   --paper: #F7F5F1;          /* 卡片／色塊用的淺色 */
   --micro-size: 11px;
   --micro-color: #5E5A55;    /* 暖灰底上對比 ≥ 4.5:1 */
