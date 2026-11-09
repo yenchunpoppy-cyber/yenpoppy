@@ -1,0 +1,41 @@
+{
+  "heroTitle": "YENPOPPY",
+  "heroSub": "BRAND, PACKAGING & DIGITAL DESIGN",
+  "heroYears": "2013 — 2026",
+  "heroImages": [
+    "et-seq-nail",
+    "disney-princess",
+    "kite-flying"
+  ],
+  "selected": [
+    {
+      "id": "disney-princess",
+      "statement": "ALUXE 與 Disney 聯名的公主系列珠寶，把童話場景搬進門市櫥窗。"
+    },
+    {
+      "id": "et-seq-nail",
+      "statement": "指甲油品牌 et seq.，以羽毛筆與墨水瓶為意象，寫下標誌與包裝。"
+    },
+    {
+      "id": "aluxe-passport",
+      "statement": "婚戒品牌 ALUXE 送給新人的婚禮護照，陪伴一整年的婚禮準備。"
+    },
+    {
+      "id": "kite-flying",
+      "statement": "樂團 Kite Flying Band 的標誌與專輯包裝。"
+    },
+    {
+      "id": "heath-forest",
+      "statement": "健康管理 APP，讓每天的紀錄變得簡單。"
+    },
+    {
+      "id": "coexist-popup-shop",
+      "statement": "Coexist 快閃店的空間與陳列，讓品牌在短時間內被看見。"
+    }
+  ],
+  "heroInfo": [
+    "品牌識別・包裝・數位介面",
+    "TAIWAN",
+    "yenchunpoppy@gmail.com"
+  ]
+}

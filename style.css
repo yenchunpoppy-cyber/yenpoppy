@@ -882,3 +882,224 @@ a { color: inherit; text-decoration: none; }
   .ct-copy { margin-left: 0; }
 }
 .ab-facts > div:last-child, .ab-clients > div:last-child { border-bottom: 0; }
+
+/* ════════════════════════════════════════════════
+   2026-11 編輯風改版：暖灰底、小字點綴、直排標籤、精選作品左圖右文
+   參考：Lotta Nieminen（左圖右文）、佐藤可士和（作品清單）、日系作品集（直排標籤）
+   ════════════════════════════════════════════════ */
+:root {
+  --cream: #FAECCC;
+  --paper: #F7F5F1;          /* 卡片／色塊用的淺色 */
+  --micro-size: 11px;
+  --micro-color: #5E5A55;    /* 暖灰底上對比 ≥ 4.5:1 */
+}
+.info-page .btn:hover, .work-header__link:hover { background: var(--cream); }
+.tag-filter button.active { background: var(--text-color); border-color: var(--text-color); color: #fff; }
+
+/* 小字點綴：只做裝飾或補充，不放必要資訊 */
+.micro {
+  font-family: var(--font-title);
+  font-size: var(--micro-size);
+  font-weight: 400;
+  letter-spacing: .2em;
+  line-height: 1.8;
+  color: var(--micro-color);
+  text-transform: uppercase;
+}
+
+/* 兩側直排小字（大螢幕才出現） */
+.rail { display: none; }
+@media (min-width: 1200px) {
+  .rail {
+    display: block; position: fixed; top: 50%; z-index: 5; pointer-events: none;
+    font-family: var(--font-title); font-size: 10px; letter-spacing: .3em; color: var(--micro-color);
+    writing-mode: vertical-rl; white-space: nowrap;
+  }
+  .rail--l { left: 28px; transform: translateY(-50%) rotate(180deg); }
+  .rail--r { right: 28px; transform: translateY(-50%); }
+}
+
+/* 直排區塊標籤：英文字距拉開，中文直書 */
+.vlabel { display: flex; gap: 12px; font-size: 14px; font-weight: 400; letter-spacing: .3em; }
+.vlabel span { font-family: var(--font-title); font-size: var(--micro-size); font-weight: 500; letter-spacing: .4em; color: var(--micro-color); }
+@media (min-width: 1025px) {
+  .vlabel:not(.vlabel--row) { writing-mode: vertical-rl; align-self: start; position: sticky; top: 120px; }
+}
+
+/* ── 頁首：跟底色融為一體，細體寬字距 ── */
+#site-header { border-bottom: 1px solid rgba(0,0,0,.08); }
+#site-nav a { font-size: 12px; letter-spacing: .25em; font-weight: 400; }
+#site-nav a:hover, #site-nav a.active { border-bottom-color: var(--text-color); }
+
+/* ── 首頁開場 ── */
+.home-intro { margin: calc(-1 * var(--outer, 0px)) 0 0; }
+.hm-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: 1fr auto;
+  min-height: min(64vh, 600px);
+  padding: 56px 0 48px;
+  gap: 24px;
+}
+.hm-hero__title {
+  font-family: var(--font-title);
+  font-size: clamp(36px, 6.4vw, 96px);
+  font-weight: 300;
+  letter-spacing: .32em;
+  line-height: 1.1;
+}
+.hm-hero__sub {
+  margin-top: 16px;
+  font-family: var(--font-title);
+  font-size: clamp(12px, 1.1vw, 14px);
+  font-weight: 300;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+}
+.hm-hero__note {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 2px 10px;
+  background: var(--cream);
+  font-size: 14px;
+  letter-spacing: .2em;
+}
+.hm-hero__meta { grid-column: 1; grid-row: 2; align-self: end; }
+.hm-hero__info { position: absolute; top: 56px; right: 0; text-align: right; font-size: 13px; letter-spacing: .12em; line-height: 1.9; }
+.hm-hero__info a:hover, .hm-hero__meta a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.hm-hero__meta a { color: var(--text-color); }
+.ab-hero__micro { margin-top: 16px; }
+.hm-hero__imgs {
+  grid-column: 2; grid-row: 1 / span 2; align-self: end;
+  display: flex; gap: 12px;
+}
+.hm-hero__imgs a { width: clamp(96px, 10vw, 160px); overflow: hidden; }
+.hm-hero__imgs img { width: 100%; aspect-ratio: 1; object-fit: cover; transition: transform .6s ease; }
+.hm-hero__imgs a:hover img { transform: scale(1.04); }
+
+/* ── 精選作品：左圖右文（圖約 4 成寬） ── */
+.hm-sel {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 24px;
+  padding: 64px 0;
+  border-top: 1px solid rgba(0,0,0,.08);
+}
+.hm-sel__list { display: grid; gap: 40px; }
+.hm-row {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+  min-height: 300px;
+  background: var(--paper);
+}
+.hm-row--alt .hm-row__panel { background: var(--cream); }
+.hm-row__img { overflow: hidden; background: var(--secondary); }
+.hm-row__img img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .8s ease; }
+.hm-row:hover .hm-row__img img { transform: scale(1.03); }
+.hm-row__panel {
+  display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+  padding: clamp(24px, 3vw, 48px);
+}
+.hm-row__statement {
+  max-width: 22em;
+  font-size: clamp(18px, 1.8vw, 26px);
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: .06em;
+}
+.hm-row__foot { display: flex; justify-content: space-between; align-items: end; gap: 16px; }
+.hm-row__title { font-size: 14px; font-weight: 500; letter-spacing: .08em; }
+.hm-row__view { white-space: nowrap; color: var(--text-color); border-bottom: 1px solid transparent; transition: border-color .2s; }
+.hm-row:hover .hm-row__view { border-bottom-color: var(--text-color); }
+
+/* ── 作品總覽（佐藤式清單） ── */
+.hm-index-h {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 48px 0 16px; border-top: 1px solid rgba(0,0,0,.08);
+  scroll-margin-top: 80px;
+}
+.tag-filter { margin: 0 0 40px; gap: 4px 6px; }
+.tag-filter button {
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  border-color: transparent; padding: 6px 10px; min-height: 40px;
+}
+.tag-filter button::before { content: '[ '; color: var(--micro-color); }
+.tag-filter button::after  { content: ' ]'; color: var(--micro-color); }
+.tag-filter button.active::before, .tag-filter button.active::after { color: #fff; }
+.tag-filter button:hover { border-color: rgba(0,0,0,.3); }
+#works-grid { row-gap: 40px !important; }
+.work-card img { background: var(--paper); }
+.work-card .card-title {
+  padding-top: 14px;
+  font-family: var(--font-title);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-top: 0;
+}
+.work-card .card-caption, .work-card .card-tags {
+  font-family: var(--font-title);
+  font-size: var(--micro-size);
+  letter-spacing: .06em;
+  color: var(--micro-color);
+  line-height: 1.7;
+}
+.work-card .card-tags { display: none; }
+.work-card:hover img, .work-card:focus-visible img { transform: none; box-shadow: none; opacity: .85; }
+
+/* ── About／Contact：加寬、直排標籤 ── */
+.info-page { max-width: 1200px; }
+.ab-hero { border-bottom: 0; }
+.ab-hero__en { font-weight: 300 !important; letter-spacing: .04em; }
+.ab-hero__zh { display: inline-block; padding: 2px 10px; background: var(--cream); color: var(--text-color); }
+.ab-hero__zh--lg { background: none; padding: 0; }
+@media (min-width: 1025px) {
+  .info-sec { display: grid; grid-template-columns: 64px 1fr; gap: 0 24px; padding: 64px 0; border-top-color: rgba(0,0,0,.08); }
+  .info-sec > .info-h { grid-row: 1 / span 20; writing-mode: vertical-rl; align-self: start; position: sticky; top: 120px; margin: 0; gap: 16px; letter-spacing: .3em; font-size: 15px; }
+  .info-sec > .info-h span { letter-spacing: .4em; font-size: 11px; }
+  .info-sec > :not(.info-h) { grid-column: 2; }
+}
+.info-h span { color: var(--micro-color); }
+.ab-intro__img img, .ab-work__img img { border-radius: 0; }
+.ab-work__img, .ab-service__img { border-radius: 0; }
+.ab-facts dt, .ab-service__en, .ab-clients dt { font-family: var(--font-title); font-size: var(--micro-size); letter-spacing: .2em; text-transform: uppercase; color: var(--micro-color); }
+
+/* ── 輕量動態（減少動態設定時不啟動） ── */
+.motion .reveal, .motion .info-sec, .motion .ab-intro, .motion .work-card {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.motion .in { opacity: 1 !important; transform: none !important; }
+@media (prefers-reduced-motion: no-preference) {
+  #page-content { animation: page-in .5s ease both; }
+  .hm-hero__title { animation: rise .8s ease both; }
+  .hm-hero__sub   { animation: rise .8s .12s ease both; }
+  .hm-hero__info  { animation: rise .8s .24s ease both; }
+  .hm-hero__imgs a { animation: rise .8s calc(.3s + var(--i) * .12s) ease both; }
+}
+@keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+/* ── 平板／手機 ── */
+@media (max-width: 1024px) {
+  .hm-sel { grid-template-columns: 1fr; padding: 48px 0; }
+  .hm-sel .vlabel { margin-bottom: 8px; }
+  .hm-hero { grid-template-columns: 1fr; grid-template-rows: auto; min-height: 0; }
+  .hm-hero__imgs { grid-column: 1; grid-row: auto; }
+  .hm-hero__meta { grid-row: auto; }
+  .hm-hero__imgs a { flex: 1; width: auto; }
+}
+@media (max-width: 767px) {
+  .hm-row { grid-template-columns: 1fr; min-height: 0; }
+  .hm-row__img img { height: auto; }
+  .hm-hero { padding: 40px 0 32px; }
+  .hm-hero__title { letter-spacing: .2em; }
+  .hm-hero__info { position: static; text-align: left; }
+  .hm-sel__list { gap: 24px; }
+}
+@media (max-width: 599px) {
+  #works-grid { grid-template-columns: repeat(2, 1fr) !important; column-gap: 12px !important; row-gap: 28px !important; }
+  .work-card .card-title { font-size: 12px; padding-top: 10px; }
+}

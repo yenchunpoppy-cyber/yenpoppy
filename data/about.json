@@ -1,8 +1,8 @@
 {
   "seoTitle": "ABOUT",
   "seoDesc": "YENPOPPY：品牌識別、包裝設計、UI/UX、網頁設計、社群視覺、動態影像、插畫與展示陳列設計，來自台灣。服務過珠寶、美妝、金融、觀光與醫療等產業。",
-  "heroEn": "Brand, packaging & digital design. Taiwan.",
-  "heroZh": "台灣品牌與包裝設計",
+  "heroEn": "Brand, packaging & digital design.",
+  "heroZh": "",
   "introImage": "/uploads/about-brand-graphic.svg",
   "introImageAlt": "",
   "intro": "品牌識別、包裝、數位介面與展示設計。從品牌想說的話開始，一路跟到印刷、上架和社群。服務過珠寶、美妝、金融、觀光與醫療等產業。",
@@ -194,5 +194,6 @@
   ],
   "ctaTitle": "想一起合作嗎？",
   "ctaPrimary": "聯絡我",
-  "ctaSecondary": "看作品"
+  "ctaSecondary": "看作品",
+  "heroMicro": "TAIWAN — SINCE 2013"
 }

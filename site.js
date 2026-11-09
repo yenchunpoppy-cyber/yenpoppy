@@ -217,7 +217,7 @@ async function renderWorksGrid() {
   if (homeBg) document.body.style.background = homeBg;
 
   // SEO title
-  document.title = 'WORKS | YENPOPPY';
+  document.title = 'YENPOPPY｜台灣品牌識別、包裝與數位設計';
 
   const grid = document.getElementById('works-grid');
   if (!grid) return;
@@ -240,6 +240,7 @@ async function renderWorksGrid() {
   grid.dataset.cols = cols;
 
   const allWorks = worksData.works || [];
+  await renderHomeIntro(grid, allWorks).catch(console.warn);
   const tagsData = await fetchJSON('/data/tags.json').catch(() => ({ tags: [] }));
   let works = allWorks;
   let offset = 0;
@@ -309,6 +310,7 @@ async function renderWorksGrid() {
   }
 
   applyFilter(activeTag);
+  if (activeTag) document.getElementById('index')?.scrollIntoView();
 }
 
 function createWorkCard(work) {
@@ -346,6 +348,12 @@ function createWorkCard(work) {
     cap.className = 'card-caption';
     cap.textContent = work.caption;
     card.appendChild(cap);
+  }
+  if ((work.tags || []).length) {
+    const tg = document.createElement('div');
+    tg.className = 'card-tags';
+    tg.textContent = work.tags.map(t => `[ ${t} ]`).join(' ');
+    card.appendChild(tg);
   }
 
   const navigate = () => { location.href = `/works/${work.id}`; };
@@ -693,6 +701,7 @@ async function init() {
   await renderNav().catch(console.warn);
   initHamburger();
 
+  renderRails();
   if (page === 'works') {
     await renderWorksGrid().catch(console.error);
   } else if (page === 'page') {
@@ -700,6 +709,8 @@ async function init() {
   } else if (page === 'work') {
     await renderWorkPage().catch(console.error);
   }
+  initReveal();
+  if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
 }
 
 
@@ -737,8 +748,9 @@ async function renderAboutPage() {
   el.innerHTML = `
     <section class="ab-hero">
       <p class="eyebrow">ABOUT</p>
-      <p class="ab-hero__en">${escHTML(d.heroEn)}</p>
-      ${d.heroZh ? `<h1 class="ab-hero__zh">${escHTML(d.heroZh)}</h1>` : ''}
+      ${d.heroZh ? `<p class="ab-hero__en">${escHTML(d.heroEn)}</p><h1 class="ab-hero__zh">${escHTML(d.heroZh)}</h1>`
+        : `<h1 class="ab-hero__en">${escHTML(d.heroEn)}</h1>`}
+      ${d.heroMicro ? `<p class="micro ab-hero__micro">${escHTML(d.heroMicro)}</p>` : ''}
     </section>
 
     <section class="ab-intro">
@@ -943,3 +955,89 @@ async function renderContactPage() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+
+// ─────────────────────────────────────────────
+// 首頁開場＋精選作品（資料在 data/home.json，CMS 可改）
+// ─────────────────────────────────────────────
+async function renderHomeIntro(grid, works) {
+  const d = await fetchJSON('/data/home.json');
+  const byId = id => works.find(w => w.id === id);
+  const img = w => w && w.thumbnail ? escHTML(fixImgUrl(w.thumbnail)) : '';
+  const heroWorks = (d.heroImages || []).map(byId).filter(Boolean);
+  const selected = (d.selected || []).map(s => ({ ...s, w: byId(s.id) })).filter(s => s.w);
+  const total = String(selected.length).padStart(2, '0');
+
+  const wrap = document.createElement('div');
+  wrap.className = 'home-intro';
+  wrap.innerHTML = `
+    <section class="hm-hero">
+      <div class="hm-hero__text">
+        <h1 class="hm-hero__title">${escHTML(d.heroTitle || 'YENPOPPY')}</h1>
+        <p class="hm-hero__sub">${escHTML(d.heroSub)}</p>
+      </div>
+      <p class="hm-hero__info">${(d.heroInfo || []).map(l => /@/.test(l)
+        ? `<a href="mailto:${escHTML(l)}">${escHTML(l)}</a>` : escHTML(l)).join('<br>')}</p>
+      <p class="hm-hero__meta micro">PORTFOLIO<br>${escHTML(d.heroYears)}<br><a href="#index">( INDEX ↓ )</a></p>
+      <div class="hm-hero__imgs">${heroWorks.map((w, i) => `
+        <a href="/works/${encodeURIComponent(w.id)}" style="--i:${i}" aria-label="${escHTML(w.title)}">
+          <img src="${img(w)}" alt="${escHTML(w.thumbnailAlt || w.title)}">
+        </a>`).join('')}
+      </div>
+    </section>
+
+    ${selected.length ? `<section class="hm-sel" aria-labelledby="hm-sel-h">
+      <h2 class="vlabel" id="hm-sel-h"><span>SELECTED</span>精選作品</h2>
+      <div class="hm-sel__list">${selected.map((s, i) => `
+        <a class="hm-row reveal${i % 2 ? ' hm-row--alt' : ''}" href="/works/${encodeURIComponent(s.w.id)}">
+          <div class="hm-row__img"><img src="${img(s.w)}" alt="${escHTML(s.w.thumbnailAlt || s.w.title)}" loading="lazy"></div>
+          <div class="hm-row__panel">
+            <p class="micro">( ${String(i + 1).padStart(2, '0')} / ${total} )</p>
+            <p class="hm-row__statement">${escHTML(s.statement)}</p>
+            <div class="hm-row__foot">
+              <div>
+                <p class="hm-row__title">${escHTML(s.w.title)}</p>
+                <p class="micro">${escHTML(s.w.caption || (s.w.tags || []).join(', '))}</p>
+              </div>
+              <span class="micro hm-row__view">VIEW →</span>
+            </div>
+          </div>
+        </a>`).join('')}
+      </div>
+    </section>` : ''}
+
+    <div class="hm-index-h" id="index">
+      <h2 class="vlabel vlabel--row"><span>INDEX</span>作品總覽</h2>
+      <p class="micro">${works.length} PROJECTS</p>
+    </div>`;
+  grid.parentElement.insertBefore(wrap, grid);
+}
+
+// ─────────────────────────────────────────────
+// 輕量動態：捲動淡入、兩側直排小字
+// ─────────────────────────────────────────────
+function initReveal() {
+  const els = document.querySelectorAll('.reveal, .info-sec, .ab-intro, .work-card');
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('motion');
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -8% 0px' });
+  els.forEach(el => io.observe(el));
+  // 之後才載入的作品卡也要觀察
+  const grid = document.getElementById('works-grid');
+  if (grid) new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(n => {
+    if (n.nodeType === 1 && n.classList.contains('work-card')) io.observe(n);
+  }))).observe(grid, { childList: true });
+}
+
+function renderRails() {
+  if (document.querySelector('.rail')) return;
+  const l = document.createElement('div');
+  l.className = 'rail rail--l'; l.setAttribute('aria-hidden', 'true');
+  l.innerHTML = '<span>YENPOPPY — BRAND, PACKAGING &amp; DIGITAL DESIGN</span>';
+  const r = document.createElement('div');
+  r.className = 'rail rail--r'; r.setAttribute('aria-hidden', 'true');
+  r.innerHTML = '<span>TAIWAN — ( 2013—2026 )</span>';
+  document.body.append(l, r);
+}
