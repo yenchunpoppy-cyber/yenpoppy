@@ -1060,7 +1060,7 @@ function renderRails() {
   if (document.querySelector('.rail')) return;
   const l = document.createElement('div');
   l.className = 'rail rail--l'; l.setAttribute('aria-hidden', 'true');
-  l.innerHTML = '<span>YENPOPPY — BRAND, PACKAGING &amp; DIGITAL DESIGN</span>';
+  l.innerHTML = '<span>YENPOPPY — INDEPENDENT CREATIVE DESIGN STUDIO</span>';
   const r = document.createElement('div');
   r.className = 'rail rail--r'; r.setAttribute('aria-hidden', 'true');
   r.innerHTML = '<span>TAIWAN — ( 2013—2026 )</span>';
