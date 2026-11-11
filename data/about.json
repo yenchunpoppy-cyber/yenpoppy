@@ -1,7 +1,7 @@
 {
   "seoTitle": "ABOUT",
   "seoDesc": "YENPOPPY：品牌識別、包裝設計、UI/UX、網頁設計、社群視覺、動態影像、插畫與展示陳列設計，來自台灣。服務過珠寶、美妝、金融、觀光與醫療等產業。",
-  "heroEn": "Brand, packaging & digital design.",
+  "heroEn": "Hi, I'm Yen. Nice to meet you!",
   "heroZh": "",
   "introImage": "/uploads/about-brand-graphic.svg",
   "introImageAlt": "",
@@ -29,20 +29,19 @@
   ],
   "services": [
     {
-      "en": "Branding",
+      "en": "Brand Identity",
       "zh": "品牌識別",
-      "desc": "標誌、識別系統與品牌形象企劃。",
+      "desc": "從品牌個性與定位出發，找到適合它的視覺語言，讓品牌有自己的樣子。",
       "tags": [
-        "Branding",
-        "Art Direction"
+        "Branding"
       ],
       "work": "vacs",
       "icon": "/uploads/icon-branding.svg"
     },
     {
-      "en": "Packaging",
-      "zh": "包裝與商品",
-      "desc": "包裝結構與視覺、贈品和周邊商品。",
+      "en": "Packaging & Product",
+      "zh": "包裝與產品設計",
+      "desc": "讓產品不只好看，也能透過包裝、結構與細節，創造更完整的體驗。",
       "tags": [
         "Packaging"
       ],
@@ -50,9 +49,21 @@
       "icon": "/uploads/icon-packaging.svg"
     },
     {
-      "en": "Digital",
-      "zh": "數位設計",
-      "desc": "APP 與網站介面、社群視覺、動態影像。",
+      "en": "Creative Direction",
+      "zh": "創意企劃與整合",
+      "desc": "如果你有一個還沒成形的想法，我們可以一起討論、發展概念，找到有趣又可行的方向。",
+      "tags": [
+        "Art Direction",
+        "Exhibition",
+        "Illustration"
+      ],
+      "work": "disney-princess",
+      "icon": "/uploads/icon-display.svg"
+    },
+    {
+      "en": "Digital & Visual",
+      "zh": "網站與數位視覺",
+      "desc": "讓品牌從實體延伸到數位世界，保持一致又有個性的視覺體驗。",
       "tags": [
         "UI/UX",
         "Web Design",
@@ -61,17 +72,6 @@
       ],
       "work": "heath-forest",
       "icon": "/uploads/icon-digital.svg"
-    },
-    {
-      "en": "Display & Illustration",
-      "zh": "展示與插畫",
-      "desc": "門市陳列、展場、記者會展示與插畫。",
-      "tags": [
-        "Exhibition",
-        "Illustration"
-      ],
-      "work": "disney-princess",
-      "icon": "/uploads/icon-display.svg"
     }
   ],
   "clientGroups": [

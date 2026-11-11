@@ -1183,3 +1183,9 @@ a { color: inherit; text-decoration: none; }
 .hm-cta { margin: 80px 0 40px; padding: clamp(32px, 6vw, 72px); background: var(--cream); text-align: center; }
 .hm-cta__title { font-size: clamp(22px, 3vw, 32px); font-weight: 400; letter-spacing: .08em; margin: 0 0 16px; }
 .hm-cta__text { max-width: 32em; margin: 0 auto 28px; line-height: 1.9; }
+
+/* 2026-11 上線前統一：內頁寬度同首頁、動作按鈕直角（標籤小膠囊保留圓角） */
+.info-page { max-width: none; }
+.info-page .btn, .ct-form button[type=submit], .ct-form .btn, .hm-btn, .work-header__link { border-radius: 0 !important; }
+.ab-process li { border-radius: 0; }
+.info-page { padding-left: 0 !important; padding-right: 0 !important; }

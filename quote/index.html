@@ -219,6 +219,9 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var
 }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 .hero .eyebrow, .step-h .no, .result .eyebrow, .style .en, header.top a { font-weight: 500; }
+
+/* 2026-11 統一：主要按鈕與卡片直角，選項膠囊保留 */
+.primary, .ghost, .mbtn, .add, .item, .style, .result, .sent, .drop, input[type=text], input[type=date], input[type=email], select, textarea { border-radius: 0 !important; }
 </style>
 </head>
 <body>
@@ -264,7 +267,7 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var
       </section>
 
       <section aria-labelledby="h2">
-        <div class="step-h"><span class="no">STEP 03</span><h2 id="h2">想要的風格方向</h2><p>可以選 1–2 種搭配，不確定也可以上傳參考圖。</p></div>
+        <div class="step-h"><span class="no">STEP 03</span><h2 id="h2">視覺靈感方向</h2><p>這些只是初步參考，不代表最終風格。可以選 1–2 種，不確定也可以上傳參考圖，我們再一起找最適合的方向。</p></div>
         <div class="styles" id="styles"></div>
         <div class="refs">
           <div class="field"><span class="lbl">參考圖 <small class="opt-tag">選填</small></span>
@@ -449,7 +452,7 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var
         <ul class="picked">${r.ls.map(l => `<li><span>${esc(l.name)} × ${l.qty}</span></li>`).join('')}</ul>
         ${miss.length ? `<div class="status${st.nudge ? ' warn' : ''}">再選一下上方的${miss.join('和')}，就能看到試算結果。</div>` : ''}
         <button class="primary" type="button" data-reveal>看試算結果</button>
-        <p class="note">只會記錄你選的項目和稱呼，不會用來聯絡你。</p>`;
+        <p class="note">看試算結果不需要留聯絡方式，只會記錄你選的項目和稱呼。想正式合作，再到最下面填聯絡資料。</p>`;
       $('#mbar').innerHTML = `<span>已選 ${r.ls.length} 個項目</span><button class="mbtn" type="button" data-reveal>看試算結果</button>`;
       return;
     }
