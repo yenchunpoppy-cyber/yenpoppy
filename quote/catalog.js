@@ -5,7 +5,7 @@
  * 層級：分類 → 項目 → 規格（options）。有 options 的項目，價格與天數以所選規格為準。
  */
 window.CATALOG = {
-  version: '2026-11-12e', // 改價後更新，舊草稿會改用範例重新開始
+  version: '2026-11-12f', // 改價後更新，舊草稿會改用範例重新開始
   // 報價單產生器「完整細項」用；group = 清單裡的小標
   categories: [
     {
@@ -121,7 +121,6 @@ window.CATALOG = {
       id: 'brand', name: '品牌識別', intro: '從一個 LOGO 到整套識別',
       items: [
         { id: 'p-brand', name: '品牌識別', desc: '標誌、標準字到完整規範', options: [
-          { id: 'starter', name: '起步組合', unit: '組', price: 40000, min: 36000, max: 45000, days: 25, print: true, desc: '小品牌適用：LOGO 基本＋1 款平面包材＋1 個延伸物，比單買省約 2 成' },
           { id: 'basic', name: 'LOGO 基本', unit: '式', price: 25000, min: 22500, max: 28700, days: 15, desc: '標誌設計' },
           { id: 'std', name: 'LOGO 標準', unit: '式', price: 35000, min: 31500, max: 40200, days: 20, desc: '標誌＋中英標準字' },
           { id: 'full', name: '完整識別', unit: '式', price: 60000, min: 54000, max: 69000, days: 25, desc: 'LOGO＋色彩字型＋規範手冊' }
@@ -181,6 +180,17 @@ window.CATALOG = {
         ] },
         { id: 'p-page', name: '加購內頁', unit: '頁', price: 8000, min: 7200, max: 9200, days: 3,
           desc: '頁面不夠時，每多一頁加購' }
+      ]
+    },
+    {
+      id: 'starter', name: '小品牌起步', intro: '打包好的組合，比單買省約 2 成',
+      items: [
+        { id: 'b-brand', name: '品牌起步組', unit: '組', price: 40000, min: 36000, max: 45000, days: 25, print: true,
+          desc: 'LOGO 基本＋1 款平面包材＋1 個延伸物' },
+        { id: 'b-open', name: '開店宣傳組', unit: '組', price: 36000, min: 32000, max: 40000, days: 20, print: true,
+          desc: 'LOGO 基本＋1 個延伸物＋社群貼文 3 篇' },
+        { id: 'b-launch', name: '新品上市組', unit: '組', price: 46000, min: 40000, max: 52000, days: 25, print: true,
+          desc: '單一盒袋包裝＋1 款延伸款＋社群貼文 3 篇' }
       ]
     }
   ],
