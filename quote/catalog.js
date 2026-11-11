@@ -5,7 +5,7 @@
  * 層級：分類 → 項目 → 規格（options）。有 options 的項目，價格與天數以所選規格為準。
  */
 window.CATALOG = {
-  version: '2026-11-12a', // 改價後更新，舊草稿會改用範例重新開始
+  version: '2026-11-12b', // 改價後更新，舊草稿會改用範例重新開始
   // 報價單產生器「完整細項」用；group = 清單裡的小標
   categories: [
     {
@@ -122,7 +122,7 @@ window.CATALOG = {
       items: [
         { id: 'p-brand', name: '品牌識別', desc: '標誌、標準字到完整規範', options: [
           { id: 'basic', name: 'LOGO 基本', unit: '式', price: 25000, min: 22500, max: 28700, days: 15, desc: '標誌設計' },
-          { id: 'std', name: 'LOGO 標準', unit: '式', price: 37000, min: 32000, max: 42000, days: 20, desc: '標誌＋中英標準字' },
+          { id: 'std', name: 'LOGO 標準', unit: '式', price: 35000, min: 31500, max: 40200, days: 20, desc: '標誌＋中英標準字' },
           { id: 'full', name: '完整識別', unit: '式', price: 60000, min: 54000, max: 69000, days: 25, desc: 'LOGO＋色彩字型＋規範手冊' }
         ] },
         { id: 'p-card', name: '品牌延伸物', unit: '款', price: 7500, min: 6500, max: 9000, days: 10, print: true,
@@ -146,7 +146,7 @@ window.CATALOG = {
     {
       id: 'visual', name: '視覺與印刷', intro: '主視覺與各種印刷品',
       items: [
-        { id: 'p-kv', name: '主視覺設計', unit: '式', price: 30000, min: 26000, max: 35000, days: 14,
+        { id: 'p-kv', name: '主視覺設計', unit: '式', price: 28000, min: 25200, max: 32200, days: 14,
           desc: '1 款主視覺＋延伸 3 種尺寸' },
         { id: 'p-printed', name: '印刷品', print: true, options: [
           { id: 'dm', name: '單頁 DM', unit: '款', price: 4000, min: 3600, max: 4600, days: 7, desc: '單張雙面，含小卡、明信片' },
@@ -154,9 +154,9 @@ window.CATALOG = {
           { id: 'poster', name: '海報', unit: '款', price: 6500, min: 5500, max: 8000, days: 10 }
         ] },
         { id: 'p-catalog', name: '型錄／手冊', print: true, desc: '封面＋版型＋內頁編排', options: [
-          { id: 'p8', name: '8 頁', unit: '本', price: 22000, min: 19000, max: 25000, days: 15 },
-          { id: 'p16', name: '16 頁', unit: '本', price: 35000, min: 30000, max: 40000, days: 20 },
-          { id: 'p24', name: '24 頁', unit: '本', price: 48000, min: 42000, max: 55000, days: 25 }
+          { id: 'p8', name: '8 頁', unit: '本', price: 20000, min: 18000, max: 23000, days: 15 },
+          { id: 'p16', name: '16 頁', unit: '本', price: 32000, min: 28800, max: 36800, days: 20 },
+          { id: 'p24', name: '24 頁', unit: '本', price: 44000, min: 39600, max: 50600, days: 25 }
         ] }
       ]
     },
