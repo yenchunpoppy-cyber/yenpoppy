@@ -328,6 +328,10 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   .q-extra .step-h h2 { margin-bottom: 20px; }
   .plans .style[aria-pressed="true"]::after { top: auto; bottom: 10px; right: 10px; width: 18px; height: 18px; font-size: 10px; }
 }
+
+/* 頁首固定 65px：試算卡片停在頁首下方，不被切到；留言區上框線用黑色 */
+@media (min-width: 921px) { .result { top: 96px; } }
+.steps > section[aria-labelledby="h4"] { border-top: 1px solid var(--ink); }
 </style>
 </head>
 <body>
