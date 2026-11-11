@@ -245,7 +245,7 @@ async function renderWorksGrid() {
   await renderHomeIntro(grid, allWorks).catch(console.warn);
   // 精選：放在作品牆最前面、兩格寬（只在 ALL 時）
   const homeData = await fetchJSON('/data/home.json').catch(() => ({}));
-  const featIds = (homeData.featured || []).filter(id => allWorks.some(w => w.id === id));
+  const featIds = [];  // 2026-11-11：不再另外放主打區，主打作品直接排在列表最前面（works.json 順序）
   let featRow = null;
   if (featIds.length) {
     featRow = document.createElement('div');
@@ -680,6 +680,14 @@ function renderModuleB(mod, settings, pageBg) {
   const gutter  = resolveGutter(mod.gutter, settings);
   const images  = mod.images || [];
 
+  // 合併作品的段落小標（例：包裝設計／社群貼文）
+  if (mod.headline) {
+    const lb = document.createElement('h2');
+    lb.className = 'module-b__label';
+    lb.textContent = mod.headline;
+    section.appendChild(lb);
+  }
+
   const grid = document.createElement('div');
   grid.className = 'module-b__grid';
   // Masonry columns: images keep their full aspect ratio (no cropping)
@@ -846,13 +854,13 @@ async function renderAboutPage() {
     ${brands.length ? `<section class="ab2-sec">
       ${head('BRANDS &amp; PROJECTS', '參與品牌與專案', d.brandsTitle, d.brandsDesc)}
       ${(d.brandsIndustries || []).length ? `<ul class="ab2-ind" aria-label="合作產業">${d.brandsIndustries.map(t => `<li><mark>${escHTML(t)}</mark></li>`).join('')}</ul>` : ''}
-      <ul class="ab2-logos">${brands.map(c => {
+      <div class="ab2-marquee"><ul class="ab2-logos">${brands.map(c => {
         const w = byId(c.work);
         const z = c.scale ? ` style="--z:${Number(c.scale) || 1}"` : '';
         const img = c.logo ? `<span class="lg"><img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" title="${escHTML(c.name)}" loading="lazy"${z}>${c.logoColor ? `<img class="lg-c" src="${escHTML(fixImgUrl(c.logoColor))}" alt="" aria-hidden="true" loading="lazy">` : ''}</span>` : `<b>${escHTML(c.name)}</b>`;
         return `<li>${w ? `<a href="/works/${encodeURIComponent(w.id)}" aria-label="${escHTML(c.name)}：${escHTML(w.title)}">${img}</a>` : img}</li>`;
       }).join('')}
-      </ul>
+      </ul></div>
       ${d.brandsNote ? `<p class="ab2-caption">${escHTML(d.brandsNote)}</p>` : ''}
     </section>` : ''}
 
@@ -1033,8 +1041,7 @@ async function renderHomeIntro(grid, works) {
   wrap.className = 'home-intro';
   wrap.innerHTML = `
     <section class="hm2">
-      <h1 class="hm2__title">${escHTML(d.heroTitle || 'YENPOPPY')}</h1>
-      <div class="hm2__text">${(d.heroIntro || []).map((t, i) => `<p class="${i === 0 ? 'hm2__motto' : 'hm2__intro'}">${escHTML(t)}</p>`).join('')}</div>
+      <h1 class="hm2__title hm2__title--line">${(d.heroIntro || []).slice(0, 1).map(t => `<span class="hm2__zh">${escHTML(t)}</span>`).join('')}<span class="hm2__en">${escHTML(d.heroTitle || 'YENPOPPY')}</span></h1>
     </section>
     <div id="index" class="hm2-anchor"></div>`;
   grid.parentElement.insertBefore(wrap, grid);
@@ -1121,7 +1128,7 @@ async function renderFooter() {
       <p class="sf__links">${links.join('<span aria-hidden="true">/</span>')}</p>
       <p class="sf__copy">© ${new Date().getFullYear()} YENPOPPY</p>
     </div>
-    <a class="sf__logo" href="/" aria-label="YENPOPPY 首頁"><img src="/public/uploads/yenpoppy-logo-lockup.svg" alt="YENPOPPY" loading="lazy"></a>`;
+    <a class="sf__logo" href="/" aria-label="YENPOPPY 首頁"><img src="/public/uploads/yenpoppy-wordmark.svg" alt="YENPOPPY" loading="lazy"></a>`;
   const main = document.getElementById('page-content') || document.getElementById('main');
   (main ? main.parentElement : document.body).insertBefore(f, main ? main.nextSibling : null);
 }
@@ -1131,7 +1138,7 @@ function pageHead({ en = '', title, lead = '', extra = '' }) {
   return `
     <header class="pg-head">
       ${en ? `<p class="pg-head__en">${en}</p>` : ''}
-      <h1 class="pg-head__title">${escHTML(title)}</h1>
+      <h1 class="pg-head__title">${escHTML(title).replace(/==(.+?)==/g, '<mark>$1</mark>')}</h1>
       ${lead ? `<p class="pg-head__lead">${escHTML(lead)}</p>` : ''}
       ${extra}
     </header>`;
@@ -1184,3 +1191,26 @@ async function renderQuoteExtras() {
     });
   }, { passive: true });
 })();
+
+// About 合作品牌：一整排自動左右輪播、輪流亮起（滑鼠移上暫停）
+function initLogoMarquee() {
+  const box = document.querySelector('.ab2-marquee');
+  if (!box || box.dataset.ready) return;
+  box.dataset.ready = '1';
+  const ul = box.querySelector('.ab2-logos');
+  const copy = ul.cloneNode(true);
+  copy.setAttribute('aria-hidden', 'true');
+  copy.querySelectorAll('a').forEach(a => a.tabIndex = -1);
+  box.appendChild(copy);
+  box.classList.add('is-run');
+  const items = [...ul.children], twins = [...copy.children];
+  let i = 0;
+  setInterval(() => {
+    if (box.matches(':hover')) return;
+    items.concat(twins).forEach(li => li.classList.remove('is-on'));
+    items[i % items.length].classList.add('is-on');
+    twins[i % twins.length].classList.add('is-on');
+    i++;
+  }, 1400);
+}
+new MutationObserver(() => initLogoMarquee()).observe(document.documentElement, { childList: true, subtree: true });
