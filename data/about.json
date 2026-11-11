@@ -205,7 +205,8 @@
       "logo": "/uploads/logo-knock-knock-heaven.png",
       "industry": "Restaurant",
       "work": "",
-      "scale": 1.15
+      "scale": 1.15,
+      "logoColor": "/uploads/logo-knock-knock-heaven-color.png"
     },
     {
       "name": "et seq.",
