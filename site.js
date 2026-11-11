@@ -894,9 +894,9 @@ async function renderAboutPage() {
         <a class="btn ab2-btn2" href="/#index">${escHTML(d.ctaSecondary)} →</a>
       </div>
     </section>`;
-  // 接近方形的 logo 視覺上較小，放大一點
+  // logo 視覺平衡：依長寬比調高度，讓每個 logo 面積接近（寬的矮一點、方的高一點）
   el.querySelectorAll('.ab2-logos img').forEach(img => {
-    const fit = () => { if (img.naturalHeight && img.naturalWidth / img.naturalHeight < 2) img.classList.add('is-compact'); };
+    const fit = () => { if (img.naturalHeight) img.style.setProperty('--s', (1 / Math.sqrt(img.naturalWidth / img.naturalHeight)).toFixed(3)); };
     img.complete ? fit() : img.addEventListener('load', fit);
   });
   container.appendChild(el);

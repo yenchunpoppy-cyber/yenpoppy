@@ -160,6 +160,12 @@
       "work": ""
     },
     {
+      "name": "Hibertek",
+      "logo": "/uploads/logo-hibertek.png",
+      "industry": "Technology",
+      "work": "computer-show"
+    },
+    {
       "name": "紙風車劇團",
       "logo": "/uploads/logo-paperwindmill.png",
       "industry": "Culture",
@@ -218,6 +224,12 @@
       "logo": "/uploads/logo-ee-branding.png",
       "industry": "Branding",
       "work": "ee-branding"
+    },
+    {
+      "name": "LAZY POINT",
+      "logo": "/uploads/logo-lazy-point.png",
+      "industry": "Lifestyle",
+      "work": "lazy-point"
     },
     {
       "name": "VACS",
