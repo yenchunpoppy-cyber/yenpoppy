@@ -766,7 +766,7 @@ async function renderAboutPage() {
   el.className = 'info-page about-page ab2';
   const head = (label, zh, title, desc) => `
       <header class="ab2-head">
-        <p class="ab2-eyebrow">${label}<span>${escHTML(zh)}</span></p>
+        <p class="ab2-eyebrow">${label}${zh && zh !== title ? `<span>${escHTML(zh)}</span>` : ''}</p>
         ${title ? `<h2 class="ab2-h2">${escHTML(title).replace(/\*(.+?)\*/g, '<mark>$1</mark>')}</h2>` : ''}
         ${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}
       </header>`;
@@ -785,11 +785,9 @@ async function renderAboutPage() {
       <div class="ab2-profile__grid">
         ${d.introImage ? `<div class="ab2-profile__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : '<div></div>'}
         <div class="ab2-profile__text">
-          <div class="ab2-body">${paras.map(t => `<p>${escHTML(t)}</p>`).join('')}</div>
+          <div class="ab2-body">${paras.map(t => `<p>${escHTML(t).replace(/\*(.+?)\*/g, '<mark>$1</mark>')}</p>`).join('')}</div>
           ${stats.length ? `<dl class="ab2-facts">
-            ${stats.map(s => /^\d+$/.test(s.value)
-              ? `<div class="ab2-fact--big"><dd><b>${escHTML(s.value)}</b>${s.unit ? `<span>${escHTML(s.unit)}</span>` : ''}</dd><dt>${escHTML(s.label)}</dt></div>`
-              : `<div><dt>${escHTML(s.label)}</dt><dd>${escHTML(s.value)}${s.unit ? ` ${escHTML(s.unit)}` : ''}</dd></div>`).join('')}
+            ${stats.map(s => `<div class="ab2-fact--big"><dd><b>${escHTML(s.value)}</b>${s.unit ? `<span>${escHTML(s.unit)}</span>` : ''}</dd><dt>${escHTML(s.label)}</dt></div>`).join('')}
           </dl>` : ''}
         </div>
       </div>
@@ -867,10 +865,10 @@ async function renderAboutPage() {
       <p class="ab2-eyebrow">LET'S WORK TOGETHER<span>合作邀請</span></p>
       <h2>${escHTML(d.ctaTitle)}</h2>
       ${d.ctaZh ? `<p class="ab2-cta__zh">${escHTML(d.ctaZh)}</p>` : ''}
-      ${d.ctaText ? `<p class="ab2-cta__text">${escHTML(d.ctaText)}</p>` : ''}
+      ${d.ctaText ? `<p class="ab2-cta__text">${escHTML(d.ctaText).replace(/\n/g, '<br class="ab2-br">')}</p>` : ''}
       <div class="ab2-cta__btns">
         <a class="btn btn--primary" href="/pages/contact">${escHTML(d.ctaPrimary)}</a>
-        <a class="ab2-textlink" href="/#index">${escHTML(d.ctaSecondary)} →</a>
+        <a class="btn ab2-btn2" href="/#index">${escHTML(d.ctaSecondary)} →</a>
       </div>
     </section>`;
   // 接近方形的 logo 視覺上較小，放大一點
