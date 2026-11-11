@@ -1166,3 +1166,21 @@ async function renderQuoteExtras() {
     </section>` : ''}`;
   steps.appendChild(wrap);
 }
+
+
+// 頁首：往下滑隱藏、往上滑出現（沿用舊站動態）
+(function () {
+  let last = window.scrollY, ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY, h = document.getElementById('site-header');
+      const menuOpen = document.getElementById('mobile-nav')?.classList.contains('open');
+      if (h && !menuOpen) {
+        if (y > last + 4 && y > 160) h.classList.add('hd-hide');
+        else if (y < last - 4 || y < 160) h.classList.remove('hd-hide');
+      }
+      last = y; ticking = false;
+    });
+  }, { passive: true });
+})();

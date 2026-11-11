@@ -1875,3 +1875,43 @@ body[data-page="work"] .pg-head { max-width: 960px; margin: 0 auto; padding-bott
 @media (max-width: 599px) { .hm2__motto { font-size: 16px; margin-bottom: 4px; } }
 /* 參與品牌：產業標籤拿掉，只留標題與 logo */
 .ab2-ind { display: none !important; }
+
+/* ═══ 2026-11-11 23:30 作品牆減少雜亂、小字放大、頁首加高與隱藏動態 ═══ */
+/* 頁首 */
+#site-header { height: 120px; transition: transform .35s ease; will-change: transform; }
+#site-header.hd-hide { transform: translateY(-100%); }
+.header-logo { gap: 24px; padding-top: 22px; }
+.header-logo img.logo-mark { height: 98px; }
+.header-logo img.logo-wordmark { height: 26px !important; }
+#site-nav { padding-bottom: 18px; }
+@media (max-width: 599px) {
+  #site-header { height: 76px; }
+  .header-logo { gap: 12px; padding-top: 14px; }
+  .header-logo img.logo-mark { height: 62px; }
+  .header-logo img.logo-wordmark { height: 16px !important; }
+}
+@media (min-width: 921px) { .result { top: 136px !important; } }
+.hm2-anchor, section[aria-labelledby="h4"], .pg-head { scroll-margin-top: 40px !important; }
+
+/* 作品牆：三欄、間距加大、每張只留標題一行＋副標一行 */
+#works-grid { column-gap: 32px !important; row-gap: 56px !important; }
+.work-card .card-title { font-size: 15px !important; font-weight: 400; letter-spacing: .04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-top: 14px; }
+.work-card .card-caption { font-size: 13px !important; color: #8a8a8a !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px; }
+.feat-row { gap: 32px !important; margin-bottom: 72px !important; }
+@media (max-width: 599px) {
+  #works-grid { column-gap: 14px !important; row-gap: 32px !important; }
+  .work-card .card-title { font-size: 14px !important; padding-top: 10px; }
+  .work-card .card-caption { display: none; }
+  .feat-row { gap: 24px 14px !important; margin-bottom: 40px !important; }
+}
+
+/* 小字下限：12–13px */
+.nv-en { font-size: 12px !important; }
+.nv-zh { font-size: 15px !important; }
+.pg-head__en, .tf-label, .ab2-eyebrow { font-size: 12px !important; }
+.tag-filter button { font-size: 12px !important; }
+.ab2-caption, .ab2-logos + .ab2-caption { font-size: 13px !important; }
+.sf__bar, .sf__bar a { font-size: 13px !important; }
+/* 跳到留言區：留出頁首高度＋面板上緣，整塊框線看得到 */
+#h4 { scroll-margin-top: 200px; }
+@media (max-width: 599px) { #h4 { scroll-margin-top: 130px; } }
