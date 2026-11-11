@@ -1289,8 +1289,6 @@ a { color: inherit; text-decoration: none; }
 .ab2-timeline li { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 32px; padding: 32px 0; border-top: 1px solid rgba(0,0,0,.12); }
 .ab2-year { font-family: var(--font-title); font-size: 22px; font-weight: 300; letter-spacing: .06em; color: var(--text-color); }
 .ab2-year--no { color: var(--gold) !important; font-size: 14px !important; font-weight: 500 !important; padding-top: 6px; }
-.ab2-award { background: var(--cream); border-top: 0 !important; padding: 32px 32px !important; margin-top: 8px; }
-.ab2-award .ab2-en { color: var(--text-color); }
 
 /* Steps */
 .ab2-steps { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
@@ -1321,7 +1319,6 @@ a { color: inherit; text-decoration: none; }
   .ab2-logos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 24px; }
   .ab2-logos img { max-height: 36px; }
   .ab2-timeline li { grid-template-columns: 1fr; gap: 8px; }
-  .ab2-award { padding: 24px !important; }
   .ab2-steps { grid-template-columns: 1fr; gap: 24px; }
   .ab2-cta { margin-top: 88px; padding: 64px 20px; }
   .ab2-body p, .ab2-lead { font-size: 15px; }
@@ -1330,3 +1327,53 @@ a { color: inherit; text-decoration: none; }
 .ab2-cta .ab2-eyebrow { color: var(--text-color); }
 @media (max-width: 760px) { .ab2-logos img.is-compact { max-height: 52px; } }
 @media (max-width: 760px) { .ab2-items { grid-template-columns: 1fr; } }
+
+/* ── About v3：依 ABOUT-UI-REVISION-001 規格 ── */
+.ab2 { --ab-h2: clamp(26px, 2.8vw, 36px); }
+.ab2-h2 { font-weight: 600 !important; line-height: 1.3; letter-spacing: .03em; }
+.ab2-h3 { font-weight: 500 !important; line-height: 1.3; }
+.ab2-lead, .ab2-body p, .ab2-desc, .ab2-cta__text { line-height: 1.75; }
+.ab2-body p + p { margin-top: 20px; }
+.ab2-head { margin-bottom: 40px; }
+
+/* Profile：品牌圖像＋背景介紹，理念用淡色塊 */
+.ab2-profile__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 64px; align-items: center; }
+.ab2-profile__img { background: var(--secondary); }
+.ab2-profile__img img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.ab2-profile__text { max-width: 600px; }
+.ab2-profile .ab2-body p { font-size: 18px; line-height: 1.75; color: var(--text-color); }
+.ab2-quote { margin-top: 48px; padding: 40px 48px; border-left: 0; background: var(--cream); font-size: inherit; }
+.ab2-quote p:last-child { max-width: 760px; margin-top: 12px; font-size: clamp(20px, 2vw, 26px); font-weight: 400; line-height: 1.6; letter-spacing: .04em; }
+.ab2-quote .ab2-en { color: var(--text-color); }
+
+/* Experience：階段數字為焦點，橫向三階段 */
+.ab2-stages { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.ab2-stages li { border-top: 1px solid rgba(0,0,0,.14); padding-top: 24px; }
+.ab2-stage-no { font-family: var(--font-title); font-size: clamp(40px, 4vw, 56px); font-weight: 300; line-height: 1; color: var(--gold); margin-bottom: 20px; }
+.ab2-stages .ab2-desc { max-width: 340px; }
+.ab2-award { display: grid; grid-template-columns: 120px minmax(0, 1fr) auto; gap: 32px; align-items: center; margin-top: 56px; padding: 32px 40px; border: 1px solid var(--gold); background: none !important; }
+.ab2-award__yr { font-family: var(--font-title); font-size: clamp(32px, 3vw, 44px); font-weight: 300; line-height: 1; }
+.ab2-award .ab2-h3 { margin-bottom: 8px; }
+.ab2-award .ab2-more { margin-top: 0; white-space: nowrap; }
+
+@media (max-width: 1024px) {
+  .ab2-stages { gap: 24px; }
+  .ab2-award { grid-template-columns: 96px minmax(0, 1fr); }
+  .ab2-award .ab2-more { grid-column: 2; justify-self: start; }
+}
+@media (max-width: 760px) {
+  .ab2-profile__grid { gap: 28px; }
+  .ab2-profile .ab2-body p { font-size: 16px; }
+  .ab2-quote { margin-top: 32px; padding: 28px 24px; }
+  .ab2-stages { grid-template-columns: 1fr; gap: 0; }
+  .ab2-stages li { display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 16px; padding: 24px 0; }
+  .ab2-stage-no { grid-row: 1 / span 3; font-size: 36px; margin: 0; }
+  .ab2-award { grid-template-columns: 1fr; gap: 12px; padding: 24px; margin-top: 32px; }
+  .ab2-award .ab2-more { grid-column: 1; }
+}
+@media (max-width: 760px) {
+  .ab2-profile__grid { grid-template-columns: 1fr; }
+  .ab2-profile__img img { aspect-ratio: 16 / 9; }
+  .ab2-eyebrow { flex-wrap: wrap; gap: 4px 12px; }
+}
+@media (max-width: 1024px) { .ab2-items { grid-template-columns: 1fr; } .ab2-card { padding: 28px; } }

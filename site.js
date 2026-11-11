@@ -783,14 +783,15 @@ async function renderAboutPage() {
     <section class="ab2-sec ab2-profile">
       <p class="ab2-eyebrow">PROFILE<span>關於我</span></p>
       <div class="ab2-profile__grid">
-        ${d.introQuote ? `<p class="ab2-quote">${escHTML(d.introQuote)}</p>` : '<div></div>'}
-        <div>
+        ${d.introImage ? `<div class="ab2-profile__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : '<div></div>'}
+        <div class="ab2-profile__text">
           <div class="ab2-body">${paras.map(t => `<p>${escHTML(t)}</p>`).join('')}</div>
           ${stats.length ? `<dl class="ab2-facts">
             ${stats.map(s => `<div><dt>${escHTML(s.label)}</dt><dd>${escHTML(s.value)}${s.unit ? ` ${escHTML(s.unit)}` : ''}</dd></div>`).join('')}
           </dl>` : ''}
         </div>
       </div>
+      ${d.introQuote ? `<blockquote class="ab2-quote"><p class="ab2-en">DESIGN PHILOSOPHY</p><p>${escHTML(d.introQuote)}</p></blockquote>` : ''}
     </section>
 
     <section class="ab2-sec">
@@ -826,18 +827,18 @@ async function renderAboutPage() {
 
     ${(d.journey || []).length || awards.length ? `<section class="ab2-sec">
       ${head('EXPERIENCE &amp; RECOGNITION', '經歷與肯定', d.journeyTitle, '')}
-      <ol class="ab2-timeline">${(d.journey || []).map((p, i) => `
-        <li><p class="ab2-year${p.year ? '' : ' ab2-year--no'}">${escHTML(p.year || pad2(i))}</p>
-          <div><p class="ab2-en">${escHTML(p.en)}</p><h3 class="ab2-h3">${escHTML(p.zh)}</h3><p class="ab2-desc">${escHTML(p.desc)}</p></div></li>`).join('')}
-        ${awards.map(a => {
-          const w = byId(a.link);
-          const yr = (a.title.match(/^\d{4}/) || [''])[0];
-          return `<li class="ab2-award"><p class="ab2-year">${escHTML(yr)}</p>
-          <div><p class="ab2-en">Recognition</p><h3 class="ab2-h3">${escHTML(a.title.replace(/^\d{4}\s*/, ''))}</h3>
-            ${a.work ? `<p class="ab2-desc">${escHTML(a.work)}</p>` : ''}
-            ${w ? `<a class="ab2-more" href="/works/${encodeURIComponent(w.id)}">看作品 →</a>` : ''}</div></li>`;
-        }).join('')}
+      <ol class="ab2-stages">${(d.journey || []).map((p, i) => `
+        <li><p class="ab2-stage-no">${pad2(i)}</p><p class="ab2-en">${escHTML(p.en)}</p>
+          <h3 class="ab2-h3">${escHTML(p.zh)}</h3><p class="ab2-desc">${escHTML(p.desc)}</p></li>`).join('')}
       </ol>
+      ${awards.map(a => {
+        const w = byId(a.link);
+        const yr = (a.title.match(/^\d{4}/) || [''])[0];
+        return `<div class="ab2-award"><p class="ab2-award__yr">${escHTML(yr)}</p>
+          <div><p class="ab2-en">Recognition</p><h3 class="ab2-h3">${escHTML(a.title.replace(/^\d{4}\s*/, ''))}</h3>
+            ${a.work ? `<p class="ab2-desc">${escHTML(a.work)}</p>` : ''}</div>
+          ${w ? `<a class="ab2-more" href="/works/${encodeURIComponent(w.id)}">看作品 →</a>` : ''}</div>`;
+      }).join('')}
     </section>` : ''}
 
     <section class="ab2-sec">
