@@ -1660,3 +1660,8 @@ body[data-page="work"] .module-a__header { margin-left: -18px; }
 .about-page.ab2 .ab2-logos img.lg-c { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; object-fit: contain; opacity: 0; transition: opacity .3s ease; }
 .about-page.ab2 .ab2-logos li:hover img.lg-c, .about-page.ab2 .ab2-logos a:focus-visible img.lg-c { opacity: 1; }
 .about-page.ab2 .ab2-logos li:hover .lg:has(.lg-c) img:first-child, .about-page.ab2 .ab2-logos a:focus-visible .lg:has(.lg-c) img:first-child { opacity: 0; }
+
+/* 品牌牆上方：合作產業，用螢光筆標記點綴 */
+.ab2-ind { list-style: none; display: flex; flex-wrap: wrap; gap: 10px 28px; margin: -8px 0 56px; padding: 0; font-size: 15px; letter-spacing: .08em; }
+.ab2-ind mark { background: linear-gradient(transparent 55%, var(--cream) 55%); color: inherit; padding: 0 3px; }
+@media (max-width: 599px) { .ab2-ind { gap: 8px 18px; margin-bottom: 36px; font-size: 14px; } }

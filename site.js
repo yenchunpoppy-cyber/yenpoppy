@@ -835,6 +835,7 @@ async function renderAboutPage() {
 
     ${brands.length ? `<section class="ab2-sec">
       ${head('BRANDS &amp; PROJECTS', '參與品牌與專案', d.brandsTitle, d.brandsDesc)}
+      ${(d.brandsIndustries || []).length ? `<ul class="ab2-ind" aria-label="合作產業">${d.brandsIndustries.map(t => `<li><mark>${escHTML(t)}</mark></li>`).join('')}</ul>` : ''}
       <ul class="ab2-logos">${brands.map(c => {
         const w = byId(c.work);
         const z = c.scale ? ` style="--z:${Number(c.scale) || 1}"` : '';
