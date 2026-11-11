@@ -758,9 +758,10 @@ async function renderAboutPage() {
   const countTag = t => works.filter(w => (w.tags || []).includes(t)).length;
   const stats = (d.stats || []).filter(s => s.value);
   const awards = (d.awards || []).filter(a => a.title);
-  const featured = [].map(byId).filter(Boolean);
-  const groups = (d.clientGroups || []).map(g => ({ ...g, clients: (g.clients || []).filter(c => c && c.name) })).filter(g => g.clients.length);
-  const thumb = w => w && w.thumbnail ? escHTML(fixImgUrl(w.thumbnail)) : '';
+  const brands = (d.brands || []).filter(c => c && c.name);
+  const paras = String(d.intro || '').split(/\n\s*\n/).map(t => t.trim()).filter(Boolean);
+  const pad2 = i => String(i + 1).padStart(2, '0');
+  const secHead = (t, desc) => (t ? `<p class="ab-sec__title">${escHTML(t)}</p>` : '') + (desc ? `<p class="ab-lead">${escHTML(desc)}</p>` : '');
 
   const el = document.createElement('div');
   el.className = 'info-page about-page';
@@ -777,66 +778,76 @@ async function renderAboutPage() {
       ${d.introImage ? `<div class="hm-row__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : ''}
       <div class="hm-row__panel">
         <p class="micro">( INTRODUCTION )</p>
-        <p class="hm-row__statement">${escHTML(d.intro)}</p>
-        ${stats.length || awards.length ? `<dl class="ab-facts">
+        <div class="ab-introtext">${paras.map(t => `<p>${escHTML(t)}</p>`).join('')}</div>
+        ${stats.length ? `<dl class="ab-facts">
           ${stats.map(s => `<div><dt>${escHTML(s.label)}</dt><dd><b>${escHTML(s.value)}</b>${escHTML(s.unit)}</dd></div>`).join('')}
-          ${awards.map(a => `<div><dt>得獎</dt><dd>${escHTML(a.title)}${a.work ? `<span>｜${escHTML(a.work)}</span>` : ''}</dd></div>`).join('')}
         </dl>` : ''}
       </div>
     </section>
 
-    ${featured.length ? `<section class="info-sec">
-      <h2 class="info-h"><span>SELECTED WORKS</span>精選作品</h2>
-      <div class="ab-featured">${featured.map(w => `
-        <a class="ab-work" href="/works/${encodeURIComponent(w.id)}">
-          <div class="ab-work__img"><img src="${thumb(w)}" alt="${escHTML(w.thumbnailAlt || w.title)}" loading="lazy"></div>
-          <h3>${escHTML(w.title)}</h3>
-          ${w.caption ? `<p>${escHTML(w.caption)}</p>` : ''}
-        </a>`).join('')}
-      </div>
-    </section>` : ''}
-
     <section class="info-sec">
-      <h2 class="info-h"><span>SERVICES</span>服務項目</h2>
-      <div class="ab-services">${(d.services || []).map(s => {
+      <h2 class="info-h"><span>DESIGN CAPABILITIES</span>設計能力</h2>
+      ${secHead(d.servicesTitle, d.servicesDesc)}
+      <div class="ab-services">${(d.services || []).map((s, i) => {
         const tags = (s.tags || []).filter(t => countTag(t));
-        const w = byId(s.work);
         return `
         <div class="ab-service">
-          ${s.icon ? `<img class="ab-service__icon" src="${escHTML(fixImgUrl(s.icon))}" alt="" aria-hidden="true">`
-            : w ? `<a class="ab-service__img" href="/?tag=${encodeURIComponent(tags[0] || '')}" tabindex="-1" aria-hidden="true"><img src="${thumb(w)}" alt="" loading="lazy"></a>` : ''}
+          <p class="ab-service__no">${pad2(i)} /</p>
+          ${s.icon ? `<img class="ab-service__icon" src="${escHTML(fixImgUrl(s.icon))}" alt="" aria-hidden="true">` : ''}
           <p class="ab-service__en">${escHTML(s.en)}</p>
           <h3>${escHTML(s.zh)}</h3>
           <p class="ab-service__desc">${escHTML(s.desc)}</p>
+          ${(s.items || []).length ? `<ul class="ab-service__items">${s.items.map(t => `<li>${escHTML(t)}</li>`).join('')}</ul>` : ''}
           <p class="ab-service__tags">${tags.map(t =>
-            `<a href="/?tag=${encodeURIComponent(t)}">${escHTML(t)} <span>${countTag(t)}</span></a>`).join('')}</p>
+            `<a href="/?tag=${encodeURIComponent(t)}#index">${escHTML(t)} <span>${countTag(t)}</span></a>`).join('')}</p>
         </div>`;
       }).join('')}
       </div>
     </section>
 
-    ${groups.length ? `<section class="info-sec">
-      <h2 class="info-h"><span>CLIENTS</span>合作品牌</h2>
-      <dl class="ab-clients">${groups.map(g => `
-        <div><dt>${escHTML(g.industry)}</dt><dd>${g.clients.map(c => c.logo
-          ? `<img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" loading="lazy">`
-          : `<span>${escHTML(c.name)}</span>`).join('')}</dd></div>`).join('')}
-      </dl>
+    ${brands.length ? `<section class="info-sec">
+      <h2 class="info-h"><span>BRANDS &amp; PROJECTS</span>參與品牌與專案</h2>
+      ${secHead(d.brandsTitle, d.brandsDesc)}
+      <ul class="ab-brands">${brands.map(c => {
+        const w = byId(c.work);
+        const inner = `${c.logo ? `<img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" loading="lazy">` : `<b>${escHTML(c.name)}</b>`}
+          <span class="micro">${escHTML(c.industry || '')}${w ? ' — VIEW' : ''}</span>`;
+        return `<li>${w ? `<a href="/works/${encodeURIComponent(w.id)}" aria-label="${escHTML(c.name)}：${escHTML(w.title)}">${inner}</a>` : `<div>${inner}</div>`}</li>`;
+      }).join('')}
+      </ul>
+      ${d.brandsNote ? `<p class="ab-note">${escHTML(d.brandsNote)}</p>` : ''}
+    </section>` : ''}
+
+    ${(d.journey || []).length || awards.length ? `<section class="info-sec">
+      <h2 class="info-h"><span>EXPERIENCE &amp; RECOGNITION</span>經歷與肯定</h2>
+      ${secHead(d.journeyTitle, d.journeyDesc)}
+      <ol class="ab-process ab-journey">${(d.journey || []).map((p, i) => `
+        <li><span class="no">${pad2(i)}</span><p class="ab-process__en">${escHTML(p.en)}</p>
+          <h3>${escHTML(p.zh)}</h3><p>${escHTML(p.desc)}</p></li>`).join('')}
+      </ol>
+      ${awards.length ? `<dl class="ab-facts ab-awards">${awards.map(a => {
+        const w = byId(a.link);
+        const work = a.work ? (w ? `<a href="/works/${encodeURIComponent(w.id)}">${escHTML(a.work)} →</a>` : escHTML(a.work)) : '';
+        return `<div><dt>AWARD</dt><dd><b>${escHTML(a.title)}</b>${work ? `<span>${work}</span>` : ''}</dd></div>`;
+      }).join('')}</dl>` : ''}
     </section>` : ''}
 
     <section class="info-sec">
-      <h2 class="info-h"><span>PROCESS</span>設計方法</h2>
+      <h2 class="info-h"><span>HOW I WORK</span>合作流程</h2>
+      ${secHead(d.processTitle, d.processDesc)}
       <ol class="ab-process">${(d.process || []).map((p, i) => `
-        <li><span class="no">0${i + 1}</span><p class="ab-process__en">${escHTML(p.en)}</p>
+        <li><span class="no">${pad2(i)}</span><p class="ab-process__en">${escHTML(p.en)}</p>
           <h3>${escHTML(p.zh)}</h3><p>${escHTML(p.desc)}</p></li>`).join('')}
       </ol>
     </section>
 
     <section class="info-cta">
       <h2>${escHTML(d.ctaTitle)}</h2>
+      ${d.ctaZh ? `<p class="info-cta__zh">${escHTML(d.ctaZh)}</p>` : ''}
+      ${d.ctaText ? `<p class="info-cta__text">${escHTML(d.ctaText)}</p>` : ''}
       <div class="info-cta__btns">
         <a class="btn btn--primary" href="/pages/contact">${escHTML(d.ctaPrimary)}</a>
-        <a class="btn" href="/">${escHTML(d.ctaSecondary)}</a>
+        <a class="btn" href="/#index">${escHTML(d.ctaSecondary)}</a>
       </div>
     </section>`;
   container.appendChild(el);

@@ -1,199 +1,223 @@
 {
   "seoTitle": "ABOUT",
-  "seoDesc": "YENPOPPY：品牌識別、包裝設計、UI/UX、網頁設計、社群視覺、動態影像、插畫與展示陳列設計，來自台灣。服務過珠寶、美妝、金融、觀光與醫療等產業。",
+  "seoDesc": "YENPOPPY 是設計師劉姸的獨立創意設計工作室，提供品牌識別與視覺設計、包裝與產品設計、網站與數位介面設計、展示陳列與展覽設計，來自台灣。",
   "heroEn": "Hi, I'm Yen. Nice to meet you!",
   "heroZh": "",
   "introImage": "/uploads/about-brand-graphic.svg",
   "introImageAlt": "",
-  "intro": "品牌識別、包裝、數位介面與展示設計。依照每個專案的需求，找到適合的設計方向與呈現方式。服務過珠寶、美妝、金融、觀光與醫療等產業。",
+  "intro": "我是劉姸，從工業設計出發，累積 13 年跨領域設計經驗。\n\n從品牌識別、包裝與產品，到數位介面、空間展示與整合視覺，我喜歡探索不同媒材與領域之間的可能性。\n\n比起套用固定的設計風格，我更在意每個品牌真正需要什麼，再透過發想、實驗與整合，找到適合它的視覺語言。\n\n對我來說，好的設計不只是做出好看的畫面，而是把一個想法，變成能被看見、使用，也能被記住的體驗。",
   "stats": [
     {
       "value": "13",
       "unit": "年",
       "label": "跨領域設計經驗"
+    },
+    {
+      "value": "2013 — 2026",
+      "unit": "",
+      "label": "設計歷程"
     }
   ],
   "awards": [
     {
       "title": "2025 DesignBIZ 永續實踐獎",
-      "work": "大安森林公園生態博覽會｜團隊獲獎專案，參與主視覺與周邊視覺設計"
+      "work": "大安森林公園生態嘉年華｜團隊獲獎專案，參與主視覺與周邊視覺設計",
+      "link": "daan-eco-fair"
     }
-  ],
-  "featured": [
-    "disney-princess",
-    "aluxe-passport",
-    "et-seq-nail",
-    "coexist-popup-shop",
-    "heath-forest",
-    "kite-flying"
   ],
   "services": [
     {
-      "en": "Brand Identity",
-      "zh": "品牌識別",
-      "desc": "從品牌個性與定位出發，找到適合它的視覺語言，讓品牌有自己的樣子。",
+      "en": "Brand Identity & Visual Design",
+      "zh": "品牌識別與視覺設計",
+      "desc": "從品牌概念與定位出發，建立具有辨識度的視覺語言，並延伸至不同溝通情境。",
       "tags": [
-        "Branding"
+        "Branding",
+        "Social Media",
+        "Art Direction"
       ],
-      "work": "vacs",
-      "icon": "/uploads/icon-branding.svg"
+      "icon": "/uploads/icon-branding.svg",
+      "items": [
+        "Logo 與品牌識別設計",
+        "品牌視覺系統",
+        "品牌應用與延伸視覺",
+        "廣告與社群視覺設計"
+      ]
     },
     {
-      "en": "Packaging & Product",
+      "en": "Packaging & Product Design",
       "zh": "包裝與產品設計",
-      "desc": "讓產品不只好看，也能透過包裝、結構與細節，創造更完整的體驗。",
+      "desc": "從產品特色與使用情境出發，思考外觀、結構與視覺之間的關係，讓產品從包裝到呈現都有完整的設計體驗。",
       "tags": [
-        "Packaging"
-      ],
-      "work": "kite-flying",
-      "icon": "/uploads/icon-packaging.svg"
-    },
-    {
-      "en": "Creative Direction",
-      "zh": "創意企劃與整合",
-      "desc": "如果你有一個還沒成形的想法，我們可以一起討論、發展概念，找到有趣又可行的方向。",
-      "tags": [
-        "Art Direction",
-        "Exhibition",
+        "Packaging",
         "Illustration"
       ],
-      "work": "disney-princess",
-      "icon": "/uploads/icon-display.svg"
+      "icon": "/uploads/icon-packaging.svg",
+      "items": [
+        "產品包裝設計",
+        "禮盒與套組設計",
+        "印刷品與編輯設計",
+        "周邊商品與產品視覺"
+      ]
     },
     {
-      "en": "Digital & Visual",
-      "zh": "網站與數位視覺",
-      "desc": "讓品牌從實體延伸到數位世界，保持一致又有個性的視覺體驗。",
+      "en": "Website & Digital Design",
+      "zh": "網站與數位介面設計",
+      "desc": "將品牌視覺延伸至數位環境，兼顧美感、資訊層級與使用體驗。",
       "tags": [
-        "UI/UX",
         "Web Design",
-        "Social Media",
+        "UI/UX",
         "Motion Graphics"
       ],
-      "work": "heath-forest",
-      "icon": "/uploads/icon-digital.svg"
-    }
-  ],
-  "clientGroups": [
-    {
-      "industry": "珠寶",
-      "clients": [
-        {
-          "name": "ALUXE 亞立詩",
-          "logo": ""
-        },
-        {
-          "name": "ALUXE x Disney",
-          "logo": ""
-        },
-        {
-          "name": "LOVERS",
-          "logo": ""
-        },
-        {
-          "name": "acredo",
-          "logo": ""
-        },
-        {
-          "name": "逸歡",
-          "logo": ""
-        }
+      "icon": "/uploads/icon-digital.svg",
+      "items": [
+        "品牌網站與網頁設計",
+        "UI 介面設計",
+        "數位視覺設計",
+        "數位互動與內容呈現"
       ]
     },
     {
-      "industry": "美妝",
-      "clients": [
-        {
-          "name": "ANESSA",
-          "logo": ""
-        },
-        {
-          "name": "專科 SENKA",
-          "logo": ""
-        },
-        {
-          "name": "et seq.",
-          "logo": ""
-        }
-      ]
-    },
-    {
-      "industry": "金融",
-      "clients": [
-        {
-          "name": "台新金控",
-          "logo": ""
-        }
-      ]
-    },
-    {
-      "industry": "觀光與公部門",
-      "clients": [
-        {
-          "name": "觀傳局",
-          "logo": ""
-        }
-      ]
-    },
-    {
-      "industry": "醫療",
-      "clients": [
-        {
-          "name": "台灣女中醫師協會",
-          "logo": ""
-        }
-      ]
-    },
-    {
-      "industry": "生活與文創",
-      "clients": [
-        {
-          "name": "CLUB Panasonic",
-          "logo": ""
-        },
-        {
-          "name": "VACS",
-          "logo": ""
-        },
-        {
-          "name": "Kite Flying Band",
-          "logo": ""
-        },
-        {
-          "name": "w/f flower",
-          "logo": ""
-        },
-        {
-          "name": "Lazy Point",
-          "logo": ""
-        }
+      "en": "Display & Exhibition Design",
+      "zh": "展示、陳列與展覽設計",
+      "desc": "讓設計從平面走進真實空間，透過視覺、物件與場域的整合，創造更完整的品牌體驗。",
+      "tags": [
+        "Exhibition"
+      ],
+      "icon": "/uploads/icon-display.svg",
+      "items": [
+        "品牌櫥窗與門市陳列",
+        "商品展示設計",
+        "展覽與活動視覺",
+        "空間視覺整合"
       ]
     }
   ],
   "process": [
     {
-      "en": "Research",
-      "zh": "了解",
-      "desc": "聊品牌、看產品和通路，整理競品與目標客群。"
+      "en": "Discover",
+      "zh": "理解需求",
+      "desc": "先認識品牌、產品與目標，了解這次合作真正想解決的問題。"
     },
     {
-      "en": "Strategy",
-      "zh": "策略",
-      "desc": "定出要傳達的重點，提出 2～3 個視覺方向。"
+      "en": "Explore",
+      "zh": "探索方向",
+      "desc": "整理需求與設計重點，發想不同可能，逐步確認適合的創意與視覺方向。"
     },
     {
-      "en": "Design",
-      "zh": "設計",
-      "desc": "提案、討論、修改，細節到材質和工法。"
+      "en": "Create",
+      "zh": "設計實現",
+      "desc": "將確認的方向發展成具體設計，從概念、視覺到實際應用，逐步完成作品。"
     },
     {
-      "en": "Delivery",
-      "zh": "落地",
-      "desc": "依照專案需求，協助打樣、印製與後續視覺延伸，讓設計更完整地落實。"
+      "en": "Deliver",
+      "zh": "成果交付",
+      "desc": "整理並交付確認後的設計檔案，依專案需求協助打樣、印製或後續視覺延伸。"
     }
   ],
-  "ctaTitle": "想一起合作嗎？",
-  "ctaPrimary": "聯絡我",
+  "ctaTitle": "Have an idea in mind?",
+  "ctaPrimary": "開始合作 →",
   "ctaSecondary": "看作品",
-  "heroMicro": "TAIWAN — SINCE 2013"
+  "heroMicro": "TAIWAN — SINCE 2013",
+  "heroLine": "一位喜歡探索不同可能性的設計師。",
+  "brandsTitle": "不同領域，不同的創意可能。",
+  "brandsDesc": "從珠寶、美妝、生活風格，到金融、醫療與文化展覽，我曾參與不同領域的品牌與設計專案。每一次合作，都是一次理解不同需求、探索視覺可能的過程，也讓我累積了在不同風格、媒材與應用情境之間轉換的經驗。",
+  "brands": [
+    {
+      "name": "ALUXE 亞立詩",
+      "logo": "/uploads/logo-aluxe.png",
+      "industry": "Jewelry",
+      "work": "aluxe-passport"
+    },
+    {
+      "name": "et seq.",
+      "logo": "/uploads/logo-et-seq.png",
+      "industry": "Beauty",
+      "work": "et-seq-nail"
+    },
+    {
+      "name": "BALL SOCKS",
+      "logo": "/uploads/logo-ball-socks.png",
+      "industry": "Lifestyle",
+      "work": "ice-cream-ballsocks"
+    },
+    {
+      "name": "SENKA 專科",
+      "logo": "/uploads/logo-senka.png",
+      "industry": "Beauty",
+      "work": ""
+    },
+    {
+      "name": "ANESSA",
+      "logo": "/uploads/logo-anessa.png",
+      "industry": "Beauty",
+      "work": ""
+    },
+    {
+      "name": "CLUB Panasonic",
+      "logo": "/uploads/logo-club-panasonic.png",
+      "industry": "Lifestyle",
+      "work": ""
+    },
+    {
+      "name": "台新新光金控",
+      "logo": "/uploads/logo-ts-holdings.png",
+      "industry": "Finance",
+      "work": ""
+    },
+    {
+      "name": "LCY 李長榮集團",
+      "logo": "/uploads/logo-lcy.png",
+      "industry": "Corporate",
+      "work": ""
+    },
+    {
+      "name": "紙風車劇團",
+      "logo": "/uploads/logo-paperwindmill.png",
+      "industry": "Culture",
+      "work": ""
+    },
+    {
+      "name": "大安森林公園之友基金會",
+      "logo": "/uploads/logo-daan-park-foundation.png",
+      "industry": "Nature",
+      "work": "daan-eco-fair"
+    },
+    {
+      "name": "天主教中華聖母基金會",
+      "logo": "/uploads/logo-holy-mother-foundation.png",
+      "industry": "Nonprofit",
+      "work": ""
+    },
+    {
+      "name": "Knock Knock Heaven",
+      "logo": "/uploads/logo-knock-knock-heaven.png",
+      "industry": "",
+      "work": ""
+    }
+  ],
+  "journey": [
+    {
+      "en": "Industrial & Product",
+      "zh": "工業設計與產品思考",
+      "desc": "高中讀廣告設計，大學選擇工業設計。第一份工作從產品設計師開始，每週提出產品創意，習慣從用途、結構與量產條件去想一件東西。"
+    },
+    {
+      "en": "Brand & Packaging",
+      "zh": "品牌與包裝視覺",
+      "desc": "把產品創意延伸到平面：設計近百款襪子圖案與「球襪」系列，也參與美妝與珠寶品牌的包裝、型錄與廣告視覺。"
+    },
+    {
+      "en": "Digital, Display & Cross-media",
+      "zh": "數位、展示與跨媒材整合",
+      "desc": "從櫥窗與門市陳列，到品牌網站、互動禮盒與活動主視覺，讓一個概念在實體與數位之間延續。"
+    }
+  ],
+  "ctaText": "不論是一個剛萌芽的品牌想法，或是正在尋找新方向的既有品牌，都歡迎一起討論。期待和你一起，把想法變成值得被看見的作品。",
+  "servicesTitle": "從一個想法出發，探索不同的設計可能。",
+  "servicesDesc": "不同品牌有不同的個性與需求。我會依照專案目標，整合適合的視覺形式與媒材，讓創意不只停留在想像，也能真正落實。",
+  "brandsNote": "部分品牌與專案為任職期間參與之合作成果，實際負責內容依各專案說明為準。",
+  "journeyTitle": "一路探索，持續累積。",
+  "journeyDesc": "從工業設計到品牌視覺，從產品包裝到數位介面與實體展示，這些不同領域的經驗，讓我習慣從不同角度思考設計問題。我喜歡接觸新的事物，也樂於在不同媒材之間尋找連結，讓每一次創作都有機會發展出新的可能。",
+  "processTitle": "從理解需求，到讓想法成形。",
+  "ctaZh": "有想實現的點子嗎？"
 }
