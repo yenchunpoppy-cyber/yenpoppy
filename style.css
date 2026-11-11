@@ -1921,13 +1921,13 @@ body[data-page="work"] .pg-head { max-width: 960px; margin: 0 auto; padding-bott
 .hm2__title--line .hm2__zh { font-family: var(--font-zh, inherit); font-weight: 400; letter-spacing: .1em; }
 .hm2__title--line .hm2__en { font-weight: 300; text-transform: uppercase; }
 @media (max-width: 599px) { .hm2__title--line { font-size: 19px !important; gap: 4px; } }
-#site-header { background: #FFFCC2 !important; border-bottom-color: transparent !important; }
+#site-header { background: #FDFAEA !important; border-bottom-color: transparent !important; }
 .sf__logo img { max-width: 100%; }
 /* 作品格：左右滿版、間距 8px，標題置中 */
-body[data-page="works"] #works-grid { width: 100vw; max-width: none; margin-left: calc(50% - 50vw); column-gap: 8px !important; row-gap: 40px !important; }
+body[data-page="works"] #works-grid { column-gap: 16px !important; row-gap: 40px !important; }
 body[data-page="works"] #works-grid .work-card .card-title,
 body[data-page="works"] #works-grid .work-card .card-caption { text-align: center; padding: 0 12px; }
-@media (max-width: 899px) { body[data-page="works"] #works-grid { column-gap: 4px !important; row-gap: 28px !important; } }
+@media (max-width: 899px) { body[data-page="works"] #works-grid { column-gap: 10px !important; row-gap: 28px !important; } }
 /* 作品標題放大、類別字加深 */
 .work-card .card-title { font-size: 17px !important; font-weight: 500 !important; }
 .work-card .card-caption { font-size: 13px !important; color: #4A4A4A !important; margin-top: 6px; }
@@ -1935,7 +1935,7 @@ body[data-page="works"] #works-grid .work-card .card-caption { text-align: cente
 .pg-head__title mark { background: linear-gradient(transparent 55%, #FFFCC2 55%); color: inherit; padding: 0 2px; }
 /* About 設計能力：桌機四張一排、接近滿版 */
 @media (min-width: 1100px) {
-  .about-page.ab2 .ab2-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; width: calc(100vw - 48px); margin-left: calc(50% - 50vw + 24px); }
+  .about-page.ab2 .ab2-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
   .about-page.ab2 .ab2-card { padding: 32px 28px 28px; }
   .about-page.ab2 .ab2-items { grid-template-columns: 1fr; }
   .about-page.ab2 .ab2-card__btn { margin-top: auto; align-self: flex-start; }
@@ -1945,7 +1945,7 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
 .module-b__label { max-width: 960px; margin: 64px auto 20px; padding-top: 16px; border-top: 1px solid #E2E2E2; font-size: 16px; font-weight: 500; letter-spacing: .12em; }
 @media (max-width: 599px) { .module-b__label { margin-top: 40px; font-size: 15px; } }
 /* About 合作品牌：一整排左右輪播＋輪流亮起 */
-.about-page.ab2 .ab2-marquee { display: flex; width: 100vw; margin-left: calc(50% - 50vw); overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.about-page.ab2 .ab2-marquee { display: flex; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
 .about-page.ab2 .ab2-marquee .ab2-logos { display: flex !important; flex: none; gap: 0 !important; margin: 0; padding: 0; }
 .about-page.ab2 .ab2-marquee .ab2-logos li { flex: none; width: 220px; height: 96px !important; padding: 0 28px; }
 .about-page.ab2 .ab2-marquee.is-run .ab2-logos { animation: ab2-marquee 70s linear infinite; }
