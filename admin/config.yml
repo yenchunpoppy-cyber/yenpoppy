@@ -491,6 +491,11 @@ collections:
                 name: title
                 widget: string
 
+              - label: 中文副標（作品卡片照片下方，格式「是什麼｜做了什麼」，例：中秋禮盒｜唱盤造型包裝、互動網站）
+                name: subtitle
+                widget: string
+                required: false
+
               - label: 圖說（英文服務名，最多兩項，用全形「／」分隔，例：Packaging Design／Illustration）
                 name: caption
                 widget: string

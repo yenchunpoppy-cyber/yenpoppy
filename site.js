@@ -360,10 +360,11 @@ function createWorkCard(work) {
     tit.textContent = work.title;
     card.appendChild(tit);
   }
-  if (work.caption) {
+  const capText = work.subtitle || work.caption;  // 中文副標「是什麼｜做了什麼」，沒填就用英文圖說
+  if (capText) {
     const cap = document.createElement('div');
     cap.className = 'card-caption';
-    cap.textContent = work.caption;
+    cap.textContent = capText;
     card.appendChild(cap);
   }
   if ((work.tags || []).length) {
