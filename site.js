@@ -1028,17 +1028,16 @@ async function renderHomeIntro(grid, works) {
   const img = w => w && w.thumbnail ? escHTML(fixImgUrl(w.thumbnail)) : '';
   const heroWorks = (d.heroImages || []).map(byId).filter(Boolean);
   const selected = (d.selected || []).map(s => ({ ...s, w: byId(s.id) })).filter(s => s.w);
-  const total = String(selected.length).padStart(2, '0');
 
   const wrap = document.createElement('div');
   wrap.className = 'home-intro';
   wrap.innerHTML = `
     <section class="hm-hero">
       <div class="hm-hero__text">
-        <h1 class="hm-hero__title">${escHTML(d.heroTitle || 'YENPOPPY')}</h1>
-        <p class="hm-hero__sub">${escHTML(d.heroSub)}</p>
+        <h1 class="hm-hero__title hm-hero__title--home">${escHTML(d.heroTitle || 'YENPOPPY')}</h1>
+        ${d.heroSub ? `<p class="hm-hero__sub">${escHTML(d.heroSub)}</p>` : ''}
         ${d.heroLine ? `<p class="hm-hero__note">${escHTML(d.heroLine)}</p>` : ''}
-        ${(d.heroIntro || []).map(t => `<p class="hm-hero__intro">${escHTML(t)}</p>`).join('')}
+        ${(d.heroIntro || []).map(t => `<p class="hm-hero__intro">${keepTail(t).replace(/\n/g, '<br class="hm-br">')}</p>`).join('')}
         <p class="hm-hero__cta"><a class="hm-btn" href="#index">看看我的作品</a><a class="hm-btn hm-btn--line" href="/pages/about">認識我</a></p>
       </div>
       <p class="hm-hero__info">${(d.heroInfo || []).map(l => /@/.test(l)
@@ -1057,14 +1056,13 @@ async function renderHomeIntro(grid, works) {
         <a class="hm-row reveal${i % 2 ? ' hm-row--alt' : ''}" href="/works/${encodeURIComponent(s.w.id)}">
           <div class="hm-row__img"><img src="${img(s.w)}" alt="${escHTML(s.w.thumbnailAlt || s.w.title)}" loading="lazy"></div>
           <div class="hm-row__panel">
-            <p class="micro">( ${String(i + 1).padStart(2, '0')} / ${total} )</p>
-            <p class="hm-row__statement">${escHTML(s.statement)}</p>
+            <p class="hm-row__statement">${keepTail(s.statement)}</p>
             <div class="hm-row__foot">
               <div>
                 <p class="hm-row__title">${escHTML(s.w.title)}</p>
                 <p class="micro">${escHTML(s.w.caption || (s.w.tags || []).join(', '))}</p>
               </div>
-              <span class="micro hm-row__view">VIEW →</span>
+              <span class="hm-row__view">VIEW →</span>
             </div>
           </div>
         </a>`).join('')}
@@ -1082,6 +1080,13 @@ async function renderHomeIntro(grid, works) {
       <p class="micro">${works.length} PROJECTS</p>
     </div>`;
   grid.parentElement.insertBefore(wrap, grid);
+}
+
+// 句尾最後幾個字不要單獨掉到下一行（例：「設計師。」）
+function keepTail(t, n = 4) {
+  const s = String(t || '');
+  if (s.length <= n * 2) return escHTML(s);
+  return `${escHTML(s.slice(0, -n))}<span class="nobr">${escHTML(s.slice(-n))}</span>`;
 }
 
 // ─────────────────────────────────────────────
