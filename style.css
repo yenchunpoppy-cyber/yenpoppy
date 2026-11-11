@@ -1749,3 +1749,5 @@ body[data-page="work"] .pg-head { max-width: 960px; margin: 0 auto; padding-bott
 .pg-head__mail a { text-decoration: underline; text-decoration-color: #999; }
 .pg-head__mail a:hover { text-decoration-color: #000; }
 .pg-head + .ct-sec, .pg-head + .ab2-sec.ct-sec { padding-top: 8px !important; margin-top: 0 !important; }
+/* 頁首、手機選單固定用網站底色：避免載入設定前先閃一下黃色 */
+#site-header, #mobile-nav { background: #FCFDFE !important; }
