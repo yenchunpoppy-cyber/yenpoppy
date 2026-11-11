@@ -230,7 +230,7 @@ window.CATALOG = {
 
   revisions: 2,          // 含修改次數
   revisionFee: 2000,     // 超出每次
-  minFee: 8000,          // 單次合作最低金額
+  minFee: 5000,          // 單次合作最低金額（Yen 2026-11-11 改 5000）
   depositRate: 0.5,      // 訂金比例
   invoiceTax: 0.05,      // 代開發票營業稅
   validDays: 15,         // 報價有效天數

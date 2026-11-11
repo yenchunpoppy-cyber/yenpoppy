@@ -13,17 +13,11 @@
       "zh": "關於我"
     },
     {
-      "label": "PRICING",
+      "label": "CONTACT",
+      "zh": "合作洽詢",
       "type": "link",
       "page": null,
-      "url": "/quote/",
-      "zh": "費用估算"
-    },
-    {
-      "label": "CONTACT",
-      "type": "page",
-      "page": "contact",
-      "zh": "聯絡我"
+      "url": "/quote/"
     }
   ]
 }

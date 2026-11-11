@@ -736,8 +736,12 @@ async function init() {
     await applySettings().catch(console.warn);
     await renderNav().catch(console.warn);
     initHamburger();
+    await renderQuoteExtras().catch(console.warn);
+    await renderFooter().catch(console.warn);
     return;
   }
+  // 舊的聯絡頁已併入合作洽詢
+  if (path.startsWith('/pages/contact')) { location.replace('/quote/' + location.hash); return; }
   if (path.startsWith('/works/')) document.body.dataset.page = 'work';
   else if (path.startsWith('/pages/')) document.body.dataset.page = 'page';
   else document.body.dataset.page = 'works';
@@ -1094,7 +1098,7 @@ async function renderFooter() {
     fetchJSON('/data/contact.json').catch(() => ({})),
     fetchJSON('/data/home.json').catch(() => ({})),
   ]);
-  const onContact = /^\/pages\/contact/.test(location.pathname);
+  const onContact = /^\/(pages\/contact|quote)/.test(location.pathname);
   const links = [
     c.email && `<a href="mailto:${escHTML(c.email)}">${escHTML(c.email)}</a>`,
     c.instagram && `<a href="${escHTML(c.instagram)}" target="_blank" rel="noopener">Instagram ↗</a>`,
@@ -1107,7 +1111,7 @@ async function renderFooter() {
     ${onContact ? '' : `<div class="sf__cta">
       <h2 class="sf__title">${escHTML(h.ctaTitle || '有想法嗎？和我聊聊。')}</h2>
       ${h.ctaText ? `<p class="sf__text">${escHTML(h.ctaText)}</p>` : ''}
-      <a class="hm-btn" href="/pages/contact">${escHTML(h.ctaButton || '和我聊聊')} →</a>
+      <a class="hm-btn" href="/quote/#h4">${escHTML(h.ctaButton || '和我聊聊')} →</a>
     </div>`}
     <div class="sf__bar">
       <p class="sf__links">${links.join('<span aria-hidden="true">/</span>')}</p>
@@ -1127,4 +1131,34 @@ function pageHead({ en = '', title, lead = '', extra = '' }) {
       ${lead ? `<p class="pg-head__lead">${escHTML(lead)}</p>` : ''}
       ${extra}
     </header>`;
+}
+
+
+// 合作洽詢頁（/quote/）最後補上合作流程與常見問題（資料沿用 about.json、contact.json）
+async function renderQuoteExtras() {
+  const steps = document.querySelector('.steps');
+  if (!steps || document.querySelector('.q-extra')) return;
+  const [about, c] = await Promise.all([
+    fetchJSON('/data/about.json').catch(() => ({})),
+    fetchJSON('/data/contact.json').catch(() => ({})),
+  ]);
+  const pad2 = i => String(i + 1).padStart(2, '0');
+  const wrap = document.createElement('div');
+  wrap.className = 'q-extra';
+  wrap.innerHTML = `
+    ${(about.process || []).length ? `<section class="q-extra__sec">
+      <div class="step-h"><h2>合作流程</h2></div>
+      <ol class="ab2-steps">${about.process.map((p, i, arr) => `
+        <li style="--p:${(i + 1) / arr.length}"><div class="ab2-steps__top"><span class="ab2-big">${pad2(i)}</span>${i < arr.length - 1 ? '<span class="ab2-steps__arrow" aria-hidden="true">→</span>' : ''}</div>
+          <span class="ab2-steps__bar" aria-hidden="true"></span>
+          <h3 class="ab2-h3">${escHTML(p.zh)}</h3><p class="ab2-desc">${escHTML(p.desc)}</p></li>`).join('')}
+      </ol>
+    </section>` : ''}
+    ${(c.faq || []).length ? `<section class="q-extra__sec">
+      <div class="step-h"><h2>常見問題</h2></div>
+      <div class="ct-faq">${c.faq.map(f => `
+        <details><summary>${escHTML(f.q)}</summary><p>${inlineLinks(f.a)}</p></details>`).join('')}
+      </div>
+    </section>` : ''}`;
+  steps.appendChild(wrap);
 }

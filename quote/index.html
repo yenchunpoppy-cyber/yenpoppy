@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>費用估算 | YENPOPPY</title>
+<title>合作洽詢 | YENPOPPY</title>
 <link rel="icon" href="/public/uploads/yenpoppy-favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/public/uploads/yenpoppy-favicon.png">
 <link rel="canonical" href="https://yenpoppy.pages.dev/quote/">
@@ -297,6 +297,12 @@ footer { font-size: 13px; }
 @media (max-width: 520px) { .item { padding: 22px 20px 20px !important; } .item .pr { white-space: normal; } }
 .item { display: flex !important; flex-direction: column; }
 .item .opts { display: grid; }
+
+/* 合作洽詢：流程與 FAQ */
+.q-extra__sec { margin-top: 88px; }
+.q-extra .step-h h2 { margin-bottom: 28px; }
+.pg-head__lead a { color: inherit; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: #999; }
+footer.sf { display: block !important; border-top: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; font-size: inherit !important; color: inherit !important; }
 </style>
 </head>
 <body>
@@ -315,9 +321,10 @@ footer { font-size: 13px; }
 <nav id="mobile-nav" aria-label="手機導覽" role="dialog" aria-modal="true"></nav>
 <div class="wrap" id="main">
   <header class="pg-head">
-    <p class="pg-head__en">PRICING</p>
-    <h1 class="pg-head__title">費用估算</h1>
-    <p class="pg-head__lead">選好項目和風格，馬上看到大概的預算和完成時間。</p>
+    <p class="pg-head__en">CONTACT</p>
+    <h1 class="pg-head__title">合作洽詢</h1>
+    <p class="pg-head__lead">想做什麼設計，可以先在下面估個預算和時間；已經想好了，也可以<a href="#h4">直接留言</a>。</p>
+    <p class="pg-head__mail">也可以直接寫信：<a href="mailto:yenchunpoppy@gmail.com">yenchunpoppy@gmail.com</a></p>
   </header>
 
   <div class="layout">
@@ -366,7 +373,7 @@ footer { font-size: 13px; }
 
       <div id="resultSlot" class="result-slot"></div>
       <section aria-labelledby="h4">
-        <div class="step-h"><span class="no">STEP 05</span><h2 id="h4">想一起合作嗎？</h2><p>預算和時間都 OK 的話，留個聯絡方式，再一起確認細節和檔期。</p></div>
+        <div class="step-h"><span class="no">STEP 05</span><h2 id="h4">留下聯絡方式</h2><p>有沒有用上面的估價都可以，留個聯絡方式，我會再跟你確認細節和檔期。</p></div>
         <form class="form" id="inq" name="inquiry" novalidate>
           <input type="hidden" name="summary" id="summaryField">
           <input type="hidden" name="links" id="linksField">
@@ -508,7 +515,7 @@ footer { font-size: 13px; }
         <div class="range">NT$ —<small>選好項目後，這裡會顯示試算結果</small></div>
         <p class="note">目前最快 ${C.leadDays} 個工作天後可以開始。</p>`;
       $('#mbar').innerHTML = '<span>還沒有選項目</span>';
-      $('#send').disabled = true;
+      $('#send').disabled = false;
       return;
     }
     $('#send').disabled = false;
@@ -552,7 +559,7 @@ footer { font-size: 13px; }
       `聯絡方式：${f('contact')}`,
       ``,
       `需要項目：`,
-      ...r.ls.map(l => `・${l.name} × ${l.qty} ${l.unit}`),
+      ...(r.ls.length ? r.ls.map(l => `・${l.name} × ${l.qty} ${l.unit}`) : ['（沒有使用估價）']),
       `其他想做的：${$('#otherNeed').value.trim() || '—'}`,
       `風格：${r.style.name}`,
       `提案與修改：${r.plan.name}（提案 ${r.plan.proposals} 款，修改 ${r.plan.revisions} 次）`,
@@ -675,7 +682,7 @@ footer { font-size: 13px; }
   });
 
   // 範例：先放主打的 LOGO 設計，讓訪客一進來就看到試算長什麼樣子
-  st.qty = { 'p-brand': 1 }; st.opt = { 'p-brand': 'std' }; st.cat = 'brand';
+  st.cat = 'brand';
   // 手機版：試算結果放在聯絡表單之前，桌機放右側欄
   const mqMobile = matchMedia('(max-width: 920px)');
   const placeResult = () => (mqMobile.matches ? $('#resultSlot') : $('.layout')).appendChild($('#result'));
