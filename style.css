@@ -2027,3 +2027,45 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
 @media (min-width: 900px) { .ab2-eyebrow, .about-page.ab2 .ab2-eyebrow, .tf-label, .pg-head__en { font-size: 14px !important; letter-spacing: .2em; } }
 .ab2-body mark, .ab2-h2 mark, .pg-head__title mark { white-space: nowrap; }
 @media (max-width: 599px) { .about-page.ab2 .ab2-card { padding-bottom: 14px !important; } .about-page.ab2 .ab2-card .ab2-desc { margin-bottom: 0; } }
+
+/* ── 2026-11-12 手機第二輪：省空間 ── */
+.work-card .card-title, .work-card .card-caption { white-space: normal !important; overflow: visible !important; text-overflow: clip !important; }
+@media (max-width: 599px) {
+  .work-card .card-title { line-height: 1.45; }
+  /* 區塊間距收小 */
+  .about-page.ab2 .ab2-sec { margin-top: 40px; padding-top: 32px !important; }
+  .about-page.ab2 .ab2-facts { margin-top: 16px !important; padding-top: 12px !important; }
+  /* 能力卡：箭頭放右上，和 icon 同高 */
+  .about-page.ab2 .ab2-card { padding: 18px 20px !important; }
+  .about-page.ab2 .ab2-card__top { margin-bottom: 8px; }
+  .about-page.ab2 .ab2-card__btn { position: absolute !important; top: 18px; right: 20px; margin: 0 !important; height: 32px; line-height: 32px; width: 40px; }
+  .about-page.ab2 .ab2-card .ab2-h3 { margin-top: 0; }
+  /* 品牌 logo：靠近、放大 */
+  .about-page.ab2 .ab2-marquee .ab2-logos { --logo-k: 84px; --logo-max: 54px; }
+  .about-page.ab2 .ab2-marquee .ab2-logos li { width: 112px !important; height: 68px !important; padding: 0 8px !important; }
+  /* 經歷：數字和標題同一排 */
+  .about-page.ab2 .ab2-chrono li { display: grid !important; grid-template-columns: 34px 1fr !important; column-gap: 8px !important; padding: 16px 0 !important; }
+  .about-page.ab2 .ab2-chrono__when b { font-size: 20px !important; line-height: 1.5; }
+  .about-page.ab2 .ab2-chrono__what .ab2-en { display: none; }
+  .about-page.ab2 .ab2-chrono__what .ab2-h3 { margin: 0 0 4px; }
+  /* 獲獎：小標加大、加分隔線 */
+  .about-page.ab2 .ab2-award { margin-top: 24px; padding-top: 24px; border-top: 1px solid #E2E2E2; }
+  .about-page.ab2 .ab2-award .ab2-eyebrow { font-size: 14px !important; color: #000; }
+  .about-page.ab2 .ab2-award__yr { font-size: 28px !important; margin: 4px 0 !important; }
+  /* 合作洽詢流程：不用分隔線，改用金色箭頭往下 */
+  .q-extra__sec .ab2-steps { gap: 0 !important; }
+  .q-extra__sec .ab2-steps li { border-top: 0 !important; padding: 0 !important; }
+  .q-extra__sec .ab2-steps li + li::before { content: '↓'; display: block; color: #D9C96F; font-size: 18px; line-height: 1; margin: 10px 0; }
+  .q-extra__sec .ab2-steps .ab2-desc { margin: 4px 0 0 !important; }
+  /* 頁尾 CTA：靠左對齊 */
+  .sf__cta { text-align: left; padding: 44px 0; }
+  .sf__text { margin: 12px 0 24px; }
+}
+/* 社群貼文九宮格：任何寬度都維持三欄，拼圖才接得起來 */
+.module-b__grid.is-rows[data-cols="3"][data-gap="4"] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; column-count: auto !important; }
+@media (max-width: 599px) { .module-b__grid.is-rows[data-cols="3"]:not([data-gap="4"]) { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+/* 桌機作品篩選字加大 */
+@media (min-width: 900px) {
+  .tag-filter button { font-size: 13px !important; padding: 10px 18px !important; }
+  .tag-filter .tf-zh { font-size: 1.15em; color: #4A4A4A; }
+}

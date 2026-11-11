@@ -349,6 +349,13 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 .step-h .no { display: flex !important; align-items: baseline; gap: 10px; color: #D9C96F !important; }
 .step-h .no b { font-family: var(--qf-display); font-size: 40px; font-weight: 300; letter-spacing: 0; line-height: 1; }
 @media (max-width: 599px) { .step-h .no b { font-size: 32px; } }
+
+/* 已選卡片右上 ✓：滑過變 ×，點了取消 */
+.item.on::after { content: none !important; }
+.item .rm { position: absolute; top: 16px; right: 16px; width: 22px; height: 22px; border-radius: 50%; border: 0; padding: 0; background: var(--ink); color: var(--paper); font-size: 12px; line-height: 22px; text-align: center; cursor: pointer; }
+.item .rm::before { content: "✓"; }
+.item .rm:hover, .item .rm:focus-visible { background: var(--paper); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.item .rm:hover::before, .item .rm:focus-visible::before { content: "×"; font-size: 15px; }
 </style>
 </head>
 <body>
@@ -508,6 +515,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
     $('#items').innerHTML = cat.items.map(it => {
       const n = st.qty[it.id] || 0, r = resolve(it);
       return `<article class="item ${n ? 'on' : ''}" data-card="${it.id}">
+        ${n ? `<button type="button" class="rm" data-rm="${it.id}" aria-label="取消選取 ${esc(it.name)}"></button>` : ''}
         <h3>${esc(it.name)}</h3>
         ${it.options ? `<div class="opts" role="group" aria-label="${esc(it.name)}規格">${it.options.map(o =>
           `<button type="button" data-opt="${it.id}" data-o="${o.id}" aria-pressed="${o.id === r.optId}">${esc(o.name)}</button>`).join('')}</div>` : ''}
@@ -665,6 +673,8 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
     if (inc) st.qty[inc.dataset.inc] = (st.qty[inc.dataset.inc] || 0) + 1;
     if (dec) st.qty[dec.dataset.dec] = Math.max(0, (st.qty[dec.dataset.dec] || 0) - 1);
     if (inc || dec) { render(); return; }
+    const rm = e.target.closest('[data-rm]');
+    if (rm) { st.qty[rm.dataset.rm] = 0; render(); return; }
     // 點卡片空白處也能加入（已選的卡片不動，避免誤點加數量）
     const card = e.target.closest('[data-card]');
     if (card && !e.target.closest('button') && !st.qty[card.dataset.card]) { st.qty[card.dataset.card] = 1; render(); }
