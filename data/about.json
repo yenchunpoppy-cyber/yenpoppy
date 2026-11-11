@@ -249,7 +249,8 @@
       "logo": "/uploads/logo-ee-branding.png",
       "industry": "Branding",
       "work": "ee-branding",
-      "scale": 1.05
+      "scale": 1.05,
+      "logoColor": "/uploads/logo-ee-branding-color.png"
     },
     {
       "name": "VACS",
