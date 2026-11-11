@@ -2069,3 +2069,29 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
   .tag-filter button { font-size: 13px !important; padding: 10px 18px !important; }
   .tag-filter .tf-zh { font-size: 1.15em; color: #4A4A4A; }
 }
+
+/* ── 2026-11-12 手機第三輪 ── */
+.about-page.ab2 .ab2-marquee.is-scroll { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+.about-page.ab2 .ab2-marquee.is-scroll::-webkit-scrollbar { display: none; }
+.about-page.ab2 .ab2-marquee.is-scroll .ab2-logos { animation: none !important; }
+@media (max-width: 599px) {
+  /* 數字和說明同一行 */
+  .about-page.ab2 .ab2-facts { display: grid !important; grid-template-columns: 1fr 1fr; gap: 0 16px !important; margin-bottom: 0 !important; padding-bottom: 0 !important; }
+  .about-page.ab2 .ab2-fact--big { display: flex !important; flex-direction: row !important; align-items: baseline; gap: 8px; margin: 0 !important; padding: 0 !important; }
+  .about-page.ab2 .ab2-fact--big dd { margin: 0 !important; white-space: nowrap; }
+  .about-page.ab2 .ab2-fact--big dd b { font-size: 34px !important; line-height: 1.1; }
+  .about-page.ab2 .ab2-fact--big dt { margin: 0 !important; font-size: 13px !important; white-space: nowrap; }
+  .about-page.ab2 .ab2-profile, .about-page.ab2 .ab2-profile__text, .about-page.ab2 .ab2-profile__grid { padding-bottom: 0 !important; margin-bottom: 0 !important; min-height: 0 !important; }
+  /* 能力卡：數字、icon、箭頭同一排 */
+  .about-page.ab2 .ab2-card__top { display: flex !important; align-items: center; justify-content: flex-start !important; gap: 14px; height: 32px; }
+  .about-page.ab2 .ab2-card__top .ab2-big { display: inline !important; font-size: 24px !important; line-height: 1; margin: 0 !important; }
+  .about-page.ab2 .ab2-card__top img { width: 28px; height: 28px; }
+  /* 獲獎：年份和獎名同一行，箭頭放右邊 */
+  .about-page.ab2 .ab2-award__body { position: relative; padding-right: 44px; }
+  .about-page.ab2 .ab2-award__yr, .about-page.ab2 .ab2-award .ab2-h3 { display: inline; font-size: 18px !important; font-weight: 500; line-height: 1.6; margin: 0 !important; vertical-align: baseline; }
+  .about-page.ab2 .ab2-award__yr { margin-right: 8px !important; font-family: var(--font-title); }
+  .about-page.ab2 .ab2-award .ab2-desc { margin: 6px 0 16px !important; font-size: 14px; }
+  .about-page.ab2 .ab2-award .ab2-btn-line { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; padding: 0 !important; border: 0 !important; background: none !important; font-size: 0 !important; display: grid !important; place-items: center; }
+  .about-page.ab2 .ab2-award .ab2-btn-line::after { content: '→'; font-size: 20px; color: #000; }
+}
+@media (max-width: 374px) { .about-page.ab2 .ab2-facts { grid-template-columns: 1fr !important; gap: 6px !important; } }

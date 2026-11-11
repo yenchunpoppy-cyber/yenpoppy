@@ -1205,10 +1205,24 @@ function initLogoMarquee() {
   copy.setAttribute('aria-hidden', 'true');
   copy.querySelectorAll('a').forEach(a => a.tabIndex = -1);
   box.appendChild(copy);
-  box.classList.add('is-run');
+  box.classList.add('is-scroll');
+  // 自動往左捲；手指／滑鼠可以左右拖，放開 1.5 秒後繼續
+  let pos = 0, last = performance.now(), hold = 0, hover = false;
+  const pause = () => { hold = performance.now() + 1500; };
+  ['touchstart', 'touchmove', 'wheel', 'pointerdown'].forEach(ev => box.addEventListener(ev, pause, { passive: true }));
+  box.addEventListener('mouseenter', () => { hover = true; });
+  box.addEventListener('mouseleave', () => { hover = false; });
+  box.addEventListener('scroll', () => { if (Math.abs(box.scrollLeft - pos) > 2) { pos = box.scrollLeft; pause(); } }, { passive: true });
   // 經過中間的那個 logo 亮起
   const all = [...ul.children, ...copy.children];
-  const tick = () => {
+  const tick = (now) => {
+    const dt = Math.min(64, now - last); last = now;
+    const w = ul.offsetWidth;
+    if (w && !hover && now > hold) {
+      pos += w / 70000 * dt;
+      if (pos >= w) pos -= w;
+      box.scrollLeft = pos;
+    } else if (w && box.scrollLeft >= w) { pos = box.scrollLeft - w; box.scrollLeft = pos; }
     const r = box.getBoundingClientRect();
     if (r.bottom > 0 && r.top < innerHeight) {
       const mid = r.left + r.width / 2;

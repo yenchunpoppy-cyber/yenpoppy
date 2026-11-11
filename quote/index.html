@@ -356,6 +356,16 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 .item .rm::before { content: "✓"; }
 .item .rm:hover, .item .rm:focus-visible { background: var(--paper); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
 .item .rm:hover::before, .item .rm:focus-visible::before { content: "×"; font-size: 15px; }
+
+/* FAQ 分區：區塊之間有線、標題和題目靠近 */
+@media (max-width: 599px) {
+  .q-extra__sec + .q-extra__sec { margin-top: 48px; padding-top: 40px; border-top: 1px solid var(--line, #E2E2E2); }
+  .q-extra .step-h { margin-bottom: 4px !important; }
+  .q-extra .step-h h2 { margin: 0 0 4px !important; }
+  .q-extra .ab2-steps { margin-top: 12px; }
+  .q-extra .ct-faq summary { padding: 14px 32px 14px 0; font-size: 15px; }
+  .q-extra .ct-faq summary::after { top: 12px; }
+}
 </style>
 </head>
 <body>
