@@ -401,6 +401,11 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 }
 
 @media (max-width: 599px) { :root { --gold: #B39D48; } .step-h .no b { font-weight: 400 !important; } }
+
+/* 規格已加入的標記 */
+.item .oh { margin: 6px 0 0; font-size: 12px; color: var(--muted); }
+.item .opts button.has { background: #FFFCC2 !important; }
+.item .opts .oq { font-style: normal; font-size: 11px; margin-left: 4px; color: var(--muted); }
 </style>
 </head>
 <body>
@@ -518,8 +523,18 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
     return { ...it, ...o, id: it.id, optId: o.id, desc: o.desc || it.desc, name: `${it.name}（${o.name}）`, title: it.name };
   };
 
+  // 有規格的項目，每個規格各自算數量（例如包裝可同時選盒袋和禮盒）
+  const keyOf = it => it.options ? `${it.id}::${st.opt[it.id] || it.options[0].id}` : it.id;
+  const baseId = k => k.split('::')[0];
+  const cardOn = it => Object.keys(st.qty).some(k => baseId(k) === it.id && st.qty[k] > 0);
+  const resolveKey = k => {
+    const [id, oid] = k.split('::'); const it = findPub(id);
+    if (!oid || !it.options) return resolve(it);
+    const o = it.options.find(x => x.id === oid) || it.options[0];
+    return { ...it, ...o, id: it.id, optId: o.id, desc: o.desc || it.desc, name: `${it.name}（${o.name}）`, title: it.name };
+  };
   function lines() {
-    return Object.entries(st.qty).filter(([, n]) => n > 0).map(([id, n]) => ({ ...resolve(findPub(id)), qty: n }));
+    return Object.entries(st.qty).filter(([, n]) => n > 0).map(([k, n]) => ({ ...resolveKey(k), qty: n }));
   }
   function calc() {
     const ls = lines();
@@ -556,22 +571,22 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 
   function renderCats() {
     $('#cats').innerHTML = M.map(c => {
-      const n = c.items.filter(i => st.qty[i.id] > 0).length;
+      const n = c.items.filter(i => cardOn(i)).length;
       return `<button role="tab" type="button" data-cat="${c.id}" aria-selected="${c.id === st.cat}">${esc(c.name)}${n ? `<span class="n">${n}</span>` : ''}</button>`;
     }).join('');
     const cat = M.find(c => c.id === st.cat);
     $('#catIntro').textContent = cat.intro;
     $('#items').innerHTML = cat.items.map(it => {
-      const n = st.qty[it.id] || 0, r = resolve(it);
-      return `<article class="item ${n ? 'on' : ''}" data-card="${it.id}">
-        ${n ? `<button type="button" class="rm" data-rm="${it.id}" aria-label="取消選取 ${esc(it.name)}"></button>` : ''}
+      const k = keyOf(it), n = st.qty[k] || 0, on = cardOn(it), r = resolve(it);
+      return `<article class="item ${on ? 'on' : ''}" data-card="${it.id}">
+        ${on ? `<button type="button" class="rm" data-rm="${it.id}" aria-label="取消選取 ${esc(it.name)}"></button>` : ''}
         <h3>${esc(it.name)}</h3>
         ${it.options ? `<div class="opts" role="group" aria-label="${esc(it.name)}規格">${it.options.map(o =>
-          `<button type="button" data-opt="${it.id}" data-o="${o.id}" aria-pressed="${o.id === r.optId}">${esc(o.name)}</button>`).join('')}</div>` : ''}
+          `<button type="button" data-opt="${it.id}" data-o="${o.id}" aria-pressed="${o.id === r.optId}"${st.qty[`${it.id}::${o.id}`] > 0 ? ' class="has"' : ''}>${esc(o.name)}${st.qty[`${it.id}::${o.id}`] > 0 ? `<i class="oq">×${st.qty[`${it.id}::${o.id}`]}</i>` : ''}</button>`).join('')}</div>${on ? '<p class="oh">點其他規格，可以一起加入</p>' : ''}` : ''}
         ${r.desc ? `<p class="d">${esc(r.desc)}</p>` : ''}
         <div class="foot"><div class="pr">${st.revealed ? `${Y.money(r.min)}${r.max > r.min ? ' – ' + Y.num(r.max) : ''} / ${esc(r.unit)}` : ''}<small>約 ${r.days} 個工作天</small></div>
-          ${n ? `<span class="stepper" aria-label="數量"><button type="button" data-dec="${it.id}" aria-label="${n > 1 ? '減少' : '移除'}">${n > 1 ? '−' : '×'}</button><output>${n}</output><button type="button" data-inc="${it.id}" aria-label="增加">＋</button></span>`
-              : `<button class="add" type="button" data-inc="${it.id}">＋ 加入</button>`}
+          ${n ? `<span class="stepper" aria-label="數量"><button type="button" data-dec="${k}" aria-label="${n > 1 ? '減少' : '移除'}">${n > 1 ? '−' : '×'}</button><output>${n}</output><button type="button" data-inc="${k}" aria-label="增加">＋</button></span>`
+              : `<button class="add" type="button" data-inc="${k}">＋ 加入</button>`}
         </div></article>`;
     }).join('');
   }
@@ -678,7 +693,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 
   const rng = r => r.hi > r.lo ? `${Y.money(r.lo)} – ${Y.num(r.hi)}` : `${Y.money(r.lo)} 起`;
   function render() { syncAi(); renderCats(); renderResult(); }
-  function syncAi() { $('#aiWrap').hidden = !Object.keys(st.qty).some(id => st.qty[id] > 0 && M.find(c => c.id === 'social').items.some(i => i.id === id)); if ($('#aiWrap').hidden) $('#needAi').checked = false; }
+  function syncAi() { $('#aiWrap').hidden = !Object.keys(st.qty).some(id => st.qty[id] > 0 && M.find(c => c.id === 'social').items.some(i => i.id === baseId(id))); if ($('#aiWrap').hidden) $('#needAi').checked = false; }
 
   // 關於你：單選，可再點一次取消
   function renderAbout() {
@@ -717,16 +732,16 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   $('#cats').addEventListener('click', e => { const b = e.target.closest('[data-cat]'); if (!b) return; st.cat = b.dataset.cat; renderCats(); });
   $('#items').addEventListener('click', e => {
     const opt = e.target.closest('[data-opt]');
-    if (opt) { st.opt[opt.dataset.opt] = opt.dataset.o; if (!st.qty[opt.dataset.opt]) st.qty[opt.dataset.opt] = 1; render(); return; }
+    if (opt) { const it = findPub(opt.dataset.opt); const had = cardOn(it); st.opt[opt.dataset.opt] = opt.dataset.o; if (!had) st.qty[keyOf(it)] = 1; render(); return; }
     const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]');
     if (inc) st.qty[inc.dataset.inc] = (st.qty[inc.dataset.inc] || 0) + 1;
     if (dec) st.qty[dec.dataset.dec] = Math.max(0, (st.qty[dec.dataset.dec] || 0) - 1);
     if (inc || dec) { render(); return; }
     const rm = e.target.closest('[data-rm]');
-    if (rm) { st.qty[rm.dataset.rm] = 0; render(); return; }
+    if (rm) { Object.keys(st.qty).forEach(k => { if (baseId(k) === rm.dataset.rm) st.qty[k] = 0; }); render(); return; }
     // 點卡片空白處也能加入（已選的卡片不動，避免誤點加數量）
     const card = e.target.closest('[data-card]');
-    if (card && !e.target.closest('button') && !st.qty[card.dataset.card]) { st.qty[card.dataset.card] = 1; render(); }
+    if (card && !e.target.closest('button')) { const it = findPub(card.dataset.card); if (!cardOn(it)) { st.qty[keyOf(it)] = 1; render(); } }
   });
   $('#styles').addEventListener('click', e => {
     const b = e.target.closest('[data-style]'); if (!b) return;
