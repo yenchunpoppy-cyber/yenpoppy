@@ -130,36 +130,6 @@
       "work": "aluxe-passport"
     },
     {
-      "name": "et seq.",
-      "logo": "/uploads/logo-et-seq.png",
-      "industry": "Beauty",
-      "work": "et-seq-nail"
-    },
-    {
-      "name": "BALL SOCKS",
-      "logo": "/uploads/logo-ball-socks.png",
-      "industry": "Lifestyle",
-      "work": "ice-cream-ballsocks"
-    },
-    {
-      "name": "oribagu 摺紙包",
-      "logo": "/uploads/logo-oribagu.png",
-      "industry": "Lifestyle",
-      "work": "mesh-collection"
-    },
-    {
-      "name": "w/f flower",
-      "logo": "/uploads/logo-wf-flower.png",
-      "industry": "Lifestyle",
-      "work": "wf-flower"
-    },
-    {
-      "name": "AHA Brand Agency",
-      "logo": "/uploads/logo-aha.png",
-      "industry": "Branding",
-      "work": "made-by-aha"
-    },
-    {
       "name": "SENKA 專科",
       "logo": "/uploads/logo-senka.png",
       "industry": "Beauty",
@@ -212,6 +182,54 @@
       "logo": "/uploads/logo-knock-knock-heaven.png",
       "industry": "Restaurant",
       "work": ""
+    },
+    {
+      "name": "et seq.",
+      "logo": "/uploads/logo-et-seq.png",
+      "industry": "Beauty",
+      "work": "et-seq-nail"
+    },
+    {
+      "name": "BALL SOCKS",
+      "logo": "/uploads/logo-ball-socks.png",
+      "industry": "Lifestyle",
+      "work": "ice-cream-ballsocks"
+    },
+    {
+      "name": "oribagu 摺紙包",
+      "logo": "/uploads/logo-oribagu.png",
+      "industry": "Lifestyle",
+      "work": "mesh-collection"
+    },
+    {
+      "name": "w/f flower",
+      "logo": "/uploads/logo-wf-flower.png",
+      "industry": "Lifestyle",
+      "work": "wf-flower"
+    },
+    {
+      "name": "AHA Brand Agency",
+      "logo": "/uploads/logo-aha.png",
+      "industry": "Branding",
+      "work": "made-by-aha"
+    },
+    {
+      "name": "E.e branding",
+      "logo": "/uploads/logo-ee-branding.png",
+      "industry": "Branding",
+      "work": "ee-branding"
+    },
+    {
+      "name": "VACS",
+      "logo": "/uploads/logo-vacs.png",
+      "industry": "Lifestyle",
+      "work": "vacs"
+    },
+    {
+      "name": "天一愛 TIANYIAI",
+      "logo": "/uploads/logo-tianyiai.png",
+      "industry": "Healthcare",
+      "work": "tianyi-tcm"
     }
   ],
   "journey": [
