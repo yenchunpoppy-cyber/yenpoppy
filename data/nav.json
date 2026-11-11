@@ -1,16 +1,16 @@
 {
   "items": [
     {
-      "label": "WORKS",
-      "type": "works",
-      "page": null,
-      "zh": "作品"
-    },
-    {
       "label": "ABOUT",
       "type": "page",
       "page": "about",
       "zh": "關於我"
+    },
+    {
+      "label": "WORKS",
+      "type": "works",
+      "page": null,
+      "zh": "作品"
     },
     {
       "label": "CONTACT",

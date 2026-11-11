@@ -1042,8 +1042,8 @@ async function renderHomeIntro(grid, works) {
   const wrap = document.createElement('div');
   wrap.className = 'home-intro';
   wrap.innerHTML = `
-    <section class="hm2">
-      <h1 class="hm2__title hm2__title--line">${(d.heroIntro || []).slice(0, 1).map(t => `<span class="hm2__zh">${escHTML(t)}</span>`).join('')}<span class="hm2__en">${escHTML(d.heroTitle || 'YENPOPPY')}</span></h1>
+    ${!(d.heroIntro || []).length && !d.heroTitle ? '<h1 class="sr-only">YENPOPPY 作品</h1>' : ''}<section class="hm2"${!(d.heroIntro || []).length && !d.heroTitle ? ' hidden' : ''}>
+      <h1 class="hm2__title hm2__title--line">${(d.heroIntro || []).slice(0, 1).map(t => `<span class="hm2__zh">${escHTML(t)}</span>`).join('')}${d.heroTitle ? `<span class="hm2__en">${escHTML(d.heroTitle)}</span>` : ''}</h1>
     </section>
     <div id="index" class="hm2-anchor"></div>`;
   grid.parentElement.insertBefore(wrap, grid);
@@ -1205,14 +1205,18 @@ function initLogoMarquee() {
   copy.querySelectorAll('a').forEach(a => a.tabIndex = -1);
   box.appendChild(copy);
   box.classList.add('is-run');
-  const items = [...ul.children], twins = [...copy.children];
-  let i = 0;
-  setInterval(() => {
-    if (box.matches(':hover')) return;
-    items.concat(twins).forEach(li => li.classList.remove('is-on'));
-    items[i % items.length].classList.add('is-on');
-    twins[i % twins.length].classList.add('is-on');
-    i++;
-  }, 1400);
+  // 經過中間的那個 logo 亮起
+  const all = [...ul.children, ...copy.children];
+  const tick = () => {
+    const r = box.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < innerHeight) {
+      const mid = r.left + r.width / 2;
+      let best = null, bd = Infinity;
+      all.forEach(li => { const b = li.getBoundingClientRect(); const d = Math.abs(b.left + b.width / 2 - mid); if (d < bd) { bd = d; best = li; } });
+      all.forEach(li => li.classList.toggle('is-on', li === best));
+    }
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
 }
 new MutationObserver(() => initLogoMarquee()).observe(document.documentElement, { childList: true, subtree: true });
