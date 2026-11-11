@@ -2,11 +2,7 @@
   "heroTitle": "YENPOPPY",
   "heroSub": "LET'S MAKE SOMETHING UNEXPECTED.",
   "heroYears": "2013 — 2026",
-  "heroImages": [
-    "et-seq-nail",
-    "disney-princess",
-    "kite-flying"
-  ],
+  "heroImages": [],
   "selected": [
     {
       "id": "et-seq-nail",
@@ -34,7 +30,7 @@
     }
   ],
   "heroInfo": [
-    "BRAND IDENTITY / PACKAGING / CREATIVE DESIGN",
+    "BRAND IDENTITY / PACKAGING / DIGITAL / DISPLAY",
     "TAIWAN",
     "yenchunpoppy@gmail.com"
   ],

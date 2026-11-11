@@ -1007,11 +1007,11 @@ async function renderHomeIntro(grid, works) {
       <p class="hm-hero__info">${(d.heroInfo || []).map(l => /@/.test(l)
         ? `<a href="mailto:${escHTML(l)}">${escHTML(l)}</a>` : escHTML(l)).join('<br>')}</p>
       <p class="hm-hero__meta micro">PORTFOLIO<br>${escHTML(d.heroYears)}<br><a href="#index">( INDEX ↓ )</a></p>
-      <div class="hm-hero__imgs">${heroWorks.map((w, i) => `
+      ${heroWorks.length ? `<div class="hm-hero__imgs">${heroWorks.map((w, i) => `
         <a href="/works/${encodeURIComponent(w.id)}" style="--i:${i}" aria-label="${escHTML(w.title)}">
           <img src="${img(w)}" alt="${escHTML(w.thumbnailAlt || w.title)}">
         </a>`).join('')}
-      </div>
+      </div>` : ''}
     </section>
 
     ${selected.length ? `<section class="hm-sel" aria-labelledby="hm-sel-h">
