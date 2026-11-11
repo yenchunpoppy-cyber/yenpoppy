@@ -496,6 +496,13 @@ collections:
                 widget: string
                 required: false
 
+              - label: 服務分類（首頁篩選用；留空就依標籤自動判斷）
+                name: services
+                widget: select
+                multiple: true
+                required: false
+                options: [BRAND, PACKAGING, DIGITAL, DISPLAY]
+
               - label: 年份
                 name: year
                 widget: string

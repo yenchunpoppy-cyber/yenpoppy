@@ -245,18 +245,20 @@ async function renderWorksGrid() {
   let works = allWorks;
   let offset = 0;
 
-  // Tag filter bar: ALL + tags that have at least one work
-  const usedTags = (tagsData.tags || [])
-    .map(t => t.name)
-    .filter(name => allWorks.some(w => (w.tags || []).includes(name)));
-  let activeTag = new URLSearchParams(location.search).get('tag');
-  if (!usedTags.includes(activeTag)) activeTag = null;
+  // 篩選列：ALL ＋ 四項服務（對應規則來自 About 服務卡的 tags；作品可用 services 欄位單獨指定）
+  const aboutData = await fetchJSON('/data/about.json').catch(() => ({}));
+  const svcMap = serviceMap(aboutData);
+  const usedSvc = SERVICE_KEYS.filter(k => allWorks.some(w => workServices(w, svcMap).includes(k)));
+  const qs = new URLSearchParams(location.search);
+  let activeTag = (qs.get('service') || '').toUpperCase() || null;
+  if (!activeTag && qs.get('tag')) activeTag = svcMap[qs.get('tag')] || null;  // 舊連結 ?tag= 相容
+  if (!usedSvc.includes(activeTag)) activeTag = null;
 
-  if (usedTags.length) {
+  if (usedSvc.length) {
     const bar = document.createElement('nav');
     bar.className = 'tag-filter';
-    bar.setAttribute('aria-label', 'Filter works by tag');
-    [null, ...usedTags].forEach(name => {
+    bar.setAttribute('aria-label', 'Filter works by service');
+    [null, ...usedSvc].forEach(name => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.textContent = name || 'ALL';
@@ -269,14 +271,15 @@ async function renderWorksGrid() {
 
   function applyFilter(name) {
     activeTag = name;
-    works = name ? allWorks.filter(w => (w.tags || []).includes(name)) : allWorks;
+    works = name ? allWorks.filter(w => workServices(w, svcMap).includes(name)) : allWorks;
     document.querySelectorAll('.tag-filter button').forEach(b => {
       const on = b.dataset.tag === (name || '');
       b.classList.toggle('active', on);
       b.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
     const url = new URL(location.href);
-    if (name) url.searchParams.set('tag', name); else url.searchParams.delete('tag');
+    url.searchParams.delete('tag');
+    if (name) url.searchParams.set('service', name.toLowerCase()); else url.searchParams.delete('service');
     history.replaceState(null, '', url);
     grid.innerHTML = '';
     offset = 0;
@@ -311,6 +314,18 @@ async function renderWorksGrid() {
 
   applyFilter(activeTag);
   if (activeTag) document.getElementById('index')?.scrollIntoView();
+}
+
+// 四項服務：順序和 About 服務卡相同
+const SERVICE_KEYS = ['BRAND', 'PACKAGING', 'DIGITAL', 'DISPLAY'];
+function serviceMap(about) {
+  const m = {};
+  (about.services || []).forEach((s, i) => (s.tags || []).forEach(t => { if (SERVICE_KEYS[i]) m[t] = SERVICE_KEYS[i]; }));
+  return m;
+}
+function workServices(w, map) {
+  if ((w.services || []).length) return w.services;
+  return [...new Set((w.tags || []).map(t => map[t]).filter(Boolean))];
 }
 
 function createWorkCard(work) {
@@ -770,7 +785,8 @@ async function renderAboutPage() {
         ${title ? `<h2 class="ab2-h2">${escHTML(title).replace(/\*(.+?)\*/g, '<mark>$1</mark>')}</h2>` : ''}
         ${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}
       </header>`;
-  const relCount = tags => works.filter(w => (w.tags || []).some(t => tags.includes(t))).length;
+  const svcMap = serviceMap(d);
+  const svcCount = k => works.filter(w => workServices(w, svcMap).includes(k)).length;
   el.innerHTML = `
     ${pageHero({
       title: 'ABOUT',
@@ -798,8 +814,8 @@ async function renderAboutPage() {
       ${head('DESIGN CAPABILITIES', '設計能力', d.servicesTitle, d.servicesDesc)}
       <p class="ab2-swipe-hint" aria-hidden="true">SWIPE →</p>
       <div class="ab2-cards">${(d.services || []).map((s, i) => {
-        const tags = (s.tags || []).filter(t => countTag(t));
-        const n = relCount(tags);
+        const key = SERVICE_KEYS[i];
+        const n = key ? svcCount(key) : 0;
         return `
         <article class="ab2-card">
           <div class="ab2-card__top"><span class="ab2-big">${pad2(i)}</span>
@@ -808,7 +824,7 @@ async function renderAboutPage() {
           <h3 class="ab2-h3">${escHTML(s.zh)}</h3>
           <p class="ab2-desc">${escHTML(s.desc)}</p>
           ${(s.items || []).length ? `<ul class="ab2-items">${s.items.map(t => `<li>${escHTML(t)}</li>`).join('')}</ul>` : ''}
-          ${n ? `<a class="ab2-btn-line ab2-card__btn" href="/?tag=${encodeURIComponent(tags[0])}#index">相關作品 ${n} 件 →</a>` : ''}
+          ${n ? `<a class="ab2-btn-line ab2-card__btn" href="/?service=${key.toLowerCase()}#index">相關作品 ${n} 件 →</a>` : ''}
         </article>`;
       }).join('')}
       </div>
