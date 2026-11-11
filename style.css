@@ -6,11 +6,11 @@
 /* ── CSS 自訂屬性（品牌色票，JS 啟動後動態覆寫） ── */
 :root {
   --header-bg:    #FFFCC2;
-  --site-bg:      #FFFFFF;
+  --site-bg:      #FCFDFE;
   --text-color:   #000000;
   --sub-color:    #4A4A4A;
-  --gold:         #C5B27A;
-  --secondary:    #EDEAE6;
+  --gold:         #D9C96F;
+  --secondary:    #FDFAEA;
   --deco-line:    var(--gold);
   --deco-line-w:  6px;
 
@@ -756,20 +756,20 @@ a { color: inherit; text-decoration: none; }
 }
 .ab-intro__img img { width: 100%; height: auto; border-radius: 4px; }
 .ab-intro__text > p { font-size: 16px; line-height: 2; letter-spacing: .02em; }
-.ab-facts { margin-top: 24px; border-top: 1px solid var(--line, #e3e0db); }
-.ab-facts > div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line, #e3e0db); }
+.ab-facts { margin-top: 24px; border-top: 1px solid var(--line); }
+.ab-facts > div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
 .ab-facts dt { font-size: 12px; color: var(--sub-color); letter-spacing: .04em; padding-top: 3px; }
 .ab-facts dd { font-size: 14px; }
 .ab-facts dd b { font-family: var(--font-title); font-size: 20px; font-weight: 400; margin-right: 2px; }
 .ab-facts dd span { color: var(--sub-color); }
 
-.info-sec { padding: 40px 0; border-top: 1px solid var(--line, #e3e0db); }
+.info-sec { padding: 40px 0; border-top: 1px solid var(--line); }
 .info-h { display: flex; align-items: baseline; gap: 12px; font-size: 20px; margin-bottom: 24px; }
 .info-h span { font-family: var(--font-title); font-size: 12px; font-weight: 500; letter-spacing: .3em; color: var(--sub-color); }
 
 .ab-featured { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 16px; }
 .ab-work { display: grid; gap: 4px; align-content: start; }
-.ab-work__img, .ab-service__img { display: block; overflow: hidden; border-radius: 4px; background: #EDEAE6; margin-bottom: 8px; }
+.ab-work__img, .ab-service__img { display: block; overflow: hidden; border-radius: 4px; background: var(--secondary); margin-bottom: 8px; }
 .ab-work__img img, .ab-service__img img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .3s ease; }
 .ab-work:hover img, .ab-service__img:hover img { transform: scale(1.03); }
 .ab-work h3 { font-size: 16px; }
@@ -786,8 +786,8 @@ a { color: inherit; text-decoration: none; }
 .ab-service__tags a span { color: var(--sub-color); margin-left: 2px; }
 .ab-service__tags a:hover { border-bottom-color: var(--text-color); }
 
-.ab-clients > div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line, #e3e0db); }
-.ab-clients > div:first-child { border-top: 1px solid var(--line, #e3e0db); }
+.ab-clients > div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.ab-clients > div:first-child { border-top: 1px solid var(--line); }
 .ab-clients dt { font-size: 12px; color: var(--sub-color); letter-spacing: .04em; padding-top: 3px; }
 .ab-clients dd { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
 .ab-clients span { font-family: var(--font-title); font-size: 16px; letter-spacing: .04em; }
@@ -818,7 +818,7 @@ a { color: inherit; text-decoration: none; }
 
 /* Contact */
 .ct-paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 40px 0; }
-.ct-path { display: grid; gap: 4px; align-content: start; padding: 24px; border-radius: 12px; border: 1px solid var(--line, #e3e0db); transition: background-color .2s, border-color .2s; }
+.ct-path { display: grid; gap: 4px; align-content: start; padding: 24px; border-radius: 12px; border: 1px solid var(--line); transition: background-color .2s, border-color .2s; }
 .ct-path:first-child { background: var(--header-bg); border-color: var(--header-bg); }
 .ct-path:hover { border-color: var(--text-color); }
 .ct-path h2 { font-size: 20px; }
@@ -830,16 +830,16 @@ a { color: inherit; text-decoration: none; }
 .ct-form .f--full { grid-column: 1 / -1; }
 .ct-form label, .ct-form .lbl { font-size: 14px; font-weight: 500; }
 .ct-form small { font-size: 12px; font-weight: 400; color: var(--sub-color); margin-left: 4px; }
-.ct-form small.opt { background: #EDEAE6; color: var(--text-color); padding: 1px 8px; border-radius: 999px; }
+.ct-form small.opt { background: var(--secondary); color: var(--text-color); padding: 1px 8px; border-radius: 999px; }
 .ct-form input, .ct-form select, .ct-form textarea {
-  width: 100%; height: 48px; padding: 10px 12px; border: 1px solid var(--line, #e3e0db); border-radius: 8px;
+  width: 100%; height: 48px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px;
   font: inherit; font-size: 16px; font-weight: 400; background: #fff; color: var(--text-color);
 }
 .ct-form textarea { height: auto; resize: vertical; line-height: 1.7; }
 .ct-form input:focus, .ct-form select:focus, .ct-form textarea:focus { outline: none; border-color: var(--text-color); }
 .ct-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .ct-chips button {
-  height: 36px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line, #e3e0db); background: #fff;
+  height: 36px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: #fff;
   font-family: var(--font-title); font-size: 14px; cursor: pointer; color: var(--text-color);
 }
 .ct-chips button:hover { border-color: var(--text-color); }
@@ -852,13 +852,13 @@ a { color: inherit; text-decoration: none; }
 .ct-form [type="submit"] { justify-self: start; min-width: 160px; }
 
 .ct-links { list-style: none; display: grid; }
-.ct-links li { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line, #e3e0db); flex-wrap: wrap; }
+.ct-links li { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
 .ct-links .k { font-family: var(--font-title); font-size: 12px; font-weight: 500; letter-spacing: .2em; color: var(--sub-color); width: 120px; }
 .ct-links a { font-family: var(--font-title); font-size: 16px; }
 .ct-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.ct-copy { margin-left: auto; border: 1px solid var(--line, #e3e0db); background: #fff; border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 12px; cursor: pointer; }
+.ct-copy { margin-left: auto; border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 12px; cursor: pointer; }
 
-.ct-faq details { border-bottom: 1px solid var(--line, #e3e0db); }
+.ct-faq details { border-bottom: 1px solid var(--line); }
 .ct-faq summary { list-style: none; cursor: pointer; padding: 16px 32px 16px 0; font-size: 16px; font-weight: 500; position: relative; }
 .ct-faq summary::-webkit-details-marker { display: none; }
 .ct-faq summary::after { content: '+'; position: absolute; right: 4px; top: 14px; font-family: var(--font-title); font-weight: 300; font-size: 20px; }
@@ -889,7 +889,7 @@ a { color: inherit; text-decoration: none; }
    ════════════════════════════════════════════════ */
 :root {
   --cream: #FFFCC2;
-  --paper: #F7F5F1;          /* 卡片／色塊用的淺色 */
+  --paper: #FDFAEA;          /* 卡片／色塊用的淺色 */
   --micro-size: 12px;
   --micro-color: #5E5A55;    /* 暖灰底上對比 ≥ 4.5:1 */
 }
@@ -1109,7 +1109,7 @@ a { color: inherit; text-decoration: none; }
    2026-11 配色：白底＋整塊標準色＋暖灰色塊＋黑細字（參考 Combo 手冊）
    每一頁共用首頁開場編排（pageHero）
    ════════════════════════════════════════════════ */
-:root { --paper: #EDEAE6; }
+:root { --paper: #FDFAEA; }
 #site-header { border-bottom: 1px solid rgba(0,0,0,.06); }
 .hm-row { background: transparent; }
 .hm-row__img { background: var(--secondary); }
@@ -1197,8 +1197,8 @@ a { color: inherit; text-decoration: none; }
 .ab-service__no { font-family: var(--font-title); font-size: 12px; letter-spacing: .1em; color: var(--gold); margin-bottom: 8px; }
 .ab-service__en { text-transform: uppercase; }
 .ab-sec__title { font-size: clamp(20px, 2.4vw, 28px); font-weight: 300; letter-spacing: .06em; margin-bottom: 16px; }
-.ab-brands { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line, #e3e0db); border-left: 1px solid var(--line, #e3e0db); }
-.ab-brands li { border-right: 1px solid var(--line, #e3e0db); border-bottom: 1px solid var(--line, #e3e0db); }
+.ab-brands { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.ab-brands li { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .ab-brands li > a, .ab-brands li > div { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; height: 100%; min-height: 150px; padding: 24px 16px 16px; text-align: center; }
 .ab-brands img { max-width: min(150px, 80%); max-height: 52px; width: auto; height: auto; object-fit: contain; filter: grayscale(1); opacity: .78; mix-blend-mode: multiply; transition: filter .3s ease, opacity .3s ease; }
 .ab-brands b { font-family: var(--font-title); font-weight: 400; letter-spacing: .06em; }
@@ -1463,7 +1463,7 @@ a { color: inherit; text-decoration: none; }
   background: var(--gold); color: #000; border: 0; font-size: 13px; letter-spacing: .1em;
   transition: background-color .2s;
 }
-.about-page.ab2 .ab2-card .ab2-more:hover { background: #B09C62; text-decoration: none; }
+.about-page.ab2 .ab2-card .ab2-more:hover { background: #C4B35A; text-decoration: none; }
 .about-page.ab2 .ab2-card .ab2-items { margin-bottom: 28px; }
 .ab2-cta__text { text-wrap: balance; }
 .about-page.ab2 .ab2-cta .btn--primary:hover { background: #333; color: #fff; opacity: 1; }
@@ -1558,3 +1558,11 @@ a { color: inherit; text-decoration: none; }
 .contact-page .ct-faq p { font-size: 16px; }
 .ab2 .ab2-h2 { font-weight: 400 !important; }
 .contact-page .ct-path .ab2-btn-line { justify-self: start; }
+
+/* ===== 2026-11-11 配色 v2：FCFDFE 底／FDFAEA 卡片／FFFCC2 重點／D9C96F 只做大數字與線／E2E2E2 線 ===== */
+:root { --line: #E2E2E2; --ink-2: #4A4A4A; }
+.ab2-eyebrow, .ab2-no, .ab2-year--no, .ab2-chrono__when b.is-no,
+.ab-process .no, .ab-service__no, .work-header__meta span { color: var(--ink-2) !important; }
+.ab2-card, .contact-page .ct-path, .ab-process li { border: 1px solid var(--line); }
+.ab2-facts, .ab2-items, .ab2-timeline li, .ab2-stages li, .ab2-chrono li, .ab-introrow .ab-facts > div { border-color: var(--line) !important; }
+.ab2-more, .ab2-textlink, .ab-service__tags a, .ab-awards dd a { border-bottom-color: var(--text-color); }

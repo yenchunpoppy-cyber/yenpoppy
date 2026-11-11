@@ -7,7 +7,7 @@
 <link rel="icon" href="/public/uploads/yenpoppy-favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/public/uploads/yenpoppy-favicon.png">
 <link rel="canonical" href="https://yenpoppy.pages.dev/quote/">
-<meta name="theme-color" content="#FFFCC2">
+<meta name="theme-color" content="#FCFDFE">
 <meta name="description" content="選好想做的項目和風格，就能先看到 YENPOPPY 的預算範圍和完成時間。">
 <meta property="og:title" content="YENPOPPY 設計報價試算">
 <meta property="og:description" content="品牌識別、包裝、印刷品、社群素材，選一選就能看到預算和完成時間。">
@@ -26,15 +26,15 @@
    字級 12 / 14 / 16 / 20 / 28 / 40；間距 4 / 8 / 12 / 16 / 24 / 40
    圓角：按鈕 999、輸入框 8、卡片 12；選取狀態用底色＋勾選，不加粗框 */
 :root {
-  --bg: #ffffff;
-  --paper: #ffffff;
-  --soft: #edeae6;
+  --bg: #FCFDFE;
+  --paper: #FCFDFE;
+  --soft: #FDFAEA;
   --ink: #000000;
   --muted: #5e5c59;
-  --line: #e3e0db;
+  --line: #E2E2E2;
   --cream: #FFFCC2;
   --band: #FFFCC2;
-  --gold: #c5b27a;
+  --gold: #D9C96F;
   --accent: #000000;
   --accent-ink: #ffffff;
   --warn: #9a5a17;
@@ -47,13 +47,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0d0d0c; --paper: #181816; --soft: #24231f; --ink: #f4f1ea; --muted: #b0aca3; --line: #34322d;
-    --cream: #3a3426; --band: #1f1d18; --gold: #c5b27a; --accent: #FFFCC2; --accent-ink: #000000; --warn: #e3a964; --ok: #93c39a; --logo-filter: invert(1);
+    --cream: #3a3426; --band: #1f1d18; --gold: #D9C96F; --accent: #FFFCC2; --accent-ink: #000000; --warn: #e3a964; --ok: #93c39a; --logo-filter: invert(1);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0d0d0c; --paper: #181816; --soft: #24231f; --ink: #f4f1ea; --muted: #b0aca3; --line: #34322d;
-    --cream: #3a3426; --band: #1f1d18; --gold: #c5b27a; --accent: #FFFCC2; --accent-ink: #000000; --warn: #e3a964; --ok: #93c39a; --logo-filter: invert(1);
+    --cream: #3a3426; --band: #1f1d18; --gold: #D9C96F; --accent: #FFFCC2; --accent-ink: #000000; --warn: #e3a964; --ok: #93c39a; --logo-filter: invert(1);
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -164,7 +164,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--ink); outline: n
 .ghost { height: 40px; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 0 16px; cursor: pointer; font-size: 14px; }
 
 /* 結果 */
-.result { position: sticky; top: 24px; margin-top: 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 24px; display: grid; gap: 16px; box-shadow: 0 8px 24px rgba(40,30,10,.06); }
+.result { position: sticky; top: 24px; margin-top: 16px; background: var(--soft); border: 1px solid var(--line); border-radius: 12px; padding: 24px; display: grid; gap: 16px; box-shadow: 0 8px 24px rgba(40,30,10,.06); }
 .range { font-variant-numeric: tabular-nums; font-size: 28px; font-weight: 500; line-height: 1.3; }
 .opt-tag { font-size: 12px; color: var(--muted); font-weight: 400; margin-left: 4px; }
 .about input[type=text] { max-width: 360px; }
@@ -231,7 +231,7 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var
 .steps > section { padding-block: 64px; }
 .steps > section:first-child { padding-top: 24px; }
 .step-h { margin-bottom: 32px; gap: 8px; }
-.step-h .no { font-family: var(--qf-display); font-size: 12px; font-weight: 500; letter-spacing: .28em; color: var(--gold); }
+.step-h .no { font-family: var(--qf-display); font-size: 12px; font-weight: 500; letter-spacing: .28em; color: var(--ink); }
 .step-h h2 { font-size: clamp(22px, 2.2vw, 28px); font-weight: 400; letter-spacing: .03em; }
 .step-h p { font-size: 15px; color: #555; }
 .lbl, .field > label:not(.drop) { font-size: 15px; }
