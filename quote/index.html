@@ -303,6 +303,13 @@ footer { font-size: 13px; }
 .q-extra .step-h h2 { margin-bottom: 28px; }
 .pg-head__lead a { color: inherit; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: #999; }
 footer.sf { display: block !important; border-top: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; font-size: inherit !important; color: inherit !important; }
+
+/* 留下聯絡方式：整塊淡黃底框起來，和估價步驟分開 */
+section[aria-labelledby="h4"] { background: var(--soft); border: 1px solid var(--ink); padding: 48px 48px 40px; margin-top: 72px; scroll-margin-top: 96px; }
+section[aria-labelledby="h4"] .step-h .no { display: none; }
+section[aria-labelledby="h4"] .step-h h2 { font-size: clamp(24px, 2.4vw, 30px); }
+section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { background: var(--paper); }
+@media (max-width: 599px) { section[aria-labelledby="h4"] { padding: 32px 20px 24px; margin-left: -4px; margin-right: -4px; } }
 </style>
 </head>
 <body>
@@ -373,7 +380,7 @@ footer.sf { display: block !important; border-top: 0 !important; padding-top: 0 
 
       <div id="resultSlot" class="result-slot"></div>
       <section aria-labelledby="h4">
-        <div class="step-h"><span class="no">STEP 05</span><h2 id="h4">留下聯絡方式</h2><p>有沒有用上面的估價都可以，留個聯絡方式，我會再跟你確認細節和檔期。</p></div>
+        <div class="step-h"><span class="no">STEP 05</span><h2 id="h4">想一起合作嗎？留下聯絡方式</h2><p>有沒有用上面的估價都可以，留個聯絡方式，我會再跟你確認細節和檔期。</p></div>
         <form class="form" id="inq" name="inquiry" novalidate>
           <input type="hidden" name="summary" id="summaryField">
           <input type="hidden" name="links" id="linksField">
