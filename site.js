@@ -217,7 +217,7 @@ async function renderWorksGrid() {
   if (homeBg) document.body.style.background = homeBg;
 
   // SEO title
-  document.title = 'WORKS | YENPOPPY';
+  document.title = 'YENPOPPY｜台灣品牌識別、包裝與數位設計';
 
   const grid = document.getElementById('works-grid');
   if (!grid) return;
@@ -240,6 +240,7 @@ async function renderWorksGrid() {
   grid.dataset.cols = cols;
 
   const allWorks = worksData.works || [];
+  await renderHomeIntro(grid, allWorks).catch(console.warn);
   const tagsData = await fetchJSON('/data/tags.json').catch(() => ({ tags: [] }));
   let works = allWorks;
   let offset = 0;
@@ -309,6 +310,7 @@ async function renderWorksGrid() {
   }
 
   applyFilter(activeTag);
+  if (activeTag) document.getElementById('index')?.scrollIntoView();
 }
 
 function createWorkCard(work) {
@@ -346,6 +348,12 @@ function createWorkCard(work) {
     cap.className = 'card-caption';
     cap.textContent = work.caption;
     card.appendChild(cap);
+  }
+  if ((work.tags || []).length) {
+    const tg = document.createElement('div');
+    tg.className = 'card-tags';
+    tg.textContent = work.tags.map(t => `[ ${t} ]`).join(' ');
+    card.appendChild(tg);
   }
 
   const navigate = () => { location.href = `/works/${work.id}`; };
@@ -459,22 +467,41 @@ async function renderWorkPage() {
   const tools = Array.isArray(work.tools) ? work.tools.filter(Boolean).join(', ') : (work.tools || '');
   const meta = [work.year, work.client, tools].filter(Boolean).map(esc);
   const link = /^https?:\/\//.test(work.link || '') ? work.link : '';
-  header.innerHTML = `
-    <a class="work-header__back" href="/">← WORKS</a>
-    <div class="work-header__titles">
-      ${work.caption ? `<p class="work-header__caption">${esc(work.caption)}</p>` : ''}
-      <h1 class="work-header__title">${esc(work.title)}</h1>
-      ${meta.length ? `<p class="work-header__meta">${meta.join('<span aria-hidden="true">｜</span>')}</p>` : ''}
-      ${work.description ? `<p class="work-header__desc">${esc(work.description)}</p>` : ''}
-      ${link ? `<a class="work-header__link" href="${esc(link)}" target="_blank" rel="noopener">VIEW PROJECT ↗</a>` : ''}
-    </div>
-  `;
+  const all = worksData.works || [];
+  const idx = all.findIndex(w => w.id === work.id);
+  const pad = n => String(n).padStart(2, '0');
+  const home = await fetchJSON('/data/home.json').catch(() => ({}));
+  const sel = (home.selected || []).find(x => x.id === work.id);
+  const tagLine = (work.tags || []).map(t => `<a href="/?tag=${encodeURIComponent(t)}#index">[ ${esc(t)} ]</a>`).join(' ');
+  header.className = 'work-header work-header--hero';
+  header.innerHTML = pageHero({
+    title: work.title,
+    sub: work.caption || '',
+    line: (sel && sel.statement) || '',
+    info: [tagLine, ...meta].filter(Boolean),
+    meta: `<a href="/#index">← INDEX</a><br>( ${pad(idx + 1)} / ${pad(all.length)} )`,
+    small: true,
+  }) + `
+    ${work.description ? `<p class="work-header__desc">${esc(work.description)}</p>` : ''}
+    ${link ? `<a class="work-header__link" href="${esc(link)}" target="_blank" rel="noopener">VIEW PROJECT ↗</a>` : ''}`;
   container.appendChild(header);
 
   (work.modules || []).forEach(mod => {
     const el = renderModule(mod, settings, '');
     if (el) container.appendChild(el);
   });
+
+  // 上一件／下一件
+  const prev = all[(idx - 1 + all.length) % all.length];
+  const next = all[(idx + 1) % all.length];
+  const pager = document.createElement('nav');
+  pager.className = 'work-pager';
+  pager.setAttribute('aria-label', '其他作品');
+  pager.innerHTML = `
+    <a class="work-pager__prev" href="/works/${encodeURIComponent(prev.id)}"><span class="micro">[ PREV ]</span><b>${esc(prev.title)}</b></a>
+    <span class="micro">( ${pad(idx + 1)} / ${pad(all.length)} )</span>
+    <a class="work-pager__next" href="/works/${encodeURIComponent(next.id)}"><span class="micro">[ NEXT ]</span><b>${esc(next.title)}</b></a>`;
+  container.appendChild(pager);
 }
 
 // âââââââââââââââââââââââââââââââââââââââââââââ
@@ -693,6 +720,7 @@ async function init() {
   await renderNav().catch(console.warn);
   initHamburger();
 
+  renderRails();
   if (page === 'works') {
     await renderWorksGrid().catch(console.error);
   } else if (page === 'page') {
@@ -700,6 +728,8 @@ async function init() {
   } else if (page === 'work') {
     await renderWorkPage().catch(console.error);
   }
+  initReveal();
+  if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
 }
 
 
@@ -728,23 +758,26 @@ async function renderAboutPage() {
   const countTag = t => works.filter(w => (w.tags || []).includes(t)).length;
   const stats = (d.stats || []).filter(s => s.value);
   const awards = (d.awards || []).filter(a => a.title);
-  const featured = (d.featured || []).map(byId).filter(Boolean);
+  const featured = [].map(byId).filter(Boolean);
   const groups = (d.clientGroups || []).map(g => ({ ...g, clients: (g.clients || []).filter(c => c && c.name) })).filter(g => g.clients.length);
   const thumb = w => w && w.thumbnail ? escHTML(fixImgUrl(w.thumbnail)) : '';
 
   const el = document.createElement('div');
   el.className = 'info-page about-page';
   el.innerHTML = `
-    <section class="ab-hero">
-      <p class="eyebrow">ABOUT</p>
-      <p class="ab-hero__en">${escHTML(d.heroEn)}</p>
-      ${d.heroZh ? `<h1 class="ab-hero__zh">${escHTML(d.heroZh)}</h1>` : ''}
-    </section>
+    ${pageHero({
+      title: 'ABOUT',
+      sub: d.heroEn,
+      line: d.heroLine || '',
+      info: [escHTML(d.heroMicro || 'TAIWAN')],
+      meta: 'PROFILE<br>( 01 )',
+    })}
 
-    <section class="ab-intro">
-      ${d.introImage ? `<div class="ab-intro__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : ''}
-      <div class="ab-intro__text">
-        <p>${escHTML(d.intro)}</p>
+    <section class="hm-row ab-introrow">
+      ${d.introImage ? `<div class="hm-row__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : ''}
+      <div class="hm-row__panel">
+        <p class="micro">( INTRODUCTION )</p>
+        <p class="hm-row__statement">${escHTML(d.intro)}</p>
         ${stats.length || awards.length ? `<dl class="ab-facts">
           ${stats.map(s => `<div><dt>${escHTML(s.label)}</dt><dd><b>${escHTML(s.value)}</b>${escHTML(s.unit)}</dd></div>`).join('')}
           ${awards.map(a => `<div><dt>得獎</dt><dd>${escHTML(a.title)}${a.work ? `<span>｜${escHTML(a.work)}</span>` : ''}</dd></div>`).join('')}
@@ -753,7 +786,7 @@ async function renderAboutPage() {
     </section>
 
     ${featured.length ? `<section class="info-sec">
-      <h2 class="info-h"><span>SELECTED WORKS</span>代表作品</h2>
+      <h2 class="info-h"><span>SELECTED WORKS</span>精選作品</h2>
       <div class="ab-featured">${featured.map(w => `
         <a class="ab-work" href="/works/${encodeURIComponent(w.id)}">
           <div class="ab-work__img"><img src="${thumb(w)}" alt="${escHTML(w.thumbnailAlt || w.title)}" loading="lazy"></div>
@@ -770,7 +803,8 @@ async function renderAboutPage() {
         const w = byId(s.work);
         return `
         <div class="ab-service">
-          ${w ? `<a class="ab-service__img" href="/?tag=${encodeURIComponent(tags[0] || '')}" tabindex="-1" aria-hidden="true"><img src="${thumb(w)}" alt="" loading="lazy"></a>` : ''}
+          ${s.icon ? `<img class="ab-service__icon" src="${escHTML(fixImgUrl(s.icon))}" alt="" aria-hidden="true">`
+            : w ? `<a class="ab-service__img" href="/?tag=${encodeURIComponent(tags[0] || '')}" tabindex="-1" aria-hidden="true"><img src="${thumb(w)}" alt="" loading="lazy"></a>` : ''}
           <p class="ab-service__en">${escHTML(s.en)}</p>
           <h3>${escHTML(s.zh)}</h3>
           <p class="ab-service__desc">${escHTML(s.desc)}</p>
@@ -831,10 +865,13 @@ async function renderContactPage() {
   const el = document.createElement('div');
   el.className = 'info-page contact-page';
   el.innerHTML = `
-    <section class="ab-hero">
-      <p class="eyebrow">CONTACT</p>
-      <h1 class="ab-hero__zh ab-hero__zh--lg">${escHTML(d.title)}</h1>
-    </section>
+    ${pageHero({
+      title: 'CONTACT',
+      sub: "LET'S WORK TOGETHER",
+      line: d.title,
+      info: ['TAIWAN'],
+      meta: 'GET IN TOUCH<br><a href="#contact-form">( FORM ↓ )</a>',
+    })}
 
     <section class="ct-paths">${(d.paths || []).map(p => `
       <a class="ct-path" href="${escHTML(p.href)}">
@@ -872,6 +909,7 @@ async function renderContactPage() {
         ${email ? `<li><span class="k">EMAIL</span><a href="mailto:${escHTML(email)}">${escHTML(email)}</a><button type="button" class="ct-copy" data-copy="${escHTML(email)}">複製</button></li>` : ''}
         ${d.instagram ? `<li><span class="k">INSTAGRAM</span><a href="${escHTML(d.instagram)}" target="_blank" rel="noopener">${escHTML(d.instagram.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
         ${d.linkedin ? `<li><span class="k">LINKEDIN</span><a href="${escHTML(d.linkedin)}" target="_blank" rel="noopener">${escHTML(d.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
+        ${d.behance ? `<li><span class="k">BEHANCE</span><a href="${escHTML(d.behance)}" target="_blank" rel="noopener">${escHTML(d.behance.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
       </ul>
     </section>
 
@@ -942,3 +980,113 @@ async function renderContactPage() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+
+// ─────────────────────────────────────────────
+// 首頁開場＋精選作品（資料在 data/home.json，CMS 可改）
+// ─────────────────────────────────────────────
+async function renderHomeIntro(grid, works) {
+  const d = await fetchJSON('/data/home.json');
+  const byId = id => works.find(w => w.id === id);
+  const img = w => w && w.thumbnail ? escHTML(fixImgUrl(w.thumbnail)) : '';
+  const heroWorks = (d.heroImages || []).map(byId).filter(Boolean);
+  const selected = (d.selected || []).map(s => ({ ...s, w: byId(s.id) })).filter(s => s.w);
+  const total = String(selected.length).padStart(2, '0');
+
+  const wrap = document.createElement('div');
+  wrap.className = 'home-intro';
+  wrap.innerHTML = `
+    <section class="hm-hero">
+      <div class="hm-hero__text">
+        <h1 class="hm-hero__title">${escHTML(d.heroTitle || 'YENPOPPY')}</h1>
+        <p class="hm-hero__sub">${escHTML(d.heroSub)}</p>
+        ${d.heroLine ? `<p class="hm-hero__note">${escHTML(d.heroLine)}</p>` : ''}
+        ${(d.heroIntro || []).map(t => `<p class="hm-hero__intro">${escHTML(t)}</p>`).join('')}
+        <p class="hm-hero__cta"><a class="hm-btn" href="#index">看看我的作品</a><a class="hm-btn hm-btn--line" href="/pages/about">認識我</a></p>
+      </div>
+      <p class="hm-hero__info">${(d.heroInfo || []).map(l => /@/.test(l)
+        ? `<a href="mailto:${escHTML(l)}">${escHTML(l)}</a>` : escHTML(l)).join('<br>')}</p>
+      <p class="hm-hero__meta micro">PORTFOLIO<br>${escHTML(d.heroYears)}<br><a href="#index">( INDEX ↓ )</a></p>
+      ${heroWorks.length ? `<div class="hm-hero__imgs">${heroWorks.map((w, i) => `
+        <a href="/works/${encodeURIComponent(w.id)}" style="--i:${i}" aria-label="${escHTML(w.title)}">
+          <img src="${img(w)}" alt="${escHTML(w.thumbnailAlt || w.title)}">
+        </a>`).join('')}
+      </div>` : ''}
+    </section>
+
+    ${selected.length ? `<section class="hm-sel" aria-labelledby="hm-sel-h">
+      <h2 class="vlabel" id="hm-sel-h"><span>SELECTED</span>精選作品</h2>
+      <div class="hm-sel__list">${selected.map((s, i) => `
+        <a class="hm-row reveal${i % 2 ? ' hm-row--alt' : ''}" href="/works/${encodeURIComponent(s.w.id)}">
+          <div class="hm-row__img"><img src="${img(s.w)}" alt="${escHTML(s.w.thumbnailAlt || s.w.title)}" loading="lazy"></div>
+          <div class="hm-row__panel">
+            <p class="micro">( ${String(i + 1).padStart(2, '0')} / ${total} )</p>
+            <p class="hm-row__statement">${escHTML(s.statement)}</p>
+            <div class="hm-row__foot">
+              <div>
+                <p class="hm-row__title">${escHTML(s.w.title)}</p>
+                <p class="micro">${escHTML(s.w.caption || (s.w.tags || []).join(', '))}</p>
+              </div>
+              <span class="micro hm-row__view">VIEW →</span>
+            </div>
+          </div>
+        </a>`).join('')}
+      </div>
+    </section>` : ''}
+
+    ${d.ctaTitle ? `<section class="hm-cta">
+      <h2 class="hm-cta__title">${escHTML(d.ctaTitle)}</h2>
+      <p class="hm-cta__text">${escHTML(d.ctaText || '')}</p>
+      <a class="hm-btn" href="/pages/contact">${escHTML(d.ctaButton || 'CONTACT')} →</a>
+    </section>` : ''}
+
+    <div class="hm-index-h" id="index">
+      <h2 class="vlabel vlabel--row"><span>INDEX</span>作品總覽</h2>
+      <p class="micro">${works.length} PROJECTS</p>
+    </div>`;
+  grid.parentElement.insertBefore(wrap, grid);
+}
+
+// ─────────────────────────────────────────────
+// 輕量動態：捲動淡入、兩側直排小字
+// ─────────────────────────────────────────────
+function initReveal() {
+  const els = document.querySelectorAll('.reveal, .info-sec, .ab-intro, .work-card');
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('motion');
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -8% 0px' });
+  els.forEach(el => io.observe(el));
+  // 之後才載入的作品卡也要觀察
+  const grid = document.getElementById('works-grid');
+  if (grid) new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(n => {
+    if (n.nodeType === 1 && n.classList.contains('work-card')) io.observe(n);
+  }))).observe(grid, { childList: true });
+}
+
+function renderRails() {
+  if (document.querySelector('.rail')) return;
+  const l = document.createElement('div');
+  l.className = 'rail rail--l'; l.setAttribute('aria-hidden', 'true');
+  l.innerHTML = '<span>YENPOPPY — INDEPENDENT CREATIVE DESIGN STUDIO</span>';
+  const r = document.createElement('div');
+  r.className = 'rail rail--r'; r.setAttribute('aria-hidden', 'true');
+  r.innerHTML = '<span>TAIWAN — ( 2013—2026 )</span>';
+  document.body.append(l, r);
+}
+
+
+// 每一頁共用的開場（和首頁同一套編排）
+function pageHero({ title, sub, line, info = [], meta = '', small = false }) {
+  return `
+    <section class="hm-hero hm-hero--page${small ? ' hm-hero--small' : ''}">
+      <div class="hm-hero__text">
+        <h1 class="hm-hero__title">${escHTML(title)}</h1>
+        ${sub ? `<p class="hm-hero__sub">${escHTML(sub)}</p>` : ''}
+        ${line ? `<p class="hm-hero__note">${escHTML(line)}</p>` : ''}
+      </div>
+      ${info.length ? `<p class="hm-hero__info">${info.join('<br>')}</p>` : ''}
+      ${meta ? `<p class="hm-hero__meta micro">${meta}</p>` : ''}
+    </section>`;
+}
