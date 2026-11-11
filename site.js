@@ -800,7 +800,7 @@ async function renderAboutPage() {
   const head = (label, zh, title, desc) => `
       <header class="ab2-head">
         <p class="ab2-eyebrow">${escHTML(zh || label)}</p>
-        ${title ? `<h2 class="ab2-h2">${escHTML(title).replace(/\*(.+?)\*/g, '<mark>$1</mark>')}</h2>` : ''}
+        ${title && title !== zh ? `<h2 class="ab2-h2">${escHTML(title).replace(/\*(.+?)\*/g, '<mark>$1</mark>')}</h2>` : ''}
         ${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}
       </header>`;
   const svcMap = serviceMap(d);

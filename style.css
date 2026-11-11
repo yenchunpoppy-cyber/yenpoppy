@@ -1751,3 +1751,31 @@ body[data-page="work"] .pg-head { max-width: 960px; margin: 0 auto; padding-bott
 .pg-head + .ct-sec, .pg-head + .ab2-sec.ct-sec { padding-top: 8px !important; margin-top: 0 !important; }
 /* 頁首、手機選單固定用網站底色：避免載入設定前先閃一下黃色 */
 #site-header, #mobile-nav { background: #FCFDFE !important; }
+
+/* 2026-11-11 手機版間距統一：內容到頁尾 56px，不重複疊加 padding */
+@media (max-width: 599px) {
+  #page-content { padding-bottom: 0 !important; }
+  .info-page { padding-bottom: 0 !important; }
+  .work-pager { margin: 48px 0 0; padding-bottom: 8px; }
+  .work-header--hero .work-header__desc { margin-top: 0; }
+  .ab2-sec { padding-top: 56px; }
+  .work-header { margin-bottom: 24px; }
+  .sf { margin-top: 56px; }
+}
+@media (max-width: 899px) { .ab2-award { margin-top: 40px; } }
+@media (max-width: 599px) { .work-pager { align-items: start; } }
+/* 頁尾前空白：所有尺寸都只留一段，不再疊加 main / info-page / pager 的下方空間 */
+#page-content { padding-bottom: 0 !important; }
+.info-page { padding-bottom: 0 !important; }
+.work-pager { margin-bottom: 0; }
+.sf { margin-top: 96px; }
+@media (max-width: 899px) {
+  .sf { margin-top: 64px; }
+  .ab2-sec { padding-top: 80px; }
+  .pg-head + .ab2-sec { padding-top: 16px; }
+}
+@media (max-width: 599px) {
+  .sf { margin-top: 56px; }
+  .ab2-sec { padding-top: 56px; }
+  .pg-head + .ab2-sec { padding-top: 16px; }
+}
