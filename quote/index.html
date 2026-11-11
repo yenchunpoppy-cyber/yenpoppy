@@ -222,6 +222,36 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var
 
 /* 2026-11 統一：主要按鈕與卡片直角，選項膠囊保留 */
 .primary, .ghost, .mbtn, .add, .item, .style, .result, .sent, .drop, input[type=text], input[type=date], input[type=email], select, textarea { border-radius: 0 !important; }
+
+/* 2026-11-11 全站統一：和首頁、About 同一套字級、按鈕、方角與選取狀態 */
+.wrap { max-width: 1160px; }
+.q-hero { border-bottom: 1px solid rgba(0,0,0,.08); margin-bottom: 0; }
+.q-hero__intro { margin: 16px 0 0; max-width: 36em; font-size: 16px; line-height: 1.8; color: #333; }
+.layout { border-top: 0; padding-top: 40px; }
+.steps > section { padding-block: 64px; }
+.steps > section:first-child { padding-top: 24px; }
+.step-h { margin-bottom: 32px; gap: 8px; }
+.step-h .no { font-family: var(--qf-display); font-size: 12px; font-weight: 500; letter-spacing: .28em; color: var(--gold); }
+.step-h h2 { font-size: clamp(22px, 2.2vw, 28px); font-weight: 400; letter-spacing: .03em; }
+.step-h p { font-size: 15px; color: #555; }
+.lbl, .field > label:not(.drop) { font-size: 15px; }
+.chips button, .cats button, .item .opts, .item .opts button, .stepper, .stepper button, .thumb, .status { border-radius: 0 !important; }
+.chips button { height: 40px; font-size: 14px; border-color: rgba(0,0,0,.18); }
+.chips button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 400; }
+.cats button { font-size: 15px; }
+.item, .style { border-color: rgba(0,0,0,.12); padding: 20px; }
+.item.on, .style[aria-pressed="true"] { background: var(--cream); border-color: var(--ink); }
+.item h3 { font-size: 17px; }
+.item .d, .style span { font-size: 15px; }
+.add, .ghost { border-color: var(--ink); }
+.add:hover, .ghost:hover { background: var(--ink); color: #fff; }
+.primary { height: 52px; letter-spacing: .12em; }
+.primary:hover { background: #333; }
+.result { box-shadow: none; border-color: rgba(0,0,0,.12); }
+.range { font-family: var(--qf-display); font-weight: 400; }
+footer { font-size: 13px; }
+@media (max-width: 920px) { .cats button { border-radius: 0; } }
+@media (max-width: 520px) { .q-hero__intro { font-size: 15px; } }
 </style>
 </head>
 <body>
@@ -239,11 +269,14 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var
 </header>
 <nav id="mobile-nav" aria-label="手機導覽" role="dialog" aria-modal="true"></nav>
 <div class="wrap" id="main">
-  <section class="hero">
-    <img class="stripes" src="/quote/pattern-br.png" alt="">
-    <div class="eyebrow">ESTIMATE</div>
-    <h1>設計報價試算</h1>
-    <p>品牌識別、包裝、印刷品和社群素材，選好項目和風格，就能先看到大概的預算和完成時間。</p>
+  <section class="hm-hero hm-hero--page q-hero">
+    <div class="hm-hero__text">
+      <h1 class="hm-hero__title">ESTIMATE</h1>
+      <p class="hm-hero__sub">LET'S TALK ABOUT YOUR PROJECT.</p>
+      <p class="hm-hero__note">設計報價試算</p>
+      <p class="q-hero__intro">品牌識別、包裝、印刷品和社群素材，選好項目和風格，就能先看到大概的預算和完成時間。</p>
+    </div>
+    <p class="hm-hero__info">TAIWAN</p>
   </section>
 
   <div class="layout">

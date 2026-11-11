@@ -1535,3 +1535,26 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 760px) { .hm-hero:not(.hm-hero--page) .hm-hero__meta { grid-row: auto; } }
 .about-page.ab2 .ab2-head { max-width: 860px; }
 .about-page.ab2 .ab2-profile__text { max-width: 640px; }
+
+/* Contact：和 About 同一套規範（2026-11-11） */
+.contact-page.ab2 { max-width: 1160px; margin: auto; }
+.contact-page .ct-sec { padding-top: 96px; }
+.contact-page .ct-sec .ab2-head { margin-bottom: 32px; }
+.contact-page .ct-paths { gap: 24px; padding: 0; }
+.contact-page .ct-path { background: var(--paper); border: 1px solid rgba(0,0,0,.08); gap: 12px; min-height: 0; }
+.contact-page .ct-path:first-child { background: var(--cream); border-color: var(--cream); }
+.contact-page .ct-path h2 { font-size: clamp(20px, 1.8vw, 24px); font-weight: 400; }
+.contact-page .ct-path p { font-size: 16px; color: #333; }
+.contact-page .ct-path .ab2-btn-line { margin-top: 12px; }
+.contact-page .ct-path:hover .ab2-btn-line { background: var(--text-color); color: #fff; }
+.contact-page .ct-form label, .contact-page .ct-form .lbl { font-size: 15px; }
+.contact-page .ct-form input, .contact-page .ct-form select, .contact-page .ct-form textarea { border-radius: 0; font-size: 16px; }
+.contact-page .ct-chips button { border-radius: 0; height: 40px; font-size: 14px; }
+.contact-page .ct-chips button[aria-pressed="true"] { background: var(--text-color); border-color: var(--text-color); color: #fff; font-weight: 400; }
+.contact-page .ct-form .btn--primary { border-radius: 0; height: 52px; padding: 0 40px; letter-spacing: .12em; }
+.contact-page .ct-form .btn--primary:hover { background: #333; color: #fff; opacity: 1; }
+.contact-page .ct-links, .contact-page .ct-faq { font-size: 16px; }
+.contact-page .ct-faq summary { font-size: 17px; }
+.contact-page .ct-faq p { font-size: 16px; }
+.ab2 .ab2-h2 { font-weight: 400 !important; }
+.contact-page .ct-path .ab2-btn-line { justify-self: start; }

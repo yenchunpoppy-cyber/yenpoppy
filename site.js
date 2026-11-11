@@ -898,36 +898,37 @@ async function renderContactPage() {
   ]);
   setPageMeta(d.seoTitle || 'CONTACT', d.seoDesc);
   const container = document.getElementById('page-content');
-  const tags = (tagsData.tags || []).map(t => t.name).filter(Boolean);
   const email = d.email || '';
 
   const el = document.createElement('div');
-  el.className = 'info-page contact-page';
+  el.className = 'info-page contact-page ab2';
+  const svcs = ['品牌識別 & 視覺設計', '包裝 & 產品設計', '網站 & 數位設計', '展示陳列 & 展覽設計', '還不確定'];
+  const head = (label, zh, title, desc) => `<header class="ab2-head"><p class="ab2-eyebrow">${label}<span>${escHTML(zh)}</span></p>
+        ${title ? `<h2 class="ab2-h2">${escHTML(title)}</h2>` : ''}${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}</header>`;
   el.innerHTML = `
     ${pageHero({
       title: 'CONTACT',
       sub: "LET'S WORK TOGETHER",
       line: d.title,
       info: ['TAIWAN'],
-      meta: 'GET IN TOUCH<br><a href="#contact-form">( FORM ↓ )</a>',
     })}
 
     <section class="ct-paths">${(d.paths || []).map(p => `
       <a class="ct-path" href="${escHTML(p.href)}">
         <h2>${escHTML(p.title)}</h2>
         <p>${escHTML(p.desc)}</p>
-        <span class="ct-path__go">${escHTML(p.button)} →</span>
+        <span class="ab2-btn-line">${escHTML(p.button)} →</span>
       </a>`).join('')}
     </section>
 
-    <section class="info-sec" id="contact-form">
-      <h2 class="info-h"><span>FORM</span>聯絡表單</h2>
+    <section class="ab2-sec ct-sec" id="contact-form">
+      ${head('FORM', '聯絡表單', '說說你的想法。', '填好下面的表單，我會在確認內容後回覆你。')}
       <form class="ct-form" novalidate>
         <p class="hp" aria-hidden="true"><label>請勿填寫 <input name="website" tabindex="-1" autocomplete="off"></label></p>
         <div class="f"><label for="cf-name">怎麼稱呼你</label><input id="cf-name" name="name" required maxlength="60" autocomplete="name"></div>
         <div class="f"><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" required maxlength="120" autocomplete="email"></div>
         <div class="f f--full"><span class="lbl" id="cf-svc-l">想做什麼 <small>可複選</small></span>
-          <div class="ct-chips" role="group" aria-labelledby="cf-svc-l">${tags.map(t =>
+          <div class="ct-chips" role="group" aria-labelledby="cf-svc-l">${svcs.map(t =>
             `<button type="button" aria-pressed="false" data-svc="${escHTML(t)}">${escHTML(t)}</button>`).join('')}</div>
           <p class="ct-err" id="cf-svc-err" hidden>請至少選一項</p></div>
         <div class="f"><label for="cf-budget">預算範圍 <small class="opt">選填</small></label>
@@ -942,8 +943,8 @@ async function renderContactPage() {
       <div class="ct-sent" hidden></div>
     </section>
 
-    <section class="info-sec">
-      <h2 class="info-h"><span>ELSEWHERE</span>其他聯絡方式</h2>
+    <section class="ab2-sec ct-sec">
+      ${head('ELSEWHERE', '其他聯絡方式', '', '')}
       <ul class="ct-links">
         ${email ? `<li><span class="k">EMAIL</span><a href="mailto:${escHTML(email)}">${escHTML(email)}</a><button type="button" class="ct-copy" data-copy="${escHTML(email)}">複製</button></li>` : ''}
         ${d.instagram ? `<li><span class="k">INSTAGRAM</span><a href="${escHTML(d.instagram)}" target="_blank" rel="noopener">${escHTML(d.instagram.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
@@ -952,8 +953,8 @@ async function renderContactPage() {
       </ul>
     </section>
 
-    ${(d.faq || []).length ? `<section class="info-sec">
-      <h2 class="info-h"><span>FAQ</span>常見問題</h2>
+    ${(d.faq || []).length ? `<section class="ab2-sec ct-sec">
+      ${head('FAQ', '常見問題', '', '')}
       <div class="ct-faq">${d.faq.map(f => `
         <details><summary>${escHTML(f.q)}</summary><p>${inlineLinks(f.a)}</p></details>`).join('')}
       </div>
