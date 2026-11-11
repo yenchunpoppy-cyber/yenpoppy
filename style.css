@@ -1971,3 +1971,4 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
 }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .hm2[hidden] { display: none !important; }
+@media (min-width: 1100px) { .about-page.ab2 .ab2-chrono__what .ab2-h3 { white-space: nowrap; font-size: clamp(18px, 1.55vw, 24px); } }
