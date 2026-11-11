@@ -161,6 +161,16 @@ async function renderNav() {
       mobileNav.appendChild(ma);
     }
   });
+  // 手機選單下方：行動按鈕＋聯絡方式
+  if (mobileNav && !mobileNav.querySelector('.mn-foot')) {
+    const c = await fetchJSON('/data/contact.json').catch(() => ({}));
+    const foot = document.createElement('div');
+    foot.className = 'mn-foot';
+    foot.innerHTML = `<p class="mn-note">有品牌、包裝或網站的想法？<br>先聊聊，再一起找方向。</p><a class="mn-cta" href="/quote/#h4">和我聊聊 →</a>
+      <p class="mn-links">${c.email ? `<a href="mailto:${escHTML(c.email)}">${escHTML(c.email)}</a>` : ''}${c.instagram ? `<a href="${escHTML(c.instagram)}" target="_blank" rel="noopener">Instagram ↗</a>` : ''}</p>`;
+    foot.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
+    mobileNav.appendChild(foot);
+  }
 }
 
 // æ¼¢å ¡é¸å®
@@ -172,6 +182,8 @@ function initHamburger() {
   btn.addEventListener('click', () => {
     const open = btn.classList.toggle('open');
     if (open) {
+      const hd = document.getElementById('site-header');
+      if (hd) mobileNav.style.setProperty('--mn-top', Math.round(hd.getBoundingClientRect().bottom) + 'px');
       mobileNav.classList.add('open');
       // éµç¤ç¦é»éå®å¨é¢æ¿å§ï¼è¦æ ¼æ¸ Â§5.5ï¼
       mobileNav.setAttribute('tabindex', '-1');

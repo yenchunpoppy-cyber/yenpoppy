@@ -2111,3 +2111,25 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
   .about-page.ab2 .ab2-cards { gap: 12px !important; }
   .work-pager { margin-top: 32px !important; }
 }
+
+/* ── 手機選單：靠左大字、編號、分隔線、下方行動按鈕 ── */
+@media (max-width: 899px) {
+  #mobile-nav { top: var(--mn-top, 88px) !important; inset: var(--mn-top, 88px) 0 0 0 !important; align-items: stretch !important; justify-content: flex-start !important; gap: 0 !important; padding: 8px 24px 32px !important; counter-reset: mn; overflow-y: auto; border-top: 1px solid #E2E2E2; }
+  #mobile-nav > a { counter-increment: mn; display: grid !important; grid-template-columns: 40px 1fr; grid-template-rows: auto auto; align-items: baseline; column-gap: 4px; padding: 22px 0 !important; border-bottom: 1px solid #E2E2E2; text-align: left; }
+  #mobile-nav > a::before { content: counter(mn, decimal-leading-zero); grid-row: 1 / 3; font-family: var(--font-title); font-size: 15px; font-weight: 300; color: #D9C96F; letter-spacing: .04em; }
+  #mobile-nav > a .nv-zh { font-size: 26px !important; letter-spacing: .12em !important; font-weight: 400; color: #000; }
+  #mobile-nav > a .nv-en { grid-column: 2; font-size: 12px !important; letter-spacing: .24em; color: #4A4A4A; margin-top: 4px; }
+  #mobile-nav > a.active .nv-zh { background: linear-gradient(transparent 55%, #FFFCC2 55%); }
+  #mobile-nav .mn-foot { margin-top: auto; padding-top: 40px; }
+  #mobile-nav .mn-cta { display: block; text-align: center; background: #000; color: #fff; padding: 16px; font-size: 15px; letter-spacing: .16em; border: 1px solid #000; }
+  #mobile-nav .mn-cta:hover { background: #fff; color: #000; }
+  #mobile-nav .mn-links { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; margin: 20px 0 0; font-size: 13px; }
+  #mobile-nav .mn-links a { color: #4A4A4A; letter-spacing: .04em; padding: 0 !important; border: 0 !important; font-family: var(--font-title); font-size: 13px; }
+}
+@media (max-width: 899px) {
+  #mobile-nav > a { row-gap: 0 !important; padding: 20px 0 !important; }
+  #mobile-nav > a::before { grid-row: 1; align-self: center; }
+  #mobile-nav > a .nv-zh { justify-self: start; line-height: 1.3; }
+  #mobile-nav > a .nv-en { margin-top: 2px !important; line-height: 1.6; }
+}
+@media (max-width: 899px) { #mobile-nav .mn-note { margin: 0 0 16px; font-size: 14px; line-height: 1.8; color: #4A4A4A; letter-spacing: .06em; } }
