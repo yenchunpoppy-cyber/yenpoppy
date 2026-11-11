@@ -909,18 +909,10 @@ async function renderContactPage() {
   const head = (label, zh, title, desc) => `<header class="ab2-head"><p class="ab2-eyebrow">${escHTML(zh)}</p>
         ${title ? `<h2 class="ab2-h2">${escHTML(title)}</h2>` : ''}${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}</header>`;
   el.innerHTML = `
-    ${pageHead({ en: 'CONTACT', title: '聯絡我', lead: d.title || '', extra: email ? `<p class="pg-head__mail">或直接寫信：<a href="mailto:${escHTML(email)}">${escHTML(email)}</a></p>` : '' })}
+    ${pageHead({ en: 'CONTACT', title: '聯絡我', lead: '填好下面的表單，我會在確認內容後回覆你。', extra: `<p class="pg-head__mail">還不確定預算？可以先用<a href="/quote/">費用估算</a>看看大概的價格和時間。${email ? `<br>也可以直接寫信：<a href="mailto:${escHTML(email)}">${escHTML(email)}</a>` : ''}</p>` })}
 
-    <section class="ct-paths">${(d.paths || []).map(p => `
-      <a class="ct-path" href="${escHTML(p.href)}">
-        <h2>${escHTML(p.title)}</h2>
-        <p>${escHTML(p.desc)}</p>
-        <span class="ab2-btn-line">${escHTML(p.button)} →</span>
-      </a>`).join('')}
-    </section>
 
     <section class="ab2-sec ct-sec" id="contact-form">
-      ${head('FORM', '聯絡表單', '說說你的想法。', '填好下面的表單，我會在確認內容後回覆你。')}
       <form class="ct-form" novalidate>
         <p class="hp" aria-hidden="true"><label>請勿填寫 <input name="website" tabindex="-1" autocomplete="off"></label></p>
         <div class="f"><label for="cf-name">怎麼稱呼你</label><input id="cf-name" name="name" required maxlength="60" autocomplete="name"></div>

@@ -1744,3 +1744,8 @@ body[data-page="work"] .pg-head { max-width: 960px; margin: 0 auto; padding-bott
 @media (max-width: 599px) { .sf__logo { padding-bottom: 32px; } }
 .sf__logo img { opacity: .1; transition: opacity .4s; }
 .sf__logo:hover img { opacity: .9; }
+.pg-head__mail { line-height: 1.9; }
+.pg-head__mail a { text-underline-offset: 4px; }
+.pg-head__mail a { text-decoration: underline; text-decoration-color: #999; }
+.pg-head__mail a:hover { text-decoration-color: #000; }
+.pg-head + .ct-sec, .pg-head + .ab2-sec.ct-sec { padding-top: 8px !important; margin-top: 0 !important; }
