@@ -1446,3 +1446,10 @@ a { color: inherit; text-decoration: none; }
   .ab2-chrono__when span { margin-top: 0; }
   .ab2-steps__arrow { transform: rotate(90deg); }
 }
+
+/* About v5：個人照改直式 */
+.about-page.ab2 .ab2-profile__img img { aspect-ratio: 4 / 5; object-position: center 30%; }
+@media (max-width: 760px) {
+  .about-page.ab2 .ab2-profile__grid { grid-template-columns: 1fr; gap: 32px; }
+  .about-page.ab2 .ab2-profile__img { max-width: 320px; }
+}

@@ -217,9 +217,11 @@ collections:
             widget: list
             summary: "{{fields.zh}}"
             fields:
-              - { label: 英文, name: en, widget: string }
-              - { label: 中文, name: zh, widget: string }
-              - { label: 說明, name: desc, widget: text }
+              - { label: 年份（可留空，留空顯示編號）, name: year, widget: string, required: false }
+              - { label: 英文小標, name: period, widget: string, required: false }
+              - { label: 中文標題, name: zh, widget: string }
+              - { label: 內容, name: desc, widget: text }
+              - { label: 相關作品（作品 id）, name: works, widget: list, required: false }
           - { label: 合作流程標題, name: processTitle, widget: string, required: false }
           - label: 合作流程
             name: process

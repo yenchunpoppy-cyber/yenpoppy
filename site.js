@@ -834,7 +834,7 @@ async function renderAboutPage() {
         <li>
           <div class="ab2-chrono__when">${p.year ? `<b>${escHTML(p.year)}</b>` : `<b class="is-no">${pad2(i)}</b>`}<span>${escHTML(p.period || '')}</span></div>
           <div class="ab2-chrono__what">
-            <p class="ab2-en">${escHTML(p.org || p.en || '')}</p>
+            ${(p.org || p.en) ? `<p class="ab2-en">${escHTML(p.org || p.en)}</p>` : ''}
             <h3 class="ab2-h3">${escHTML(p.zh)}</h3>
             <p class="ab2-desc">${escHTML(p.desc)}</p>
           </div>
