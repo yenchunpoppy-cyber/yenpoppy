@@ -295,7 +295,7 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var
               <label><input type="checkbox" id="needPrint"> 需要協助印刷</label>
               <label><input type="checkbox" id="needInvoice"> 需要開發票</label>
             </div>
-            <p class="note inv-note">一般以勞報單請款。一定要發票的話，需要先確認能不能配合，試算會另加 5%。</p></div>
+            <p class="note inv-note">如需開立統一發票，請於洽談時事先告知，將依實際開立方式確認相關費用。</p></div>
         </div>
       </section>
 
@@ -374,7 +374,7 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var
     }
     let lo = round100((min + ai) * (1 + rush)), hi = round100((max + ai) * (1 + rush));
     const floor = ls.length > 0 && lo < C.minFee; if (floor) { lo = C.minFee; hi = Math.max(hi, C.minFee); }
-    const tax = $('#needInvoice').checked ? C.invoiceTax : 0;
+    const tax = 0; // 發票費用改為洽談時確認，不在試算加價
     lo = round100(lo * (1 + tax)); hi = round100(hi * (1 + tax));
     return { ls, style, plan, lo, hi, floor, earliest, workdays, start: d, want, fit, rush, ai, tax };
   }
