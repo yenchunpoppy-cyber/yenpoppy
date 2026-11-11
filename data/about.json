@@ -127,7 +127,8 @@
       "name": "ALUXE 亞立詩",
       "logo": "/uploads/logo-aluxe.png",
       "industry": "Jewelry",
-      "work": "aluxe-passport"
+      "work": "aluxe-passport",
+      "scale": 0.8
     },
     {
       "name": "SENKA 專科",
@@ -163,7 +164,8 @@
       "name": "Hibertek",
       "logo": "/uploads/logo-hibertek.png",
       "industry": "Technology",
-      "work": "computer-show"
+      "work": "computer-show",
+      "scale": 0.8
     },
     {
       "name": "紙風車劇團",

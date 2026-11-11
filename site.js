@@ -837,7 +837,7 @@ async function renderAboutPage() {
       ${head('BRANDS &amp; PROJECTS', '參與品牌與專案', d.brandsTitle, d.brandsDesc)}
       <ul class="ab2-logos">${brands.map(c => {
         const w = byId(c.work);
-        const img = c.logo ? `<img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" title="${escHTML(c.name)}" loading="lazy">` : `<b>${escHTML(c.name)}</b>`;
+        const img = c.logo ? `<img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" title="${escHTML(c.name)}" loading="lazy"${c.scale ? ` style="--z:${Number(c.scale) || 1}"` : ''}>` : `<b>${escHTML(c.name)}</b>`;
         return `<li>${w ? `<a href="/works/${encodeURIComponent(w.id)}" aria-label="${escHTML(c.name)}：${escHTML(w.title)}">${img}</a>` : img}</li>`;
       }).join('')}
       </ul>

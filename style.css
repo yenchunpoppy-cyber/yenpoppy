@@ -1645,7 +1645,7 @@ body[data-page="work"] .module-a__header { margin-left: -18px; }
 .about-page.ab2 .ab2-logos { --logo-k: 84px; --logo-max: 64px; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 56px 48px; }
 .about-page.ab2 .ab2-logos li { height: 72px; }
 .about-page.ab2 .ab2-logos img, .about-page.ab2 .ab2-logos img.is-compact {
-  height: calc(var(--logo-k) * var(--s, .6)); max-height: var(--logo-max); width: auto; max-width: 100%;
+  height: calc(var(--logo-k) * var(--s, .6) * var(--z, 1)); max-height: calc(var(--logo-max) * var(--z, 1)); width: auto; max-width: 100%;
   filter: none; opacity: .62; mix-blend-mode: normal;
 }
 .about-page.ab2 .ab2-logos a:hover img { opacity: 1; }
