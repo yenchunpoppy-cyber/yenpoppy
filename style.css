@@ -1377,3 +1377,9 @@ a { color: inherit; text-decoration: none; }
   .ab2-eyebrow { flex-wrap: wrap; gap: 4px 12px; }
 }
 @media (max-width: 1024px) { .ab2-items { grid-template-columns: 1fr; } .ab2-card { padding: 28px; } }
+.ab2-facts { align-items: flex-end; gap: 16px 56px; }
+.ab2-fact--big { display: flex; flex-direction: column; }
+.ab2-fact--big dd { margin: 0; display: flex; align-items: baseline; gap: 6px; }
+.ab2-fact--big b { font-family: var(--font-title); font-size: clamp(44px, 4.4vw, 56px); font-weight: 300; line-height: 1; }
+.ab2-fact--big dd span { font-size: 16px; }
+.ab2-fact--big dt { margin-top: 8px; }

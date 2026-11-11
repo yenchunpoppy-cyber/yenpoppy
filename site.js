@@ -787,7 +787,9 @@ async function renderAboutPage() {
         <div class="ab2-profile__text">
           <div class="ab2-body">${paras.map(t => `<p>${escHTML(t)}</p>`).join('')}</div>
           ${stats.length ? `<dl class="ab2-facts">
-            ${stats.map(s => `<div><dt>${escHTML(s.label)}</dt><dd>${escHTML(s.value)}${s.unit ? ` ${escHTML(s.unit)}` : ''}</dd></div>`).join('')}
+            ${stats.map(s => /^\d+$/.test(s.value)
+              ? `<div class="ab2-fact--big"><dd><b>${escHTML(s.value)}</b>${s.unit ? `<span>${escHTML(s.unit)}</span>` : ''}</dd><dt>${escHTML(s.label)}</dt></div>`
+              : `<div><dt>${escHTML(s.label)}</dt><dd>${escHTML(s.value)}${s.unit ? ` ${escHTML(s.unit)}` : ''}</dd></div>`).join('')}
           </dl>` : ''}
         </div>
       </div>
