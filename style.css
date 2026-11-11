@@ -1721,3 +1721,18 @@ body[data-page="work"] .pg-head { max-width: 960px; margin: 0 auto; padding-bott
 .sf { margin-top: 64px; }
 .nv-en { position: relative; top: -2px; }
 .pg-head + .ab2-sec, .pg-head + .ab2-profile { padding-top: 16px !important; margin-top: 0 !important; }
+
+/* 2026-11-11 第二輪：首頁開場只留標語＋一句、精選改三欄、About 合併成一段 */
+.hm2 { display: block; padding: 88px 0 56px; }
+.hm2__intro { margin: 20px 0 0; font-size: 16px; letter-spacing: .06em; color: #444; }
+@media (max-width: 899px) { .hm2 { padding: 48px 0 36px; } .hm2__intro { font-size: 15px; } }
+.feat-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-bottom: 56px; }
+.feat-row[hidden] { display: none; }
+@media (max-width: 899px) {
+  .feat-row { grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; margin-bottom: 36px; padding-bottom: 4px; scrollbar-width: none; }
+  .feat-row::-webkit-scrollbar { display: none; }
+  .feat-row > * { scroll-snap-align: start; }
+}
+.about-page.ab2 .ab2-profile__grid { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 64px; align-items: center; }
+.about-page.ab2 .ab2-body p + p { margin-top: 16px; }
+@media (max-width: 899px) { .about-page.ab2 .ab2-profile__grid { grid-template-columns: 1fr; gap: 28px; } }

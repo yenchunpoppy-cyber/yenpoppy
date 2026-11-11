@@ -246,7 +246,13 @@ async function renderWorksGrid() {
   // 精選：放在作品牆最前面、兩格寬（只在 ALL 時）
   const homeData = await fetchJSON('/data/home.json').catch(() => ({}));
   const featIds = (homeData.featured || []).filter(id => allWorks.some(w => w.id === id));
-  const featFirst = list => [...featIds.map(id => list.find(w => w.id === id)), ...list.filter(w => !featIds.includes(w.id))];
+  let featRow = null;
+  if (featIds.length) {
+    featRow = document.createElement('div');
+    featRow.className = 'feat-row';
+    featIds.forEach(id => featRow.appendChild(createWorkCard(allWorks.find(w => w.id === id))));
+    grid.parentElement.insertBefore(featRow, grid);
+  }
   const tagsData = await fetchJSON('/data/tags.json').catch(() => ({ tags: [] }));
   let works = allWorks;
   let offset = 0;
@@ -278,7 +284,8 @@ async function renderWorksGrid() {
 
   function applyFilter(name) {
     activeTag = name;
-    works = name ? allWorks.filter(w => workServices(w, svcMap).includes(name)) : featFirst(allWorks);
+    works = name ? allWorks.filter(w => workServices(w, svcMap).includes(name)) : allWorks.filter(w => !featIds.includes(w.id));
+    if (featRow) featRow.hidden = !!name;
     document.querySelectorAll('.tag-filter button').forEach(b => {
       const on = b.dataset.tag === (name || '');
       b.classList.toggle('active', on);
@@ -295,11 +302,7 @@ async function renderWorksGrid() {
 
   function loadMore() {
     const batch = works.slice(offset, offset + WORKS_PAGE_SIZE);
-    batch.forEach(work => {
-      const c = createWorkCard(work);
-      if (!activeTag && featIds.includes(work.id)) c.classList.add('work-card--feat');
-      grid.appendChild(c);
-    });
+    batch.forEach(work => grid.appendChild(createWorkCard(work)));
     offset += batch.length;
 
     // ç§»é¤èå¨åµ
@@ -799,7 +802,7 @@ async function renderAboutPage() {
   const svcMap = serviceMap(d);
   const svcCount = k => works.filter(w => workServices(w, svcMap).includes(k)).length;
   el.innerHTML = `
-    ${pageHead({ en: 'ABOUT', title: '關於我', lead: d.heroLine || '' })}
+    ${pageHead({ en: 'ABOUT', title: '關於我' })}
 
     <section class="ab2-sec ab2-profile">
       <div class="ab2-profile__grid">
@@ -1031,11 +1034,7 @@ async function renderHomeIntro(grid, works) {
   wrap.innerHTML = `
     <section class="hm2">
       <h1 class="hm2__title">${escHTML(d.heroTitle || 'YENPOPPY')}</h1>
-      <div class="hm2__side">
-        ${d.heroLine ? `<p class="hm2__note"><mark>${escHTML(d.heroLine)}</mark></p>` : ''}
-        ${(d.heroIntro || []).map(t => `<p class="hm2__intro">${keepTail(t).replace(/\n/g, '<br class="hm-br">')}</p>`).join('')}
-        <p class="hm2__cta"><a class="hm-btn" href="/pages/contact">${escHTML(d.ctaButton || '和我聊聊')} →</a><a class="hm-btn hm-btn--line" href="/pages/about">認識我</a></p>
-      </div>
+      ${(d.heroIntro || []).map(t => `<p class="hm2__intro">${escHTML(t)}</p>`).join('')}
     </section>
     <div id="index" class="hm2-anchor"></div>`;
   grid.parentElement.insertBefore(wrap, grid);
