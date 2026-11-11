@@ -1637,3 +1637,6 @@ body[data-page="work"] .module-a__header { margin-left: -18px; }
   .about-page.ab2 .ab2-facts { display: grid; grid-template-columns: auto auto; justify-content: start; gap: 8px 40px; }
   .about-page.ab2 .ab2-fact--big b { font-size: 34px; white-space: nowrap; }
 }
+/* 篩選大分類加中文小字（對應 About 四項服務） */
+.tag-filter .tf-zh { margin-left: 6px; font-family: var(--font-body); font-size: .92em; letter-spacing: .12em; color: var(--sub-color); }
+.tag-filter button.active .tf-zh { color: #fff; }

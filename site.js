@@ -262,6 +262,7 @@ async function renderWorksGrid() {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.textContent = name || 'ALL';
+      if (SERVICE_ZH[name]) { const z = document.createElement('span'); z.className = 'tf-zh'; z.textContent = SERVICE_ZH[name]; btn.appendChild(z); }
       btn.dataset.tag = name || '';
       btn.addEventListener('click', () => applyFilter(name));
       bar.appendChild(btn);
@@ -318,6 +319,7 @@ async function renderWorksGrid() {
 
 // 四項服務：順序和 About 服務卡相同
 const SERVICE_KEYS = ['BRAND', 'PACKAGING', 'DIGITAL', 'DISPLAY'];
+const SERVICE_ZH = { BRAND: '品牌', PACKAGING: '包裝', DIGITAL: '數位', DISPLAY: '展示' };
 function serviceMap(about) {
   const m = {};
   (about.services || []).forEach((s, i) => (s.tags || []).forEach(t => { if (SERVICE_KEYS[i]) m[t] = SERVICE_KEYS[i]; }));
