@@ -2147,3 +2147,6 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
   #mobile-nav .mn-links { margin-top: 0; }
 }
 @media (max-width: 899px) { #mobile-nav > a .nv-en, #mobile-nav > a .nv-zh { padding-left: 0 !important; margin-left: 0 !important; } }
+
+/* 2026-11-12 Yen：H3 標題太粗，改 400 */
+.about-page.ab2 .ab2-h3, .about-page.ab2 .ab2-chrono .ab2-h3 { font-weight: 400; }
