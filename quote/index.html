@@ -257,10 +257,11 @@ footer { font-size: 13px; }
 .wrap { max-width: none; padding-left: max(var(--page-pad), calc((100% - var(--content-max)) / 2)); padding-right: max(var(--page-pad), calc((100% - var(--content-max)) / 2)); }
 
 /* 2026-11-11 選取狀態：全站「選取＝黑色」，黃色只留給螢光標記與 CTA 色塊
-   卡片底色不變，框線變黑，右上角黑底 ✓ */
+   卡片底色和灰框不變，上緣黑線＋右上圓形 ✓ */
 .item, .style { position: relative; }
-.item.on, .style[aria-pressed="true"] { background: var(--paper); border-color: var(--ink); }
-.item.on::after, .style[aria-pressed="true"]::after { content: "✓"; position: absolute; top: -1px; right: -1px; width: 28px; height: 28px; display: grid; place-items: center; background: var(--ink); color: var(--paper); font-size: 14px; line-height: 1; }
+.item.on, .style[aria-pressed="true"] { background: var(--paper); }
+.item.on::before, .style[aria-pressed="true"]::before { content: ""; position: absolute; left: -1px; right: -1px; top: -1px; height: 3px; background: var(--ink); }
+.item.on::after, .style[aria-pressed="true"]::after { content: "✓"; position: absolute; top: 14px; right: 14px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--paper); font-size: 12px; line-height: 1; }
 .item.on .opts { background: var(--soft); }
 .stepper { border: 1px solid var(--ink); background: var(--paper); }
 .stepper button:hover { background: var(--ink); color: var(--paper); }

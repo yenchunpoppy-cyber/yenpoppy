@@ -808,7 +808,7 @@ async function renderAboutPage() {
           <h3 class="ab2-h3">${escHTML(s.zh)}</h3>
           <p class="ab2-desc">${escHTML(s.desc)}</p>
           ${(s.items || []).length ? `<ul class="ab2-items">${s.items.map(t => `<li>${escHTML(t)}</li>`).join('')}</ul>` : ''}
-          ${n ? `<a class="ab2-btn-line ab2-card__btn" href="/?tag=${encodeURIComponent(tags[0])}#index">相關作品 ${String(n).padStart(2, '0')} →</a>` : ''}
+          ${n ? `<a class="ab2-btn-line ab2-card__btn" href="/?tag=${encodeURIComponent(tags[0])}#index">相關作品 ${n} 件 →</a>` : ''}
         </article>`;
       }).join('')}
       </div>

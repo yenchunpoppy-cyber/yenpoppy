@@ -1622,3 +1622,18 @@ body[data-page="work"] .module-a__deco-line { width: 2px; border-radius: 0; }
 /* 色線放在欄外，讓標題、內文和圖片左邊切齊 */
 body[data-page="work"] .module-a__header { margin-left: -18px; }
 @media (max-width: 599px) { body[data-page="work"] .module-a__header { gap: 12px; margin-left: -14px; } }
+
+/* 2026-11-11 第二輪 */
+/* 開場介紹句：只在標點處換行，不把「設計師」拆開 */
+.hm-hero__note { text-wrap: balance; }
+@media (max-width: 599px) { .hm-hero__note { word-break: keep-all; overflow-wrap: anywhere; } }
+/* 經歷區：編號用金色大數字（和服務卡、流程一致），小標深灰、標題黑 */
+.about-page.ab2 .ab2-chrono__when b { color: var(--gold) !important; }
+.about-page.ab2 .ab2-chrono__what .ab2-en { color: var(--sub-color); font-family: var(--font-title); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; }
+.about-page.ab2 .ab2-chrono .ab2-h3 { color: var(--text-color); font-weight: 500; }
+.about-page.ab2 .ab2-chrono .ab2-desc { color: #333; }
+/* 13 年／2013—2026：手機並排、縮小 */
+@media (max-width: 599px) {
+  .about-page.ab2 .ab2-facts { display: grid; grid-template-columns: auto auto; justify-content: start; gap: 8px 40px; }
+  .about-page.ab2 .ab2-fact--big b { font-size: 34px; white-space: nowrap; }
+}
