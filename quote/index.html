@@ -335,6 +335,12 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 
 /* 視覺靈感：桌機三個一排 */
 @media (min-width: 921px) { .styles:not(.plans) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* 全站按鈕 hover 規範：實心→反白、框線→填黑、選項→淡黃 */
+.primary { border: 1px solid var(--ink) !important; }
+.primary:hover { background: #fff !important; color: var(--ink) !important; }
+.add:hover, .ghost:hover { background: var(--ink) !important; color: #fff !important; }
+.chips button:hover, .item .opts button:hover { background: #FFFCC2 !important; }
 </style>
 </head>
 <body>

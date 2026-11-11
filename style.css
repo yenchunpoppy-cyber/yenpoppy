@@ -1979,3 +1979,14 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
   .about-page.ab2 .ab2-award.has-img .ab2-award__img { grid-column: 1; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
   .about-page.ab2 .ab2-award.has-img .ab2-award__body { grid-column: 2 / 5; }
 }
+
+/* ── 全站按鈕 hover 規範（2026-11-12）──
+   實心黑按鈕 → 反白（白底黑字黑框）
+   黑框線按鈕 → 填黑（黑底白字）
+   文字連結 → 底線
+   篩選／選項 → 淡黃底 #FFFCC2                                   */
+.hm-btn, .btn--primary, .about-page.ab2 .ab2-cta .btn--primary, .contact-page .ct-form .btn--primary { border: 1px solid #000 !important; transition: background .2s, color .2s !important; }
+.hm-btn:hover, .btn--primary:hover, .about-page.ab2 .ab2-cta .btn--primary:hover, .contact-page .ct-form .btn--primary:hover { background: #fff !important; color: #000 !important; opacity: 1 !important; }
+.ab2-btn-line:hover, .info-page .btn:not(.btn--primary):hover, .work-header__link:hover, .about-page.ab2 .ab2-card .ab2-more:hover, .about-page.ab2 .ab2-cta .ab2-btn2:hover { background: #000 !important; color: #fff !important; text-decoration: none !important; }
+.tag-filter button:not(.active):hover, .ct-chips button:hover { background: #FFFCC2 !important; border-color: transparent !important; }
+.sf__links a:hover, .ct-links a:hover, .ab2-textlink:hover { color: #000; text-decoration: underline; text-underline-offset: 4px; }
