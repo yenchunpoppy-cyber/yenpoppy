@@ -376,6 +376,22 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   .step-h p { grid-column: 1 / -1; margin-top: 4px; }
   .step-h:not(:has(.no)) h2 { grid-column: 1 / -1; }
 }
+
+/* 開頭：兩條路徑卡，接到 STEP 01 */
+.pg-paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 560px; margin: 20px 0 0; }
+.pg-paths .pp { display: grid; gap: 4px; padding: 16px 18px; border: 1px solid #E2E2E2; background: #FDFAEA; color: inherit; text-decoration: none; transition: background .2s, border-color .2s; }
+.pg-paths .pp b { font-size: 16px; font-weight: 500; letter-spacing: .06em; }
+.pg-paths .pp span { font-size: 13px; color: #4A4A4A; }
+.pg-paths .pp:hover { background: #FFFCC2; border-color: #000; }
+.pg-head__mail { margin-top: 14px !important; font-size: 13px; color: #4A4A4A; }
+.pg-head { border-bottom: 1px solid #E2E2E2; padding-bottom: 36px !important; margin-bottom: 8px !important; }
+@media (max-width: 599px) {
+  .pg-paths { gap: 8px; }
+  .pg-paths .pp { padding: 14px; }
+  .pg-paths .pp b { font-size: 15px; }
+  .pg-paths .pp span { font-size: 12px; }
+  .pg-head { padding-bottom: 28px !important; }
+}
 </style>
 </head>
 <body>
@@ -396,8 +412,12 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   <header class="pg-head">
     <p class="pg-head__en">CONTACT</p>
     <h1 class="pg-head__title">合作洽詢</h1>
-    <p class="pg-head__lead">先估預算和時間，或<a href="#h4">直接留言</a>。</p>
-    <p class="pg-head__mail">Email：<a href="mailto:yenchunpoppy@gmail.com">yenchunpoppy@gmail.com</a></p>
+    <p class="pg-head__lead">兩種方式都可以，選一個開始：</p>
+    <div class="pg-paths">
+      <a class="pp" href="#h1"><b>估價試算</b><span>5 個步驟，約 2 分鐘 ↓</span></a>
+      <a class="pp" href="#h4"><b>直接留言</b><span>已經有想法了 →</span></a>
+    </div>
+    <p class="pg-head__mail">也可以寫信：<a href="mailto:yenchunpoppy@gmail.com">yenchunpoppy@gmail.com</a></p>
   </header>
 
   <div class="layout">
