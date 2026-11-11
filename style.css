@@ -1383,3 +1383,66 @@ a { color: inherit; text-decoration: none; }
 .ab2-fact--big b { font-family: var(--font-title); font-size: clamp(44px, 4.4vw, 56px); font-weight: 300; line-height: 1; }
 .ab2-fact--big dd span { font-size: 16px; }
 .ab2-fact--big dt { margin-top: 8px; }
+
+/* ── About v4（Yen 11/11 回饋）── */
+.about-page.ab2 { max-width: 1160px; margin-left: auto; margin-right: auto; }
+.ab2 { --ab-body: 17px; --ab-cap: 14px; }
+.ab2-eyebrow { font-size: 13px; }
+.ab2-eyebrow span { font-size: 13px; }
+.ab2-en { font-size: 12px; }
+.ab2-desc { font-size: 16px; }
+.ab2-lead { font-size: 17px; }
+.ab2-h2 mark { background: linear-gradient(transparent 58%, var(--cream) 58%); color: inherit; padding: 0 2px; }
+.ab2-big { font-family: var(--font-title); font-size: clamp(40px, 4vw, 56px); font-weight: 300; line-height: 1; color: var(--gold); }
+
+/* Profile：圖縮小 */
+.ab2-profile__grid { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); }
+.ab2-profile__img { max-width: 400px; }
+.ab2-profile .ab2-body p { font-size: 19px; }
+
+/* 設計能力：大編號＋較大標題 */
+.ab2-card__top { margin-bottom: 24px; }
+.ab2-card__top img { width: 44px; height: 44px; }
+.ab2-card .ab2-h3 { font-size: clamp(21px, 1.9vw, 25px); }
+.ab2-items li { font-size: 15px; }
+.ab2-card .ab2-more { font-size: 14px; }
+
+/* Logo 註解 */
+.ab2-logos + .ab2-caption { font-size: 13px; }
+
+/* 經歷年表 */
+.ab2-chrono { list-style: none; position: relative; }
+.ab2-chrono li { display: grid; grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1fr); gap: 40px; padding: 36px 0; border-top: 1px solid rgba(0,0,0,.12); align-items: start; }
+.ab2-chrono__when b { display: block; font-family: var(--font-title); font-size: clamp(36px, 3.4vw, 48px); font-weight: 300; line-height: 1; }
+.ab2-chrono__when b.is-no { color: var(--gold); }
+.ab2-chrono__when span { display: block; margin-top: 10px; font-family: var(--font-title); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--ab-muted); }
+.ab2-chrono__what .ab2-en { color: var(--text-color); letter-spacing: .08em; text-transform: none; font-family: var(--font-body); font-size: 14px; }
+.ab2-chrono__works { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.ab2-chrono__works a { display: block; }
+.ab2-chrono__works img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--secondary); transition: opacity .3s ease; }
+.ab2-chrono__works a:hover img { opacity: .85; }
+.ab2-chrono__works span { display: block; margin-top: 6px; font-size: 13px; color: var(--ab-muted); }
+.ab2-chrono__works a:hover span { color: var(--text-color); }
+
+/* 合作流程：大數字＋箭頭＋漸進條 */
+.ab2-steps { gap: 24px; }
+.ab2-steps li { border-top: 0; padding-top: 0; }
+.ab2-steps__top { display: flex; align-items: center; justify-content: space-between; }
+.ab2-steps__arrow { font-family: var(--font-title); font-size: 28px; font-weight: 300; color: var(--gold); transform: translateX(16px); }
+.ab2-steps__bar { display: block; height: 3px; margin: 20px 0 4px; background: linear-gradient(to right, var(--text-color) calc(var(--p) * 100%), rgba(0,0,0,.1) 0); }
+.ab2-steps .ab2-desc { font-size: 15px; }
+
+@media (max-width: 1024px) {
+  .ab2-chrono li { grid-template-columns: 120px minmax(0, 1fr); }
+  .ab2-chrono__works { grid-column: 2; }
+}
+@media (max-width: 760px) {
+  .ab2 { --ab-body: 16px; }
+  .ab2-profile__img { max-width: none; }
+  .ab2-profile .ab2-body p { font-size: 17px; }
+  .ab2-chrono li { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
+  .ab2-chrono__works { grid-column: 1; }
+  .ab2-chrono__when { display: flex; align-items: baseline; gap: 12px; }
+  .ab2-chrono__when span { margin-top: 0; }
+  .ab2-steps__arrow { transform: rotate(90deg); }
+}

@@ -119,7 +119,7 @@
   "ctaSecondary": "看作品",
   "heroMicro": "TAIWAN — SINCE 2013",
   "heroLine": "我是劉姸，一位喜歡探索不同可能性的設計師。",
-  "brandsTitle": "不同領域，不同的創意可能。",
+  "brandsTitle": "不同領域，*不同的創意可能*。",
   "brandsDesc": "從珠寶、美妝、生活風格，到金融、公益與文化展覽，每一次合作，都是一次理解不同需求、探索視覺可能的過程。",
   "brands": [
     {
@@ -198,30 +198,53 @@
   "journey": [
     {
       "year": "",
-      "en": "Industrial & Product",
-      "zh": "工業設計與產品思考",
-      "desc": "從廣告設計與工業設計背景出發，累積產品用途、結構及量產思考經驗。"
+      "period": "School",
+      "org": "廣告設計 → 工業設計",
+      "zh": "從平面走到立體",
+      "desc": "高中讀廣告設計，大學選擇工業設計，想知道平面的想法怎麼變成真正存在的物件。",
+      "works": []
+    },
+    {
+      "year": "2013",
+      "period": "約 7 年",
+      "org": "設計公司｜產品設計師",
+      "zh": "產品思考，延伸到品牌與包裝",
+      "desc": "每週提出產品創意，再把創意延伸到圖案、包裝與品牌視覺。",
+      "works": [
+        "et-seq-nail",
+        "ice-cream-ballsocks"
+      ]
     },
     {
       "year": "",
-      "en": "Brand & Packaging",
-      "zh": "品牌與包裝視覺",
-      "desc": "從產品創意延伸至品牌視覺、包裝、型錄及商業設計。"
+      "period": "Jewelry Brand",
+      "org": "ALUXE 亞立詩｜視覺設計",
+      "zh": "品牌視覺走進門市",
+      "desc": "型錄、廣告視覺，以及櫥窗與門市陳列。",
+      "works": [
+        "aluxe-passport",
+        "disney-princess"
+      ]
     },
     {
       "year": "",
-      "en": "Digital & Cross-media",
-      "zh": "數位、展示與跨媒材整合",
-      "desc": "從櫥窗、門市陳列到品牌網站、互動禮盒及活動視覺。"
+      "period": "Creative Tech",
+      "org": "MXDIGI 創意思境｜美術設計",
+      "zh": "數位、實體與跨媒材整合",
+      "desc": "品牌網站、互動禮盒與活動主視覺，讓概念在線上與線下延續。",
+      "works": [
+        "sing-to-the-moon",
+        "daan-eco-fair"
+      ]
     }
   ],
   "ctaText": "不論是一個剛萌芽的品牌想法，或是正在尋找新方向的既有品牌，都歡迎一起討論。",
-  "servicesTitle": "從一個想法出發，探索不同的設計可能。",
+  "servicesTitle": "從一個想法出發，探索*不同的設計可能*。",
   "servicesDesc": "不同品牌有不同的個性與需求。我會依照專案目標，整合適合的視覺形式與媒材，讓創意不只停留在想像，也能真正落實。",
   "brandsNote": "部分品牌與專案為任職期間參與之合作成果，實際負責內容依各專案說明為準。",
-  "journeyTitle": "一路探索，持續累積。",
-  "processTitle": "從理解需求，到讓想法成形。",
+  "journeyTitle": "一路探索，*持續累積*。",
+  "processTitle": "從理解需求，到*讓想法成形*。",
   "ctaZh": "有想實現的點子嗎？",
   "introQuote": "比起套用固定風格，我更在意每個品牌真正需要什麼，再透過發想、實驗與整合，找到適合它的視覺語言。",
-  "brandsIndustries": "Jewelry / Beauty / Lifestyle / Finance / Corporate / Culture / Nonprofit"
+  "journeyDesc": "從學校、設計公司、品牌端到創意科技公司，每一段經歷都留下了代表作品。"
 }

@@ -767,7 +767,7 @@ async function renderAboutPage() {
   const head = (label, zh, title, desc) => `
       <header class="ab2-head">
         <p class="ab2-eyebrow">${label}<span>${escHTML(zh)}</span></p>
-        ${title ? `<h2 class="ab2-h2">${escHTML(title)}</h2>` : ''}
+        ${title ? `<h2 class="ab2-h2">${escHTML(title).replace(/\*(.+?)\*/g, '<mark>$1</mark>')}</h2>` : ''}
         ${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}
       </header>`;
   const relCount = tags => works.filter(w => (w.tags || []).some(t => tags.includes(t))).length;
@@ -803,7 +803,7 @@ async function renderAboutPage() {
         const n = relCount(tags);
         return `
         <article class="ab2-card">
-          <div class="ab2-card__top"><span class="ab2-no">${pad2(i)}</span>
+          <div class="ab2-card__top"><span class="ab2-big">${pad2(i)}</span>
             ${s.icon ? `<img src="${escHTML(fixImgUrl(s.icon))}" alt="" aria-hidden="true">` : ''}</div>
           <p class="ab2-en">${escHTML(s.en)}</p>
           <h3 class="ab2-h3">${escHTML(s.zh)}</h3>
@@ -817,7 +817,6 @@ async function renderAboutPage() {
 
     ${brands.length ? `<section class="ab2-sec">
       ${head('BRANDS &amp; PROJECTS', '參與品牌與專案', d.brandsTitle, d.brandsDesc)}
-      ${d.brandsIndustries ? `<p class="ab2-caption ab2-industries">${escHTML(d.brandsIndustries)}</p>` : ''}
       <ul class="ab2-logos">${brands.map(c => {
         const w = byId(c.work);
         const img = c.logo ? `<img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" title="${escHTML(c.name)}" loading="lazy">` : `<b>${escHTML(c.name)}</b>`;
@@ -828,10 +827,22 @@ async function renderAboutPage() {
     </section>` : ''}
 
     ${(d.journey || []).length || awards.length ? `<section class="ab2-sec">
-      ${head('EXPERIENCE &amp; RECOGNITION', '經歷與肯定', d.journeyTitle, '')}
-      <ol class="ab2-stages">${(d.journey || []).map((p, i) => `
-        <li><p class="ab2-stage-no">${pad2(i)}</p><p class="ab2-en">${escHTML(p.en)}</p>
-          <h3 class="ab2-h3">${escHTML(p.zh)}</h3><p class="ab2-desc">${escHTML(p.desc)}</p></li>`).join('')}
+      ${head('EXPERIENCE &amp; RECOGNITION', '經歷與肯定', d.journeyTitle, d.journeyDesc)}
+      <ol class="ab2-chrono">${(d.journey || []).map((p, i) => {
+        const ws = (p.works || []).map(byId).filter(Boolean);
+        return `
+        <li>
+          <div class="ab2-chrono__when">${p.year ? `<b>${escHTML(p.year)}</b>` : `<b class="is-no">${pad2(i)}</b>`}<span>${escHTML(p.period || '')}</span></div>
+          <div class="ab2-chrono__what">
+            <p class="ab2-en">${escHTML(p.org || p.en || '')}</p>
+            <h3 class="ab2-h3">${escHTML(p.zh)}</h3>
+            <p class="ab2-desc">${escHTML(p.desc)}</p>
+          </div>
+          ${ws.length ? `<div class="ab2-chrono__works">${ws.map(w => `
+            <a href="/works/${encodeURIComponent(w.id)}"><img src="${escHTML(fixImgUrl(w.thumbnail))}" alt="${escHTML(w.thumbnailAlt || w.title)}" loading="lazy"><span>${escHTML(w.title)}</span></a>`).join('')}
+          </div>` : '<div></div>'}
+        </li>`;
+      }).join('')}
       </ol>
       ${awards.map(a => {
         const w = byId(a.link);
@@ -845,8 +856,9 @@ async function renderAboutPage() {
 
     <section class="ab2-sec">
       ${head('HOW I WORK', '合作流程', d.processTitle, '')}
-      <ol class="ab2-steps">${(d.process || []).map((p, i) => `
-        <li><span class="ab2-no">${pad2(i)}</span><p class="ab2-en">${escHTML(p.en)}</p>
+      <ol class="ab2-steps">${(d.process || []).map((p, i, arr) => `
+        <li style="--p:${(i + 1) / arr.length}"><div class="ab2-steps__top"><span class="ab2-big">${pad2(i)}</span>${i < arr.length - 1 ? '<span class="ab2-steps__arrow" aria-hidden="true">→</span>' : ''}</div>
+          <span class="ab2-steps__bar" aria-hidden="true"></span><p class="ab2-en">${escHTML(p.en)}</p>
           <h3 class="ab2-h3">${escHTML(p.zh)}</h3><p class="ab2-desc">${escHTML(p.desc)}</p></li>`).join('')}
       </ol>
     </section>
