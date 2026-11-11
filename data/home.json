@@ -1,6 +1,6 @@
 {
   "heroTitle": "YENPOPPY",
-  "heroSub": "AN INDEPENDENT CREATIVE DESIGN STUDIO",
+  "heroSub": "LET'S MAKE SOMETHING UNEXPECTED.",
   "heroYears": "2013 — 2026",
   "heroImages": [
     "et-seq-nail",
@@ -9,12 +9,20 @@
   ],
   "selected": [
     {
-      "id": "disney-princess",
-      "statement": "ALUXE 與 Disney 聯名的公主系列珠寶，把童話場景搬進門市櫥窗。"
+      "id": "et-seq-nail",
+      "statement": "從產品意象延伸到包裝與展示的整合創意。"
     },
     {
-      "id": "et-seq-nail",
-      "statement": "指甲油品牌 et seq.，以羽毛筆與墨水瓶為意象，寫下標誌與包裝。"
+      "id": "ice-cream-ballsocks",
+      "statement": "從一雙襪子，發展出有趣的產品概念。"
+    },
+    {
+      "id": "disney-princess",
+      "statement": "把品牌視覺延伸到真實空間，走進櫥窗與門市陳列。"
+    },
+    {
+      "id": "heath-forest",
+      "statement": "讓品牌在數位世界也有自己的個性。"
     },
     {
       "id": "aluxe-passport",
@@ -23,20 +31,19 @@
     {
       "id": "kite-flying",
       "statement": "樂團 Kite Flying Band 的標誌與專輯包裝。"
-    },
-    {
-      "id": "heath-forest",
-      "statement": "健康管理 APP，讓每天的紀錄變得簡單。"
-    },
-    {
-      "id": "coexist-popup-shop",
-      "statement": "Coexist 快閃店的空間與陳列，讓品牌在短時間內被看見。"
     }
   ],
   "heroInfo": [
-    "WHERE IDEAS FIND THEIR VISUAL LANGUAGE",
+    "BRAND IDENTITY / PACKAGING / CREATIVE DESIGN",
     "TAIWAN",
     "yenchunpoppy@gmail.com"
   ],
-  "heroLine": "在故事與商品之間，找到品牌一致的語言。"
+  "heroLine": "好點子，值得被好好實現。",
+  "heroIntro": [
+    "嗨，我是劉姸，一位喜歡發想、實驗，也喜歡把不一樣的想法組合在一起的設計師。",
+    "從品牌、包裝到數位體驗，我喜歡和人一起思考，找到那些原本沒想到、卻很適合你的創意可能。"
+  ],
+  "ctaTitle": "你的品牌，最近有什麼新想法嗎？",
+  "ctaText": "不管你現在只有一個模糊的概念，還是已經有明確的方向，都歡迎來找我聊聊。也許我們可以一起把它變成一件很棒的事。",
+  "ctaButton": "和我聊聊你的想法"
 }

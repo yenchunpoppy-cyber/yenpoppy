@@ -909,6 +909,7 @@ async function renderContactPage() {
         ${email ? `<li><span class="k">EMAIL</span><a href="mailto:${escHTML(email)}">${escHTML(email)}</a><button type="button" class="ct-copy" data-copy="${escHTML(email)}">複製</button></li>` : ''}
         ${d.instagram ? `<li><span class="k">INSTAGRAM</span><a href="${escHTML(d.instagram)}" target="_blank" rel="noopener">${escHTML(d.instagram.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
         ${d.linkedin ? `<li><span class="k">LINKEDIN</span><a href="${escHTML(d.linkedin)}" target="_blank" rel="noopener">${escHTML(d.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
+        ${d.behance ? `<li><span class="k">BEHANCE</span><a href="${escHTML(d.behance)}" target="_blank" rel="noopener">${escHTML(d.behance.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
       </ul>
     </section>
 
@@ -1000,6 +1001,8 @@ async function renderHomeIntro(grid, works) {
         <h1 class="hm-hero__title">${escHTML(d.heroTitle || 'YENPOPPY')}</h1>
         <p class="hm-hero__sub">${escHTML(d.heroSub)}</p>
         ${d.heroLine ? `<p class="hm-hero__note">${escHTML(d.heroLine)}</p>` : ''}
+        ${(d.heroIntro || []).map(t => `<p class="hm-hero__intro">${escHTML(t)}</p>`).join('')}
+        <p class="hm-hero__cta"><a class="hm-btn" href="#index">看看我的作品</a><a class="hm-btn hm-btn--line" href="/pages/about">認識我</a></p>
       </div>
       <p class="hm-hero__info">${(d.heroInfo || []).map(l => /@/.test(l)
         ? `<a href="mailto:${escHTML(l)}">${escHTML(l)}</a>` : escHTML(l)).join('<br>')}</p>
@@ -1029,6 +1032,12 @@ async function renderHomeIntro(grid, works) {
           </div>
         </a>`).join('')}
       </div>
+    </section>` : ''}
+
+    ${d.ctaTitle ? `<section class="hm-cta">
+      <h2 class="hm-cta__title">${escHTML(d.ctaTitle)}</h2>
+      <p class="hm-cta__text">${escHTML(d.ctaText || '')}</p>
+      <a class="hm-btn" href="/pages/contact">${escHTML(d.ctaButton || 'CONTACT')} →</a>
     </section>` : ''}
 
     <div class="hm-index-h" id="index">

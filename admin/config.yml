@@ -252,6 +252,7 @@ collections:
           - { label: Email, name: email, widget: string }
           - { label: Instagram 網址, name: instagram, widget: string, required: false }
           - { label: LinkedIn 網址, name: linkedin, widget: string, required: false }
+          - { label: Behance 網址, name: behance, widget: string, required: false }
           - label: 常見問題
             name: faq
             widget: list
