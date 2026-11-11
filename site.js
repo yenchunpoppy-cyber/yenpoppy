@@ -166,8 +166,7 @@ async function renderNav() {
     const c = await fetchJSON('/data/contact.json').catch(() => ({}));
     const foot = document.createElement('div');
     foot.className = 'mn-foot';
-    foot.innerHTML = `<p class="mn-note">有品牌、包裝或網站的想法？<br>先聊聊，再一起找方向。</p><a class="mn-cta" href="/quote/#h4">和我聊聊 →</a>
-      <p class="mn-links">${c.email ? `<a href="mailto:${escHTML(c.email)}">${escHTML(c.email)}</a>` : ''}${c.instagram ? `<a href="${escHTML(c.instagram)}" target="_blank" rel="noopener">Instagram ↗</a>` : ''}</p>`;
+    foot.innerHTML = `<p class="mn-links">${c.email ? `<a href="mailto:${escHTML(c.email)}">${escHTML(c.email)}</a>` : ''}${c.instagram ? `<a href="${escHTML(c.instagram)}" target="_blank" rel="noopener">Instagram ↗</a>` : ''}</p>`;
     foot.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
     mobileNav.appendChild(foot);
   }

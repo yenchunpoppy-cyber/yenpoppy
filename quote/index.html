@@ -346,7 +346,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 @media (max-width: 599px) { #roles { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; } #roles button { width: 100%; padding-left: 4px; padding-right: 4px; white-space: nowrap; } }
 
 /* STEP 編號：金色、數字放大（同 About 的 01–04） */
-.step-h .no { display: flex !important; align-items: baseline; gap: 10px; color: #D9C96F !important; }
+.step-h .no { display: flex !important; align-items: baseline; gap: 10px; color: var(--gold) !important; }
 .step-h .no b { font-family: var(--qf-display); font-size: 40px; font-weight: 300; letter-spacing: 0; line-height: 1; }
 @media (max-width: 599px) { .step-h .no b { font-size: 32px; } }
 
@@ -399,6 +399,8 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   .cats button { width: 100%; padding: 0 4px !important; font-size: 14px !important; height: 40px !important; }
   .cat-intro { font-size: 13px; margin: 12px 0 14px; }
 }
+
+@media (max-width: 599px) { :root { --gold: #B39D48; } .step-h .no b { font-weight: 400 !important; } }
 </style>
 </head>
 <body>
