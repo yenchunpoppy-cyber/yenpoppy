@@ -1736,3 +1736,11 @@ body[data-page="work"] .pg-head { max-width: 960px; margin: 0 auto; padding-bott
 .about-page.ab2 .ab2-profile__grid { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 64px; align-items: center; }
 .about-page.ab2 .ab2-body p + p { margin-top: 16px; }
 @media (max-width: 899px) { .about-page.ab2 .ab2-profile__grid { grid-template-columns: 1fr; gap: 28px; } }
+/* Logo：頁首放大一點、頁尾放滿版標準字作為品牌收尾 */
+.header-logo img.logo-wordmark { height: 40px; }
+@media (max-width: 599px) { .header-logo img.logo-wordmark { height: 32px; } }
+.sf__logo { display: block; padding: 8px 0 48px; }
+.sf__logo img { display: block; width: 100%; height: auto; }
+@media (max-width: 599px) { .sf__logo { padding-bottom: 32px; } }
+.sf__logo img { opacity: .1; transition: opacity .4s; }
+.sf__logo:hover img { opacity: .9; }

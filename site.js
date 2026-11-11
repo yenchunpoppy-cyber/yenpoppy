@@ -1120,7 +1120,8 @@ async function renderFooter() {
     <div class="sf__bar">
       <p class="sf__links">${links.join('<span aria-hidden="true">/</span>')}</p>
       <p class="sf__copy">© ${new Date().getFullYear()} YENPOPPY</p>
-    </div>`;
+    </div>
+    <a class="sf__logo" href="/" aria-label="YENPOPPY 首頁"><img src="/public/uploads/yenpoppy-logo-lockup.svg" alt="YENPOPPY" loading="lazy"></a>`;
   const main = document.getElementById('page-content') || document.getElementById('main');
   (main ? main.parentElement : document.body).insertBefore(f, main ? main.nextSibling : null);
 }
