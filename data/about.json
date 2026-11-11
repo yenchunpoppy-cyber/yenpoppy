@@ -231,7 +231,8 @@
       "name": "LAZY POINT",
       "logo": "/uploads/logo-lazy-point.png",
       "industry": "Lifestyle",
-      "work": "lazy-point"
+      "work": "lazy-point",
+      "scale": 0.8
     },
     {
       "name": "VACS",
