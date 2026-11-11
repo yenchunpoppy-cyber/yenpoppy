@@ -374,7 +374,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   .step-h .no b { font-size: 28px !important; }
   .step-h h2 { grid-column: 2; }
   .step-h p { grid-column: 1 / -1; margin-top: 4px; }
-  .step-h:not(:has(.no)) h2, section[aria-labelledby="h4"] .step-h h2 { grid-column: 1 / -1; }
+  .step-h:not(:has(.no)) h2 { grid-column: 1 / -1; }
 }
 </style>
 </head>
@@ -396,27 +396,27 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   <header class="pg-head">
     <p class="pg-head__en">CONTACT</p>
     <h1 class="pg-head__title">合作洽詢</h1>
-    <p class="pg-head__lead">想做什麼設計，可以先在下面估個預算和時間；已經想好了，也可以<a href="#h4">直接留言</a>。</p>
-    <p class="pg-head__mail">也可以直接寫信：<a href="mailto:yenchunpoppy@gmail.com">yenchunpoppy@gmail.com</a></p>
+    <p class="pg-head__lead">先估預算和時間，或<a href="#h4">直接留言</a>。</p>
+    <p class="pg-head__mail">Email：<a href="mailto:yenchunpoppy@gmail.com">yenchunpoppy@gmail.com</a></p>
   </header>
 
   <div class="layout">
     <div class="steps">
       <section aria-labelledby="h1">
-        <div class="step-h"><span class="no">STEP <b>01</b></span><h2 id="h1">想做哪些設計？</h2><p>可以多選，數量之後也能改。</p></div>
+        <div class="step-h"><span class="no">STEP <b>01</b></span><h2 id="h1">想做哪些設計？</h2><p>可多選，數量之後能改。</p></div>
         <div class="cats" role="tablist" id="cats"></div>
         <p class="cat-intro" id="catIntro"></p>
         <div class="items" id="items"></div>
         <div class="field other"><label for="otherNeed">其他想做的 <small class="opt-tag">選填</small></label>
-          <textarea id="otherNeed" maxlength="300" placeholder="選單裡沒有的，或想做的和上面不太一樣，都可以寫在這裡"></textarea></div>
+          <textarea id="otherNeed" maxlength="300" placeholder="選單沒有的，寫在這裡"></textarea></div>
       </section>
 
       <section aria-labelledby="h2">
-        <div class="step-h"><span class="no">STEP <b>02</b></span><h2 id="h2">視覺靈感方向</h2><p>這些只是初步參考，不代表最終風格。可以選 1–2 種，不確定也可以上傳參考圖，我們再一起找最適合的方向。</p></div>
+        <div class="step-h"><span class="no">STEP <b>02</b></span><h2 id="h2">視覺靈感方向</h2><p>選 1–2 種，或上傳參考圖。</p></div>
         <div class="styles" id="styles"></div>
         <div class="refs">
           <div class="field"><span class="lbl">參考圖 <small class="opt-tag">選填</small></span>
-            <label class="drop" id="drop" for="refPick"><b>選擇圖片</b>或拖曳進來<small>最多 3 張，合計 8MB 以內，草圖也可以</small></label>
+            <label class="drop" id="drop" for="refPick"><b>選擇圖片</b>或拖曳進來<small>最多 3 張、8MB，草圖也可以</small></label>
             <input type="file" id="refPick" accept="image/*,application/pdf" multiple hidden>
             <div class="thumbs" id="thumbs"></div>
             <p class="refnote" id="refNote" role="status"></p></div>
@@ -426,12 +426,12 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
       </section>
 
       <section aria-labelledby="hp">
-        <div class="step-h"><span class="no">STEP <b>03</b></span><h2 id="hp">提案與修改</h2><p>提案是一開始給你看的設計方向，修改是選定後的調整次數。</p></div>
+        <div class="step-h"><span class="no">STEP <b>03</b></span><h2 id="hp">提案與修改</h2><p>提案是初步方向，修改是選定後的調整。</p></div>
         <div class="styles plans" id="plans"></div>
       </section>
 
       <section aria-labelledby="h3">
-        <div class="step-h"><span class="no">STEP <b>04</b></span><h2 id="h3">希望什麼時候完成？</h2><p>填個日期，看看時間來不來得及。</p></div>
+        <div class="step-h"><span class="no">STEP <b>04</b></span><h2 id="h3">希望什麼時候完成？</h2><p>填日期，看時間來不來得及。</p></div>
         <div class="form">
           <div class="field"><label for="want">希望完成日期</label><input type="date" id="want"></div>
           <div class="field full"><span class="lbl">其他需求</span>
@@ -440,13 +440,13 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
               <label><input type="checkbox" id="needPrint"> 需要協助印刷</label>
               <label><input type="checkbox" id="needInvoice"> 需要開發票</label>
             </div>
-            <p class="note inv-note">如需開立統一發票，請於洽談時事先告知，將依實際開立方式確認相關費用。</p></div>
+            <p class="note inv-note">需要發票請洽談時告知。</p></div>
         </div>
       </section>
 
       <div id="resultSlot" class="result-slot"></div>
       <section aria-labelledby="h4">
-        <div class="step-h"><span class="no">STEP <b>05</b></span><h2 id="h4">想一起合作嗎？留下聯絡方式</h2><p>有沒有用上面的估價都可以，留個聯絡方式，我會再跟你確認細節和檔期。</p></div>
+        <div class="step-h"><span class="no">STEP <b>05</b></span><h2 id="h4">留下聯絡方式</h2><p>沒估價也可以，我會再跟你確認細節。</p></div>
         <form class="form" id="inq" name="inquiry" novalidate>
           <input type="hidden" name="summary" id="summaryField">
           <input type="hidden" name="links" id="linksField">
@@ -456,9 +456,9 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
           <div class="field"><label for="brand">品牌名稱 <small class="opt-tag">選填</small></label><input type="text" id="brand" name="brand"></div>
           <div class="field full"><label for="contact">Email 或 LINE ID</label><input type="text" id="contact" name="contact" required></div>
           <div class="field full about"><span class="lbl">你的身分 <small class="opt-tag">選填</small></span><div class="chips" id="roles"></div></div>
-          <div class="field full"><label for="msg">想補充的內容 <small class="opt-tag">選填</small></label><textarea id="msg" name="message" placeholder="品牌介紹、使用情境、想要的感覺都可以寫"></textarea></div>
+          <div class="field full"><label for="msg">想補充的內容 <small class="opt-tag">選填</small></label><textarea id="msg" name="message" placeholder="品牌介紹、想要的感覺"></textarea></div>
           <div class="field full"><button class="primary" type="submit" id="send">送出</button></div>
-          <p class="note q-fine field full">試算僅供參考，實際金額以正式報價為準。試算選項會統計，只用來了解大家的需求，不會另作他用。</p>
+          <p class="note q-fine field full">試算僅供參考，以正式報價為準。</p>
         </form>
         <div class="sent" id="sent" hidden></div>
       </section>
@@ -599,7 +599,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
         <ul class="picked">${r.ls.map(l => `<li><span>${esc(l.name)} × ${l.qty}</span></li>`).join('')}</ul>
         ${miss.length ? `<div class="status${st.nudge ? ' warn' : ''}">再選一下上方的${miss.join('和')}，就能看到試算結果。</div>` : ''}
         <button class="primary" type="button" data-reveal>看試算結果</button>
-        <p class="note">看試算結果不需要留聯絡方式，只會記錄你選的項目和稱呼。想正式合作，再到最下面填聯絡資料。</p>`;
+        <p class="note">看結果不用留聯絡方式，想合作再填最下面。</p>`;
       $('#mbar').innerHTML = `<span>已選 ${r.ls.length} 個項目</span><button class="mbtn" type="button" data-reveal>看試算結果</button>`;
       return;
     }
@@ -618,7 +618,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
       ${status}
       <ul class="picked">${r.ls.map(l => `<li><span>${esc(l.name)} × ${l.qty}</span><span>${Y.num(l.min * l.qty)}${l.max > l.min ? '–' + Y.num(l.max * l.qty) : ''}</span></li>`).join('')}
         ${r.ai ? `<li><span>原始檔</span><span>${Y.num(r.ai)}</span></li>` : ''}</ul>
-      <p class="note">提案 ${r.plan.proposals} 款，含 ${r.plan.revisions} 次修改，之後每次 NT$${Y.num(C.revisionFee)}。工作天不含週末，從確認報價、收到訂金和素材的隔天開始算。每個月只接少量案子，檔期以付訂順序安排。${$('#needPrint').checked || r.ls.some(l => l.print) ? '印刷和材料費另計。' : ''}</p>
+      <p class="note">提案 ${r.plan.proposals} 款，含 ${r.plan.revisions} 次修改，之後每次 NT$${Y.num(C.revisionFee)}。工作天不含週末，付訂並收到素材隔天起算。${$('#needPrint').checked || r.ls.some(l => l.print) ? '印刷和材料費另計。' : ''}</p>
       <a href="#h4" class="primary" style="text-decoration:none">想合作，留下聯絡方式</a>`;
     $('#mbar').innerHTML = `<span>${rng(r)}<br><small>最快 ${Y.short(r.earliest)} 完成</small></span><a href="#result">看明細</a>`;
   }
