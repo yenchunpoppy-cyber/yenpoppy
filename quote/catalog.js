@@ -5,7 +5,7 @@
  * 層級：分類 → 項目 → 規格（options）。有 options 的項目，價格與天數以所選規格為準。
  */
 window.CATALOG = {
-  version: '2026-11-12f', // 改價後更新，舊草稿會改用範例重新開始
+  version: '2026-11-12g', // 改價後更新，舊草稿會改用範例重新開始
   // 報價單產生器「完整細項」用；group = 清單裡的小標
   categories: [
     {
@@ -190,7 +190,11 @@ window.CATALOG = {
         { id: 'b-open', name: '開店宣傳組', unit: '組', price: 36000, min: 32000, max: 40000, days: 20, print: true,
           desc: 'LOGO 基本＋1 個延伸物＋社群貼文 3 篇' },
         { id: 'b-launch', name: '新品上市組', unit: '組', price: 46000, min: 40000, max: 52000, days: 25, print: true,
-          desc: '單一盒袋包裝＋1 款延伸款＋社群貼文 3 篇' }
+          desc: '單一盒袋包裝＋1 款延伸款＋社群貼文 3 篇' },
+        { id: 'b-template', name: '社群模板組', unit: '組', price: 14000, min: 12000, max: 16000, days: 10,
+          desc: '5 款 IG 版型，用 Canva 自己換字換圖' },
+        { id: 'b-check', name: '品牌健檢', unit: '次', price: 3500, min: 3500, max: 3500, days: 5, fixed: true,
+          desc: '線上聊 1 小時，給你一份改善建議' }
       ]
     }
   ],
@@ -225,7 +229,7 @@ window.CATALOG = {
     { id: 'playful', name: '活潑親和', en: 'PLAYFUL', level: 3, rate: [1, 1.1],
       desc: '明亮又親近', eg: '零食、親子、年輕品牌' },
     { id: 'illus', name: '插畫手繪', en: 'ILLUSTRATION', level: 4, rate: [1.3, 1.6],
-      desc: '原創插畫為主', eg: '插畫包裝、角色、插畫主視覺' },
+      desc: '原創插畫，費用較高', eg: '插畫包裝、角色、插畫主視覺' },
     { id: 'unsure', name: '還不確定', en: 'NOT SURE', level: 0, rate: [1, 1.15],
       desc: '上傳參考圖，再一起找', eg: '' }
   ],

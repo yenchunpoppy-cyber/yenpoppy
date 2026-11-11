@@ -470,7 +470,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
           <div class="field"><label for="want">希望完成日期</label><input type="date" id="want"></div>
           <div class="field full"><span class="lbl">其他需求</span>
             <div class="checks">
-              <label id="aiWrap" hidden><input type="checkbox" id="needAi"> 需要可編輯的原始檔</label>
+              <label id="aiWrap" hidden><input type="checkbox" id="needAi"> 之後想自己改字，加購可編輯檔</label>
               <label><input type="checkbox" id="needPrint"> 需要協助印刷</label>
               <label><input type="checkbox" id="needInvoice"> 需要開發票</label>
             </div>
@@ -543,9 +543,10 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
     const style = { name: picked.map(s => s.name).join('＋'),
       rate: [Math.max(...picked.map(s => s.rate[0])), Math.max(...picked.map(s => s.rate[1]))] };
     let min = 0, max = 0;
-    ls.forEach(l => { min += l.min * l.qty; max += l.max * l.qty; });
+    let fixMin = 0, fixMax = 0; // fixed：固定價（如品牌健檢），不乘風格與方案
+    ls.forEach(l => { if (l.fixed) { fixMin += l.min * l.qty; fixMax += l.max * l.qty; } else { min += l.min * l.qty; max += l.max * l.qty; } });
     const plan = C.plans.find(p => p.id === st.plan);
-    min *= style.rate[0] * plan.rate; max *= style.rate[1] * plan.rate;
+    min = min * style.rate[0] * plan.rate + fixMin; max = max * style.rate[1] * plan.rate + fixMax;
     const aiRate = C.addons.find(a => a.id === 'ai-file').rate;
     const socialMid = ls.filter(l => l.cat === 'social').reduce((s, l) => s + (l.min + l.max) / 2 * l.qty, 0) * (style.rate[0] + style.rate[1]) / 2;
     const ai = $('#needAi').checked ? Math.round(socialMid * aiRate / 100) * 100 : 0;
@@ -563,7 +564,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
       if (!fit) rush = C.addons.find(a => a.id === 'rush').rate;
     }
     let lo = round100((min + ai) * (1 + rush)), hi = round100((max + ai) * (1 + rush));
-    const floor = ls.length > 0 && lo < C.minFee; if (floor) { lo = C.minFee; hi = Math.max(hi, C.minFee); }
+    const floor = ls.some(l => !l.fixed) && lo < C.minFee; if (floor) { lo = C.minFee; hi = Math.max(hi, C.minFee); }
     const tax = 0; // 發票費用改為洽談時確認，不在試算加價
     lo = round100(lo * (1 + tax)); hi = round100(hi * (1 + tax));
     return { ls, style, plan, lo, hi, floor, earliest, workdays, start: d, want, fit, rush, ai, tax };
