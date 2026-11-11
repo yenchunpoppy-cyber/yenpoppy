@@ -796,6 +796,7 @@ async function renderAboutPage() {
 
     <section class="ab2-sec">
       ${head('DESIGN CAPABILITIES', '設計能力', d.servicesTitle, d.servicesDesc)}
+      <p class="ab2-swipe-hint" aria-hidden="true">SWIPE →</p>
       <div class="ab2-cards">${(d.services || []).map((s, i) => {
         const tags = (s.tags || []).filter(t => countTag(t));
         const n = relCount(tags);
@@ -848,7 +849,7 @@ async function renderAboutPage() {
         return `<div class="ab2-award${a.image ? ' has-img' : ''}">
           ${a.image ? `<img class="ab2-award__img" src="${escHTML(fixImgUrl(a.image))}" alt="${escHTML(a.title)} 獎座" loading="lazy">` : ''}
           <div class="ab2-award__body"><p class="ab2-eyebrow">RECOGNITION<span>獲獎</span></p>
-            <p class="ab2-award__yr">${escHTML(yr)}</p><h3 class="ab2-h3">${escHTML(a.title.replace(/^\d{4}\s*/, ''))}</h3>
+            <p class="ab2-award__yr">${escHTML(yr)}</p><h3 class="ab2-h3"><mark>${escHTML(a.title.replace(/^\d{4}\s*/, ''))}</mark></h3>
             ${a.work ? `<p class="ab2-desc">${escHTML(a.work)}</p>` : ''}
             ${w ? `<a class="ab2-btn-line" href="/works/${encodeURIComponent(w.id)}">看作品 →</a>` : ''}</div></div>`;
       }).join('')}
@@ -856,6 +857,7 @@ async function renderAboutPage() {
 
     <section class="ab2-sec">
       ${head('HOW I WORK', '合作流程', d.processTitle, '')}
+      <p class="ab2-swipe-hint" aria-hidden="true">SWIPE →</p>
       <ol class="ab2-steps">${(d.process || []).map((p, i, arr) => `
         <li style="--p:${(i + 1) / arr.length}"><div class="ab2-steps__top"><span class="ab2-big">${pad2(i)}</span>${i < arr.length - 1 ? '<span class="ab2-steps__arrow" aria-hidden="true">→</span>' : ''}</div>
           <span class="ab2-steps__bar" aria-hidden="true"></span><p class="ab2-en">${escHTML(p.en)}</p>

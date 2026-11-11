@@ -252,6 +252,19 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var
 footer { font-size: 13px; }
 @media (max-width: 920px) { .cats button { border-radius: 0; } }
 @media (max-width: 520px) { .q-hero__intro { font-size: 15px; } }
+
+/* 2026-11-11 寬度和全站一致（最寬 1280px、同一套邊距） */
+.wrap { max-width: none; padding-left: max(var(--page-pad), calc((100% - var(--content-max)) / 2)); padding-right: max(var(--page-pad), calc((100% - var(--content-max)) / 2)); }
+
+/* 2026-11-11 選取狀態：全站「選取＝黑色」，黃色只留給螢光標記與 CTA 色塊
+   卡片底色不變，框線變黑，右上角黑底 ✓ */
+.item, .style { position: relative; }
+.item.on, .style[aria-pressed="true"] { background: var(--paper); border-color: var(--ink); }
+.item.on::after, .style[aria-pressed="true"]::after { content: "✓"; position: absolute; top: -1px; right: -1px; width: 28px; height: 28px; display: grid; place-items: center; background: var(--ink); color: var(--paper); font-size: 14px; line-height: 1; }
+.item.on .opts { background: var(--soft); }
+.stepper { border: 1px solid var(--ink); background: var(--paper); }
+.stepper button:hover { background: var(--ink); color: var(--paper); }
+.item.on h3, .style[aria-pressed="true"] b { padding-right: 32px; }
 </style>
 </head>
 <body>
