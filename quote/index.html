@@ -332,6 +332,9 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 /* 頁首固定 65px：試算卡片停在頁首下方，不被切到；留言區上框線用黑色 */
 @media (min-width: 921px) { .result { top: 120px; } }
 .steps > section[aria-labelledby="h4"] { border-top: 1px solid var(--ink); }
+
+/* 視覺靈感：桌機三個一排 */
+@media (min-width: 921px) { .styles:not(.plans) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 </style>
 </head>
 <body>
@@ -412,7 +415,6 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
           <div class="field"><label for="brand">品牌名稱 <small class="opt-tag">選填</small></label><input type="text" id="brand" name="brand"></div>
           <div class="field full"><label for="contact">Email 或 LINE ID</label><input type="text" id="contact" name="contact" required></div>
           <div class="field full about"><span class="lbl">你的身分 <small class="opt-tag">選填</small></span><div class="chips" id="roles"></div></div>
-          <div class="field full about"><span class="lbl">品牌產業 <small class="opt-tag">選填</small></span><div class="chips" id="industries"></div></div>
           <div class="field full"><label for="msg">想補充的內容 <small class="opt-tag">選填</small></label><textarea id="msg" name="message" placeholder="品牌介紹、使用情境、想要的感覺都可以寫"></textarea></div>
           <div class="field full"><button class="primary" type="submit" id="send">送出</button></div>
           <p class="note q-fine field full">試算僅供參考，實際金額以正式報價為準。試算選項會統計，只用來了解大家的需求，不會另作他用。</p>
@@ -611,7 +613,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   function renderAbout() {
     const chip = (key, v) => `<button type="button" data-${key}="${esc(v)}" aria-pressed="${st[key] === v}">${esc(v)}</button>`;
     $('#roles').innerHTML = C.audience.roles.map(v => chip('role', v)).join('');
-    $('#industries').innerHTML = C.audience.industries.map(v => chip('industry', v)).join('');
+    if ($('#industries')) $('#industries').innerHTML = C.audience.industries.map(v => chip('industry', v)).join('');
   }
   document.querySelectorAll('.about').forEach(box => box.addEventListener('click', e => {
     const b = e.target.closest('[data-role],[data-industry]'); if (!b) return;
@@ -637,7 +639,6 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && dirty && st.revealed) { track(false); dirty = false; } });
   document.addEventListener('click', e => {
     if (!e.target.closest('[data-reveal]')) return;
-    if (!st.role || !st.industry) { st.nudge = true; renderResult(); $('#h0').scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
     st.revealed = true; track(false); dirty = false; render();
     if (window.innerWidth <= 920) $('#result').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });

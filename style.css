@@ -1870,3 +1870,8 @@ body[data-page="work"] .pg-head { max-width: 960px; margin: 0 auto; padding-bott
 .about-page.ab2 .ab2-profile__img img { aspect-ratio: 4 / 3 !important; object-position: center 35%; }
 @media (max-width: 599px) { .about-page.ab2 .ab2-profile__img img { aspect-ratio: 16 / 9 !important; } }
 .about-page.ab2 .ab2-fact--big b, .about-page.ab2 .ab2-fact--big dd span { color: var(--gold); }
+/* 首頁：英文標語＋中文理念 */
+.hm2__motto { margin: 0 0 8px; font-size: clamp(17px, 1.5vw, 20px); letter-spacing: .08em; line-height: 1.7; color: var(--text-color, #000); }
+@media (max-width: 599px) { .hm2__motto { font-size: 16px; margin-bottom: 4px; } }
+/* 參與品牌：產業標籤拿掉，只留標題與 logo */
+.ab2-ind { display: none !important; }

@@ -1034,7 +1034,7 @@ async function renderHomeIntro(grid, works) {
   wrap.innerHTML = `
     <section class="hm2">
       <h1 class="hm2__title">${escHTML(d.heroTitle || 'YENPOPPY')}</h1>
-      ${(d.heroIntro || []).map(t => `<p class="hm2__intro">${escHTML(t)}</p>`).join('')}
+      <div class="hm2__text">${(d.heroIntro || []).map((t, i) => `<p class="${i === 0 && d.heroIntro.length > 1 ? 'hm2__motto' : 'hm2__intro'}">${escHTML(t)}</p>`).join('')}</div>
     </section>
     <div id="index" class="hm2-anchor"></div>`;
   grid.parentElement.insertBefore(wrap, grid);
