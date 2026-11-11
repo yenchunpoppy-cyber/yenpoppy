@@ -228,13 +228,6 @@
       "work": "ee-branding"
     },
     {
-      "name": "LAZY POINT",
-      "logo": "/uploads/logo-lazy-point.png",
-      "industry": "Lifestyle",
-      "work": "lazy-point",
-      "scale": 0.8
-    },
-    {
       "name": "VACS",
       "logo": "/uploads/logo-vacs.png",
       "industry": "Lifestyle",
@@ -245,6 +238,13 @@
       "logo": "/uploads/logo-tianyiai.png",
       "industry": "Healthcare",
       "work": "tianyi-tcm"
+    },
+    {
+      "name": "LAZY POINT",
+      "logo": "/uploads/logo-lazy-point.png",
+      "industry": "Lifestyle",
+      "work": "lazy-point",
+      "scale": 0.8
     }
   ],
   "journey": [
