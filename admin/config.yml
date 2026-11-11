@@ -537,6 +537,12 @@ collections:
                 widget: string
                 required: false
 
+              - label: 隱藏這件作品（勾選後網站上不顯示）
+                name: hidden
+                widget: boolean
+                required: false
+                default: false
+
               - label: 縮圖
                 name: thumbnail
                 widget: image

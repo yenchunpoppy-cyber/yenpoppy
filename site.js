@@ -22,7 +22,7 @@ function fixUtf8(val) {
     try {
       const b = new Uint8Array(val.length);
       for (let i = 0; i < val.length; i++) b[i] = val.charCodeAt(i) & 0xFF;
-      return new TextDecoder('utf-8').decode(b);
+      return new TextDecoder('utf-8', { fatal: true }).decode(b);  // 不是亂碼（例如 ×）就保留原字
     } catch(e) { return val; }
   }
   if (Array.isArray(val)) return val.map(fixUtf8);
@@ -52,6 +52,7 @@ async function fetchJSON(path) {
   const res = await fetch(path);
   if (!res.ok) throw new Error(`fetch ${path} â ${res.status}`);
   const data = fixUtf8(await res.json());
+  if (path.endsWith('/works.json') && Array.isArray(data.works)) data.works = data.works.filter(w => !w.hidden);  // 勾「隱藏」的作品不出現在網站
   Cache[path] = data;
   return data;
 }
