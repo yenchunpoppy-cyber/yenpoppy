@@ -132,7 +132,7 @@ window.CATALOG = {
     {
       id: 'pkg', name: '包裝設計', intro: '依包材類型計價',
       items: [
-        { id: 'p-pkg', name: '包裝設計', print: true, desc: '用現成盒型做平面設計。同系列換口味請加「延伸款」', options: [
+        { id: 'p-pkg', name: '包裝設計', print: true, desc: '用現成盒型做平面設計，新結構另報價。同系列換口味請加「延伸款」', options: [
           { id: 'flat', name: '平面包材', unit: '款', price: 18000, min: 16000, max: 21000, days: 12, desc: '頭卡、標籤、吊卡' },
           { id: 'box', name: '單一盒袋', unit: '款', price: 35000, min: 30000, max: 40000, days: 18, desc: '一個紙盒、立袋或罐標' },
           { id: 'gift', name: '禮盒組合', unit: '套', price: 55000, min: 48000, max: 62000, days: 30, desc: '外盒＋內襯＋卡片等多件一起設計' }
