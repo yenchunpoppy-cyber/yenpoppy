@@ -163,6 +163,7 @@ collections:
           - { label: 黃底標語, name: heroLine, widget: string, required: false }
           - { label: 介紹圖片（作品局部照）, name: introImage, widget: image, required: false }
           - { label: 介紹圖片替代文字, name: introImageAlt, widget: string, required: false }
+          - { label: 核心理念（關於我最上方一句）, name: motto, widget: string, required: false }
           - { label: 自我介紹（段落之間空一行）, name: intro, widget: text }
           - label: 數字
             name: stats

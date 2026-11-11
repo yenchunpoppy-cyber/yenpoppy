@@ -1779,3 +1779,74 @@ body[data-page="work"] .pg-head { max-width: 960px; margin: 0 auto; padding-bott
   .ab2-sec { padding-top: 56px; }
   .pg-head + .ab2-sec { padding-top: 16px; }
 }
+
+/* ═══ 2026-11-11 手機版精簡＋字級規範 ═══
+   字級：大標 26 / 區塊標題 22 / 卡片標題 17 / 內文 15 / 輔助 13 / 標籤 12（手機最小 12px）
+   桌機：大標 clamp(34–52) / 區塊標題 clamp(26–36) / 卡片標題 20–24 / 內文 16–18 / 輔助 13 / 標籤 12 */
+:root { --fs-display: clamp(34px, 3.6vw, 52px); --fs-h2: clamp(26px, 2.6vw, 36px); --fs-h3: clamp(20px, 1.8vw, 24px); --fs-body: 16px; --fs-small: 13px; --fs-micro: 12px; }
+@media (max-width: 599px) { :root { --fs-display: 26px; --fs-h2: 22px; --fs-h3: 17px; --fs-body: 15px; } }
+
+/* 核心理念 */
+.ab2-motto { margin: 0 0 40px; font-size: var(--fs-h2); font-weight: 400; line-height: 1.5; letter-spacing: .06em; }
+/* 篩選提示 */
+.tf-label { margin: 0 0 10px; font-size: var(--fs-micro); letter-spacing: .2em; color: #6B665F; }
+
+@media (max-width: 599px) {
+  /* 選單字放大 */
+  #mobile-nav { gap: 8px; }
+  #mobile-nav a { padding: 14px 0; }
+  #mobile-nav .nv-zh { font-size: 22px; letter-spacing: .16em; }
+  #mobile-nav .nv-en { font-size: 13px; }
+
+  /* 首頁開場縮小，第一屏就看到作品 */
+  .hm2 { padding: 28px 0 24px; gap: 12px; }
+  .hm2__title { font-size: var(--fs-display); line-height: 1.25; letter-spacing: .06em; }
+  .hm2__intro { font-size: 14px; line-height: 1.8; }
+
+  /* 主打作品：不輪播，第一件滿版、其餘兩件並排 */
+  .feat-row { display: grid !important; grid-auto-flow: row !important; grid-template-columns: 1fr 1fr !important; grid-auto-columns: auto !important; overflow: visible !important; scroll-snap-type: none !important; gap: 20px 12px !important; margin-bottom: 40px !important; }
+  .feat-row > :first-child { grid-column: 1 / -1; }
+
+  /* 篩選：換行排列，不用左右滑 */
+  .tag-filter { flex-wrap: wrap !important; overflow: visible !important; gap: 8px !important; margin-bottom: 28px !important; }
+  .tag-filter button { font-size: var(--fs-micro) !important; padding: 8px 10px !important; }
+
+  /* 內頁開場縮小 */
+  .pg-head { padding: 24px 0 20px; }
+  .pg-head__en { margin-bottom: 6px; font-size: 11px; }
+  .pg-head__title { font-size: 22px; }
+
+  /* 關於我：照片裁成橫幅，理念放最上方 */
+  .ab2-motto { margin-bottom: 20px; }
+  .about-page.ab2 .ab2-profile__grid { gap: 20px; }
+  .about-page.ab2 .ab2-profile__img { max-width: none; }
+  .about-page.ab2 .ab2-profile__img img { aspect-ratio: 16 / 9; object-position: center 32%; }
+  .ab2-profile .ab2-body p { font-size: var(--fs-body) !important; }
+  .about-page.ab2 .ab2-facts { margin-top: 20px; padding-top: 16px; }
+
+  /* 服務卡：直排精簡，不左右滑；只留標題、說明與相關作品 */
+  .about-page.ab2 .ab2-cards { display: grid !important; grid-auto-flow: row !important; grid-template-columns: 1fr !important; overflow: visible !important; margin: 0 !important; padding: 0 !important; gap: 12px !important; }
+  .about-page.ab2 .ab2-card { padding: 20px !important; }
+  .about-page.ab2 .ab2-card__top { display: none; }
+  .about-page.ab2 .ab2-card .ab2-h3 { font-size: var(--fs-h3); margin: 0; }
+  .about-page.ab2 .ab2-card .ab2-desc { font-size: 14px; margin-top: 6px; }
+  .about-page.ab2 .ab2-card .ab2-items { display: none; }
+  .about-page.ab2 .ab2-card .ab2-card__btn { margin-top: 14px; padding: 8px 14px; font-size: var(--fs-micro); align-self: flex-start; }
+  .ab2-swipe-hint { display: none !important; }
+
+  /* 品牌牆縮小 */
+  .ab2-ind { gap: 6px 14px; margin-bottom: 24px; font-size: 13px; }
+  .about-page.ab2 .ab2-logos { --logo-k: 40px; --logo-max: 30px; gap: 18px 14px; }
+  .about-page.ab2 .ab2-logos li { height: 36px; }
+  .ab2-logos + .ab2-caption { margin-top: 24px; }
+
+  /* 區塊標題統一 */
+  .ab2-h2 { font-size: var(--fs-h2) !important; line-height: 1.45; }
+  .ab2-lead { font-size: 14px !important; }
+}
+@media (max-width: 599px) {
+  .tag-filter { display: flex !important; row-gap: 8px !important; }
+  .tag-filter button { margin: 0 !important; min-height: 36px !important; height: auto !important; line-height: 1.2 !important; border: 1px solid #E2E2E2 !important; }
+  .tag-filter button.active { border-color: var(--text-color) !important; }
+  .tag-filter button::before, .tag-filter button::after { content: none !important; }
+}

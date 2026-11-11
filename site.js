@@ -279,6 +279,10 @@ async function renderWorksGrid() {
       btn.addEventListener('click', () => applyFilter(name));
       bar.appendChild(btn);
     });
+    const lbl = document.createElement('p');
+    lbl.className = 'tf-label';
+    lbl.textContent = '依類別篩選';
+    grid.parentElement.insertBefore(lbl, grid);
     grid.parentElement.insertBefore(bar, grid);
   }
 
@@ -809,6 +813,7 @@ async function renderAboutPage() {
     ${pageHead({ en: 'ABOUT', title: '關於我' })}
 
     <section class="ab2-sec ab2-profile">
+      ${d.motto ? `<p class="ab2-motto">${escHTML(d.motto)}</p>` : ''}
       <div class="ab2-profile__grid">
         ${d.introImage ? `<div class="ab2-profile__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : '<div></div>'}
         <div class="ab2-profile__text">
