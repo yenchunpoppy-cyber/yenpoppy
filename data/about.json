@@ -128,123 +128,150 @@
       "logo": "/uploads/logo-aluxe.png",
       "industry": "Jewelry",
       "work": "aluxe-passport",
-      "scale": 0.8
+      "scale": 0.81
     },
     {
       "name": "SENKA 專科",
       "logo": "/uploads/logo-senka.png",
       "industry": "Beauty",
-      "work": ""
+      "work": "",
+      "logoColor": "/uploads/logo-senka-color.png",
+      "scale": 1.25
     },
     {
       "name": "ANESSA",
       "logo": "/uploads/logo-anessa.png",
       "industry": "Beauty",
-      "work": ""
+      "work": "",
+      "logoColor": "/uploads/logo-anessa-color.png",
+      "scale": 1.18
     },
     {
       "name": "Panasonic",
       "logo": "/uploads/logo-panasonic.png",
       "industry": "Lifestyle",
-      "work": ""
+      "work": "",
+      "logoColor": "/uploads/logo-panasonic-color.png",
+      "scale": 0.79
     },
     {
       "name": "台新新光金控",
       "logo": "/uploads/logo-ts-holdings.png",
       "industry": "Finance",
-      "work": ""
+      "work": "",
+      "logoColor": "/uploads/logo-ts-holdings-color.png",
+      "scale": 0.94
     },
     {
       "name": "LCY 李長榮集團",
       "logo": "/uploads/logo-lcy.png",
       "industry": "Corporate",
-      "work": ""
+      "work": "",
+      "scale": 0.89
     },
     {
       "name": "Hibertek",
       "logo": "/uploads/logo-hibertek.png",
       "industry": "Technology",
       "work": "computer-show",
-      "scale": 0.8
+      "scale": 0.68
     },
     {
       "name": "紙風車劇團",
       "logo": "/uploads/logo-paperwindmill.png",
       "industry": "Culture",
-      "work": ""
+      "work": "",
+      "logoColor": "/uploads/logo-paperwindmill-color.png",
+      "scale": 1.01
     },
     {
       "name": "大安森林公園之友基金會",
       "logo": "/uploads/logo-daan-park-foundation.png",
       "industry": "Nature",
-      "work": "daan-eco-fair"
+      "work": "daan-eco-fair",
+      "logoColor": "/uploads/logo-daan-park-foundation-color.png",
+      "scale": 1.15
     },
     {
       "name": "天主教中華聖母基金會",
       "logo": "/uploads/logo-holy-mother-foundation.png",
       "industry": "Nonprofit",
-      "work": ""
+      "work": "",
+      "logoColor": "/uploads/logo-holy-mother-foundation-color.png",
+      "scale": 0.91
     },
     {
       "name": "Knock Knock Heaven",
       "logo": "/uploads/logo-knock-knock-heaven.png",
       "industry": "Restaurant",
-      "work": ""
+      "work": "",
+      "scale": 1.15
     },
     {
       "name": "et seq.",
       "logo": "/uploads/logo-et-seq.png",
       "industry": "Beauty",
-      "work": "et-seq-nail"
+      "work": "et-seq-nail",
+      "logoColor": "/uploads/logo-et-seq-color.png",
+      "scale": 0.97
     },
     {
       "name": "BALL SOCKS",
       "logo": "/uploads/logo-ball-socks.png",
       "industry": "Lifestyle",
-      "work": "ice-cream-ballsocks"
+      "work": "ice-cream-ballsocks",
+      "logoColor": "/uploads/logo-ball-socks-color.png",
+      "scale": 0.9
     },
     {
       "name": "oribagu 摺紙包",
       "logo": "/uploads/logo-oribagu.png",
       "industry": "Lifestyle",
-      "work": "mesh-collection"
+      "work": "mesh-collection",
+      "scale": 0.89
     },
     {
       "name": "w/f flower",
       "logo": "/uploads/logo-wf-flower.png",
       "industry": "Lifestyle",
-      "work": "wf-flower"
+      "work": "wf-flower",
+      "scale": 1.1
     },
     {
       "name": "AHA Brand Agency",
       "logo": "/uploads/logo-aha.png",
       "industry": "Branding",
-      "work": "made-by-aha"
+      "work": "made-by-aha",
+      "scale": 1.18
     },
     {
       "name": "E.e branding",
       "logo": "/uploads/logo-ee-branding.png",
       "industry": "Branding",
-      "work": "ee-branding"
+      "work": "ee-branding",
+      "scale": 1.05
     },
     {
       "name": "VACS",
       "logo": "/uploads/logo-vacs.png",
       "industry": "Lifestyle",
-      "work": "vacs"
+      "work": "vacs",
+      "scale": 1.05
     },
     {
       "name": "天一愛 TIANYIAI",
       "logo": "/uploads/logo-tianyiai.png",
       "industry": "Healthcare",
-      "work": "tianyi-tcm"
+      "work": "tianyi-tcm",
+      "logoColor": "/uploads/logo-tianyiai-color.png",
+      "scale": 1.0
     },
     {
       "name": "LAZY POINT",
       "logo": "/uploads/logo-lazy-point.png",
       "industry": "Lifestyle",
       "work": "lazy-point",
-      "scale": 0.8
+      "scale": 0.85
     }
   ],
   "journey": [

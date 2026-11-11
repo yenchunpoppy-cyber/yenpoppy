@@ -1643,14 +1643,20 @@ body[data-page="work"] .module-a__header { margin-left: -18px; }
 
 /* 品牌牆：20 個排 5 欄 × 4 排；logo 統一黑色同深淺、依長寬比平衡面積 */
 .about-page.ab2 .ab2-logos { --logo-k: 84px; --logo-max: 64px; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 56px 48px; }
-.about-page.ab2 .ab2-logos li { height: 72px; }
+.about-page.ab2 .ab2-logos li { height: 84px; }
 .about-page.ab2 .ab2-logos img, .about-page.ab2 .ab2-logos img.is-compact {
   height: calc(var(--logo-k) * var(--s, .6) * var(--z, 1)); max-height: calc(var(--logo-max) * var(--z, 1)); width: auto; max-width: 100%;
   filter: none; opacity: .62; mix-blend-mode: normal;
 }
-.about-page.ab2 .ab2-logos a:hover img { opacity: 1; }
+.about-page.ab2 .ab2-logos li:hover img { opacity: 1; }
 @media (max-width: 1024px) { .about-page.ab2 .ab2-logos { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px 32px; } }
 @media (max-width: 599px) {
   .about-page.ab2 .ab2-logos { --logo-k: 58px; --logo-max: 44px; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 18px; }
   .about-page.ab2 .ab2-logos li { height: 52px; }
 }
+
+/* 滑過 logo 顯示品牌原色（有彩色版的才換色，黑色 logo 只變深） */
+.about-page.ab2 .ab2-logos .lg { position: relative; display: inline-flex; align-items: center; justify-content: center; max-width: 100%; }
+.about-page.ab2 .ab2-logos img.lg-c { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; object-fit: contain; opacity: 0; transition: opacity .3s ease; }
+.about-page.ab2 .ab2-logos li:hover img.lg-c, .about-page.ab2 .ab2-logos a:focus-visible img.lg-c { opacity: 1; }
+.about-page.ab2 .ab2-logos li:hover .lg:has(.lg-c) img:first-child, .about-page.ab2 .ab2-logos a:focus-visible .lg:has(.lg-c) img:first-child { opacity: 0; }
