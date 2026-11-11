@@ -5,7 +5,7 @@
  * 層級：分類 → 項目 → 規格（options）。有 options 的項目，價格與天數以所選規格為準。
  */
 window.CATALOG = {
-  version: '2026-11-12c', // 改價後更新，舊草稿會改用範例重新開始
+  version: '2026-11-12d', // 改價後更新，舊草稿會改用範例重新開始
   // 報價單產生器「完整細項」用；group = 清單裡的小標
   categories: [
     {
@@ -165,7 +165,7 @@ window.CATALOG = {
       items: [
         { id: 'p-post', name: '社群貼文', desc: '每篇封面＋內頁 3 張', options: [
           { id: 'one', name: '單篇', unit: '篇', price: 4200, min: 3500, max: 5000, days: 5 },
-          { id: 'month', name: '月包 8 篇', unit: '月', price: 32000, min: 28800, max: 36800, days: 20, desc: '每月固定排程' }
+          { id: 'month', name: '月包 8 篇', unit: '月', price: 27000, min: 24000, max: 30000, days: 20, desc: '每月固定排程' }
         ] },
         { id: 'p-line', name: 'LINE 圖文選單', unit: '款', price: 5000, min: 4000, max: 6000, days: 7,
           desc: 'LINE 官方帳號下方的選單圖' }
