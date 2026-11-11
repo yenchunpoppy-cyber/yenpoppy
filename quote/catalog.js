@@ -5,7 +5,7 @@
  * 層級：分類 → 項目 → 規格（options）。有 options 的項目，價格與天數以所選規格為準。
  */
 window.CATALOG = {
-  version: '2026-10-28h', // 改價後更新，舊草稿會改用範例重新開始
+  version: '2026-11-12a', // 改價後更新，舊草稿會改用範例重新開始
   // 報價單產生器「完整細項」用；group = 清單裡的小標
   categories: [
     {
@@ -122,23 +122,23 @@ window.CATALOG = {
       items: [
         { id: 'p-brand', name: '品牌識別', desc: '標誌、標準字到完整規範', options: [
           { id: 'basic', name: 'LOGO 基本', unit: '式', price: 25000, min: 22500, max: 28700, days: 15, desc: '標誌設計' },
-          { id: 'std', name: 'LOGO 標準', unit: '式', price: 35000, min: 31500, max: 40200, days: 20, desc: '標誌＋中英標準字' },
+          { id: 'std', name: 'LOGO 標準', unit: '式', price: 37000, min: 32000, max: 42000, days: 20, desc: '標誌＋中英標準字' },
           { id: 'full', name: '完整識別', unit: '式', price: 60000, min: 54000, max: 69000, days: 25, desc: 'LOGO＋色彩字型＋規範手冊' }
         ] },
-        { id: 'p-card', name: '品牌延伸物', unit: '款', price: 6000, min: 5400, max: 6900, days: 10, print: true,
+        { id: 'p-card', name: '品牌延伸物', unit: '款', price: 7500, min: 6500, max: 9000, days: 10, print: true,
           desc: '名片、吊牌、貼紙' }
       ]
     },
     {
       id: 'pkg', name: '包裝設計', intro: '依包材類型計價',
       items: [
-        { id: 'p-pkg', name: '包裝設計', print: true, desc: '用現成盒型做平面設計，新結構另報價', options: [
+        { id: 'p-pkg', name: '包裝設計', print: true, desc: '用現成盒型做平面設計。同系列換口味請加「延伸款」', options: [
           { id: 'flat', name: '平面包材', unit: '款', price: 25000, min: 22500, max: 28700, days: 12, desc: '頭卡、標籤、吊卡' },
           { id: 'box', name: '單一盒袋', unit: '款', price: 48000, min: 43200, max: 55200, days: 18, desc: '一個紙盒、立袋或罐標' },
           { id: 'gift', name: '禮盒組合', unit: '套', price: 70000, min: 63000, max: 80500, days: 30, desc: '外盒＋內襯＋卡片等多件一起設計' }
         ] },
         { id: 'p-variant', name: '延伸款', print: true, desc: '換口味、換顏色，約主款的 30%', options: [
-          { id: 'flat', name: '平面包材', unit: '款', price: 7500, min: 6800, max: 8600, days: 3 },
+          { id: 'flat', name: '平面包材', unit: '款', price: 9000, min: 8000, max: 11000, days: 3 },
           { id: 'box', name: '單一盒袋', unit: '款', price: 14000, min: 12600, max: 16100, days: 3 }
         ] }
       ]
@@ -146,17 +146,17 @@ window.CATALOG = {
     {
       id: 'visual', name: '視覺與印刷', intro: '主視覺與各種印刷品',
       items: [
-        { id: 'p-kv', name: '主視覺設計', unit: '式', price: 28000, min: 25200, max: 32200, days: 14,
+        { id: 'p-kv', name: '主視覺設計', unit: '式', price: 30000, min: 26000, max: 35000, days: 14,
           desc: '1 款主視覺＋延伸 3 種尺寸' },
         { id: 'p-printed', name: '印刷品', print: true, options: [
           { id: 'dm', name: '單頁 DM', unit: '款', price: 4000, min: 3600, max: 4600, days: 7, desc: '單張雙面，含小卡、明信片' },
           { id: 'dm-fold', name: '摺頁 DM', unit: '款', price: 8000, min: 7200, max: 9200, days: 10, desc: '對摺或三摺' },
-          { id: 'poster', name: '海報', unit: '款', price: 6000, min: 5400, max: 6900, days: 10 }
+          { id: 'poster', name: '海報', unit: '款', price: 6500, min: 5500, max: 8000, days: 10 }
         ] },
         { id: 'p-catalog', name: '型錄／手冊', print: true, desc: '封面＋版型＋內頁編排', options: [
-          { id: 'p8', name: '8 頁', unit: '本', price: 20000, min: 18000, max: 23000, days: 15 },
-          { id: 'p16', name: '16 頁', unit: '本', price: 32000, min: 28800, max: 36800, days: 20 },
-          { id: 'p24', name: '24 頁', unit: '本', price: 44000, min: 39600, max: 50600, days: 25 }
+          { id: 'p8', name: '8 頁', unit: '本', price: 22000, min: 19000, max: 25000, days: 15 },
+          { id: 'p16', name: '16 頁', unit: '本', price: 35000, min: 30000, max: 40000, days: 20 },
+          { id: 'p24', name: '24 頁', unit: '本', price: 48000, min: 42000, max: 55000, days: 25 }
         ] }
       ]
     },
@@ -164,10 +164,10 @@ window.CATALOG = {
       id: 'social', name: '社群經營', intro: 'IG、FB、LINE 的日常素材',
       items: [
         { id: 'p-post', name: '社群貼文', desc: '每篇封面＋內頁 3 張', options: [
-          { id: 'one', name: '單篇', unit: '篇', price: 3500, min: 3200, max: 4000, days: 5 },
+          { id: 'one', name: '單篇', unit: '篇', price: 4200, min: 3500, max: 5000, days: 5 },
           { id: 'month', name: '月包 8 篇', unit: '月', price: 32000, min: 28800, max: 36800, days: 20, desc: '每月固定排程' }
         ] },
-        { id: 'p-line', name: 'LINE 圖文選單', unit: '款', price: 3500, min: 3000, max: 4000, days: 7,
+        { id: 'p-line', name: 'LINE 圖文選單', unit: '款', price: 5000, min: 4000, max: 6000, days: 7,
           desc: 'LINE 官方帳號下方的選單圖' }
       ]
     },
