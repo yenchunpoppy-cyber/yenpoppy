@@ -283,6 +283,20 @@ footer { font-size: 13px; }
 .stepper { border: 1px solid var(--line) !important; background: var(--paper) !important; }
 .stepper button { width: 30px; height: 30px; font-size: 14px; }
 .stepper button:hover { background: var(--soft) !important; color: var(--ink) !important; }
+
+/* 2026-11-11 選項卡加寬、留白：兩欄、價格不斷行、間距放大 */
+.items { grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)) !important; gap: 16px !important; }
+.item { padding: 28px 28px 24px !important; gap: 14px !important; }
+.item h3 { padding-right: 36px; }
+.item .opts { grid-auto-flow: row !important; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); }
+.item .opts button { height: 38px; padding: 0 10px; }
+.item .foot { padding-top: 16px; margin-top: auto; border-top: 1px solid var(--line); gap: 16px; }
+.item.on .foot { border-top-color: rgba(0,0,0,.12); }
+.item .pr { white-space: nowrap; font-size: 15px; }
+.item .pr small { margin-top: 4px; }
+@media (max-width: 520px) { .item { padding: 22px 20px 20px !important; } .item .pr { white-space: normal; } }
+.item { display: flex !important; flex-direction: column; }
+.item .opts { display: grid; }
 </style>
 </head>
 <body>
