@@ -2095,3 +2095,19 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
   .about-page.ab2 .ab2-award .ab2-btn-line::after { content: '→'; font-size: 20px; color: #000; }
 }
 @media (max-width: 374px) { .about-page.ab2 .ab2-facts { grid-template-columns: 1fr !important; gap: 6px !important; } }
+@media (max-width: 599px) {
+  .about-page.ab2 .ab2-facts { display: flex !important; flex-wrap: wrap; gap: 6px 28px !important; }
+  .about-page.ab2 .ab2-profile + .ab2-sec { margin-top: 24px !important; }
+}
+/* 手機間距統一：區塊 32＋線＋28；小標→大標 10；大標→說明 12；標題區→內容 24 */
+@media (max-width: 599px) {
+  .about-page.ab2 .ab2-sec { margin-top: 32px; padding-top: 28px !important; }
+  .about-page.ab2 .ab2-profile + .ab2-sec { margin-top: 24px !important; }
+  .about-page.ab2 .ab2-head { margin-bottom: 24px !important; }
+  .about-page.ab2 .ab2-head .ab2-eyebrow { margin-bottom: 10px !important; }
+  .about-page.ab2 .ab2-head .ab2-lead { margin-top: 12px !important; }
+  .about-page.ab2 .ab2-marquee + .ab2-caption { margin-top: 16px !important; }
+  .about-page.ab2 .ab2-award .ab2-eyebrow { margin-bottom: 8px !important; }
+  .about-page.ab2 .ab2-cards { gap: 12px !important; }
+  .work-pager { margin-top: 32px !important; }
+}
