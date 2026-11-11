@@ -761,10 +761,16 @@ async function renderAboutPage() {
   const brands = (d.brands || []).filter(c => c && c.name);
   const paras = String(d.intro || '').split(/\n\s*\n/).map(t => t.trim()).filter(Boolean);
   const pad2 = i => String(i + 1).padStart(2, '0');
-  const secHead = (t, desc) => (t ? `<p class="ab-sec__title">${escHTML(t)}</p>` : '') + (desc ? `<p class="ab-lead">${escHTML(desc)}</p>` : '');
 
   const el = document.createElement('div');
-  el.className = 'info-page about-page';
+  el.className = 'info-page about-page ab2';
+  const head = (label, zh, title, desc) => `
+      <header class="ab2-head">
+        <p class="ab2-eyebrow">${label}<span>${escHTML(zh)}</span></p>
+        ${title ? `<h2 class="ab2-h2">${escHTML(title)}</h2>` : ''}
+        ${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}
+      </header>`;
+  const relCount = tags => works.filter(w => (w.tags || []).some(t => tags.includes(t))).length;
   el.innerHTML = `
     ${pageHero({
       title: 'ABOUT',
@@ -774,82 +780,89 @@ async function renderAboutPage() {
       meta: 'PROFILE<br>( 01 )',
     })}
 
-    <section class="hm-row ab-introrow">
-      ${d.introImage ? `<div class="hm-row__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : ''}
-      <div class="hm-row__panel">
-        <p class="micro">( INTRODUCTION )</p>
-        <div class="ab-introtext">${paras.map(t => `<p>${escHTML(t)}</p>`).join('')}</div>
-        ${stats.length ? `<dl class="ab-facts">
-          ${stats.map(s => `<div><dt>${escHTML(s.label)}</dt><dd><b>${escHTML(s.value)}</b>${escHTML(s.unit)}</dd></div>`).join('')}
-        </dl>` : ''}
+    <section class="ab2-sec ab2-profile">
+      <p class="ab2-eyebrow">PROFILE<span>關於我</span></p>
+      <div class="ab2-profile__grid">
+        ${d.introQuote ? `<p class="ab2-quote">${escHTML(d.introQuote)}</p>` : '<div></div>'}
+        <div>
+          <div class="ab2-body">${paras.map(t => `<p>${escHTML(t)}</p>`).join('')}</div>
+          ${stats.length ? `<dl class="ab2-facts">
+            ${stats.map(s => `<div><dt>${escHTML(s.label)}</dt><dd>${escHTML(s.value)}${s.unit ? ` ${escHTML(s.unit)}` : ''}</dd></div>`).join('')}
+          </dl>` : ''}
+        </div>
       </div>
     </section>
 
-    <section class="info-sec">
-      <h2 class="info-h"><span>DESIGN CAPABILITIES</span>設計能力</h2>
-      ${secHead(d.servicesTitle, d.servicesDesc)}
-      <div class="ab-services">${(d.services || []).map((s, i) => {
+    <section class="ab2-sec">
+      ${head('DESIGN CAPABILITIES', '設計能力', d.servicesTitle, d.servicesDesc)}
+      <div class="ab2-cards">${(d.services || []).map((s, i) => {
         const tags = (s.tags || []).filter(t => countTag(t));
+        const n = relCount(tags);
         return `
-        <div class="ab-service">
-          <p class="ab-service__no">${pad2(i)} /</p>
-          ${s.icon ? `<img class="ab-service__icon" src="${escHTML(fixImgUrl(s.icon))}" alt="" aria-hidden="true">` : ''}
-          <p class="ab-service__en">${escHTML(s.en)}</p>
-          <h3>${escHTML(s.zh)}</h3>
-          <p class="ab-service__desc">${escHTML(s.desc)}</p>
-          ${(s.items || []).length ? `<ul class="ab-service__items">${s.items.map(t => `<li>${escHTML(t)}</li>`).join('')}</ul>` : ''}
-          <p class="ab-service__tags">${tags.map(t =>
-            `<a href="/?tag=${encodeURIComponent(t)}#index">${escHTML(t)} <span>${countTag(t)}</span></a>`).join('')}</p>
-        </div>`;
+        <article class="ab2-card">
+          <div class="ab2-card__top"><span class="ab2-no">${pad2(i)}</span>
+            ${s.icon ? `<img src="${escHTML(fixImgUrl(s.icon))}" alt="" aria-hidden="true">` : ''}</div>
+          <p class="ab2-en">${escHTML(s.en)}</p>
+          <h3 class="ab2-h3">${escHTML(s.zh)}</h3>
+          <p class="ab2-desc">${escHTML(s.desc)}</p>
+          ${(s.items || []).length ? `<ul class="ab2-items">${s.items.map(t => `<li>${escHTML(t)}</li>`).join('')}</ul>` : ''}
+          ${n ? `<a class="ab2-more" href="/?tag=${encodeURIComponent(tags[0])}#index">相關作品 ${String(n).padStart(2, '0')} →</a>` : ''}
+        </article>`;
       }).join('')}
       </div>
     </section>
 
-    ${brands.length ? `<section class="info-sec">
-      <h2 class="info-h"><span>BRANDS &amp; PROJECTS</span>參與品牌與專案</h2>
-      ${secHead(d.brandsTitle, d.brandsDesc)}
-      <ul class="ab-brands">${brands.map(c => {
+    ${brands.length ? `<section class="ab2-sec">
+      ${head('BRANDS &amp; PROJECTS', '參與品牌與專案', d.brandsTitle, d.brandsDesc)}
+      ${d.brandsIndustries ? `<p class="ab2-caption ab2-industries">${escHTML(d.brandsIndustries)}</p>` : ''}
+      <ul class="ab2-logos">${brands.map(c => {
         const w = byId(c.work);
-        const inner = `${c.logo ? `<img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" loading="lazy">` : `<b>${escHTML(c.name)}</b>`}
-          <span class="micro">${escHTML(c.industry || '')}${w ? ' — VIEW' : ''}</span>`;
-        return `<li>${w ? `<a href="/works/${encodeURIComponent(w.id)}" aria-label="${escHTML(c.name)}：${escHTML(w.title)}">${inner}</a>` : `<div>${inner}</div>`}</li>`;
+        const img = c.logo ? `<img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" title="${escHTML(c.name)}" loading="lazy">` : `<b>${escHTML(c.name)}</b>`;
+        return `<li>${w ? `<a href="/works/${encodeURIComponent(w.id)}" aria-label="${escHTML(c.name)}：${escHTML(w.title)}">${img}</a>` : img}</li>`;
       }).join('')}
       </ul>
-      ${d.brandsNote ? `<p class="ab-note">${escHTML(d.brandsNote)}</p>` : ''}
+      ${d.brandsNote ? `<p class="ab2-caption">${escHTML(d.brandsNote)}</p>` : ''}
     </section>` : ''}
 
-    ${(d.journey || []).length || awards.length ? `<section class="info-sec">
-      <h2 class="info-h"><span>EXPERIENCE &amp; RECOGNITION</span>經歷與肯定</h2>
-      ${secHead(d.journeyTitle, d.journeyDesc)}
-      <ol class="ab-process ab-journey">${(d.journey || []).map((p, i) => `
-        <li><span class="no">${pad2(i)}</span><p class="ab-process__en">${escHTML(p.en)}</p>
-          <h3>${escHTML(p.zh)}</h3><p>${escHTML(p.desc)}</p></li>`).join('')}
+    ${(d.journey || []).length || awards.length ? `<section class="ab2-sec">
+      ${head('EXPERIENCE &amp; RECOGNITION', '經歷與肯定', d.journeyTitle, '')}
+      <ol class="ab2-timeline">${(d.journey || []).map((p, i) => `
+        <li><p class="ab2-year${p.year ? '' : ' ab2-year--no'}">${escHTML(p.year || pad2(i))}</p>
+          <div><p class="ab2-en">${escHTML(p.en)}</p><h3 class="ab2-h3">${escHTML(p.zh)}</h3><p class="ab2-desc">${escHTML(p.desc)}</p></div></li>`).join('')}
+        ${awards.map(a => {
+          const w = byId(a.link);
+          const yr = (a.title.match(/^\d{4}/) || [''])[0];
+          return `<li class="ab2-award"><p class="ab2-year">${escHTML(yr)}</p>
+          <div><p class="ab2-en">Recognition</p><h3 class="ab2-h3">${escHTML(a.title.replace(/^\d{4}\s*/, ''))}</h3>
+            ${a.work ? `<p class="ab2-desc">${escHTML(a.work)}</p>` : ''}
+            ${w ? `<a class="ab2-more" href="/works/${encodeURIComponent(w.id)}">看作品 →</a>` : ''}</div></li>`;
+        }).join('')}
       </ol>
-      ${awards.length ? `<dl class="ab-facts ab-awards">${awards.map(a => {
-        const w = byId(a.link);
-        const work = a.work ? (w ? `<a href="/works/${encodeURIComponent(w.id)}">${escHTML(a.work)} →</a>` : escHTML(a.work)) : '';
-        return `<div><dt>AWARD</dt><dd><b>${escHTML(a.title)}</b>${work ? `<span>${work}</span>` : ''}</dd></div>`;
-      }).join('')}</dl>` : ''}
     </section>` : ''}
 
-    <section class="info-sec">
-      <h2 class="info-h"><span>HOW I WORK</span>合作流程</h2>
-      ${secHead(d.processTitle, d.processDesc)}
-      <ol class="ab-process">${(d.process || []).map((p, i) => `
-        <li><span class="no">${pad2(i)}</span><p class="ab-process__en">${escHTML(p.en)}</p>
-          <h3>${escHTML(p.zh)}</h3><p>${escHTML(p.desc)}</p></li>`).join('')}
+    <section class="ab2-sec">
+      ${head('HOW I WORK', '合作流程', d.processTitle, '')}
+      <ol class="ab2-steps">${(d.process || []).map((p, i) => `
+        <li><span class="ab2-no">${pad2(i)}</span><p class="ab2-en">${escHTML(p.en)}</p>
+          <h3 class="ab2-h3">${escHTML(p.zh)}</h3><p class="ab2-desc">${escHTML(p.desc)}</p></li>`).join('')}
       </ol>
     </section>
 
-    <section class="info-cta">
+    <section class="ab2-cta">
+      <p class="ab2-eyebrow">LET'S WORK TOGETHER<span>合作邀請</span></p>
       <h2>${escHTML(d.ctaTitle)}</h2>
-      ${d.ctaZh ? `<p class="info-cta__zh">${escHTML(d.ctaZh)}</p>` : ''}
-      ${d.ctaText ? `<p class="info-cta__text">${escHTML(d.ctaText)}</p>` : ''}
-      <div class="info-cta__btns">
+      ${d.ctaZh ? `<p class="ab2-cta__zh">${escHTML(d.ctaZh)}</p>` : ''}
+      ${d.ctaText ? `<p class="ab2-cta__text">${escHTML(d.ctaText)}</p>` : ''}
+      <div class="ab2-cta__btns">
         <a class="btn btn--primary" href="/pages/contact">${escHTML(d.ctaPrimary)}</a>
-        <a class="btn" href="/#index">${escHTML(d.ctaSecondary)}</a>
+        <a class="ab2-textlink" href="/#index">${escHTML(d.ctaSecondary)} →</a>
       </div>
     </section>`;
+  // 接近方形的 logo 視覺上較小，放大一點
+  el.querySelectorAll('.ab2-logos img').forEach(img => {
+    const fit = () => { if (img.naturalHeight && img.naturalWidth / img.naturalHeight < 2) img.classList.add('is-compact'); };
+    img.complete ? fit() : img.addEventListener('load', fit);
+  });
   container.appendChild(el);
 
   // 結構化資料：讓搜尋引擎認得這是設計服務

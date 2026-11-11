@@ -1229,3 +1229,104 @@ a { color: inherit; text-decoration: none; }
 .info-cta__zh { font-size: 16px; letter-spacing: .12em; margin: -12px 0 20px; }
 .info-cta h2 { text-transform: uppercase; }
 @media (max-width: 640px) { .info-h { flex-wrap: wrap; gap: 4px 12px; } }
+
+/* ── About v2：字級與間距規範（2026-11-11）── */
+.ab2 {
+  --ab-h2: clamp(26px, 2.8vw, 36px);
+  --ab-h3: clamp(19px, 1.6vw, 22px);
+  --ab-body: 16px;
+  --ab-cap: 13px;
+  --ab-ink2: #333;
+  --ab-muted: #6B665F;
+}
+.ab2-sec { padding: 112px 0 0; }
+.ab2-head { max-width: 720px; margin-bottom: 48px; }
+.ab2-eyebrow { display: flex; align-items: baseline; gap: 12px; font-family: var(--font-title); font-size: 12px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.ab2-eyebrow span { font-family: var(--font-body); font-size: 12px; letter-spacing: .16em; color: var(--ab-muted); }
+.ab2-h2 { font-size: var(--ab-h2); font-weight: 300 !important; line-height: 1.45; letter-spacing: .04em; }
+.ab2-lead { margin-top: 20px; font-size: var(--ab-body); line-height: 1.85; color: var(--ab-ink2); max-width: 640px; }
+.ab2-h3 { font-size: var(--ab-h3); font-weight: 500 !important; line-height: 1.4; letter-spacing: .04em; margin: 4px 0 12px; }
+.ab2-en { font-family: var(--font-title); font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--ab-muted); }
+.ab2-desc { font-size: 15px; line-height: 1.85; color: var(--ab-ink2); }
+.ab2-caption { font-size: var(--ab-cap); line-height: 1.7; color: var(--ab-muted); letter-spacing: .04em; }
+.ab2-no { font-family: var(--font-title); font-size: 13px; font-weight: 500; letter-spacing: .1em; color: var(--gold); }
+.ab2-more, .ab2-textlink { display: inline-block; margin-top: 20px; font-family: var(--font-title); font-size: 13px; letter-spacing: .08em; padding-bottom: 2px; border-bottom: 1px solid var(--gold); color: var(--text-color); }
+.ab2-more:hover, .ab2-textlink:hover { border-bottom-color: var(--text-color); }
+
+/* Profile */
+.ab2-profile { padding-top: 72px; }
+.ab2-profile__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 72px; align-items: start; }
+.ab2-quote { font-size: clamp(22px, 2.2vw, 30px); font-weight: 300; line-height: 1.6; letter-spacing: .04em; padding-left: 24px; border-left: 2px solid var(--gold); }
+.ab2-body p { font-size: var(--ab-body); line-height: 1.9; color: var(--ab-ink2); }
+.ab2-body p + p { margin-top: 18px; }
+.ab2-facts { display: flex; flex-wrap: wrap; gap: 12px 40px; margin-top: 32px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,.12); }
+.ab2-facts dt { font-size: 12px; letter-spacing: .12em; color: var(--ab-muted); }
+.ab2-facts dd { font-family: var(--font-title); font-size: 15px; margin-top: 4px; }
+
+/* Capabilities：2×2 卡片 */
+.ab2-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.ab2-card { background: var(--paper); padding: 36px 36px 32px; display: flex; flex-direction: column; }
+.ab2-card__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+.ab2-card__top img { width: 36px; height: 36px; }
+.ab2-items { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,.1); }
+.ab2-items li { font-size: 14px; line-height: 1.6; padding-left: 16px; position: relative; }
+.ab2-items li::before { content: ""; position: absolute; left: 0; top: .8em; width: 8px; height: 1px; background: var(--gold); }
+.ab2-card .ab2-more { margin-top: auto; padding-top: 28px; border-bottom: 0; align-self: flex-start; }
+.ab2-card .ab2-more:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Logos：無格線、統一視覺大小 */
+.ab2-industries { margin: -24px 0 40px; letter-spacing: .14em; }
+.ab2-logos { list-style: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 48px 40px; align-items: center; }
+.ab2-logos li { display: flex; align-items: center; justify-content: center; height: 64px; }
+.ab2-logos li > a { display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; }
+.ab2-logos img { max-width: 100%; max-height: 44px; width: auto; height: auto; object-fit: contain; filter: grayscale(1); opacity: .7; mix-blend-mode: multiply; transition: filter .3s ease, opacity .3s ease; }
+.ab2-logos a:hover img { filter: none; opacity: 1; }
+.ab2-logos b { font-family: var(--font-title); font-weight: 400; font-size: 14px; letter-spacing: .06em; }
+.ab2-logos + .ab2-caption { margin-top: 48px; }
+
+/* Timeline */
+.ab2-timeline { list-style: none; max-width: 880px; }
+.ab2-timeline li { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 32px; padding: 32px 0; border-top: 1px solid rgba(0,0,0,.12); }
+.ab2-year { font-family: var(--font-title); font-size: 22px; font-weight: 300; letter-spacing: .06em; color: var(--text-color); }
+.ab2-year--no { color: var(--gold) !important; font-size: 14px !important; font-weight: 500 !important; padding-top: 6px; }
+.ab2-award { background: var(--cream); border-top: 0 !important; padding: 32px 32px !important; margin-top: 8px; }
+.ab2-award .ab2-en { color: var(--text-color); }
+
+/* Steps */
+.ab2-steps { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+.ab2-steps li { border-top: 1px solid var(--text-color); padding-top: 20px; }
+.ab2-steps .ab2-en { margin-top: 12px; }
+.ab2-steps .ab2-desc { font-size: 14px; }
+
+/* CTA */
+.ab2-cta { margin-top: 128px; padding: 96px 24px; background: var(--cream); text-align: center; }
+.ab2-cta .ab2-eyebrow { justify-content: center; }
+.ab2-cta h2 { font-family: var(--font-title); font-size: clamp(30px, 4vw, 52px); font-weight: 300 !important; letter-spacing: .04em; text-transform: uppercase; }
+.ab2-cta__zh { margin-top: 12px; font-size: 18px; letter-spacing: .12em; }
+.ab2-cta__text { max-width: 560px; margin: 24px auto 0; font-size: var(--ab-body); line-height: 1.85; color: var(--ab-ink2); }
+.ab2-cta__btns { display: flex; align-items: center; justify-content: center; gap: 32px; margin-top: 40px; flex-wrap: wrap; }
+.ab2-cta .btn--primary { padding: 16px 36px; font-size: 14px; letter-spacing: .12em; }
+.ab2-cta .ab2-textlink { margin-top: 0; }
+
+@media (max-width: 1024px) {
+  .ab2-logos { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ab2-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ab2-profile__grid { gap: 48px; }
+}
+@media (max-width: 760px) {
+  .ab2-sec { padding-top: 72px; }
+  .ab2-head { margin-bottom: 32px; }
+  .ab2-profile__grid, .ab2-cards { grid-template-columns: 1fr; gap: 32px; }
+  .ab2-card { padding: 28px 24px; }
+  .ab2-logos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 24px; }
+  .ab2-logos img { max-height: 36px; }
+  .ab2-timeline li { grid-template-columns: 1fr; gap: 8px; }
+  .ab2-award { padding: 24px !important; }
+  .ab2-steps { grid-template-columns: 1fr; gap: 24px; }
+  .ab2-cta { margin-top: 88px; padding: 64px 20px; }
+  .ab2-body p, .ab2-lead { font-size: 15px; }
+}
+.ab2-logos img.is-compact { max-height: 64px; }
+.ab2-cta .ab2-eyebrow { color: var(--text-color); }
+@media (max-width: 760px) { .ab2-logos img.is-compact { max-height: 52px; } }
+@media (max-width: 760px) { .ab2-items { grid-template-columns: 1fr; } }
