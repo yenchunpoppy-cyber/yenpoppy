@@ -5,7 +5,7 @@
  * 層級：分類 → 項目 → 規格（options）。有 options 的項目，價格與天數以所選規格為準。
  */
 window.CATALOG = {
-  version: '2026-11-12b', // 改價後更新，舊草稿會改用範例重新開始
+  version: '2026-11-12c', // 改價後更新，舊草稿會改用範例重新開始
   // 報價單產生器「完整細項」用；group = 清單裡的小標
   categories: [
     {
@@ -34,9 +34,9 @@ window.CATALOG = {
       items: [
         { id: 'pkg-flat', group: '包裝', name: '包裝設計（平面包材）', unit: '款', price: 25000, min: 22500, max: 28700, days: 12, print: true,
           desc: '頭卡、標籤、吊卡；提案 2 款，選定 1 款完稿，含出血與刀模線' },
-        { id: 'pkg-box', group: '包裝', name: '包裝設計（單一盒袋）', unit: '款', price: 48000, min: 43200, max: 55200, days: 18, print: true,
+        { id: 'pkg-box', group: '包裝', name: '包裝設計（單一盒袋）', unit: '款', price: 35000, min: 30000, max: 40000, days: 18, print: true,
           desc: '使用現成刀模；提案 2 款，5–6 面完稿，含法規文字與條碼排版' },
-        { id: 'gift-box', group: '包裝', name: '包裝設計（禮盒組合）', unit: '套', price: 70000, min: 63000, max: 80500, days: 30, print: true,
+        { id: 'gift-box', group: '包裝', name: '包裝設計（禮盒組合）', unit: '套', price: 55000, min: 48000, max: 62000, days: 30, print: true,
           desc: '外盒＋內襯＋配件視覺與結構，打樣至量產監製' },
         { id: 'pkg-variant-flat', group: '延伸款', name: '延伸款（平面包材）', unit: '款', price: 7500, min: 6800, max: 8600, days: 3, print: true,
           desc: '沿用主款版型，換口味、顏色或文字；含 1 次修改' },
@@ -133,13 +133,13 @@ window.CATALOG = {
       id: 'pkg', name: '包裝設計', intro: '依包材類型計價',
       items: [
         { id: 'p-pkg', name: '包裝設計', print: true, desc: '用現成盒型做平面設計。同系列換口味請加「延伸款」', options: [
-          { id: 'flat', name: '平面包材', unit: '款', price: 25000, min: 22500, max: 28700, days: 12, desc: '頭卡、標籤、吊卡' },
-          { id: 'box', name: '單一盒袋', unit: '款', price: 48000, min: 43200, max: 55200, days: 18, desc: '一個紙盒、立袋或罐標' },
-          { id: 'gift', name: '禮盒組合', unit: '套', price: 70000, min: 63000, max: 80500, days: 30, desc: '外盒＋內襯＋卡片等多件一起設計' }
+          { id: 'flat', name: '平面包材', unit: '款', price: 18000, min: 16000, max: 21000, days: 12, desc: '頭卡、標籤、吊卡' },
+          { id: 'box', name: '單一盒袋', unit: '款', price: 35000, min: 30000, max: 40000, days: 18, desc: '一個紙盒、立袋或罐標' },
+          { id: 'gift', name: '禮盒組合', unit: '套', price: 55000, min: 48000, max: 62000, days: 30, desc: '外盒＋內襯＋卡片等多件一起設計' }
         ] },
         { id: 'p-variant', name: '延伸款', print: true, desc: '換口味、換顏色，約主款的 30%', options: [
-          { id: 'flat', name: '平面包材', unit: '款', price: 9000, min: 8000, max: 11000, days: 3 },
-          { id: 'box', name: '單一盒袋', unit: '款', price: 14000, min: 12600, max: 16100, days: 3 }
+          { id: 'flat', name: '平面包材', unit: '款', price: 6000, min: 5000, max: 7000, days: 3 },
+          { id: 'box', name: '單一盒袋', unit: '款', price: 10000, min: 9000, max: 12000, days: 3 }
         ] }
       ]
     },
