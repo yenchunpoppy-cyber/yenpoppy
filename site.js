@@ -695,6 +695,7 @@ function renderModuleB(mod, settings, pageBg) {
   grid.style.setProperty('--cols', cols);
   grid.style.setProperty('--gap', `${gutter}px`);
   grid.dataset.cols = cols;
+  if (mod.rows) grid.classList.add('is-rows');  // 依列排序（相簿跨頁要照頁序）
 
   images.forEach(imgData => {
     const imgWrap = document.createElement('div');

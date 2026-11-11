@@ -1958,3 +1958,6 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
 @media (max-width: 599px) { .about-page.ab2 .ab2-marquee .ab2-logos li { width: 132px; height: 60px !important; padding: 0 16px; } }
 @media (prefers-reduced-motion: reduce) { .about-page.ab2 .ab2-marquee { overflow-x: auto; } .about-page.ab2 .ab2-marquee.is-run .ab2-logos { animation: none; } }
 .about-page.ab2 .ab2-marquee + .ab2-caption { margin-top: 40px !important; }
+.module-b__grid.is-rows { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); gap: var(--gap, 12px); column-count: auto; align-items: start; }
+.module-b__grid.is-rows .img-wrap { margin-bottom: 0; }
+@media (max-width: 599px) { .module-b__grid.is-rows[data-cols="2"] { grid-template-columns: 1fr; } }
