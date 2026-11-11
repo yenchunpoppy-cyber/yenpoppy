@@ -810,10 +810,9 @@ async function renderAboutPage() {
   const svcMap = serviceMap(d);
   const svcCount = k => works.filter(w => workServices(w, svcMap).includes(k)).length;
   el.innerHTML = `
-    ${pageHead({ en: 'ABOUT', title: '關於我' })}
+    ${pageHead({ en: 'ABOUT', title: d.motto || '關於我' })}
 
     <section class="ab2-sec ab2-profile">
-      ${d.motto ? `<p class="ab2-motto">${escHTML(d.motto)}</p>` : ''}
       <div class="ab2-profile__grid">
         ${d.introImage ? `<div class="ab2-profile__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : '<div></div>'}
         <div class="ab2-profile__text">

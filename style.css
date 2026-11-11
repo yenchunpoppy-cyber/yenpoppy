@@ -1850,3 +1850,23 @@ body[data-page="work"] .pg-head { max-width: 960px; margin: 0 auto; padding-bott
   .tag-filter button.active { border-color: var(--text-color) !important; }
   .tag-filter button::before, .tag-filter button::after { content: none !important; }
 }
+
+/* 頁首標誌：沿用舊站排法，圖形頂天立地、標準字靠上 */
+#site-header { align-items: stretch; height: 96px; }
+.header-logo { align-items: flex-start; gap: 20px; padding: 18px 0 0; overflow: hidden; }
+.header-logo img.logo-mark { height: 78px; width: auto; display: block; align-self: flex-end; margin-bottom: -1px; }
+.header-logo img.logo-wordmark { height: 22px !important; width: auto; margin-top: 0; }
+#site-nav { align-self: flex-end; padding-bottom: 14px; }
+#hamburger { align-self: center; }
+.pg-head { scroll-margin-top: 110px; }
+@media (max-width: 599px) {
+  #site-header { height: 68px; }
+  .header-logo { gap: 12px; padding-top: 12px; }
+  .header-logo img.logo-mark { height: 56px; }
+  .header-logo img.logo-wordmark { height: 15px !important; }
+}
+.hm2-anchor, section[aria-labelledby="h4"] { scroll-margin-top: 120px !important; }
+/* 關於我：理念句當頁面標題；照片改 4:3 不再過高；數字用品牌金 */
+.about-page.ab2 .ab2-profile__img img { aspect-ratio: 4 / 3 !important; object-position: center 35%; }
+@media (max-width: 599px) { .about-page.ab2 .ab2-profile__img img { aspect-ratio: 16 / 9 !important; } }
+.about-page.ab2 .ab2-fact--big b, .about-page.ab2 .ab2-fact--big dd span { color: #C5B27A; }
