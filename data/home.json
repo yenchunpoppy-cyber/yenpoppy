@@ -5,6 +5,10 @@
   "heroImages": [],
   "selected": [
     {
+      "id": "sing-to-the-moon",
+      "statement": "把中秋禮盒做成一台唱盤，\n用 AI 生成的專屬歌曲傳遞心意。"
+    },
+    {
       "id": "et-seq-nail",
       "statement": "從產品意象延伸到包裝與展示的整合創意。"
     },
@@ -14,7 +18,7 @@
     },
     {
       "id": "disney-princess",
-      "statement": "把品牌視覺延伸到真實空間，走進櫥窗與門市陳列。"
+      "statement": "把品牌視覺延伸到真實空間，\n走進櫥窗與門市陳列。"
     },
     {
       "id": "heath-forest",
@@ -23,10 +27,6 @@
     {
       "id": "aluxe-passport",
       "statement": "婚戒品牌 ALUXE 送給新人的婚禮護照，陪伴一整年的婚禮準備。"
-    },
-    {
-      "id": "kite-flying",
-      "statement": "樂團 Kite Flying Band 的標誌與專輯包裝。"
     }
   ],
   "heroInfo": [

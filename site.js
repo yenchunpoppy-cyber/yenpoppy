@@ -777,7 +777,7 @@ async function renderAboutPage() {
       sub: d.heroEn,
       line: d.heroLine || '',
       info: [escHTML(d.heroMicro || 'TAIWAN')],
-      meta: 'PROFILE<br>( 01 )',
+      meta: '',
     })}
 
     <section class="ab2-sec ab2-profile">
@@ -785,7 +785,7 @@ async function renderAboutPage() {
       <div class="ab2-profile__grid">
         ${d.introImage ? `<div class="ab2-profile__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : '<div></div>'}
         <div class="ab2-profile__text">
-          <div class="ab2-body">${paras.map(t => `<p>${escHTML(t).replace(/\*(.+?)\*/g, '<mark>$1</mark>')}</p>`).join('')}</div>
+          <div class="ab2-body">${paras.map(t => `<p>${escHTML(t).replace(/\*(.+?)\*/g, '<mark>$1</mark>').replace(/\n/g, '<br class="ab2-br">')}</p>`).join('')}</div>
           ${stats.length ? `<dl class="ab2-facts">
             ${stats.map(s => `<div class="ab2-fact--big"><dd><b>${escHTML(s.value)}</b>${s.unit ? `<span>${escHTML(s.unit)}</span>` : ''}</dd><dt>${escHTML(s.label)}</dt></div>`).join('')}
           </dl>` : ''}
@@ -807,7 +807,7 @@ async function renderAboutPage() {
           <h3 class="ab2-h3">${escHTML(s.zh)}</h3>
           <p class="ab2-desc">${escHTML(s.desc)}</p>
           ${(s.items || []).length ? `<ul class="ab2-items">${s.items.map(t => `<li>${escHTML(t)}</li>`).join('')}</ul>` : ''}
-          ${n ? `<a class="ab2-more" href="/?tag=${encodeURIComponent(tags[0])}#index">相關作品 ${String(n).padStart(2, '0')} →</a>` : ''}
+          ${n ? `<a class="ab2-btn-line ab2-card__btn" href="/?tag=${encodeURIComponent(tags[0])}#index">相關作品 ${String(n).padStart(2, '0')} →</a>` : ''}
         </article>`;
       }).join('')}
       </div>
@@ -845,10 +845,12 @@ async function renderAboutPage() {
       ${awards.map(a => {
         const w = byId(a.link);
         const yr = (a.title.match(/^\d{4}/) || [''])[0];
-        return `<div class="ab2-award"><p class="ab2-award__yr">${escHTML(yr)}</p>
-          <div><p class="ab2-en">Recognition</p><h3 class="ab2-h3">${escHTML(a.title.replace(/^\d{4}\s*/, ''))}</h3>
-            ${a.work ? `<p class="ab2-desc">${escHTML(a.work)}</p>` : ''}</div>
-          ${w ? `<a class="ab2-more" href="/works/${encodeURIComponent(w.id)}">看作品 →</a>` : ''}</div>`;
+        return `<div class="ab2-award${a.image ? ' has-img' : ''}">
+          ${a.image ? `<img class="ab2-award__img" src="${escHTML(fixImgUrl(a.image))}" alt="${escHTML(a.title)} 獎座" loading="lazy">` : ''}
+          <div class="ab2-award__body"><p class="ab2-eyebrow">RECOGNITION<span>獲獎</span></p>
+            <p class="ab2-award__yr">${escHTML(yr)}</p><h3 class="ab2-h3">${escHTML(a.title.replace(/^\d{4}\s*/, ''))}</h3>
+            ${a.work ? `<p class="ab2-desc">${escHTML(a.work)}</p>` : ''}
+            ${w ? `<a class="ab2-btn-line" href="/works/${encodeURIComponent(w.id)}">看作品 →</a>` : ''}</div></div>`;
       }).join('')}
     </section>` : ''}
 
@@ -1056,12 +1058,10 @@ async function renderHomeIntro(grid, works) {
         <a class="hm-row reveal${i % 2 ? ' hm-row--alt' : ''}" href="/works/${encodeURIComponent(s.w.id)}">
           <div class="hm-row__img"><img src="${img(s.w)}" alt="${escHTML(s.w.thumbnailAlt || s.w.title)}" loading="lazy"></div>
           <div class="hm-row__panel">
-            <p class="hm-row__statement">${keepTail(s.statement)}</p>
+            <p class="hm-row__title">${escHTML(s.w.title)}</p>
+            <p class="hm-row__statement">${keepTail(s.statement).replace(/\n/g, '<br class="hm-br">')}</p>
             <div class="hm-row__foot">
-              <div>
-                <p class="hm-row__title">${escHTML(s.w.title)}</p>
-                <p class="micro">${escHTML(s.w.caption || (s.w.tags || []).join(', '))}</p>
-              </div>
+              <p class="micro">${escHTML(s.w.caption || (s.w.tags || []).join(', '))}</p>
               <span class="hm-row__view">VIEW →</span>
             </div>
           </div>
