@@ -148,7 +148,9 @@ async function renderNav() {
 
     const a = document.createElement('a');
     a.href = href;
-    a.textContent = item.label;
+    if (item.zh) {
+      a.innerHTML = `<span class="nv-zh">${escHTML(item.zh)}</span><span class="nv-en">${escHTML(item.label)}</span>`;
+    } else a.textContent = item.label;
     if (isActive) a.classList.add('active');
 
     nav.appendChild(a.cloneNode(true));
@@ -241,6 +243,10 @@ async function renderWorksGrid() {
 
   const allWorks = worksData.works || [];
   await renderHomeIntro(grid, allWorks).catch(console.warn);
+  // 精選：放在作品牆最前面、兩格寬（只在 ALL 時）
+  const homeData = await fetchJSON('/data/home.json').catch(() => ({}));
+  const featIds = (homeData.featured || []).filter(id => allWorks.some(w => w.id === id));
+  const featFirst = list => [...featIds.map(id => list.find(w => w.id === id)), ...list.filter(w => !featIds.includes(w.id))];
   const tagsData = await fetchJSON('/data/tags.json').catch(() => ({ tags: [] }));
   let works = allWorks;
   let offset = 0;
@@ -272,7 +278,7 @@ async function renderWorksGrid() {
 
   function applyFilter(name) {
     activeTag = name;
-    works = name ? allWorks.filter(w => workServices(w, svcMap).includes(name)) : allWorks;
+    works = name ? allWorks.filter(w => workServices(w, svcMap).includes(name)) : featFirst(allWorks);
     document.querySelectorAll('.tag-filter button').forEach(b => {
       const on = b.dataset.tag === (name || '');
       b.classList.toggle('active', on);
@@ -289,7 +295,11 @@ async function renderWorksGrid() {
 
   function loadMore() {
     const batch = works.slice(offset, offset + WORKS_PAGE_SIZE);
-    batch.forEach(work => grid.appendChild(createWorkCard(work)));
+    batch.forEach(work => {
+      const c = createWorkCard(work);
+      if (!activeTag && featIds.includes(work.id)) c.classList.add('work-card--feat');
+      grid.appendChild(c);
+    });
     offset += batch.length;
 
     // ç§»é¤èå¨åµ
@@ -492,13 +502,10 @@ async function renderWorkPage() {
   const sel = (home.selected || []).find(x => x.id === work.id);
   const tagLine = (work.tags || []).map(t => `<a href="/?tag=${encodeURIComponent(t)}#index">[ ${esc(t)} ]</a>`).join(' ');
   header.className = 'work-header work-header--hero';
-  header.innerHTML = pageHero({
+  header.innerHTML = pageHead({
+    en: `<a href="/#index">← 所有作品</a>`,
     title: work.title,
-    sub: work.caption || '',
-    line: (sel && sel.statement) || '',
-    info: [tagLine, ...meta].filter(Boolean),
-    meta: `<a href="/#index">← INDEX</a><br>( ${pad(idx + 1)} / ${pad(all.length)} )`,
-    small: true,
+    lead: work.subtitle || work.caption || '',
   }) + `
     ${work.description ? `<p class="work-header__desc">${esc(work.description)}</p>` : ''}
     ${link ? `<a class="work-header__link" href="${esc(link)}" target="_blank" rel="noopener">VIEW PROJECT ↗</a>` : ''}`;
@@ -746,6 +753,7 @@ async function init() {
   } else if (page === 'work') {
     await renderWorkPage().catch(console.error);
   }
+  await renderFooter().catch(console.warn);
   initReveal();
   if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
 }
@@ -784,23 +792,16 @@ async function renderAboutPage() {
   el.className = 'info-page about-page ab2';
   const head = (label, zh, title, desc) => `
       <header class="ab2-head">
-        <p class="ab2-eyebrow">${label}${zh && zh !== title ? `<span>${escHTML(zh)}</span>` : ''}</p>
+        <p class="ab2-eyebrow">${escHTML(zh || label)}</p>
         ${title ? `<h2 class="ab2-h2">${escHTML(title).replace(/\*(.+?)\*/g, '<mark>$1</mark>')}</h2>` : ''}
         ${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}
       </header>`;
   const svcMap = serviceMap(d);
   const svcCount = k => works.filter(w => workServices(w, svcMap).includes(k)).length;
   el.innerHTML = `
-    ${pageHero({
-      title: 'ABOUT',
-      sub: d.heroEn,
-      line: d.heroLine || '',
-      info: [escHTML(d.heroMicro || 'TAIWAN')],
-      meta: '',
-    })}
+    ${pageHead({ en: 'ABOUT', title: '關於我', lead: d.heroLine || '' })}
 
     <section class="ab2-sec ab2-profile">
-      <p class="ab2-eyebrow">PROFILE<span>關於我</span></p>
       <div class="ab2-profile__grid">
         ${d.introImage ? `<div class="ab2-profile__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : '<div></div>'}
         <div class="ab2-profile__text">
@@ -810,12 +811,11 @@ async function renderAboutPage() {
           </dl>` : ''}
         </div>
       </div>
-      ${d.introQuote ? `<blockquote class="ab2-quote"><p class="ab2-en">DESIGN PHILOSOPHY</p><p>${escHTML(d.introQuote)}</p></blockquote>` : ''}
+      ${d.introQuote ? `<blockquote class="ab2-quote"><p>${escHTML(d.introQuote)}</p></blockquote>` : ''}
     </section>
 
     <section class="ab2-sec">
       ${head('DESIGN CAPABILITIES', '設計能力', d.servicesTitle, d.servicesDesc)}
-      <p class="ab2-swipe-hint" aria-hidden="true">SWIPE →</p>
       <div class="ab2-cards">${(d.services || []).map((s, i) => {
         const key = SERVICE_KEYS[i];
         const n = key ? svcCount(key) : 0;
@@ -823,7 +823,6 @@ async function renderAboutPage() {
         <article class="ab2-card">
           <div class="ab2-card__top"><span class="ab2-big">${pad2(i)}</span>
             ${s.icon ? `<img src="${escHTML(fixImgUrl(s.icon))}" alt="" aria-hidden="true">` : ''}</div>
-          <p class="ab2-en">${escHTML(s.en)}</p>
           <h3 class="ab2-h3">${escHTML(s.zh)}</h3>
           <p class="ab2-desc">${escHTML(s.desc)}</p>
           ${(s.items || []).length ? `<ul class="ab2-items">${s.items.map(t => `<li>${escHTML(t)}</li>`).join('')}</ul>` : ''}
@@ -858,9 +857,6 @@ async function renderAboutPage() {
             <h3 class="ab2-h3">${escHTML(p.zh)}</h3>
             <p class="ab2-desc">${escHTML(p.desc)}</p>
           </div>
-          ${ws.length ? `<div class="ab2-chrono__works">${ws.map(w => `
-            <a href="/works/${encodeURIComponent(w.id)}"><img src="${escHTML(fixImgUrl(w.thumbnail))}" alt="${escHTML(w.thumbnailAlt || w.title)}" loading="lazy"><span>${escHTML(w.title)}</span></a>`).join('')}
-          </div>` : '<div></div>'}
         </li>`;
       }).join('')}
       </ol>
@@ -869,33 +865,12 @@ async function renderAboutPage() {
         const yr = (a.title.match(/^\d{4}/) || [''])[0];
         return `<div class="ab2-award${a.image ? ' has-img' : ''}">
           ${a.image ? `<img class="ab2-award__img" src="${escHTML(fixImgUrl(a.image))}" alt="${escHTML(a.title)} 獎座" loading="lazy">` : ''}
-          <div class="ab2-award__body"><p class="ab2-eyebrow">RECOGNITION<span>獲獎</span></p>
+          <div class="ab2-award__body"><p class="ab2-eyebrow">獲獎</p>
             <p class="ab2-award__yr">${escHTML(yr)}</p><h3 class="ab2-h3"><mark>${escHTML(a.title.replace(/^\d{4}\s*/, ''))}</mark></h3>
             ${a.work ? `<p class="ab2-desc">${escHTML(a.work)}</p>` : ''}
             ${w ? `<a class="ab2-btn-line" href="/works/${encodeURIComponent(w.id)}">看作品 →</a>` : ''}</div></div>`;
       }).join('')}
-    </section>` : ''}
-
-    <section class="ab2-sec">
-      ${head('HOW I WORK', '合作流程', d.processTitle, '')}
-      <p class="ab2-swipe-hint" aria-hidden="true">SWIPE →</p>
-      <ol class="ab2-steps">${(d.process || []).map((p, i, arr) => `
-        <li style="--p:${(i + 1) / arr.length}"><div class="ab2-steps__top"><span class="ab2-big">${pad2(i)}</span>${i < arr.length - 1 ? '<span class="ab2-steps__arrow" aria-hidden="true">→</span>' : ''}</div>
-          <span class="ab2-steps__bar" aria-hidden="true"></span><p class="ab2-en">${escHTML(p.en)}</p>
-          <h3 class="ab2-h3">${escHTML(p.zh)}</h3><p class="ab2-desc">${escHTML(p.desc)}</p></li>`).join('')}
-      </ol>
-    </section>
-
-    <section class="ab2-cta">
-      <p class="ab2-eyebrow">LET'S WORK TOGETHER<span>合作邀請</span></p>
-      <h2>${escHTML(d.ctaTitle)}</h2>
-      ${d.ctaZh ? `<p class="ab2-cta__zh">${escHTML(d.ctaZh)}</p>` : ''}
-      ${d.ctaText ? `<p class="ab2-cta__text">${escHTML(d.ctaText).replace(/\n/g, '<br class="ab2-br">')}</p>` : ''}
-      <div class="ab2-cta__btns">
-        <a class="btn btn--primary" href="/pages/contact">${escHTML(d.ctaPrimary)}</a>
-        <a class="btn ab2-btn2" href="/#index">${escHTML(d.ctaSecondary)} →</a>
-      </div>
-    </section>`;
+    </section>` : ''}`;
   // logo 視覺平衡：依長寬比調高度，讓每個 logo 面積接近（寬的矮一點、方的高一點）
   el.querySelectorAll('.ab2-logos img').forEach(img => {
     const fit = () => { if (img.naturalHeight) img.style.setProperty('--s', (1 / Math.sqrt(img.naturalWidth / img.naturalHeight)).toFixed(3)); };
@@ -916,25 +891,22 @@ async function renderAboutPage() {
 }
 
 async function renderContactPage() {
-  const [d, settings, tagsData] = await Promise.all([
+  const [d, settings, tagsData, about] = await Promise.all([
     fetchJSON('/data/contact.json'), fetchJSON('/data/settings.json'), fetchJSON('/data/tags.json'),
+    fetchJSON('/data/about.json').catch(() => ({})),
   ]);
   setPageMeta(d.seoTitle || 'CONTACT', d.seoDesc);
   const container = document.getElementById('page-content');
   const email = d.email || '';
+  const pad2 = i => String(i + 1).padStart(2, '0');
 
   const el = document.createElement('div');
   el.className = 'info-page contact-page ab2';
   const svcs = ['品牌識別 & 視覺設計', '包裝 & 產品設計', '網站 & 數位設計', '展示陳列 & 展覽設計', '還不確定'];
-  const head = (label, zh, title, desc) => `<header class="ab2-head"><p class="ab2-eyebrow">${label}<span>${escHTML(zh)}</span></p>
+  const head = (label, zh, title, desc) => `<header class="ab2-head"><p class="ab2-eyebrow">${escHTML(zh)}</p>
         ${title ? `<h2 class="ab2-h2">${escHTML(title)}</h2>` : ''}${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}</header>`;
   el.innerHTML = `
-    ${pageHero({
-      title: 'CONTACT',
-      sub: "LET'S WORK TOGETHER",
-      line: d.title,
-      info: ['TAIWAN'],
-    })}
+    ${pageHead({ en: 'CONTACT', title: '聯絡我', lead: d.title || '', extra: email ? `<p class="pg-head__mail">或直接寫信：<a href="mailto:${escHTML(email)}">${escHTML(email)}</a></p>` : '' })}
 
     <section class="ct-paths">${(d.paths || []).map(p => `
       <a class="ct-path" href="${escHTML(p.href)}">
@@ -967,13 +939,12 @@ async function renderContactPage() {
     </section>
 
     <section class="ab2-sec ct-sec">
-      ${head('ELSEWHERE', '其他聯絡方式', '', '')}
-      <ul class="ct-links">
-        ${email ? `<li><span class="k">EMAIL</span><a href="mailto:${escHTML(email)}">${escHTML(email)}</a><button type="button" class="ct-copy" data-copy="${escHTML(email)}">複製</button></li>` : ''}
-        ${d.instagram ? `<li><span class="k">INSTAGRAM</span><a href="${escHTML(d.instagram)}" target="_blank" rel="noopener">${escHTML(d.instagram.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
-        ${d.linkedin ? `<li><span class="k">LINKEDIN</span><a href="${escHTML(d.linkedin)}" target="_blank" rel="noopener">${escHTML(d.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
-        ${d.behance ? `<li><span class="k">BEHANCE</span><a href="${escHTML(d.behance)}" target="_blank" rel="noopener">${escHTML(d.behance.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
-      </ul>
+      ${head('HOW I WORK', '合作流程', '', '')}
+      <ol class="ab2-steps">${(about.process || []).map((p, i, arr) => `
+        <li style="--p:${(i + 1) / arr.length}"><div class="ab2-steps__top"><span class="ab2-big">${pad2(i)}</span>${i < arr.length - 1 ? '<span class="ab2-steps__arrow" aria-hidden="true">→</span>' : ''}</div>
+          <span class="ab2-steps__bar" aria-hidden="true"></span>
+          <h3 class="ab2-h3">${escHTML(p.zh)}</h3><p class="ab2-desc">${escHTML(p.desc)}</p></li>`).join('')}
+      </ol>
     </section>
 
     ${(d.faq || []).length ? `<section class="ab2-sec ct-sec">
@@ -1058,51 +1029,15 @@ async function renderHomeIntro(grid, works) {
   const wrap = document.createElement('div');
   wrap.className = 'home-intro';
   wrap.innerHTML = `
-    <section class="hm-hero">
-      <div class="hm-hero__text">
-        <h1 class="hm-hero__title hm-hero__title--home">${escHTML(d.heroTitle || 'YENPOPPY')}</h1>
-        ${d.heroSub ? `<p class="hm-hero__sub">${escHTML(d.heroSub)}</p>` : ''}
-        ${d.heroLine ? `<p class="hm-hero__note">${escHTML(d.heroLine)}</p>` : ''}
-        ${(d.heroIntro || []).map(t => `<p class="hm-hero__intro">${keepTail(t).replace(/\n/g, '<br class="hm-br">')}</p>`).join('')}
-        <p class="hm-hero__cta"><a class="hm-btn" href="#index">看看我的作品</a><a class="hm-btn hm-btn--line" href="/pages/about">認識我</a></p>
+    <section class="hm2">
+      <h1 class="hm2__title">${escHTML(d.heroTitle || 'YENPOPPY')}</h1>
+      <div class="hm2__side">
+        ${d.heroLine ? `<p class="hm2__note"><mark>${escHTML(d.heroLine)}</mark></p>` : ''}
+        ${(d.heroIntro || []).map(t => `<p class="hm2__intro">${keepTail(t).replace(/\n/g, '<br class="hm-br">')}</p>`).join('')}
+        <p class="hm2__cta"><a class="hm-btn" href="/pages/contact">${escHTML(d.ctaButton || '和我聊聊')} →</a><a class="hm-btn hm-btn--line" href="/pages/about">認識我</a></p>
       </div>
-      <p class="hm-hero__info">${(d.heroInfo || []).map(l => /@/.test(l)
-        ? `<a href="mailto:${escHTML(l)}">${escHTML(l)}</a>` : escHTML(l)).join('<br>')}</p>
-      <p class="hm-hero__meta micro">PORTFOLIO<br>${escHTML(d.heroYears)}<br><a href="#index">( INDEX ↓ )</a></p>
-      ${heroWorks.length ? `<div class="hm-hero__imgs">${heroWorks.map((w, i) => `
-        <a href="/works/${encodeURIComponent(w.id)}" style="--i:${i}" aria-label="${escHTML(w.title)}">
-          <img src="${img(w)}" alt="${escHTML(w.thumbnailAlt || w.title)}">
-        </a>`).join('')}
-      </div>` : ''}
     </section>
-
-    ${selected.length ? `<section class="hm-sel" aria-labelledby="hm-sel-h">
-      <h2 class="vlabel" id="hm-sel-h"><span>SELECTED</span>精選作品</h2>
-      <div class="hm-sel__list">${selected.map((s, i) => `
-        <a class="hm-row reveal${i % 2 ? ' hm-row--alt' : ''}" href="/works/${encodeURIComponent(s.w.id)}">
-          <div class="hm-row__img"><img src="${img(s.w)}" alt="${escHTML(s.w.thumbnailAlt || s.w.title)}" loading="lazy"></div>
-          <div class="hm-row__panel">
-            <p class="hm-row__title">${escHTML(s.w.title)}</p>
-            <p class="hm-row__statement">${keepTail(s.statement).replace(/\n/g, '<br class="hm-br">')}</p>
-            <div class="hm-row__foot">
-              <p class="micro">${escHTML(s.w.caption || (s.w.tags || []).join(', '))}</p>
-              <span class="hm-row__view">VIEW →</span>
-            </div>
-          </div>
-        </a>`).join('')}
-      </div>
-    </section>` : ''}
-
-    ${d.ctaTitle ? `<section class="hm-cta">
-      <h2 class="hm-cta__title">${escHTML(d.ctaTitle)}</h2>
-      <p class="hm-cta__text">${escHTML(d.ctaText || '')}</p>
-      <a class="hm-btn" href="/pages/contact">${escHTML(d.ctaButton || 'CONTACT')} →</a>
-    </section>` : ''}
-
-    <div class="hm-index-h" id="index">
-      <h2 class="vlabel vlabel--row"><span>INDEX</span>作品總覽</h2>
-      <p class="micro">${works.length} PROJECTS</p>
-    </div>`;
+    <div id="index" class="hm2-anchor"></div>`;
   grid.parentElement.insertBefore(wrap, grid);
 }
 
@@ -1132,6 +1067,7 @@ function initReveal() {
 }
 
 function renderRails() {
+  return; // 2026-11-11 精簡：拿掉兩側直排字
   if (document.querySelector('.rail')) return;
   const l = document.createElement('div');
   l.className = 'rail rail--l'; l.setAttribute('aria-hidden', 'true');
@@ -1155,4 +1091,48 @@ function pageHero({ title, sub, line, info = [], meta = '', small = false }) {
       ${info.length ? `<p class="hm-hero__info">${info.join('<br>')}</p>` : ''}
       ${meta ? `<p class="hm-hero__meta micro">${meta}</p>` : ''}
     </section>`;
+}
+
+
+// ─────────────────────────────────────────────
+// 全站頁尾：唯一的「和我聊聊」＋聯絡方式（各頁不再重複放）
+// ─────────────────────────────────────────────
+async function renderFooter() {
+  if (document.querySelector('.sf')) return;
+  const [c, h] = await Promise.all([
+    fetchJSON('/data/contact.json').catch(() => ({})),
+    fetchJSON('/data/home.json').catch(() => ({})),
+  ]);
+  const onContact = /^\/pages\/contact/.test(location.pathname);
+  const links = [
+    c.email && `<a href="mailto:${escHTML(c.email)}">${escHTML(c.email)}</a>`,
+    c.instagram && `<a href="${escHTML(c.instagram)}" target="_blank" rel="noopener">Instagram ↗</a>`,
+    c.behance && `<a href="${escHTML(c.behance)}" target="_blank" rel="noopener">Behance ↗</a>`,
+    c.linkedin && `<a href="${escHTML(c.linkedin)}" target="_blank" rel="noopener">LinkedIn ↗</a>`,
+  ].filter(Boolean);
+  const f = document.createElement('footer');
+  f.className = 'sf';
+  f.innerHTML = `
+    ${onContact ? '' : `<div class="sf__cta">
+      <h2 class="sf__title">${escHTML(h.ctaTitle || '有想法嗎？和我聊聊。')}</h2>
+      ${h.ctaText ? `<p class="sf__text">${escHTML(h.ctaText)}</p>` : ''}
+      <a class="hm-btn" href="/pages/contact">${escHTML(h.ctaButton || '和我聊聊')} →</a>
+    </div>`}
+    <div class="sf__bar">
+      <p class="sf__links">${links.join('<span aria-hidden="true">/</span>')}</p>
+      <p class="sf__copy">© ${new Date().getFullYear()} YENPOPPY</p>
+    </div>`;
+  const main = document.getElementById('page-content') || document.getElementById('main');
+  (main ? main.parentElement : document.body).insertBefore(f, main ? main.nextSibling : null);
+}
+
+// 內頁開場：一行中文標題＋一句說明（2026-11-11 精簡版）
+function pageHead({ en = '', title, lead = '', extra = '' }) {
+  return `
+    <header class="pg-head">
+      ${en ? `<p class="pg-head__en">${en}</p>` : ''}
+      <h1 class="pg-head__title">${escHTML(title)}</h1>
+      ${lead ? `<p class="pg-head__lead">${escHTML(lead)}</p>` : ''}
+      ${extra}
+    </header>`;
 }

@@ -3,23 +3,27 @@
     {
       "label": "WORKS",
       "type": "works",
-      "page": null
+      "page": null,
+      "zh": "作品"
     },
     {
       "label": "ABOUT",
       "type": "page",
-      "page": "about"
+      "page": "about",
+      "zh": "關於我"
     },
     {
-      "label": "ESTIMATE",
+      "label": "PRICING",
       "type": "link",
       "page": null,
-      "url": "/quote/"
+      "url": "/quote/",
+      "zh": "費用估算"
     },
     {
       "label": "CONTACT",
       "type": "page",
-      "page": "contact"
+      "page": "contact",
+      "zh": "聯絡我"
     }
   ]
 }
