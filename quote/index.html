@@ -308,17 +308,8 @@ footer { font-size: 13px; }
 
   <div class="layout">
     <div class="steps">
-      <section aria-labelledby="h0">
-        <div class="step-h"><span class="no">STEP 01</span><h2 id="h0">先認識一下你</h2><p>選好身分和產業，就能看到試算金額。</p></div>
-        <div class="about">
-          <div class="field"><label for="nick">怎麼稱呼你 <small class="opt-tag">選填</small></label><input type="text" id="nick" maxlength="30" placeholder="名字、暱稱或品牌名都可以"></div>
-          <div class="field"><span class="lbl">你的身分</span><div class="chips" id="roles"></div></div>
-          <div class="field"><span class="lbl">品牌產業</span><div class="chips" id="industries"></div></div>
-        </div>
-      </section>
-
       <section aria-labelledby="h1">
-        <div class="step-h"><span class="no">STEP 02</span><h2 id="h1">想做哪些設計？</h2><p>可以多選，數量之後也能改。</p></div>
+        <div class="step-h"><span class="no">STEP 01</span><h2 id="h1">想做哪些設計？</h2><p>可以多選，數量之後也能改。</p></div>
         <div class="cats" role="tablist" id="cats"></div>
         <p class="cat-intro" id="catIntro"></p>
         <div class="items" id="items"></div>
@@ -327,7 +318,7 @@ footer { font-size: 13px; }
       </section>
 
       <section aria-labelledby="h2">
-        <div class="step-h"><span class="no">STEP 03</span><h2 id="h2">視覺靈感方向</h2><p>這些只是初步參考，不代表最終風格。可以選 1–2 種，不確定也可以上傳參考圖，我們再一起找最適合的方向。</p></div>
+        <div class="step-h"><span class="no">STEP 02</span><h2 id="h2">視覺靈感方向</h2><p>這些只是初步參考，不代表最終風格。可以選 1–2 種，不確定也可以上傳參考圖，我們再一起找最適合的方向。</p></div>
         <div class="styles" id="styles"></div>
         <div class="refs">
           <div class="field"><span class="lbl">參考圖 <small class="opt-tag">選填</small></span>
@@ -341,12 +332,12 @@ footer { font-size: 13px; }
       </section>
 
       <section aria-labelledby="hp">
-        <div class="step-h"><span class="no">STEP 04</span><h2 id="hp">提案與修改</h2><p>提案是一開始給你看的設計方向，修改是選定後的調整次數。</p></div>
+        <div class="step-h"><span class="no">STEP 03</span><h2 id="hp">提案與修改</h2><p>提案是一開始給你看的設計方向，修改是選定後的調整次數。</p></div>
         <div class="styles plans" id="plans"></div>
       </section>
 
       <section aria-labelledby="h3">
-        <div class="step-h"><span class="no">STEP 05</span><h2 id="h3">希望什麼時候完成？</h2><p>填個日期，看看時間來不來得及。</p></div>
+        <div class="step-h"><span class="no">STEP 04</span><h2 id="h3">希望什麼時候完成？</h2><p>填個日期，看看時間來不來得及。</p></div>
         <div class="form">
           <div class="field"><label for="want">希望完成日期</label><input type="date" id="want"></div>
           <div class="field full"><span class="lbl">其他需求</span>
@@ -361,7 +352,7 @@ footer { font-size: 13px; }
 
       <div id="resultSlot" class="result-slot"></div>
       <section aria-labelledby="h4">
-        <div class="step-h"><span class="no">STEP 06</span><h2 id="h4">想一起合作嗎？</h2><p>預算和時間都 OK 的話，留個聯絡方式，再一起確認細節和檔期。</p></div>
+        <div class="step-h"><span class="no">STEP 05</span><h2 id="h4">想一起合作嗎？</h2><p>預算和時間都 OK 的話，留個聯絡方式，再一起確認細節和檔期。</p></div>
         <form class="form" id="inq" name="inquiry" novalidate>
           <input type="hidden" name="summary" id="summaryField">
           <input type="hidden" name="links" id="linksField">
@@ -370,6 +361,8 @@ footer { font-size: 13px; }
           <div class="field"><label for="name">怎麼稱呼你</label><input type="text" id="name" name="name" required></div>
           <div class="field"><label for="brand">品牌名稱 <small class="opt-tag">選填</small></label><input type="text" id="brand" name="brand"></div>
           <div class="field full"><label for="contact">Email 或 LINE ID</label><input type="text" id="contact" name="contact" required></div>
+          <div class="field full about"><span class="lbl">你的身分 <small class="opt-tag">選填</small></span><div class="chips" id="roles"></div></div>
+          <div class="field full about"><span class="lbl">品牌產業 <small class="opt-tag">選填</small></span><div class="chips" id="industries"></div></div>
           <div class="field full"><label for="msg">想補充的內容 <small class="opt-tag">選填</small></label><textarea id="msg" name="message" placeholder="品牌介紹、使用情境、想要的感覺都可以寫"></textarea></div>
           <div class="field full"><button class="primary" type="submit" id="send">送出</button></div>
         </form>
@@ -395,7 +388,7 @@ footer { font-size: 13px; }
   const round100 = n => Math.round(n / 100) * 100;
   const M = C.publicMenu; // 客戶看到的精簡服務清單
   const findPub = id => { for (const c of M) for (const it of c.items) if (it.id === id) return { ...it, cat: c.id }; return null; };
-  const st = { cat: M[0].id, qty: {}, opt: {}, styles: ['unsure'], plan: 'std', role: '', industry: '', revealed: false, nudge: false };
+  const st = { cat: M[0].id, qty: {}, opt: {}, styles: ['unsure'], plan: 'std', role: '', industry: '', revealed: true, nudge: false };
   // 有規格的項目：價格、單位、天數改用所選規格
   const resolve = it => {
     if (!it.options) return it;
@@ -570,13 +563,12 @@ footer { font-size: 13px; }
     $('#roles').innerHTML = C.audience.roles.map(v => chip('role', v)).join('');
     $('#industries').innerHTML = C.audience.industries.map(v => chip('industry', v)).join('');
   }
-  document.querySelector('.about').addEventListener('click', e => {
+  document.querySelectorAll('.about').forEach(box => box.addEventListener('click', e => {
     const b = e.target.closest('[data-role],[data-industry]'); if (!b) return;
     const key = b.dataset.role != null ? 'role' : 'industry', v = b.dataset[key];
-    st[key] = st[key] === v ? '' : v; renderAbout(); renderResult(); dirty = true;
-  });
+    st[key] = st[key] === v ? '' : v; renderAbout(); dirty = true;
+  }));
 
-  $('#nick').addEventListener('input', e => { dirty = true; const n = $('#name'); if (!n.dataset.edited) n.value = e.target.value; });
   $('#name').addEventListener('input', e => { e.target.dataset.edited = '1'; });
   // 試算統計：離開頁面時記一筆（有選項目才記），送出詢價時再記一筆
   const sid = Math.random().toString(36).slice(2, 10);
@@ -585,7 +577,7 @@ footer { font-size: 13px; }
     if (!C.statsEndpoint) return;
     const r = calc(); if (!r.ls.length) return;
     const data = JSON.stringify({
-      sid, submitted: !!submitted, nick: $('#nick').value.trim(), role: st.role, industry: st.industry,
+      sid, submitted: !!submitted, nick: $('#name').value.trim(), role: st.role, industry: st.industry,
       items: r.ls.map(l => `${l.name}×${l.qty}`).join('、'), cats: [...new Set(r.ls.map(l => l.cat))].join(','),
       style: r.style.name, plan: r.plan.name, other: $('#otherNeed').value.trim(), want: r.want ? Y.iso(r.want) : '', rush: !!r.rush, lo: r.lo, hi: r.hi,
       ref: document.referrer ? new URL(document.referrer).hostname : ''
