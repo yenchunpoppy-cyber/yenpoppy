@@ -1990,3 +1990,40 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
 .ab2-btn-line:hover, .info-page .btn:not(.btn--primary):hover, .work-header__link:hover, .about-page.ab2 .ab2-card .ab2-more:hover, .about-page.ab2 .ab2-cta .ab2-btn2:hover { background: #000 !important; color: #fff !important; text-decoration: none !important; }
 .tag-filter button:not(.active):hover, .ct-chips button:hover { background: #FFFCC2 !important; border-color: transparent !important; }
 .sf__links a:hover, .ct-links a:hover, .ab2-textlink:hover { color: #000; text-decoration: underline; text-underline-offset: 4px; }
+
+/* ── 2026-11-12 手機 About／合作洽詢精簡 ── */
+.ab2-h3, .sf__title, .step-h h2 { text-wrap: balance; }
+.clause { display: inline-block; }
+.ab2-desc, .ab2-body p, .ab2-head p, .sf__text, .ab2-caption { text-wrap: pretty; }
+@media (max-width: 599px) {
+  /* 區塊分隔：每區上方一條線 */
+  .about-page.ab2 .ab2-sec { margin-top: 56px; padding-top: 40px !important; border-top: 1px solid #E2E2E2; }
+  .about-page.ab2 .pg-head + .ab2-sec { margin-top: 0; border-top: 0; padding-top: 16px !important; }
+  /* 設計能力卡：留 icon，按鈕改成右下角箭頭 */
+  .about-page.ab2 .ab2-card { position: relative; padding: 20px !important; }
+  .about-page.ab2 .ab2-card__top { display: flex !important; margin-bottom: 12px; }
+  .about-page.ab2 .ab2-card__top .ab2-big { display: none; }
+  .about-page.ab2 .ab2-card__top img { width: 32px; height: 32px; }
+  .about-page.ab2 .ab2-card__btn { display: block !important; align-self: stretch !important; text-align: right; border: 0 !important; background: none !important; font-size: 0 !important; padding: 0 !important; margin: 4px 0 0 !important; height: 22px; }
+  .about-page.ab2 .ab2-card__btn::after { content: '→'; font-size: 20px; color: #000; }
+  /* 經歷：拿掉英文小字、縮短間距 */
+  .about-page.ab2 .ab2-chrono li { padding: 20px 0 !important; gap: 6px !important; grid-template-columns: 1fr !important; }
+  .about-page.ab2 .ab2-chrono__when { display: flex; align-items: baseline; gap: 12px; }
+  .about-page.ab2 .ab2-chrono__when span { display: none; }
+  .about-page.ab2 .ab2-chrono__when b { font-size: 28px; }
+  .about-page.ab2 .ab2-chrono__what .ab2-h3 { margin: 4px 0 6px; font-size: 16px; }
+  .about-page.ab2 .ab2-chrono .ab2-desc { font-size: 14px; line-height: 1.7; }
+  /* 獲獎：文字先、照片後 */
+  .about-page.ab2 .ab2-award.has-img .ab2-award__body { order: -1; }
+  .about-page.ab2 .ab2-award.has-img .ab2-award__img { aspect-ratio: 16 / 9; }
+  /* 合作洽詢：流程精簡 */
+  .q-extra__sec .ab2-steps li { padding: 16px 0 !important; border-top: 1px solid #E2E2E2; }
+  .q-extra__sec .ab2-steps__top { display: inline-block !important; margin: 0 10px 0 0 !important; vertical-align: baseline; }
+  .q-extra__sec .ab2-steps__top .ab2-big { font-size: 24px !important; }
+  .q-extra__sec .ab2-steps__arrow, .q-extra__sec .ab2-steps__bar { display: none !important; }
+  .q-extra__sec .ab2-steps .ab2-h3 { display: inline; font-size: 16px; }
+  .q-extra__sec .ab2-steps .ab2-desc { margin-top: 6px; font-size: 14px; }
+}
+@media (min-width: 900px) { .ab2-eyebrow, .about-page.ab2 .ab2-eyebrow, .tf-label, .pg-head__en { font-size: 14px !important; letter-spacing: .2em; } }
+.ab2-body mark, .ab2-h2 mark, .pg-head__title mark { white-space: nowrap; }
+@media (max-width: 599px) { .about-page.ab2 .ab2-card { padding-bottom: 14px !important; } .about-page.ab2 .ab2-card .ab2-desc { margin-bottom: 0; } }

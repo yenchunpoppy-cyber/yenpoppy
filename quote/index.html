@@ -341,6 +341,14 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 .primary:hover { background: #fff !important; color: var(--ink) !important; }
 .add:hover, .ghost:hover { background: var(--ink) !important; color: #fff !important; }
 .chips button:hover, .item .opts button:hover { background: #FFFCC2 !important; }
+
+/* 你的身分：手機三欄等寬，不留空白 */
+@media (max-width: 599px) { #roles { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; } #roles button { width: 100%; padding-left: 4px; padding-right: 4px; white-space: nowrap; } }
+
+/* STEP 編號：金色、數字放大（同 About 的 01–04） */
+.step-h .no { display: flex !important; align-items: baseline; gap: 10px; color: #D9C96F !important; }
+.step-h .no b { font-family: var(--qf-display); font-size: 40px; font-weight: 300; letter-spacing: 0; line-height: 1; }
+@media (max-width: 599px) { .step-h .no b { font-size: 32px; } }
 </style>
 </head>
 <body>
@@ -368,7 +376,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   <div class="layout">
     <div class="steps">
       <section aria-labelledby="h1">
-        <div class="step-h"><span class="no">STEP 01</span><h2 id="h1">想做哪些設計？</h2><p>可以多選，數量之後也能改。</p></div>
+        <div class="step-h"><span class="no">STEP <b>01</b></span><h2 id="h1">想做哪些設計？</h2><p>可以多選，數量之後也能改。</p></div>
         <div class="cats" role="tablist" id="cats"></div>
         <p class="cat-intro" id="catIntro"></p>
         <div class="items" id="items"></div>
@@ -377,7 +385,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
       </section>
 
       <section aria-labelledby="h2">
-        <div class="step-h"><span class="no">STEP 02</span><h2 id="h2">視覺靈感方向</h2><p>這些只是初步參考，不代表最終風格。可以選 1–2 種，不確定也可以上傳參考圖，我們再一起找最適合的方向。</p></div>
+        <div class="step-h"><span class="no">STEP <b>02</b></span><h2 id="h2">視覺靈感方向</h2><p>這些只是初步參考，不代表最終風格。可以選 1–2 種，不確定也可以上傳參考圖，我們再一起找最適合的方向。</p></div>
         <div class="styles" id="styles"></div>
         <div class="refs">
           <div class="field"><span class="lbl">參考圖 <small class="opt-tag">選填</small></span>
@@ -391,12 +399,12 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
       </section>
 
       <section aria-labelledby="hp">
-        <div class="step-h"><span class="no">STEP 03</span><h2 id="hp">提案與修改</h2><p>提案是一開始給你看的設計方向，修改是選定後的調整次數。</p></div>
+        <div class="step-h"><span class="no">STEP <b>03</b></span><h2 id="hp">提案與修改</h2><p>提案是一開始給你看的設計方向，修改是選定後的調整次數。</p></div>
         <div class="styles plans" id="plans"></div>
       </section>
 
       <section aria-labelledby="h3">
-        <div class="step-h"><span class="no">STEP 04</span><h2 id="h3">希望什麼時候完成？</h2><p>填個日期，看看時間來不來得及。</p></div>
+        <div class="step-h"><span class="no">STEP <b>04</b></span><h2 id="h3">希望什麼時候完成？</h2><p>填個日期，看看時間來不來得及。</p></div>
         <div class="form">
           <div class="field"><label for="want">希望完成日期</label><input type="date" id="want"></div>
           <div class="field full"><span class="lbl">其他需求</span>
@@ -411,7 +419,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 
       <div id="resultSlot" class="result-slot"></div>
       <section aria-labelledby="h4">
-        <div class="step-h"><span class="no">STEP 05</span><h2 id="h4">想一起合作嗎？留下聯絡方式</h2><p>有沒有用上面的估價都可以，留個聯絡方式，我會再跟你確認細節和檔期。</p></div>
+        <div class="step-h"><span class="no">STEP <b>05</b></span><h2 id="h4">想一起合作嗎？留下聯絡方式</h2><p>有沒有用上面的估價都可以，留個聯絡方式，我會再跟你確認細節和檔期。</p></div>
         <form class="form" id="inq" name="inquiry" novalidate>
           <input type="hidden" name="summary" id="summaryField">
           <input type="hidden" name="links" id="linksField">

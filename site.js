@@ -814,7 +814,7 @@ async function renderAboutPage() {
   const head = (label, zh, title, desc) => `
       <header class="ab2-head">
         <p class="ab2-eyebrow">${escHTML(zh || label)}</p>
-        ${title && title !== zh ? `<h2 class="ab2-h2">${escHTML(title).replace(/\*(.+?)\*/g, '<mark>$1</mark>')}</h2>` : ''}
+        ${title && title !== zh ? `<h2 class="ab2-h2">${clauses(escHTML(title).replace(/\*(.+?)\*/g, '<mark>$1</mark>'))}</h2>` : ''}
         ${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}
       </header>`;
   const svcMap = serviceMap(d);
@@ -1140,7 +1140,7 @@ function pageHead({ en = '', title, lead = '', extra = '' }) {
   return `
     <header class="pg-head">
       ${en ? `<p class="pg-head__en">${en}</p>` : ''}
-      <h1 class="pg-head__title">${escHTML(title).replace(/==(.+?)==/g, '<mark>$1</mark>')}</h1>
+      <h1 class="pg-head__title">${clauses(escHTML(title).replace(/==(.+?)==/g, '<mark>$1</mark>'))}</h1>
       ${lead ? `<p class="pg-head__lead">${escHTML(lead)}</p>` : ''}
       ${extra}
     </header>`;
@@ -1220,3 +1220,8 @@ function initLogoMarquee() {
   requestAnimationFrame(tick);
 }
 new MutationObserver(() => initLogoMarquee()).observe(document.documentElement, { childList: true, subtree: true });
+
+// 標題只在逗號後換行：每個子句包成不斷行的區塊（避免「在／乎」被拆開）
+function clauses(html) {
+  return String(html).split(/(?<=[，、；：])/).map(t => `<span class="clause">${t}</span>`).join('');
+}
