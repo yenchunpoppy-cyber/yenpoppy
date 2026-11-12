@@ -302,10 +302,6 @@ async function renderWorksGrid() {
     vt.className = 'view-toggle';
     vt.setAttribute('role', 'group');
     vt.setAttribute('aria-label', '作品排列方式');
-    const ICON = {
-      '1': '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect x="2" y="2" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>',
-      '2': '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect x="1.5" y="1.5" width="5.5" height="5.5" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="1.5" width="5.5" height="5.5" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="1.5" y="9" width="5.5" height="5.5" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="5.5" height="5.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>'
-    };
     let view = '1';
     try { view = localStorage.getItem('yp-view') === '2' ? '2' : '1'; } catch (e) {}
     const setView = v => {
@@ -318,8 +314,8 @@ async function renderWorksGrid() {
       const b = document.createElement('button');
       b.type = 'button';
       b.dataset.view = v;
+      b.textContent = v === '1' ? '單欄' : '雙欄';
       b.setAttribute('aria-label', v === '1' ? '一排一件' : '一排兩件');
-      b.innerHTML = ICON[v];
       b.addEventListener('click', () => setView(v));
       vt.appendChild(b);
     });
