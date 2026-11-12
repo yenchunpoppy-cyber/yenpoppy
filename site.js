@@ -567,7 +567,7 @@ function renderModule(mod, settings, pageBg) {
 function renderModuleA(mod, settings, pageBg) {
   const wrap = document.createElement('div');
   wrap.className = 'module-wrap';
-  if (mod.narrow) wrap.classList.add('is-narrow');  // 長條圖（整頁長圖、切片網頁）縮窄置中，避免頁面過長
+  if (mod.narrow) wrap.classList.add(mod.narrow === 'phone' ? 'is-phone' : 'is-narrow');  // 長條圖（整頁長圖、切片網頁）縮窄置中，避免頁面過長
 
   const cols    = mod.columns || '1';
   const gutter  = resolveGutter(mod.gutter, settings);
@@ -714,7 +714,7 @@ function appendImg(imgWrap, imgData, fallbackAlt) {
 function renderModuleB(mod, settings, pageBg) {
   const wrap = document.createElement('div');
   wrap.className = 'module-wrap';
-  if (mod.narrow) wrap.classList.add('is-narrow');  // 長條圖（整頁長圖、切片網頁）縮窄置中，避免頁面過長
+  if (mod.narrow) wrap.classList.add(mod.narrow === 'phone' ? 'is-phone' : 'is-narrow');  // 長條圖（整頁長圖、切片網頁）縮窄置中，避免頁面過長
 
   const section = document.createElement('section');
   section.className = 'module-b';
@@ -740,6 +740,7 @@ function renderModuleB(mod, settings, pageBg) {
   grid.dataset.cols = cols;
   grid.dataset.gap = gutter;
   if (mod.rows) grid.classList.add('is-rows');  // 依列排序（相簿跨頁要照頁序）
+  if (mod.crop) grid.classList.add('is-crop');  // 同列照片裁成一致比例，高度對齊
 
   images.forEach(imgData => {
     const imgWrap = document.createElement('div');

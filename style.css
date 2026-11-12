@@ -2176,3 +2176,9 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
 @media (max-width: 599px) { .module-b__grid.is-rows[data-cols="5"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
 /* YouTube 嵌入 16:9 */
 .img-wrap .yt-embed, .module-b__grid .yt-embed { display:block; width:100%; aspect-ratio:16/9; height:auto; border:0; background:#000; }
+/* VIEW PROJECT 對齊內文欄 */
+body[data-page="work"] .work-header__link { display: block; width: fit-content; margin: 20px 0 0 max(0px, calc((100% - 960px) / 2)); }
+/* 手機長截圖：窄欄置中 */
+.module-wrap.is-phone img, .is-phone .img-wrap, .is-phone .module-b__grid { max-width: 380px !important; margin-left: auto !important; margin-right: auto !important; }
+/* 同列照片高度一致（裁成 4:3） */
+.module-b__grid.is-crop img, .module-b__grid.is-crop video { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; height: auto; }
