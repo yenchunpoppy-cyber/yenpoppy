@@ -2168,3 +2168,6 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
 /* 2026-11-12 長條圖模組縮窄置中（works.json module.narrow） */
 .module-wrap.is-narrow img, .module-wrap.is-narrow .img-wrap, .module-wrap.is-narrow .module-b__grid { max-width: 600px !important; margin-left: auto !important; margin-right: auto !important; }
 .module-wrap.is-narrow .module-b__grid { width: 100%; }
+
+/* 2026-11-12 作品內頁影片 */
+.img-wrap video { display: block; width: 100%; height: auto; background: #000; }

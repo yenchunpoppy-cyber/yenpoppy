@@ -663,13 +663,28 @@ function renderModuleA(mod, settings, pageBg) {
 }
 
 // å¨ imgWrap å§å»ºåç + çå­
+// 圖片或影片（.mp4/.webm 會自動播放、靜音、循環）
+function mediaEl(imgData) {
+  if (/\.(mp4|webm)(\?|$)/i.test(imgData.src)) {
+    const v = document.createElement('video');
+    v.src = fixImgUrl(imgData.src);
+    v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true;
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.preload = 'metadata';
+    if (imgData.poster) v.poster = fixImgUrl(imgData.poster);
+    if (imgData.alt) v.setAttribute('aria-label', imgData.alt);
+    return v;
+  }
+  const img = document.createElement('img');
+  img.src = fixImgUrl(imgData.src);
+  img.alt = imgData.alt || '';
+  img.loading = 'lazy';
+  return img;
+}
+
 function appendImg(imgWrap, imgData, fallbackAlt) {
   if (!imgData.src) return;
 
-  const img = document.createElement('img');
-  img.src = fixImgUrl(imgData.src);
-  img.alt = imgData.alt || fallbackAlt || '';
-  img.loading = 'lazy';
+  const img = mediaEl({ ...imgData, alt: imgData.alt || fallbackAlt || '' });
   imgWrap.appendChild(img);
 
   if (imgData.overlayText) {
@@ -720,11 +735,7 @@ function renderModuleB(mod, settings, pageBg) {
     const imgWrap = document.createElement('div');
     imgWrap.className = 'img-wrap';
     if (imgData.src) {
-      const img = document.createElement('img');
-      img.src = fixImgUrl(imgData.src);
-      img.alt     = imgData.alt || '';
-      img.loading = 'lazy';
-      imgWrap.appendChild(img);
+      imgWrap.appendChild(mediaEl(imgData));
     }
     grid.appendChild(imgWrap);
   });
