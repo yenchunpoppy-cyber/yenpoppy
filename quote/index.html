@@ -701,7 +701,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 
   const rng = r => r.hi > r.lo ? `${Y.money(r.lo)} – ${Y.num(r.hi)}` : `${Y.money(r.lo)} 起`;
   function render() { syncAi(); renderCats(); renderResult(); }
-  function syncAi() { $('#aiWrap').hidden = !Object.keys(st.qty).some(id => st.qty[id] > 0 && M.find(c => c.id === 'social').items.some(i => i.id === baseId(id))); if ($('#aiWrap').hidden) $('#needAi').checked = false; }
+  function syncAi() { $('#aiWrap').hidden = true; $('#needAi').checked = false; } // 2026-11-12 原始檔加購不在公開頁顯示（版型已含 AI 檔）
 
   // 關於你：單選，可再點一次取消
   function renderAbout() {
