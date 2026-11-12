@@ -2171,3 +2171,6 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
 
 /* 2026-11-12 作品內頁影片 */
 .img-wrap video { display: block; width: 100%; height: auto; background: #000; }
+/* 5 欄小圖（活動現場快照） */
+@media (max-width: 1024px) { .module-b__grid.is-rows[data-cols="5"] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } }
+@media (max-width: 599px) { .module-b__grid.is-rows[data-cols="5"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
