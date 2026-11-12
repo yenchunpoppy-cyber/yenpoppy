@@ -541,7 +541,7 @@ async function renderWorkPage() {
   // 閱讀順序：標題副標 → 主圖 → 概念文字 → 作品圖 → 專案資訊（客戶／合作團隊／年份／網站）
   const mods = (work.modules || []).slice();
   const first = mods[0];
-  if (first && first.type === 'module_a' && (first.images || []).length) {
+  if (first && first.type === 'module_a' && (first.images || []).length && (first.body || '').trim()) {
     mods.splice(0, 1,
       { type: 'module_b', columns: '1', gutter: 'default', bg: '', images: first.images, isHero: true },
       Object.assign({}, first, { images: [], columns: '0' }));
@@ -564,9 +564,9 @@ async function renderWorkPage() {
   pager.className = 'work-pager';
   pager.setAttribute('aria-label', '其他作品');
   pager.innerHTML = `
-    <a class="work-pager__prev" href="/works/${encodeURIComponent(prev.id)}"><span class="micro">[ PREV ]</span><b>${esc(prev.title)}</b></a>
-    <span class="micro">( ${pad(idx + 1)} / ${pad(all.length)} )</span>
-    <a class="work-pager__next" href="/works/${encodeURIComponent(next.id)}"><span class="micro">[ NEXT ]</span><b>${esc(next.title)}</b></a>`;
+    <a class="work-pager__prev" href="/works/${encodeURIComponent(prev.id)}"><span class="micro">← 上一件</span><b>${esc(prev.title)}</b></a>
+    <a class="work-pager__all" href="/#index"><span class="micro">所有作品</span><b>${pad(idx + 1)} / ${pad(all.length)}</b></a>
+    <a class="work-pager__next" href="/works/${encodeURIComponent(next.id)}"><span class="micro">下一件 →</span><b>${esc(next.title)}</b></a>`;
   container.appendChild(pager);
 }
 
@@ -758,10 +758,13 @@ function renderModuleB(mod, settings, pageBg) {
   grid.dataset.gap = gutter;
   if (mod.rows) grid.classList.add('is-rows');  // 依列排序（相簿跨頁要照頁序）
   if (mod.crop) grid.classList.add('is-crop');  // 同列照片裁成一致比例，高度對齊
+  if (mod.justify) grid.classList.add('is-justify');
+  if (mod.justify && !mod.headline) wrap.classList.add('is-cont');  // 接續上一段的同組圖，間距縮小  // 同列等高、不裁切：寬度依圖片比例分配（圖需有 r＝寬/高）
 
   images.forEach(imgData => {
     const imgWrap = document.createElement('div');
     imgWrap.className = 'img-wrap';
+    if (mod.justify && imgData.r) imgWrap.style.flex = `${imgData.r} 1 0`;
     if (imgData.src || imgData.youtube) {
       imgWrap.appendChild(mediaEl(imgData));
     }
@@ -1299,3 +1302,15 @@ new MutationObserver(() => initLogoMarquee()).observe(document.documentElement, 
 function clauses(html) {
   return String(html).split(/(?<=[，、；：])/).map(t => `<span class="clause">${t}</span>`).join('');
 }
+
+// 回到頂部：往下捲超過 1.5 個畫面才出現
+(function () {
+  const btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'to-top'; btn.setAttribute('aria-label', '回到頂部'); btn.textContent = '↑';
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
+  const add = () => { document.body.appendChild(btn); onScroll(); };
+  let on = false;
+  function onScroll() { const v = window.scrollY > window.innerHeight * 1.5; if (v !== on) { on = v; btn.classList.toggle('is-on', v); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  if (document.body) add(); else document.addEventListener('DOMContentLoaded', add);
+})();
