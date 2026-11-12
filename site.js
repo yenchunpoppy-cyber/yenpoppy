@@ -955,13 +955,13 @@ async function renderAboutPage() {
     ${brands.length ? `<section class="ab2-sec">
       ${head('BRANDS &amp; PROJECTS', '參與品牌與專案', d.brandsTitle, d.brandsDesc)}
       ${(d.brandsIndustries || []).length ? `<ul class="ab2-ind" aria-label="合作產業">${d.brandsIndustries.map(t => `<li><mark>${escHTML(t)}</mark></li>`).join('')}</ul>` : ''}
-      <div class="ab2-marquee"><ul class="ab2-logos">${brands.map(c => {
+      ${(window.matchMedia('(max-width: 599px)').matches ? [brands.slice(0, Math.ceil(brands.length / 2)), brands.slice(Math.ceil(brands.length / 2))] : [brands]).map((row, ri) => `<div class="ab2-marquee"${ri ? ' data-dir="-1"' : ''}><ul class="ab2-logos">${row.map(c => {
         const w = byId(c.work);
         const z = c.scale ? ` style="--z:${Number(c.scale) || 1}"` : '';
         const img = c.logo ? `<span class="lg"><img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" title="${escHTML(c.name)}" loading="lazy"${z}>${c.logoColor ? `<img class="lg-c" src="${escHTML(fixImgUrl(c.logoColor))}" alt="" aria-hidden="true" loading="lazy">` : ''}</span>` : `<b>${escHTML(c.name)}</b>`;
         return `<li>${w ? `<a href="/works/${encodeURIComponent(w.id)}" aria-label="${escHTML(c.name)}：${escHTML(w.title)}">${img}</a>` : img}</li>`;
       }).join('')}
-      </ul></div>
+      </ul></div>`).join('')}
       ${d.brandsNote ? `<p class="ab2-caption">${escHTML(d.brandsNote)}</p>` : ''}
     </section>` : ''}
 
@@ -1297,8 +1297,10 @@ async function renderQuoteExtras() {
 
 // About 合作品牌：一整排自動左右輪播、輪流亮起（滑鼠移上暫停）
 function initLogoMarquee() {
-  const box = document.querySelector('.ab2-marquee');
-  if (!box || box.dataset.ready) return;
+  document.querySelectorAll('.ab2-marquee:not([data-ready])').forEach(initOneMarquee);
+}
+function initOneMarquee(box) {
+  const dir = box.dataset.dir === '-1' ? -1 : 1;  // 第二排反方向
   box.dataset.ready = '1';
   const ul = box.querySelector('.ab2-logos');
   const copy = ul.cloneNode(true);
@@ -1319,8 +1321,9 @@ function initLogoMarquee() {
     const dt = Math.min(64, now - last); last = now;
     const w = ul.offsetWidth;
     if (w && !hover && now > hold) {
-      pos += w / 70000 * dt;
+      pos += dir * w / 70000 * dt;
       if (pos >= w) pos -= w;
+      if (pos < 0) pos += w;
       box.scrollLeft = pos;
     } else if (w && box.scrollLeft >= w) { pos = box.scrollLeft - w; box.scrollLeft = pos; }
     const r = box.getBoundingClientRect();

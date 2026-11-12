@@ -2305,3 +2305,4 @@ body[data-page="work"] .pg-head { padding-bottom: 24px; }
 /* 首頁卡片封面影片（works.json thumbnailVideo） */
 .work-card .card-video { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #111; }
 .work-card .card-video { transition: transform .22s ease, box-shadow .22s ease; } .work-card:hover .card-video { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+.about-page.ab2 .ab2-marquee + .ab2-marquee { margin-top: 12px; }
