@@ -5,7 +5,7 @@
  * 層級：分類 → 項目 → 規格（options）。有 options 的項目，價格與天數以所選規格為準。
  */
 window.CATALOG = {
-  version: '2026-11-12j', // 改價後更新，舊草稿會改用範例重新開始
+  version: '2026-11-12k', // 改價後更新，舊草稿會改用範例重新開始
   // 報價單產生器「完整細項」用；group = 清單裡的小標
   categories: [
     {
@@ -181,11 +181,11 @@ window.CATALOG = {
     {
       id: 'starter', name: '組合方案', intro: '依品牌現在的階段選，前期工作共用，比單買划算',
       items: [
-        { id: 'b-pack', name: 'LOGO＋包裝組', unit: '組', price: 48000, min: 43000, max: 53000, days: 30, print: true,
+        { id: 'b-pack', name: 'LOGO＋包裝組', unit: '組', price: 48000, min: 48000, max: 48000, fixed: true, days: 30, print: true,
           desc: '要創立品牌、同時推出第一項商品。LOGO 基本＋主色與字體設定＋單一盒袋包裝 1 款（含 3D 示意圖）' },
-        { id: 'b-launch', name: '新品上市組', unit: '組', price: 46000, min: 41000, max: 51000, days: 25, print: true,
+        { id: 'b-launch', name: '新品上市組', unit: '組', price: 46000, min: 46000, max: 46000, fixed: true, days: 25, print: true,
           desc: '已經有品牌、要推出新品。單一盒袋包裝＋1 款延伸款＋上市社群圖片 6 張' },
-        { id: 'b-holiday', name: '節慶限定企劃組', unit: '組', price: 75000, min: 68000, max: 83000, days: 35, print: true,
+        { id: 'b-holiday', name: '節慶限定企劃組', unit: '組', price: 75000, min: 75000, max: 75000, fixed: true, days: 35, print: true,
           desc: '中秋、年節或週年禮盒。節慶主視覺＋禮盒（外盒、手提袋、封口貼紙、小卡）＋社群圖片 6 張' }
         // 品牌起步組、開店宣傳組 2026-11-12 拿掉（新品牌入口改由 LOGO 三種方案負責）
         // 品牌健檢（3,500）2026-11-12 Yen 決定先下架，等有口碑再上

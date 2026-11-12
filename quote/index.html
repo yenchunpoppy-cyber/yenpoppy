@@ -478,7 +478,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
           <div class="field full"><span class="lbl">其他需求</span>
             <div class="checks">
               <label id="aiWrap" hidden><input type="checkbox" id="needAi"> 之後想自己改字，加購可編輯檔</label>
-              <label><input type="checkbox" id="needPrint"> 需要協助印刷</label>
+              <label><input type="checkbox" id="needPrint"> 需要協助印刷（印刷費與監製費另計）</label>
               <label><input type="checkbox" id="needInvoice"> 需要開發票</label>
             </div>
             <p class="note inv-note">需要發票請洽談時告知。</p></div>
@@ -670,7 +670,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
       ${status}
       <ul class="picked">${r.ls.map(l => `<li><span>${esc(l.name)} × ${l.qty}</span><span>${Y.num(l.min * l.qty)}${l.max > l.min ? '–' + Y.num(l.max * l.qty) : ''}</span></li>`).join('')}
         ${r.ai ? `<li><span>原始檔</span><span>${Y.num(r.ai)}</span></li>` : ''}</ul>
-      <p class="note">提案 ${r.plan.proposals} 款，含 ${r.plan.revisions} 次修改，之後每次 NT$${Y.num(C.revisionFee)}。工作天不含週末，付訂並收到素材隔天起算。${$('#needPrint').checked || r.ls.some(l => l.print) ? '印刷和材料費另計。' : ''}</p>
+      <p class="note">提案 ${r.plan.proposals} 款，含 ${r.plan.revisions} 次修改，之後每次 NT$${Y.num(C.revisionFee)}。工作天不含週末，付訂並收到素材隔天起算。不含印刷、商品攝影和文案。</p>
       <a href="#h4" class="primary" style="text-decoration:none">想合作，留下聯絡方式</a>`;
     $('#mbar').innerHTML = `<span>${rng(r)}<br><small>最快 ${Y.short(r.earliest)} 完成</small></span><a href="#result">看明細</a>`;
   }
