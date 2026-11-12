@@ -2182,3 +2182,12 @@ body[data-page="work"] .work-header__link { display: block; width: fit-content; 
 .module-wrap.is-phone img, .is-phone .img-wrap, .is-phone .module-b__grid { max-width: 380px !important; margin-left: auto !important; margin-right: auto !important; }
 /* 同列照片高度一致（裁成 4:3） */
 .module-b__grid.is-crop img, .module-b__grid.is-crop video { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; height: auto; }
+/* 作品內頁開頭：英文標語＋資訊小字清單（取代大按鈕） */
+.wk-tagline { margin: 10px 0 0; font-family: var(--font-title); font-size: 14px; font-weight: 300; letter-spacing: .04em; color: #6b6b6b; }
+.wk-meta { display: flex; flex-wrap: wrap; gap: 12px 40px; margin: 28px 0 0; padding: 16px 0 0; border-top: 1px solid #E2E2E2; }
+.wk-meta div { min-width: 0; }
+.wk-meta dt { font-family: var(--font-title); font-size: 11px; letter-spacing: .2em; color: #8a8a8a; margin: 0 0 4px; }
+.wk-meta dd { margin: 0; font-size: 14px; line-height: 1.6; color: #222; }
+.wk-meta a { color: inherit; text-decoration: underline; text-decoration-color: #999; text-underline-offset: 4px; }
+.wk-meta a:hover { text-decoration-color: #000; }
+@media (max-width: 599px) { .wk-meta { gap: 12px 24px; } }

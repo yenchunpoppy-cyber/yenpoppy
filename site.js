@@ -526,13 +526,18 @@ async function renderWorkPage() {
   const sel = (home.selected || []).find(x => x.id === work.id);
   const tagLine = (work.tags || []).map(t => `<a href="/?tag=${encodeURIComponent(t)}#index">[ ${esc(t)} ]</a>`).join(' ');
   header.className = 'work-header work-header--hero';
+  // 作品資訊小字清單：客戶／合作團隊／年份／網站（有填才顯示）
+  const metaRows = [
+    ['CLIENT', work.client], ['AGENCY', work.agency], ['YEAR', work.year],
+  ].filter(r => r[1]).map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`);
+  if (link) metaRows.push(`<div><dt>WEBSITE</dt><dd><a href="${esc(link)}" target="_blank" rel="noopener">${esc(link.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></dd></div>`);
   header.innerHTML = pageHead({
     en: `<a href="/#index">← 所有作品</a>`,
     title: work.title,
     lead: work.subtitle || work.caption || '',
-  }) + `
-    ${work.description ? `<p class="work-header__desc">${esc(work.description)}</p>` : ''}
-    ${link ? `<a class="work-header__link" href="${esc(link)}" target="_blank" rel="noopener">VIEW PROJECT ↗</a>` : ''}`;
+    extra: (work.description ? `<p class="wk-tagline">${esc(work.description)}</p>` : '') +
+      (metaRows.length ? `<dl class="wk-meta">${metaRows.join('')}</dl>` : ''),
+  });
   container.appendChild(header);
 
   (work.modules || []).forEach(mod => {
