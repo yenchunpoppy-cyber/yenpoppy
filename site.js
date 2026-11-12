@@ -567,6 +567,7 @@ function renderModule(mod, settings, pageBg) {
 function renderModuleA(mod, settings, pageBg) {
   const wrap = document.createElement('div');
   wrap.className = 'module-wrap';
+  if (mod.narrow) wrap.classList.add('is-narrow');  // 長條圖（整頁長圖、切片網頁）縮窄置中，避免頁面過長
 
   const cols    = mod.columns || '1';
   const gutter  = resolveGutter(mod.gutter, settings);
@@ -688,6 +689,7 @@ function appendImg(imgWrap, imgData, fallbackAlt) {
 function renderModuleB(mod, settings, pageBg) {
   const wrap = document.createElement('div');
   wrap.className = 'module-wrap';
+  if (mod.narrow) wrap.classList.add('is-narrow');  // 長條圖（整頁長圖、切片網頁）縮窄置中，避免頁面過長
 
   const section = document.createElement('section');
   section.className = 'module-b';

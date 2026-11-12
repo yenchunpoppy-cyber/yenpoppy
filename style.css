@@ -2164,3 +2164,7 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
 .hm2__sub { margin: 10px 0 0; font-size: 15px; line-height: 1.7; letter-spacing: .06em; color: #4A4A4A; }
 .hm2__sub + .hm2__link { margin-top: 10px; }
 @media (max-width: 599px) { .hm2__sub { font-size: 14px; } }
+
+/* 2026-11-12 長條圖模組縮窄置中（works.json module.narrow） */
+.module-wrap.is-narrow img, .module-wrap.is-narrow .img-wrap, .module-wrap.is-narrow .module-b__grid { max-width: 600px !important; margin-left: auto !important; margin-right: auto !important; }
+.module-wrap.is-narrow .module-b__grid { width: 100%; }
