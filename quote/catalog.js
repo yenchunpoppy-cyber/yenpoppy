@@ -161,14 +161,13 @@ window.CATALOG = {
       ]
     },
     {
-      id: 'social', name: '社群經營', intro: 'IG、FB、LINE 的日常素材',
+      id: 'social', name: '社群經營', intro: 'IG、FB 的日常素材',
       items: [
         { id: 'p-post', name: '社群貼文', desc: '每篇封面＋內頁 3 張', options: [
           { id: 'one', name: '單篇', unit: '篇', price: 4200, min: 3500, max: 5000, days: 5 },
           { id: 'month', name: '月包 8 篇', unit: '月', price: 27000, min: 24000, max: 30000, days: 20, desc: '每月固定排程' }
-        ] },
-        { id: 'p-line', name: 'LINE 圖文選單', unit: '款', price: 5000, min: 4000, max: 6000, days: 7,
-          desc: 'LINE 官方帳號下方的選單圖' }
+        ] }
+        // LINE 圖文選單 2026-11-12 Yen 決定不放
       ]
     },
     {
