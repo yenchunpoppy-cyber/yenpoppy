@@ -1355,3 +1355,27 @@ function clauses(html) {
   window.addEventListener('scroll', onScroll, { passive: true });
   if (document.body) add(); else document.addEventListener('DOMContentLoaded', add);
 })();
+
+// 瀏覽紀錄（2026-11-12 Yen）：記下每個頁面實際看了幾秒，送到收件程式的「瀏覽紀錄」分頁。
+// 只算畫面在前景的時間；停留不到 10 秒的不記（多半是亂點或滑過）。
+// settings.json 的 trackViews 要設成 true 才會開始送（收件程式要先更新，不然會記到試算紀錄裡）。
+(function () {
+  if (/^(localhost|127\.)/.test(location.hostname)) return;
+  let visible = document.visibilityState === 'visible' ? Date.now() : 0, total = 0, sent = false, ep = '';
+  fetch('/data/settings.json').then(r => r.json()).then(s => { if (s.trackViews && s.formEndpoint) ep = s.formEndpoint; }).catch(() => {});
+  const pause = () => { if (visible) { total += Date.now() - visible; visible = 0; } };
+  const send = () => {
+    pause();
+    const sec = Math.round(total / 1000);
+    if (sent || !ep || sec < 10) return;
+    sent = true;
+    const data = JSON.stringify({ type: 'view', path: location.pathname + location.search, title: document.title, sec,
+      ref: document.referrer ? new URL(document.referrer).hostname : '', mobile: matchMedia('(max-width: 599px)').matches });
+    try { navigator.sendBeacon(ep, new Blob([data], { type: 'text/plain' })); } catch (e) {}
+  };
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') { if (!visible) visible = Date.now(); }
+    else { send(); sent = false; total = 0; } // 切回來後重新計時，下次離開再記一筆
+  });
+  window.addEventListener('pagehide', send);
+})();

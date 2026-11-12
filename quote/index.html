@@ -277,6 +277,8 @@ footer { font-size: 13px; }
 .item .opts button { border: 1px solid var(--line) !important; background: var(--paper) !important; color: var(--muted); height: 34px; }
 .item .opts button:hover { border-color: var(--ink) !important; color: var(--ink); }
 .item .opts button[aria-pressed="true"] { background: var(--paper) !important; color: var(--ink) !important; border-color: var(--ink) !important; font-weight: 500; }
+/* 2026-11-12 規格名稱較長時換行，不要被截成「…」 */
+.item .opts button { white-space: normal; overflow: visible; text-overflow: clip; height: auto; min-height: 34px; line-height: 1.25; padding: 4px; }
 .item .foot { align-items: flex-end; }
 .item .add { border: 0 !important; background: none !important; padding: 6px 0 !important; font-size: 14px; letter-spacing: .08em; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--line); }
 .item:hover .add { text-decoration-color: var(--ink); }
@@ -522,7 +524,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   const round100 = n => Math.round(n / 100) * 100;
   const M = C.publicMenu; // 客戶看到的精簡服務清單
   const findPub = id => { for (const c of M) for (const it of c.items) if (it.id === id) return { ...it, cat: c.id }; return null; };
-  const st = { cat: M[0].id, qty: {}, opt: {}, styles: ['unsure'], plan: 'std', role: '', industry: '', revealed: true, nudge: false };
+  const st = { cat: M[0].id, qty: {}, opt: {}, styles: ['unsure'], plan: 'std', role: '', industry: '', revealed: false, nudge: false };
   // 有規格的項目：價格、單位、天數改用所選規格
   const resolve = it => {
     if (!it.options) return it;
@@ -644,8 +646,8 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
       return;
     }
     $('#send').disabled = false;
-    if (!st.revealed) { // 先藏金額：選好身分、產業後按「看試算結果」
-      const miss = [!st.role && '身分', !st.industry && '產業'].filter(Boolean);
+    if (!st.revealed) { // 先藏金額：按「看試算結果」才顯示，同時記一筆試算紀錄
+      const miss = []; // 2026-11-12 Yen：按「看試算結果」才顯示金額，不需先選身分產業
       $('#result').innerHTML = `<div class="eyebrow">YOUR ESTIMATE</div>
         <div class="range locked">選好後就能看到金額<small>已選 ${r.ls.length} 個項目</small></div>
         <ul class="picked">${r.ls.map(l => `<li><span>${esc(l.name)} × ${l.qty}</span></li>`).join('')}</ul>
