@@ -118,26 +118,26 @@ window.CATALOG = {
   // 有 options 時，卡片上可切換規格；價格、單位、天數以規格為準
   publicMenu: [
     {
-      id: 'brand', name: '品牌識別', intro: '從一個 LOGO 到整套識別',
+      id: 'brand', name: '品牌識別', intro: '從 LOGO 到整套品牌識別',
       items: [
-        { id: 'p-brand', name: '品牌識別', desc: '標誌、標準字到完整規範', options: [
-          { id: 'basic', name: 'LOGO 基本', unit: '式', price: 25000, min: 22500, max: 28700, days: 15, desc: '標誌設計' },
-          { id: 'std', name: 'LOGO 標準', unit: '式', price: 35000, min: 31500, max: 40200, days: 20, desc: '標誌＋中英標準字' },
-          { id: 'full', name: '完整識別', unit: '式', price: 60000, min: 54000, max: 69000, days: 25, desc: 'LOGO＋色彩字型＋規範手冊' }
+        { id: 'p-brand', name: '品牌識別', desc: '只做標誌，或連同標準字、規範一起做', options: [
+          { id: 'basic', name: 'LOGO 基本', unit: '式', price: 25000, min: 22500, max: 28700, days: 15, desc: '只做標誌' },
+          { id: 'std', name: 'LOGO 標準', unit: '式', price: 35000, min: 31500, max: 40200, days: 20, desc: '標誌＋中英文標準字' },
+          { id: 'full', name: '完整識別', unit: '式', price: 60000, min: 54000, max: 69000, days: 25, desc: '標誌＋標準字＋配色、字型與規範手冊' }
         ] },
         { id: 'p-card', name: '品牌延伸物', unit: '款', price: 7500, min: 6500, max: 9000, days: 10, print: true,
-          desc: '名片、吊牌、貼紙' }
+          desc: '名片、吊牌、貼紙等小物，用新 LOGO 延伸' }
       ]
     },
     {
       id: 'pkg', name: '包裝設計', intro: '依包材類型計價',
       items: [
-        { id: 'p-pkg', name: '包裝設計', print: true, desc: '用現成盒型做平面設計，新結構另報價。同系列換口味請加「延伸款」', options: [
-          { id: 'flat', name: '平面包材', unit: '款', price: 18000, min: 16000, max: 21000, days: 12, desc: '頭卡、標籤、吊卡' },
-          { id: 'box', name: '單一盒袋', unit: '款', price: 35000, min: 30000, max: 40000, days: 18, desc: '一個紙盒、立袋或罐標' },
-          { id: 'gift', name: '禮盒組合', unit: '套', price: 55000, min: 48000, max: 62000, days: 30, desc: '外盒＋內襯＋卡片等多件一起設計' }
+        { id: 'p-pkg', name: '包裝設計', print: true, desc: '套用現成盒型做平面設計，需要新結構另外報價', options: [
+          { id: 'flat', name: '平面包材', unit: '款', price: 18000, min: 16000, max: 21000, days: 12, desc: '頭卡、標籤、吊卡等單片包材' },
+          { id: 'box', name: '單一盒袋', unit: '款', price: 35000, min: 30000, max: 40000, days: 18, desc: '一個紙盒、立袋或罐子的包裝' },
+          { id: 'gift', name: '禮盒組合', unit: '套', price: 55000, min: 48000, max: 62000, days: 30, desc: '外盒、內襯、卡片等多件一起設計' }
         ] },
-        { id: 'p-variant', name: '延伸款', print: true, desc: '換口味、換顏色，約主款的 30%', options: [
+        { id: 'p-variant', name: '延伸款', print: true, desc: '同系列換口味或顏色，約主款的 3 成', options: [
           { id: 'flat', name: '平面包材', unit: '款', price: 6000, min: 5000, max: 7000, days: 3 },
           { id: 'box', name: '單一盒袋', unit: '款', price: 10000, min: 9000, max: 12000, days: 3 }
         ] }
@@ -147,13 +147,13 @@ window.CATALOG = {
       id: 'visual', name: '視覺與印刷', intro: '主視覺與各種印刷品',
       items: [
         { id: 'p-kv', name: '主視覺設計', unit: '式', price: 28000, min: 25200, max: 32200, days: 14,
-          desc: '1 款主視覺＋延伸 3 種尺寸' },
+          desc: '1 款主視覺，再延伸成 3 種尺寸' },
         { id: 'p-printed', name: '印刷品', print: true, options: [
-          { id: 'dm', name: '單頁 DM', unit: '款', price: 4000, min: 3600, max: 4600, days: 7, desc: '單張雙面，含小卡、明信片' },
+          { id: 'dm', name: '單頁 DM', unit: '款', price: 4000, min: 3600, max: 4600, days: 7, desc: '單張雙面，小卡、明信片也算這項' },
           { id: 'dm-fold', name: '摺頁 DM', unit: '款', price: 8000, min: 7200, max: 9200, days: 10, desc: '對摺或三摺' },
           { id: 'poster', name: '海報', unit: '款', price: 6500, min: 5500, max: 8000, days: 10 }
         ] },
-        { id: 'p-catalog', name: '型錄／手冊', print: true, desc: '封面＋版型＋內頁編排', options: [
+        { id: 'p-catalog', name: '型錄／手冊', print: true, desc: '封面、版型與內頁編排', options: [
           { id: 'p8', name: '8 頁', unit: '本', price: 20000, min: 18000, max: 23000, days: 15 },
           { id: 'p16', name: '16 頁', unit: '本', price: 32000, min: 28800, max: 36800, days: 20 },
           { id: 'p24', name: '24 頁', unit: '本', price: 44000, min: 39600, max: 50600, days: 25 }
@@ -164,11 +164,11 @@ window.CATALOG = {
       id: 'social', name: '社群經營', intro: 'IG、FB 的日常素材',
       items: [
         { id: 'p-post', name: '社群圖片', unit: '張', price: 1200, min: 1000, max: 1500, days: 3,
-          desc: '單張或輪播都按張數計，輪播 5 張就算 5 張' },
+          desc: '單張或輪播都按張數算，輪播 5 張就是 5 張' },
         { id: 'p-reels', name: 'Reels 短影音', unit: '支', price: 5000, min: 4500, max: 6000, days: 5,
-          desc: '15～30 秒剪輯、字幕與片頭片尾，影片素材由品牌提供' },
+          desc: '15～30 秒，含剪輯、字幕與片頭片尾；影片素材由品牌提供' },
         { id: 'p-tpl', name: '社群版型組', unit: '組', price: 12000, min: 10800, max: 13800, days: 10,
-          desc: '5 款版型，交付可編輯檔，之後可以自己換字換圖' }
+          desc: '5 款可編輯版型，之後品牌可以自己換字換圖' }
         // LINE 圖文選單 2026-11-12 Yen 決定不放
       ]
     },
@@ -176,7 +176,7 @@ window.CATALOG = {
       id: 'web', name: '網站設計', intro: '品牌官網與商品頁',
       items: [
         { id: 'p-site', name: '網站設計', options: [
-          { id: 'brand', name: '形象官網', unit: '式', price: 59000, min: 53100, max: 67800, days: 25, desc: '首頁＋3 個內頁，含建置' },
+          { id: 'brand', name: '形象官網', unit: '式', price: 59000, min: 53100, max: 67800, days: 25, desc: '首頁＋3 個內頁，含架站' },
           { id: 'long', name: '商品長頁', unit: '頁', price: 22000, min: 19800, max: 25300, days: 15 }
         ] },
         { id: 'p-page', name: '加購內頁', unit: '頁', price: 8000, min: 7200, max: 9200, days: 3,
@@ -187,11 +187,11 @@ window.CATALOG = {
       id: 'starter', name: '起步方案', intro: '剛起步的品牌，從這裡開始最划算',
       items: [
         { id: 'b-brand', name: '品牌起步組', unit: '組', price: 40000, min: 36000, max: 45000, days: 25, print: true,
-          desc: 'LOGO 基本＋1 款平面包材＋1 個延伸物' },
+          desc: 'LOGO 基本＋1 款平面包材＋1 個小物延伸' },
         { id: 'b-open', name: '開店宣傳組', unit: '組', price: 38000, min: 33000, max: 43000, days: 25, print: true,
-          desc: 'LOGO 基本＋1 個延伸物＋5 款 IG 版型（用新 LOGO 延伸，交付可編輯檔）' },
+          desc: 'LOGO 基本＋1 個小物延伸＋社群版型 5 款' },
         { id: 'b-launch', name: '新品上市組', unit: '組', price: 46000, min: 40000, max: 52000, days: 25, print: true,
-          desc: '單一盒袋包裝＋1 款延伸款＋社群貼文 3 篇' }
+          desc: '單一盒袋包裝＋1 款延伸款＋社群圖片 6 張' }
         // 品牌健檢（3,500）2026-11-12 Yen 決定先下架，等有口碑再上
       ]
     }
