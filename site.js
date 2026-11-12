@@ -603,7 +603,7 @@ async function renderWorkPage() {
   pager.setAttribute('aria-label', '其他作品');
   pager.innerHTML = `
     <a class="work-pager__prev" href="/works/${encodeURIComponent(prev.id)}"><span class="micro">← 上一件</span><b>${esc(prev.title)}</b></a>
-    <a class="work-pager__all" href="/#index"><span class="micro">所有作品</span><b>${pad(idx + 1)} / ${pad(all.length)}</b></a>
+    <a class="work-pager__all" href="/#index"><span class="micro" aria-hidden="true">&nbsp;</span><b>所有作品</b></a>
     <a class="work-pager__next" href="/works/${encodeURIComponent(next.id)}"><span class="micro">下一件 →</span><b>${esc(next.title)}</b></a>`;
   container.appendChild(pager);
 }
