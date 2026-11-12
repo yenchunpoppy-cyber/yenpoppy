@@ -406,6 +406,13 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 .item .oh { margin: 6px 0 0; font-size: 12px; color: var(--muted); }
 .item .opts button.has { background: #FFFCC2 !important; }
 .item .opts .oq { font-style: normal; font-size: 11px; margin-left: 4px; color: var(--muted); }
+
+/* 2. 英文小標規範：12px／字距 .2em；窄卡片（手機三欄方案）11px／.08em，並扣掉最後一字的字距，左右留白一致 */
+.hero .eyebrow, .result .eyebrow { letter-spacing: .2em; }
+@media (max-width: 599px) {
+  .plans .style { padding-left: 14px !important; padding-right: 14px !important; }
+  .plans .style .en { font-size: 11px !important; letter-spacing: .08em !important; margin-right: -.08em; }
+}
 </style>
 </head>
 <body>

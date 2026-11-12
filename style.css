@@ -2258,3 +2258,38 @@ body[data-page="work"] .pg-head { padding-bottom: 24px; }
 .module-wrap:has(+ .module-wrap.is-cont) .module-b { margin-bottom: 12px !important; }
 .module-wrap.is-cont .module-b { padding-top: 0 !important; margin-top: 0 !important; border-top: 0 !important; }
 .module-wrap.is-cont { margin-top: 0 !important; padding-top: 0 !important; border-top: 0 !important; }
+
+/* ===== 2026-11-12 第二輪（Yen 8 項） ===== */
+/* 1. 首頁：一排一件／一排兩件切換（只在手機出現） */
+.tf-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.tf-head .tf-label { margin: 0 0 10px; }
+.view-toggle { display: none; gap: 4px; margin: 0 0 10px; }
+.view-toggle button { width: 32px; height: 32px; display: grid; place-items: center; padding: 0; border: 1px solid transparent; background: none; color: #9A958D; cursor: pointer; }
+.view-toggle button[aria-pressed="true"] { color: var(--text-color, #000); border-color: var(--text-color, #000); }
+@media (max-width: 599px) {
+  .view-toggle { display: flex; }
+  #works-grid[data-view="2"], body[data-page="works"] #works-grid[data-view="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; column-gap: 12px !important; row-gap: 28px !important; }
+  #works-grid[data-view="2"] .work-card--feat { grid-column: span 2; }
+  #works-grid[data-view="2"] .work-card .card-title { font-size: 14px !important; }
+  #works-grid[data-view="2"] .work-card .card-caption { display: none !important; }
+}
+
+/* 3. About 手機：照片上下間距一致（標題→照片 ≈ 照片→內文） */
+@media (max-width: 760px) { .about-page.ab2 .ab2-profile__grid { gap: 34px !important; } }
+
+/* 4. 常見問題 + 改金色 */
+.ct-faq summary::after { color: var(--gold, #C5B27A); }
+
+/* 8. 獲獎照片：獎杯置中 */
+.about-page.ab2 .ab2-award__img img, .ab2-award img { object-position: 50% 70%; }
+
+/* 5. 合作流程（手機）：2×2 方格，數字＋標題＋說明 */
+@media (max-width: 599px) {
+  .q-extra__sec .ab2-steps { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 28px 20px !important; }
+  .q-extra__sec .ab2-steps li { border-top: 1px solid var(--text-color, #000) !important; padding: 14px 0 0 !important; }
+  .q-extra__sec .ab2-steps li + li::before { content: none !important; }
+  .q-extra__sec .ab2-steps__top { display: block !important; margin: 0 0 8px !important; }
+  .q-extra__sec .ab2-steps__top .ab2-big { font-size: 28px !important; }
+  .q-extra__sec .ab2-steps .ab2-h3 { display: block; font-size: 16px; }
+  .q-extra__sec .ab2-steps .ab2-desc { margin: 6px 0 0 !important; font-size: 13px !important; line-height: 1.7; }
+}
