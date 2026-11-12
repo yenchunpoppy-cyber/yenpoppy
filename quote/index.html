@@ -277,6 +277,8 @@ footer { font-size: 13px; }
 .item .opts button { border: 1px solid var(--line) !important; background: var(--paper) !important; color: var(--muted); height: 34px; }
 .item .opts button:hover { border-color: var(--ink) !important; color: var(--ink); }
 .item .opts button[aria-pressed="true"] { background: var(--paper) !important; color: var(--ink) !important; border-color: var(--ink) !important; font-weight: 500; }
+/* 2026-11-12 規格名稱較長時換行，不要被截成「…」 */
+.item .opts button { white-space: normal; overflow: visible; text-overflow: clip; height: auto; min-height: 34px; line-height: 1.25; padding: 4px; }
 .item .foot { align-items: flex-end; }
 .item .add { border: 0 !important; background: none !important; padding: 6px 0 !important; font-size: 14px; letter-spacing: .08em; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--line); }
 .item:hover .add { text-decoration-color: var(--ink); }
@@ -406,6 +408,13 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 .item .oh { margin: 6px 0 0; font-size: 12px; color: var(--muted); }
 .item .opts button.has { background: #FFFCC2 !important; }
 .item .opts .oq { font-style: normal; font-size: 11px; margin-left: 4px; color: var(--muted); }
+
+/* 2. 英文小標規範：12px／字距 .2em；窄卡片（手機三欄方案）11px／.08em，並扣掉最後一字的字距，左右留白一致 */
+.hero .eyebrow, .result .eyebrow { letter-spacing: .2em; }
+@media (max-width: 599px) {
+  .plans .style { padding-left: 14px !important; padding-right: 14px !important; }
+  .plans .style .en { font-size: 11px !important; letter-spacing: .08em !important; margin-right: -.08em; }
+}
 </style>
 </head>
 <body>
@@ -471,7 +480,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
           <div class="field full"><span class="lbl">其他需求</span>
             <div class="checks">
               <label id="aiWrap" hidden><input type="checkbox" id="needAi"> 之後想自己改字，加購可編輯檔</label>
-              <label><input type="checkbox" id="needPrint"> 需要協助印刷</label>
+              <label><input type="checkbox" id="needPrint"> 需要協助印刷（印刷費與監製費另計）</label>
               <label><input type="checkbox" id="needInvoice"> 需要開發票</label>
             </div>
             <p class="note inv-note">需要發票請洽談時告知。</p></div>
@@ -515,7 +524,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   const round100 = n => Math.round(n / 100) * 100;
   const M = C.publicMenu; // 客戶看到的精簡服務清單
   const findPub = id => { for (const c of M) for (const it of c.items) if (it.id === id) return { ...it, cat: c.id }; return null; };
-  const st = { cat: M[0].id, qty: {}, opt: {}, styles: ['unsure'], plan: 'std', role: '', industry: '', revealed: true, nudge: false };
+  const st = { cat: M[0].id, qty: {}, opt: {}, styles: ['unsure'], plan: 'std', role: '', industry: '', revealed: false, nudge: false };
   // 有規格的項目：價格、單位、天數改用所選規格
   const resolve = it => {
     if (!it.options) return it;
@@ -637,8 +646,8 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
       return;
     }
     $('#send').disabled = false;
-    if (!st.revealed) { // 先藏金額：選好身分、產業後按「看試算結果」
-      const miss = [!st.role && '身分', !st.industry && '產業'].filter(Boolean);
+    if (!st.revealed) { // 先藏金額：按「看試算結果」才顯示，同時記一筆試算紀錄
+      const miss = []; // 2026-11-12 Yen：按「看試算結果」才顯示金額，不需先選身分產業
       $('#result').innerHTML = `<div class="eyebrow">YOUR ESTIMATE</div>
         <div class="range locked">選好後就能看到金額<small>已選 ${r.ls.length} 個項目</small></div>
         <ul class="picked">${r.ls.map(l => `<li><span>${esc(l.name)} × ${l.qty}</span></li>`).join('')}</ul>
@@ -663,7 +672,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
       ${status}
       <ul class="picked">${r.ls.map(l => `<li><span>${esc(l.name)} × ${l.qty}</span><span>${Y.num(l.min * l.qty)}${l.max > l.min ? '–' + Y.num(l.max * l.qty) : ''}</span></li>`).join('')}
         ${r.ai ? `<li><span>原始檔</span><span>${Y.num(r.ai)}</span></li>` : ''}</ul>
-      <p class="note">提案 ${r.plan.proposals} 款，含 ${r.plan.revisions} 次修改，之後每次 NT$${Y.num(C.revisionFee)}。工作天不含週末，付訂並收到素材隔天起算。${$('#needPrint').checked || r.ls.some(l => l.print) ? '印刷和材料費另計。' : ''}</p>
+      <p class="note">提案 ${r.plan.proposals} 款，含 ${r.plan.revisions} 次修改，之後每次 NT$${Y.num(C.revisionFee)}。工作天不含週末，付訂並收到素材隔天起算。不含印刷、商品攝影和文案。</p>
       <a href="#h4" class="primary" style="text-decoration:none">想合作，留下聯絡方式</a>`;
     $('#mbar').innerHTML = `<span>${rng(r)}<br><small>最快 ${Y.short(r.earliest)} 完成</small></span><a href="#result">看明細</a>`;
   }
@@ -694,7 +703,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 
   const rng = r => r.hi > r.lo ? `${Y.money(r.lo)} – ${Y.num(r.hi)}` : `${Y.money(r.lo)} 起`;
   function render() { syncAi(); renderCats(); renderResult(); }
-  function syncAi() { $('#aiWrap').hidden = !Object.keys(st.qty).some(id => st.qty[id] > 0 && M.find(c => c.id === 'social').items.some(i => i.id === baseId(id))); if ($('#aiWrap').hidden) $('#needAi').checked = false; }
+  function syncAi() { $('#aiWrap').hidden = true; $('#needAi').checked = false; } // 2026-11-12 原始檔加購不在公開頁顯示（版型已含 AI 檔）
 
   // 關於你：單選，可再點一次取消
   function renderAbout() {

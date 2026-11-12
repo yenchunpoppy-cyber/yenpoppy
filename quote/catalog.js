@@ -5,7 +5,7 @@
  * 層級：分類 → 項目 → 規格（options）。有 options 的項目，價格與天數以所選規格為準。
  */
 window.CATALOG = {
-  version: '2026-11-12i', // 改價後更新，舊草稿會改用範例重新開始
+  version: '2026-11-12l', // 改價後更新，舊草稿會改用範例重新開始
   // 報價單產生器「完整細項」用；group = 清單裡的小標
   categories: [
     {
@@ -118,81 +118,77 @@ window.CATALOG = {
   // 有 options 時，卡片上可切換規格；價格、單位、天數以規格為準
   publicMenu: [
     {
-      id: 'brand', name: '品牌識別', intro: '從一個 LOGO 到整套識別',
+      id: 'brand', name: '品牌識別', intro: '從標誌加標準字，到整套品牌視覺',
       items: [
-        { id: 'p-brand', name: '品牌識別', desc: '標誌、標準字到完整規範', options: [
-          { id: 'basic', name: 'LOGO 基本', unit: '式', price: 25000, min: 22500, max: 28700, days: 15, desc: '標誌設計' },
-          { id: 'std', name: 'LOGO 標準', unit: '式', price: 35000, min: 31500, max: 40200, days: 20, desc: '標誌＋中英標準字' },
-          { id: 'full', name: '完整識別', unit: '式', price: 60000, min: 54000, max: 69000, days: 25, desc: 'LOGO＋色彩字型＋規範手冊' }
+        { id: 'p-brand', name: '品牌識別', desc: '依需要的完整程度，分成三種', options: [
+          { id: 'basic', name: 'LOGO 基本', unit: '式', price: 20000, min: 18000, max: 23000, days: 15, desc: '標誌＋標準字，可以直接使用的品牌標誌' },
+          { id: 'std', name: '品牌視覺', unit: '式', price: 35000, min: 31500, max: 40000, days: 20, desc: '主副標誌、品牌色、字體、花紋，再加 1 款名片設計，整理成 1 頁品牌視覺總覽' },
+          { id: 'full', name: '完整識別手冊', unit: '式', price: 55000, min: 49500, max: 63000, days: 25, desc: '品牌視覺的全部內容，加上使用規範與應用範例，做成完整手冊' }
         ] },
-        { id: 'p-card', name: '品牌延伸物', unit: '款', price: 7500, min: 6500, max: 9000, days: 10, print: true,
-          desc: '名片、吊牌、貼紙' }
+        { id: 'p-card', name: '名片與小物', print: true, desc: '用品牌標誌延伸設計，含印刷檔', options: [
+          { id: 'card', name: '名片', unit: '款', price: 3500, min: 3000, max: 4000, days: 5, desc: '雙面名片' },
+          { id: 'tag', name: '吊牌', unit: '款', price: 3000, min: 2700, max: 3500, days: 5, desc: '商品吊牌，正反面' },
+          { id: 'sticker', name: '貼紙', unit: '款', price: 3000, min: 2700, max: 3500, days: 5, desc: '封口貼紙或品牌貼紙' }
+        ] }
       ]
     },
     {
       id: 'pkg', name: '包裝設計', intro: '依包材類型計價',
       items: [
-        { id: 'p-pkg', name: '包裝設計', print: true, desc: '用現成盒型做平面設計，新結構另報價。同系列換口味請加「延伸款」', options: [
-          { id: 'flat', name: '平面包材', unit: '款', price: 18000, min: 16000, max: 21000, days: 12, desc: '頭卡、標籤、吊卡' },
-          { id: 'box', name: '單一盒袋', unit: '款', price: 35000, min: 30000, max: 40000, days: 18, desc: '一個紙盒、立袋或罐標' },
-          { id: 'gift', name: '禮盒組合', unit: '套', price: 55000, min: 48000, max: 62000, days: 30, desc: '外盒＋內襯＋卡片等多件一起設計' }
+        { id: 'p-pkg', name: '包裝設計', print: true, desc: '套用印刷廠的現成盒型做平面設計和完稿，需要新結構另外報價', options: [
+          { id: 'flat', name: '平面包材', unit: '款', price: 15000, min: 13500, max: 17500, days: 12, desc: '頭卡、標籤、吊卡等單片包材' },
+          { id: 'box', name: '單一盒袋', unit: '款', price: 35000, min: 30000, max: 40000, days: 18, desc: '一個紙盒、立袋或罐子的包裝，含 3D 示意圖' },
+          { id: 'gift', name: '禮盒組合', unit: '套', price: 55000, min: 48000, max: 62000, days: 30, desc: '外盒、手提袋、貼紙、小卡一起設計，含 3D 示意圖' }
         ] },
-        { id: 'p-variant', name: '延伸款', print: true, desc: '換口味、換顏色，約主款的 30%', options: [
+        { id: 'p-variant', name: '延伸款', print: true, desc: '同系列換口味或顏色，約主款的 3 成', options: [
           { id: 'flat', name: '平面包材', unit: '款', price: 6000, min: 5000, max: 7000, days: 3 },
           { id: 'box', name: '單一盒袋', unit: '款', price: 10000, min: 9000, max: 12000, days: 3 }
         ] }
       ]
     },
     {
-      id: 'visual', name: '視覺與印刷', intro: '主視覺與各種印刷品',
+      id: 'visual', name: '視覺與印刷', intro: '主視覺與常用印刷品',
       items: [
-        { id: 'p-kv', name: '主視覺設計', unit: '式', price: 28000, min: 25200, max: 32200, days: 14,
-          desc: '1 款主視覺＋延伸 3 種尺寸' },
-        { id: 'p-printed', name: '印刷品', print: true, options: [
-          { id: 'dm', name: '單頁 DM', unit: '款', price: 4000, min: 3600, max: 4600, days: 7, desc: '單張雙面，含小卡、明信片' },
-          { id: 'dm-fold', name: '摺頁 DM', unit: '款', price: 8000, min: 7200, max: 9200, days: 10, desc: '對摺或三摺' },
-          { id: 'poster', name: '海報', unit: '款', price: 6500, min: 5500, max: 8000, days: 10 }
-        ] },
-        { id: 'p-catalog', name: '型錄／手冊', print: true, desc: '封面＋版型＋內頁編排', options: [
-          { id: 'p8', name: '8 頁', unit: '本', price: 20000, min: 18000, max: 23000, days: 15 },
-          { id: 'p16', name: '16 頁', unit: '本', price: 32000, min: 28800, max: 36800, days: 20 },
-          { id: 'p24', name: '24 頁', unit: '本', price: 44000, min: 39600, max: 50600, days: 25 }
-        ] }
+        { id: 'p-kv', name: '主視覺設計', unit: '式', price: 22000, min: 19800, max: 25300, days: 14,
+          desc: '1 款主視覺，再延伸成社群與電商用的 3 種尺寸' },
+        { id: 'p-printed', name: '小卡／DM', unit: '款', price: 3500, min: 3000, max: 4000, days: 7, print: true,
+          desc: '單張雙面，出貨小卡、明信片、單頁 DM 都算這項' },
+        { id: 'p-catalog', name: '型錄（8 頁）', unit: '本', price: 20000, min: 18000, max: 23000, days: 15, print: true,
+          desc: '封面、版型與內頁編排' }
+        // 摺頁 DM、海報、型錄 16/24 頁 2026-11-12 Yen 決定不放（主要客群少用，有需要另外報價）
       ]
     },
     {
-      id: 'social', name: '社群經營', intro: 'IG、FB、LINE 的日常素材',
+      id: 'social', name: '社群經營', intro: 'IG、FB 的日常素材',
       items: [
-        { id: 'p-post', name: '社群貼文', desc: '每篇封面＋內頁 3 張', options: [
-          { id: 'one', name: '單篇', unit: '篇', price: 4200, min: 3500, max: 5000, days: 5 },
-          { id: 'month', name: '月包 8 篇', unit: '月', price: 27000, min: 24000, max: 30000, days: 20, desc: '每月固定排程' }
-        ] },
-        { id: 'p-line', name: 'LINE 圖文選單', unit: '款', price: 5000, min: 4000, max: 6000, days: 7,
-          desc: 'LINE 官方帳號下方的選單圖' }
+        { id: 'p-post', name: '社群圖片', unit: '張', price: 1200, min: 1000, max: 1500, days: 3,
+          desc: '單張或輪播都按張數算，輪播 5 張就是 5 張' },
+        { id: 'p-reels', name: 'Reels 短影音', unit: '支', price: 5000, min: 4500, max: 6000, days: 5,
+          desc: '15～30 秒，含剪輯、字幕與片頭片尾；影片素材由品牌提供' },
+        { id: 'p-tpl', name: '社群版型組', unit: '組', price: 12000, min: 10800, max: 13800, days: 10,
+          desc: '5 款版型，交付 AI 檔，之後品牌可以自己換字換圖' }
+        // LINE 圖文選單 2026-11-12 Yen 決定不放
       ]
     },
     {
-      id: 'web', name: '網站設計', intro: '品牌官網與商品頁',
+      id: 'web', name: '商品頁', intro: '一頁式的商品介紹',
       items: [
-        { id: 'p-site', name: '網站設計', options: [
-          { id: 'brand', name: '形象官網', unit: '式', price: 59000, min: 53100, max: 67800, days: 25, desc: '首頁＋3 個內頁，含建置' },
-          { id: 'long', name: '商品長頁', unit: '頁', price: 22000, min: 19800, max: 25300, days: 15 }
-        ] },
-        { id: 'p-page', name: '加購內頁', unit: '頁', price: 8000, min: 7200, max: 9200, days: 3,
-          desc: '頁面不夠時，每多一頁加購' }
+        { id: 'p-long', name: '商品長頁', unit: '頁', price: 22000, min: 19800, max: 25300, days: 15,
+          desc: '一頁說清楚商品，放在官網或電商平台的商品介紹' }
+        // 形象官網、加購內頁 2026-11-12 Yen 決定不放（小品牌多用平台架站）
       ]
     },
     {
-      id: 'starter', name: '起步方案', intro: '剛起步的品牌，從這裡開始最划算',
+      id: 'starter', name: '組合方案', intro: '依品牌現在的階段選，前期工作共用，比單買划算',
       items: [
-        { id: 'b-brand', name: '品牌起步組', unit: '組', price: 40000, min: 36000, max: 45000, days: 25, print: true,
-          desc: 'LOGO 基本＋1 款平面包材＋1 個延伸物' },
-        { id: 'b-open', name: '開店宣傳組', unit: '組', price: 38000, min: 33000, max: 43000, days: 25, print: true,
-          desc: 'LOGO 基本＋1 個延伸物＋5 款 IG 版型（用新 LOGO 延伸，交付可編輯檔）' },
-        { id: 'b-launch', name: '新品上市組', unit: '組', price: 46000, min: 40000, max: 52000, days: 25, print: true,
-          desc: '單一盒袋包裝＋1 款延伸款＋社群貼文 3 篇' },
-        { id: 'b-check', name: '品牌健檢', unit: '次', price: 3500, min: 3500, max: 3500, days: 5, fixed: true,
-          desc: '線上聊 1 小時，給你一份改善建議' }
+        { id: 'b-pack', name: 'LOGO＋包裝組', unit: '組', price: 48000, min: 48000, max: 48000, fixed: true, days: 30, print: true,
+          desc: '要創立品牌、同時推出第一項商品。LOGO 基本＋主色與字體設定＋單一盒袋包裝 1 款（含 3D 示意圖）' },
+        { id: 'b-launch', name: '新品上市組', unit: '組', price: 46000, min: 46000, max: 46000, fixed: true, days: 25, print: true,
+          desc: '已經有品牌、要推出新品。單一盒袋包裝＋1 款延伸款＋上市社群圖片 6 張' },
+        { id: 'b-holiday', name: '節慶限定企劃組', unit: '組', price: 75000, min: 75000, max: 75000, fixed: true, days: 35, print: true,
+          desc: '中秋、年節或週年禮盒。節慶主視覺＋禮盒（外盒、手提袋、封口貼紙、小卡）＋社群圖片 6 張' }
+        // 品牌起步組、開店宣傳組 2026-11-12 拿掉（新品牌入口改由 LOGO 三種方案負責）
+        // 品牌健檢（3,500）2026-11-12 Yen 決定先下架，等有口碑再上
       ]
     }
   ],
@@ -216,19 +212,19 @@ window.CATALOG = {
   // 客戶估價頁的風格選項：可複選 2 種搭配，倍率取兩者中較高的區間 [低, 高]
   // 風格本身不分貴賤；只有原創插畫因為工時多，區間較高
   styles: [
-    { id: 'minimal', name: '極簡現代', en: 'MINIMAL', level: 1, rate: [1, 1.1],
+    { id: 'minimal', name: '極簡現代', en: 'MINIMAL', level: 1, rate: [1, 1],
       desc: '留白多、配色少', eg: '科技、顧問、精品品牌' },
-    { id: 'soft', name: '柔和自然', en: 'SOFT', level: 2, rate: [1, 1.1],
+    { id: 'soft', name: '柔和自然', en: 'SOFT', level: 2, rate: [1, 1],
       desc: '柔和低飽和', eg: '咖啡、保養、生活風格品牌' },
-    { id: 'vintage', name: '復古經典', en: 'VINTAGE', level: 2, rate: [1, 1.1],
+    { id: 'vintage', name: '復古經典', en: 'VINTAGE', level: 2, rate: [1, 1],
       desc: '年代感與紋理', eg: '老字號、餐飲、文創商品' },
-    { id: 'luxe', name: '典雅精緻', en: 'LUXURY', level: 3, rate: [1, 1.1],
+    { id: 'luxe', name: '典雅精緻', en: 'LUXURY', level: 3, rate: [1, 1],
       desc: '紋樣與燙金', eg: '禮盒、婚禮、高單價商品' },
-    { id: 'playful', name: '活潑親和', en: 'PLAYFUL', level: 3, rate: [1, 1.1],
+    { id: 'playful', name: '活潑親和', en: 'PLAYFUL', level: 3, rate: [1, 1],
       desc: '明亮又親近', eg: '零食、親子、年輕品牌' },
     { id: 'illus', name: '插畫手繪', en: 'ILLUSTRATION', level: 4, rate: [1.3, 1.6],
       desc: '原創插畫，費用較高', eg: '插畫包裝、角色、插畫主視覺' },
-    { id: 'unsure', name: '還不確定', en: 'NOT SURE', level: 0, rate: [1, 1.15],
+    { id: 'unsure', name: '還不確定', en: 'NOT SURE', level: 0, rate: [1, 1],
       desc: '上傳參考圖，再一起找', eg: '' }
   ],
 

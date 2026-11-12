@@ -2210,3 +2210,106 @@ body[data-page="work"] .pg-head { padding-bottom: 24px; }
   .work-pager a .micro { flex: none; width: 76px; white-space: nowrap; letter-spacing: .12em; }
   .work-pager a b { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; letter-spacing: .04em; }
 }
+
+/* ═══ 2026-11-12 第一階段修正 ═══ */
+/* 上一件／所有作品／下一件 */
+.work-pager { grid-template-columns: 1fr auto 1fr !important; align-items: start !important; }
+.work-pager .micro { font-size: 13px; letter-spacing: .08em; color: var(--sub-color, #6b6b6b); }
+.work-pager a b { font-size: 15px; line-height: 1.5; }
+.work-pager__all { text-align: center; justify-items: center; }
+.work-pager__all b { font-family: var(--font-title); font-size: 13px !important; letter-spacing: .12em; color: #8a8a8a; }
+@media (max-width: 767px) {
+  .work-pager { grid-template-columns: 1fr 1fr !important; row-gap: 20px; }
+  .work-pager__all { grid-column: 1 / -1; grid-row: 2; padding-top: 16px; border-top: 1px solid rgba(0,0,0,.08); }
+  .work-pager > .micro { display: none; }
+}
+/* 回到頂部 */
+.to-top { position: fixed; right: 20px; bottom: 24px; z-index: 50; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #000; background: rgba(252,253,254,.92); color: #000; font-size: 18px; line-height: 1; cursor: pointer; opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity .25s ease, transform .25s ease; }
+.to-top.is-on { opacity: 1; pointer-events: auto; transform: none; }
+.to-top:hover { background: #000; color: #fff; }
+@media (max-width: 599px) { .to-top { right: 16px; bottom: 16px; width: 40px; height: 40px; } }
+/* 手機頁首縮小（仍是往下捲隱藏、往上捲出現） */
+@media (max-width: 599px) {
+  #site-header { height: 64px; }
+  .header-logo { gap: 10px; padding-top: 12px; }
+  .header-logo img.logo-mark { height: 52px; }
+  .header-logo img.logo-wordmark { height: 14px !important; }
+}
+@media (max-width: 599px) {
+  .work-pager { grid-template-columns: 1fr 1fr !important; gap: 20px 16px !important; padding: 24px 0 8px !important; }
+  .work-pager a { display: grid; gap: 6px; padding: 0; border-bottom: 0; }
+  .work-pager a .micro { width: auto; }
+  .work-pager a b { white-space: normal; overflow: visible; font-size: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .work-pager__prev { text-align: left; justify-items: start; }
+  .work-pager__next { text-align: right !important; justify-items: end !important; }
+  .work-pager__all { justify-items: center !important; text-align: center !important; }
+}
+/* 同列等高不裁切（module_b justify）：每列一組，手機也維持同一列 */
+.module-b__grid.is-justify { display: flex !important; flex-wrap: nowrap; gap: var(--gap, 12px); column-count: auto !important; align-items: flex-start; }
+.module-b__grid.is-justify .img-wrap { min-width: 0; margin: 0 !important; }
+.module-b__grid.is-justify img { width: 100% !important; height: auto; max-width: none !important; }
+/* 手機首頁作品：單欄一件一件，顯示副標 */
+@media (max-width: 599px) {
+  #works-grid, body[data-page="works"] #works-grid { grid-template-columns: 1fr !important; row-gap: 40px !important; }
+  #works-grid .work-card--feat { grid-column: auto; }
+  #works-grid .work-card .card-title { font-size: 16px !important; white-space: normal; }
+  #works-grid .work-card .card-caption { display: block !important; font-size: 13px !important; white-space: normal; }
+}
+.module-wrap:has(+ .module-wrap.is-cont) .module-b { margin-bottom: 12px !important; }
+.module-wrap.is-cont .module-b { padding-top: 0 !important; margin-top: 0 !important; border-top: 0 !important; }
+.module-wrap.is-cont { margin-top: 0 !important; padding-top: 0 !important; border-top: 0 !important; }
+
+/* ===== 2026-11-12 第二輪（Yen 8 項） ===== */
+/* 1. 首頁：一排一件／一排兩件切換（只在手機出現） */
+.tf-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.tf-head .tf-label { margin: 0 0 10px; }
+.view-toggle { display: none; align-items: center; margin: 0 0 10px; }
+.view-toggle button { padding: 8px 0; margin: -8px 0; border: 0; background: none; font: inherit; font-size: var(--fs-micro, 12px); letter-spacing: .2em; color: #A8A39B; cursor: pointer; }
+.view-toggle button + button::before { content: '／'; margin: 0 6px 0 4px; color: #C9C5BE; letter-spacing: 0; }
+.view-toggle button[aria-pressed="true"] { color: #000; }
+@media (max-width: 599px) {
+  .view-toggle { display: flex; }
+  #works-grid[data-view="2"], body[data-page="works"] #works-grid[data-view="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; column-gap: 12px !important; row-gap: 28px !important; }
+  #works-grid[data-view="2"] .work-card--feat { grid-column: span 2; }
+  #works-grid[data-view="2"] .work-card .card-title { font-size: 14px !important; }
+  #works-grid[data-view="2"] .work-card .card-caption { display: none !important; }
+}
+
+/* 3. About 手機：照片上下間距一致（標題→照片 ≈ 照片→內文） */
+@media (max-width: 760px) { .about-page.ab2 .ab2-profile__grid { gap: 34px !important; } }
+
+/* 4. 常見問題 + 改金色 */
+.ct-faq summary::after { color: var(--gold, #C5B27A); }
+
+/* 8. 獲獎照片：獎杯置中 */
+.about-page.ab2 .ab2-award__img img, .ab2-award img { object-position: 50% 70%; }
+
+/* 5. 合作流程（手機）：2×2 方格，數字＋標題＋說明 */
+@media (max-width: 599px) {
+  .q-extra__sec .ab2-steps { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 28px 20px !important; }
+  .q-extra__sec .ab2-steps li { border-top: 1px solid var(--text-color, #000) !important; padding: 14px 0 0 !important; }
+  .q-extra__sec .ab2-steps li + li::before { content: none !important; }
+  .q-extra__sec .ab2-steps__top { display: block !important; margin: 0 0 8px !important; }
+  .q-extra__sec .ab2-steps__top .ab2-big { font-size: 28px !important; }
+  .q-extra__sec .ab2-steps .ab2-h3 { display: block; font-size: 16px; }
+  .q-extra__sec .ab2-steps .ab2-desc { margin: 6px 0 0 !important; font-size: 13px !important; line-height: 1.7; }
+}
+/* 首頁篩選（手機）：ALL 佔左側兩列＋四類 2×2，左右對齊、不留缺角 */
+@media (max-width: 599px) {
+  .tag-filter { display: grid !important; grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1fr); gap: 8px !important; overflow: visible !important; margin-right: 0 !important; padding-right: 0 !important; }
+  .tag-filter button { width: 100%; padding: 10px 4px !important; display: flex; align-items: center; justify-content: center; gap: 4px; white-space: nowrap; font-size: 12px !important; letter-spacing: .08em !important; }
+  .tag-filter button:first-child { grid-row: span 2; }
+}
+@media (max-width: 380px) { .tag-filter { grid-template-columns: 52px minmax(0, 1fr) minmax(0, 1fr) !important; gap: 6px !important; } .tag-filter button { font-size: 11px !important; letter-spacing: .04em !important; } }
+
+/* 首頁卡片封面影片（works.json thumbnailVideo） */
+.work-card .card-video { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #111; }
+.work-card .card-video { transition: transform .22s ease, box-shadow .22s ease; } .work-card:hover .card-video { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+.about-page.ab2 .ab2-marquee + .ab2-marquee { margin-top: 12px; }
+
+/* 2026-11-12 手機版標準字放大一點（Yen） */
+@media (max-width: 599px) { .header-logo img.logo-wordmark { height: 17px !important; } }
+/* 聖母基金會 logo 很扁，給它較寬的位置，視覺大小跟其他品牌接近（Yen 2026-11-12） */
+.about-page.ab2 .ab2-marquee .ab2-logos li:has(img[src*="holy-mother"]) { width: 290px !important; }
+.about-page.ab2 .ab2-logos li img[src*="holy-mother"] { width: 100% !important; height: auto !important; max-height: none !important; }
+@media (max-width: 599px) { .about-page.ab2 .ab2-marquee .ab2-logos li:has(img[src*="holy-mother"]) { width: 212px !important; } }

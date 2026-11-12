@@ -294,7 +294,34 @@ async function renderWorksGrid() {
     const lbl = document.createElement('p');
     lbl.className = 'tf-label';
     lbl.textContent = '依類別篩選';
-    grid.parentElement.insertBefore(lbl, grid);
+    // 手機：一排一件／一排兩件 切換（記住選擇）
+    const head = document.createElement('div');
+    head.className = 'tf-head';
+    head.appendChild(lbl);
+    const vt = document.createElement('div');
+    vt.className = 'view-toggle';
+    vt.setAttribute('role', 'group');
+    vt.setAttribute('aria-label', '作品排列方式');
+    let view = '1';
+    try { view = localStorage.getItem('yp-view') === '2' ? '2' : '1'; } catch (e) {}
+    const setView = v => {
+      view = v;
+      grid.dataset.view = v;
+      vt.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === v ? 'true' : 'false'));
+      try { localStorage.setItem('yp-view', v); } catch (e) {}
+    };
+    ['1', '2'].forEach(v => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.dataset.view = v;
+      b.textContent = v === '1' ? '單欄' : '雙欄';
+      b.setAttribute('aria-label', v === '1' ? '一排一件' : '一排兩件');
+      b.addEventListener('click', () => setView(v));
+      vt.appendChild(b);
+    });
+    head.appendChild(vt);
+    setView(view);
+    grid.parentElement.insertBefore(head, grid);
     grid.parentElement.insertBefore(bar, grid);
   }
 
@@ -368,7 +395,18 @@ function createWorkCard(work) {
 
   const imgAlt = work.thumbnailAlt || work.title;
 
-  if (work.thumbnail) {
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (work.thumbnailVideo && !reduceMotion) {
+    // 封面影片：靜音自動循環播放，載入前先顯示封面圖
+    const v = document.createElement('video');
+    v.className = 'card-video';
+    v.src = fixImgUrl(work.thumbnailVideo);
+    if (work.thumbnail) v.poster = fixImgUrl(work.thumbnail);
+    v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true;
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-label', imgAlt);
+    v.preload = 'metadata';
+    card.appendChild(v);
+  } else if (work.thumbnail) {
     const img = document.createElement('img');
     img.src = fixImgUrl(work.thumbnail);
     img.alt = imgAlt;
@@ -541,7 +579,7 @@ async function renderWorkPage() {
   // 閱讀順序：標題副標 → 主圖 → 概念文字 → 作品圖 → 專案資訊（客戶／合作團隊／年份／網站）
   const mods = (work.modules || []).slice();
   const first = mods[0];
-  if (first && first.type === 'module_a' && (first.images || []).length) {
+  if (first && first.type === 'module_a' && (first.images || []).length && (first.body || '').trim()) {
     mods.splice(0, 1,
       { type: 'module_b', columns: '1', gutter: 'default', bg: '', images: first.images, isHero: true },
       Object.assign({}, first, { images: [], columns: '0' }));
@@ -564,9 +602,9 @@ async function renderWorkPage() {
   pager.className = 'work-pager';
   pager.setAttribute('aria-label', '其他作品');
   pager.innerHTML = `
-    <a class="work-pager__prev" href="/works/${encodeURIComponent(prev.id)}"><span class="micro">[ PREV ]</span><b>${esc(prev.title)}</b></a>
-    <span class="micro">( ${pad(idx + 1)} / ${pad(all.length)} )</span>
-    <a class="work-pager__next" href="/works/${encodeURIComponent(next.id)}"><span class="micro">[ NEXT ]</span><b>${esc(next.title)}</b></a>`;
+    <a class="work-pager__prev" href="/works/${encodeURIComponent(prev.id)}"><span class="micro">← 上一件</span><b>${esc(prev.title)}</b></a>
+    <a class="work-pager__all" href="/#index"><span class="micro" aria-hidden="true">&nbsp;</span><b>所有作品</b></a>
+    <a class="work-pager__next" href="/works/${encodeURIComponent(next.id)}"><span class="micro">下一件 →</span><b>${esc(next.title)}</b></a>`;
   container.appendChild(pager);
 }
 
@@ -758,10 +796,13 @@ function renderModuleB(mod, settings, pageBg) {
   grid.dataset.gap = gutter;
   if (mod.rows) grid.classList.add('is-rows');  // 依列排序（相簿跨頁要照頁序）
   if (mod.crop) grid.classList.add('is-crop');  // 同列照片裁成一致比例，高度對齊
+  if (mod.justify) grid.classList.add('is-justify');
+  if (mod.justify && !mod.headline) wrap.classList.add('is-cont');  // 接續上一段的同組圖，間距縮小  // 同列等高、不裁切：寬度依圖片比例分配（圖需有 r＝寬/高）
 
   images.forEach(imgData => {
     const imgWrap = document.createElement('div');
     imgWrap.className = 'img-wrap';
+    if (mod.justify && imgData.r) imgWrap.style.flex = `${imgData.r} 1 0`;
     if (imgData.src || imgData.youtube) {
       imgWrap.appendChild(mediaEl(imgData));
     }
@@ -914,13 +955,13 @@ async function renderAboutPage() {
     ${brands.length ? `<section class="ab2-sec">
       ${head('BRANDS &amp; PROJECTS', '參與品牌與專案', d.brandsTitle, d.brandsDesc)}
       ${(d.brandsIndustries || []).length ? `<ul class="ab2-ind" aria-label="合作產業">${d.brandsIndustries.map(t => `<li><mark>${escHTML(t)}</mark></li>`).join('')}</ul>` : ''}
-      <div class="ab2-marquee"><ul class="ab2-logos">${brands.map(c => {
+      ${(window.matchMedia('(max-width: 599px)').matches ? [brands.slice(0, Math.ceil(brands.length / 2)), brands.slice(Math.ceil(brands.length / 2))] : [brands]).map((row, ri) => `<div class="ab2-marquee"${ri ? ' data-dir="-1"' : ''}><ul class="ab2-logos">${row.map(c => {
         const w = byId(c.work);
         const z = c.scale ? ` style="--z:${Number(c.scale) || 1}"` : '';
         const img = c.logo ? `<span class="lg"><img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" title="${escHTML(c.name)}" loading="lazy"${z}>${c.logoColor ? `<img class="lg-c" src="${escHTML(fixImgUrl(c.logoColor))}" alt="" aria-hidden="true" loading="lazy">` : ''}</span>` : `<b>${escHTML(c.name)}</b>`;
         return `<li>${w ? `<a href="/works/${encodeURIComponent(w.id)}" aria-label="${escHTML(c.name)}：${escHTML(w.title)}">${img}</a>` : img}</li>`;
       }).join('')}
-      </ul></div>
+      </ul></div>`).join('')}
       ${d.brandsNote ? `<p class="ab2-caption">${escHTML(d.brandsNote)}</p>` : ''}
     </section>` : ''}
 
@@ -1256,8 +1297,10 @@ async function renderQuoteExtras() {
 
 // About 合作品牌：一整排自動左右輪播、輪流亮起（滑鼠移上暫停）
 function initLogoMarquee() {
-  const box = document.querySelector('.ab2-marquee');
-  if (!box || box.dataset.ready) return;
+  document.querySelectorAll('.ab2-marquee:not([data-ready])').forEach(initOneMarquee);
+}
+function initOneMarquee(box) {
+  const dir = box.dataset.dir === '-1' ? -1 : 1;  // 第二排反方向
   box.dataset.ready = '1';
   const ul = box.querySelector('.ab2-logos');
   const copy = ul.cloneNode(true);
@@ -1278,8 +1321,9 @@ function initLogoMarquee() {
     const dt = Math.min(64, now - last); last = now;
     const w = ul.offsetWidth;
     if (w && !hover && now > hold) {
-      pos += w / 70000 * dt;
+      pos += dir * w / 70000 * dt;
       if (pos >= w) pos -= w;
+      if (pos < 0) pos += w;
       box.scrollLeft = pos;
     } else if (w && box.scrollLeft >= w) { pos = box.scrollLeft - w; box.scrollLeft = pos; }
     const r = box.getBoundingClientRect();
@@ -1299,3 +1343,39 @@ new MutationObserver(() => initLogoMarquee()).observe(document.documentElement, 
 function clauses(html) {
   return String(html).split(/(?<=[，、；：])/).map(t => `<span class="clause">${t}</span>`).join('');
 }
+
+// 回到頂部：往下捲超過 1.5 個畫面才出現
+(function () {
+  const btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'to-top'; btn.setAttribute('aria-label', '回到頂部'); btn.textContent = '↑';
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
+  const add = () => { document.body.appendChild(btn); onScroll(); };
+  let on = false;
+  function onScroll() { const v = window.scrollY > window.innerHeight * 1.5; if (v !== on) { on = v; btn.classList.toggle('is-on', v); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  if (document.body) add(); else document.addEventListener('DOMContentLoaded', add);
+})();
+
+// 瀏覽紀錄（2026-11-12 Yen）：記下每個頁面實際看了幾秒，送到收件程式的「瀏覽紀錄」分頁。
+// 只算畫面在前景的時間；停留不到 10 秒的不記（多半是亂點或滑過）。
+// settings.json 的 trackViews 要設成 true 才會開始送（收件程式要先更新，不然會記到試算紀錄裡）。
+(function () {
+  if (/^(localhost|127\.)/.test(location.hostname)) return;
+  let visible = document.visibilityState === 'visible' ? Date.now() : 0, total = 0, sent = false, ep = '';
+  fetch('/data/settings.json').then(r => r.json()).then(s => { if (s.trackViews && s.formEndpoint) ep = s.formEndpoint; }).catch(() => {});
+  const pause = () => { if (visible) { total += Date.now() - visible; visible = 0; } };
+  const send = () => {
+    pause();
+    const sec = Math.round(total / 1000);
+    if (sent || !ep || sec < 10) return;
+    sent = true;
+    const data = JSON.stringify({ type: 'view', path: location.pathname + location.search, title: document.title, sec,
+      ref: document.referrer ? new URL(document.referrer).hostname : '', mobile: matchMedia('(max-width: 599px)').matches });
+    try { navigator.sendBeacon(ep, new Blob([data], { type: 'text/plain' })); } catch (e) {}
+  };
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') { if (!visible) visible = Date.now(); }
+    else { send(); sent = false; total = 0; } // 切回來後重新計時，下次離開再記一筆
+  });
+  window.addEventListener('pagehide', send);
+})();
