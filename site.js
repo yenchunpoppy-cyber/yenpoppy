@@ -393,7 +393,12 @@ function createWorkCard(work) {
   if (capText) {
     const cap = document.createElement('div');
     cap.className = 'card-caption';
-    cap.textContent = capText;
+    const parts = String(capText).split('｜');
+    if (parts.length > 1) {  // 手機只顯示「做了什麼」，桌機顯示全部
+      const a = document.createElement('span'); a.className = 'cap-a'; a.textContent = parts[0] + '｜';
+      const b = document.createElement('span'); b.className = 'cap-b'; b.textContent = parts.slice(1).join('｜');
+      cap.append(a, b);
+    } else cap.textContent = capText;
     card.appendChild(cap);
   }
   if ((work.tags || []).length) {
