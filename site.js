@@ -535,7 +535,7 @@ async function renderWorkPage() {
     en: `<a href="/#index">← 所有作品</a>`,
     title: work.title,
     lead: work.subtitle || work.caption || '',
-    extra: (work.description ? `<p class="wk-tagline">${esc(work.description)}</p>` : '') +
+    extra: (work.description && !/[\u4e00-\u9fff]/.test(work.description) ? `<p class="wk-tagline">${esc(work.description)}</p>` : '') +
       (metaRows.length ? `<dl class="wk-meta">${metaRows.join('')}</dl>` : ''),
   });
   container.appendChild(header);
