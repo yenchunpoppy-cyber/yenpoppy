@@ -2150,3 +2150,8 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
 
 /* 2026-11-12 Yen：H3 標題太粗，改 400 */
 .about-page.ab2 .ab2-h3, .about-page.ab2 .ab2-chrono .ab2-h3 { font-weight: 400; }
+
+/* 2026-11-12 首頁定位一行＋起步方案連結 */
+.hm2__link { display: inline-block; margin-top: 12px; font-size: 14px; letter-spacing: .06em; color: var(--text-color, #000); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+.hm2__link:hover { background: #FFFCC2; }
+@media (max-width: 599px) { .hm2__link { font-size: 13px; padding: 12px 0 2px; } }

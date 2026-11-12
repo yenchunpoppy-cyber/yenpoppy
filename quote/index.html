@@ -802,6 +802,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
 
   // 範例：先放主打的 LOGO 設計，讓訪客一進來就看到試算長什麼樣子
   st.cat = 'brand';
+  { const c = new URLSearchParams(location.search).get('cat'); if (c && M.some(m => m.id === c)) st.cat = c; }
   // 手機版：試算結果放在聯絡表單之前，桌機放右側欄
   const mqMobile = matchMedia('(max-width: 920px)');
   const placeResult = () => (mqMobile.matches ? $('#resultSlot') : $('.layout')).appendChild($('#result'));

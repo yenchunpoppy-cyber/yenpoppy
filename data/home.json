@@ -35,7 +35,9 @@
     "yenchunpoppy@gmail.com"
   ],
   "heroLine": "好點子，值得被好好實現。",
-  "heroIntro": [],
+  "heroIntro": [
+    "品牌、包裝、社群到網站，從第一個 LOGO 到上架，一起完成。"
+  ],
   "ctaTitle": "你的品牌，最近有什麼新想法嗎？",
   "ctaText": "不論只是一個模糊的念頭，還是已經有明確的方向，都可以從這裡開始。",
   "ctaButton": "和我聊聊",
@@ -43,5 +45,9 @@
     "sing-to-the-moon",
     "et-seq-nail",
     "disney-princess"
-  ]
+  ],
+  "heroLink": {
+    "text": "剛起步的品牌？看起步方案 →",
+    "href": "/quote/?cat=starter#h1"
+  }
 }
