@@ -5,7 +5,7 @@
  * 層級：分類 → 項目 → 規格（options）。有 options 的項目，價格與天數以所選規格為準。
  */
 window.CATALOG = {
-  version: '2026-11-12h', // 改價後更新，舊草稿會改用範例重新開始
+  version: '2026-11-12i', // 改價後更新，舊草稿會改用範例重新開始
   // 報價單產生器「完整細項」用；group = 清單裡的小標
   categories: [
     {
@@ -187,12 +187,10 @@ window.CATALOG = {
       items: [
         { id: 'b-brand', name: '品牌起步組', unit: '組', price: 40000, min: 36000, max: 45000, days: 25, print: true,
           desc: 'LOGO 基本＋1 款平面包材＋1 個延伸物' },
-        { id: 'b-open', name: '開店宣傳組', unit: '組', price: 36000, min: 32000, max: 40000, days: 20, print: true,
-          desc: 'LOGO 基本＋1 個延伸物＋社群貼文 3 篇' },
+        { id: 'b-open', name: '開店宣傳組', unit: '組', price: 38000, min: 33000, max: 43000, days: 25, print: true,
+          desc: 'LOGO 基本＋1 個延伸物＋5 款 IG 版型（用新 LOGO 延伸，交付可編輯檔）' },
         { id: 'b-launch', name: '新品上市組', unit: '組', price: 46000, min: 40000, max: 52000, days: 25, print: true,
           desc: '單一盒袋包裝＋1 款延伸款＋社群貼文 3 篇' },
-        { id: 'b-template', name: '社群模板組', unit: '組', price: 14000, min: 12000, max: 16000, days: 10,
-          desc: '5 款 IG 版型，交付可編輯檔，之後自己換字換圖' },
         { id: 'b-check', name: '品牌健檢', unit: '次', price: 3500, min: 3500, max: 3500, days: 5, fixed: true,
           desc: '線上聊 1 小時，給你一份改善建議' }
       ]
