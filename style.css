@@ -2161,3 +2161,6 @@ body[data-page="works"] #works-grid .work-card .card-title { margin-top: 14px; }
   .work-card .card-caption { display: -webkit-box !important; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden !important; font-size: 12px !important; line-height: 1.5; letter-spacing: .02em; margin-top: 4px; padding: 0 4px; }
   .work-card .card-caption .cap-a { display: none; }
 }
+.hm2__sub { margin: 10px 0 0; font-size: 15px; line-height: 1.7; letter-spacing: .06em; color: #4A4A4A; }
+.hm2__sub + .hm2__link { margin-top: 10px; }
+@media (max-width: 599px) { .hm2__sub { font-size: 14px; } }

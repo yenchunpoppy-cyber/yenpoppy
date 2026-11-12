@@ -1,6 +1,6 @@
 {
   "heroTitle": "",
-  "heroSub": "",
+  "heroSub": "從 LOGO、包裝到上架，陪品牌把商品做出來。",
   "heroYears": "2013 — 2026",
   "heroImages": [],
   "selected": [
@@ -36,7 +36,7 @@
   ],
   "heroLine": "好點子，值得被好好實現。",
   "heroIntro": [
-    "品牌、包裝、社群到網站，從第一個 LOGO 到上架，一起完成。"
+    "好點子，值得被好好實現。"
   ],
   "ctaTitle": "你的品牌，最近有什麼新想法嗎？",
   "ctaText": "不論只是一個模糊的念頭，還是已經有明確的方向，都可以從這裡開始。",
@@ -47,7 +47,7 @@
     "disney-princess"
   ],
   "heroLink": {
-    "text": "剛起步的品牌？看起步方案 →",
+    "text": "看起步方案 →",
     "href": "/quote/?cat=starter#h1"
   }
 }
