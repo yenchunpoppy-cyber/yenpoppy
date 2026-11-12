@@ -665,6 +665,16 @@ function renderModuleA(mod, settings, pageBg) {
 // å¨ imgWrap å§å»ºåç + çå­
 // 圖片或影片（.mp4/.webm 會自動播放、靜音、循環）
 function mediaEl(imgData) {
+  if (imgData.youtube) {
+    const f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(imgData.youtube) + '?rel=0';
+    f.title = imgData.alt || 'video';
+    f.loading = 'lazy';
+    f.allow = 'accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+    f.allowFullscreen = true;
+    f.className = 'yt-embed';
+    return f;
+  }
   if (/\.(mp4|webm)(\?|$)/i.test(imgData.src)) {
     const v = document.createElement('video');
     v.src = fixImgUrl(imgData.src);
@@ -682,7 +692,7 @@ function mediaEl(imgData) {
 }
 
 function appendImg(imgWrap, imgData, fallbackAlt) {
-  if (!imgData.src) return;
+  if (!imgData.src && !imgData.youtube) return;
 
   const img = mediaEl({ ...imgData, alt: imgData.alt || fallbackAlt || '' });
   imgWrap.appendChild(img);
@@ -734,7 +744,7 @@ function renderModuleB(mod, settings, pageBg) {
   images.forEach(imgData => {
     const imgWrap = document.createElement('div');
     imgWrap.className = 'img-wrap';
-    if (imgData.src) {
+    if (imgData.src || imgData.youtube) {
       imgWrap.appendChild(mediaEl(imgData));
     }
     grid.appendChild(imgWrap);
