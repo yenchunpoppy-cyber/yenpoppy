@@ -5,7 +5,7 @@
  * 層級：分類 → 項目 → 規格（options）。有 options 的項目，價格與天數以所選規格為準。
  */
 window.CATALOG = {
-  version: '2026-10-28h', // 改價後更新，舊草稿會改用範例重新開始
+  version: '2026-11-12i', // 改價後更新，舊草稿會改用範例重新開始
   // 報價單產生器「完整細項」用；group = 清單裡的小標
   categories: [
     {
@@ -34,9 +34,9 @@ window.CATALOG = {
       items: [
         { id: 'pkg-flat', group: '包裝', name: '包裝設計（平面包材）', unit: '款', price: 25000, min: 22500, max: 28700, days: 12, print: true,
           desc: '頭卡、標籤、吊卡；提案 2 款，選定 1 款完稿，含出血與刀模線' },
-        { id: 'pkg-box', group: '包裝', name: '包裝設計（單一盒袋）', unit: '款', price: 48000, min: 43200, max: 55200, days: 18, print: true,
+        { id: 'pkg-box', group: '包裝', name: '包裝設計（單一盒袋）', unit: '款', price: 35000, min: 30000, max: 40000, days: 18, print: true,
           desc: '使用現成刀模；提案 2 款，5–6 面完稿，含法規文字與條碼排版' },
-        { id: 'gift-box', group: '包裝', name: '包裝設計（禮盒組合）', unit: '套', price: 70000, min: 63000, max: 80500, days: 30, print: true,
+        { id: 'gift-box', group: '包裝', name: '包裝設計（禮盒組合）', unit: '套', price: 55000, min: 48000, max: 62000, days: 30, print: true,
           desc: '外盒＋內襯＋配件視覺與結構，打樣至量產監製' },
         { id: 'pkg-variant-flat', group: '延伸款', name: '延伸款（平面包材）', unit: '款', price: 7500, min: 6800, max: 8600, days: 3, print: true,
           desc: '沿用主款版型，換口味、顏色或文字；含 1 次修改' },
@@ -125,21 +125,21 @@ window.CATALOG = {
           { id: 'std', name: 'LOGO 標準', unit: '式', price: 35000, min: 31500, max: 40200, days: 20, desc: '標誌＋中英標準字' },
           { id: 'full', name: '完整識別', unit: '式', price: 60000, min: 54000, max: 69000, days: 25, desc: 'LOGO＋色彩字型＋規範手冊' }
         ] },
-        { id: 'p-card', name: '品牌延伸物', unit: '款', price: 6000, min: 5400, max: 6900, days: 10, print: true,
+        { id: 'p-card', name: '品牌延伸物', unit: '款', price: 7500, min: 6500, max: 9000, days: 10, print: true,
           desc: '名片、吊牌、貼紙' }
       ]
     },
     {
       id: 'pkg', name: '包裝設計', intro: '依包材類型計價',
       items: [
-        { id: 'p-pkg', name: '包裝設計', print: true, desc: '都是用現成盒型做平面設計。需要開新刀模、設計新結構，會另外報價', options: [
-          { id: 'flat', name: '平面包材', unit: '款', price: 25000, min: 22500, max: 28700, days: 12, desc: '頭卡、標籤、吊卡' },
-          { id: 'box', name: '單一盒袋', unit: '款', price: 48000, min: 43200, max: 55200, days: 18, desc: '一個紙盒、立袋或罐標' },
-          { id: 'gift', name: '禮盒組合', unit: '套', price: 70000, min: 63000, max: 80500, days: 30, desc: '外盒＋內襯＋卡片等多件一起設計' }
+        { id: 'p-pkg', name: '包裝設計', print: true, desc: '用現成盒型做平面設計，新結構另報價。同系列換口味請加「延伸款」', options: [
+          { id: 'flat', name: '平面包材', unit: '款', price: 18000, min: 16000, max: 21000, days: 12, desc: '頭卡、標籤、吊卡' },
+          { id: 'box', name: '單一盒袋', unit: '款', price: 35000, min: 30000, max: 40000, days: 18, desc: '一個紙盒、立袋或罐標' },
+          { id: 'gift', name: '禮盒組合', unit: '套', price: 55000, min: 48000, max: 62000, days: 30, desc: '外盒＋內襯＋卡片等多件一起設計' }
         ] },
         { id: 'p-variant', name: '延伸款', print: true, desc: '換口味、換顏色，約主款的 30%', options: [
-          { id: 'flat', name: '平面包材', unit: '款', price: 7500, min: 6800, max: 8600, days: 3 },
-          { id: 'box', name: '單一盒袋', unit: '款', price: 14000, min: 12600, max: 16100, days: 3 }
+          { id: 'flat', name: '平面包材', unit: '款', price: 6000, min: 5000, max: 7000, days: 3 },
+          { id: 'box', name: '單一盒袋', unit: '款', price: 10000, min: 9000, max: 12000, days: 3 }
         ] }
       ]
     },
@@ -147,13 +147,13 @@ window.CATALOG = {
       id: 'visual', name: '視覺與印刷', intro: '主視覺與各種印刷品',
       items: [
         { id: 'p-kv', name: '主視覺設計', unit: '式', price: 28000, min: 25200, max: 32200, days: 14,
-          desc: '活動、新品、檔期都適用。設計 1 款主視覺，再延伸成 3 種尺寸，例如海報、IG 貼文、橫幅' },
+          desc: '1 款主視覺＋延伸 3 種尺寸' },
         { id: 'p-printed', name: '印刷品', print: true, options: [
           { id: 'dm', name: '單頁 DM', unit: '款', price: 4000, min: 3600, max: 4600, days: 7, desc: '單張雙面，含小卡、明信片' },
           { id: 'dm-fold', name: '摺頁 DM', unit: '款', price: 8000, min: 7200, max: 9200, days: 10, desc: '對摺或三摺' },
-          { id: 'poster', name: '海報', unit: '款', price: 6000, min: 5400, max: 6900, days: 10 }
+          { id: 'poster', name: '海報', unit: '款', price: 6500, min: 5500, max: 8000, days: 10 }
         ] },
-        { id: 'p-catalog', name: '型錄／手冊', print: true, desc: '封面＋版型設定＋內頁編排。更多頁數可寫在下方「其他想做的」', options: [
+        { id: 'p-catalog', name: '型錄／手冊', print: true, desc: '封面＋版型＋內頁編排', options: [
           { id: 'p8', name: '8 頁', unit: '本', price: 20000, min: 18000, max: 23000, days: 15 },
           { id: 'p16', name: '16 頁', unit: '本', price: 32000, min: 28800, max: 36800, days: 20 },
           { id: 'p24', name: '24 頁', unit: '本', price: 44000, min: 39600, max: 50600, days: 25 }
@@ -164,10 +164,10 @@ window.CATALOG = {
       id: 'social', name: '社群經營', intro: 'IG、FB、LINE 的日常素材',
       items: [
         { id: 'p-post', name: '社群貼文', desc: '每篇封面＋內頁 3 張', options: [
-          { id: 'one', name: '單篇', unit: '篇', price: 3500, min: 3200, max: 4000, days: 5 },
-          { id: 'month', name: '月包 8 篇', unit: '月', price: 32000, min: 28800, max: 36800, days: 20, desc: '每月固定排程' }
+          { id: 'one', name: '單篇', unit: '篇', price: 4200, min: 3500, max: 5000, days: 5 },
+          { id: 'month', name: '月包 8 篇', unit: '月', price: 27000, min: 24000, max: 30000, days: 20, desc: '每月固定排程' }
         ] },
-        { id: 'p-line', name: 'LINE 圖文選單', unit: '款', price: 3500, min: 3000, max: 4000, days: 7,
+        { id: 'p-line', name: 'LINE 圖文選單', unit: '款', price: 5000, min: 4000, max: 6000, days: 7,
           desc: 'LINE 官方帳號下方的選單圖' }
       ]
     },
@@ -175,11 +175,24 @@ window.CATALOG = {
       id: 'web', name: '網站設計', intro: '品牌官網與商品頁',
       items: [
         { id: 'p-site', name: '網站設計', options: [
-          { id: 'brand', name: '形象官網', unit: '式', price: 59000, min: 53100, max: 67800, days: 25, desc: '首頁＋3 個內頁（如關於、服務、聯絡），含網站建置' },
+          { id: 'brand', name: '形象官網', unit: '式', price: 59000, min: 53100, max: 67800, days: 25, desc: '首頁＋3 個內頁，含建置' },
           { id: 'long', name: '商品長頁', unit: '頁', price: 22000, min: 19800, max: 25300, days: 15 }
         ] },
         { id: 'p-page', name: '加購內頁', unit: '頁', price: 8000, min: 7200, max: 9200, days: 3,
           desc: '頁面不夠時，每多一頁加購' }
+      ]
+    },
+    {
+      id: 'starter', name: '起步方案', intro: '剛起步的品牌，從這裡開始最划算',
+      items: [
+        { id: 'b-brand', name: '品牌起步組', unit: '組', price: 40000, min: 36000, max: 45000, days: 25, print: true,
+          desc: 'LOGO 基本＋1 款平面包材＋1 個延伸物' },
+        { id: 'b-open', name: '開店宣傳組', unit: '組', price: 38000, min: 33000, max: 43000, days: 25, print: true,
+          desc: 'LOGO 基本＋1 個延伸物＋5 款 IG 版型（用新 LOGO 延伸，交付可編輯檔）' },
+        { id: 'b-launch', name: '新品上市組', unit: '組', price: 46000, min: 40000, max: 52000, days: 25, print: true,
+          desc: '單一盒袋包裝＋1 款延伸款＋社群貼文 3 篇' },
+        { id: 'b-check', name: '品牌健檢', unit: '次', price: 3500, min: 3500, max: 3500, days: 5, fixed: true,
+          desc: '線上聊 1 小時，給你一份改善建議' }
       ]
     }
   ],
@@ -204,24 +217,24 @@ window.CATALOG = {
   // 風格本身不分貴賤；只有原創插畫因為工時多，區間較高
   styles: [
     { id: 'minimal', name: '極簡現代', en: 'MINIMAL', level: 1, rate: [1, 1.1],
-      desc: '大量留白、有限配色與清晰字體，俐落理性', eg: '科技、顧問、精品品牌' },
+      desc: '留白多、配色少', eg: '科技、顧問、精品品牌' },
     { id: 'soft', name: '柔和自然', en: 'SOFT', level: 2, rate: [1, 1.1],
-      desc: '低飽和配色與柔和質感，溫潤有空氣感', eg: '咖啡、保養、生活風格品牌' },
+      desc: '柔和低飽和', eg: '咖啡、保養、生活風格品牌' },
     { id: 'vintage', name: '復古經典', en: 'VINTAGE', level: 2, rate: [1, 1.1],
-      desc: '以年代感字體、配色與紋理營造懷舊氛圍', eg: '老字號、餐飲、文創商品' },
+      desc: '年代感與紋理', eg: '老字號、餐飲、文創商品' },
     { id: 'luxe', name: '典雅精緻', en: 'LUXURY', level: 3, rate: [1, 1.1],
-      desc: '細緻紋樣、燙金與襯線字體，呈現高級感', eg: '禮盒、婚禮、高單價商品' },
+      desc: '紋樣與燙金', eg: '禮盒、婚禮、高單價商品' },
     { id: 'playful', name: '活潑親和', en: 'PLAYFUL', level: 3, rate: [1, 1.1],
-      desc: '明亮配色與圓潤造型，輕鬆好親近', eg: '零食、親子、年輕品牌' },
+      desc: '明亮又親近', eg: '零食、親子、年輕品牌' },
     { id: 'illus', name: '插畫手繪', en: 'ILLUSTRATION', level: 4, rate: [1.3, 1.6],
-      desc: '以原創插畫為主視覺，工時較多，價格會高一些', eg: '插畫包裝、角色、插畫主視覺' },
+      desc: '原創插畫，費用較高', eg: '插畫包裝、角色、插畫主視覺' },
     { id: 'unsure', name: '還不確定', en: 'NOT SURE', level: 0, rate: [1, 1.15],
-      desc: '可以上傳參考圖，再一起判斷方向', eg: '' }
+      desc: '上傳參考圖，再一起找', eg: '' }
   ],
 
   // 估價頁「關於你」：了解詢價的人是誰（選填）
   audience: {
-    roles: ['品牌／公司', '店家老闆', '個人創作者', '個人需求', '設計或行銷公司', '同行設計師', '好奇看看'],
+    roles: ['品牌／公司', '店家', '個人創作者', '個人需求', '行銷公司', '設計同業'],
     industries: ['美妝保養', '珠寶飾品', '餐飲', '食品', '生活選物', '時尚服飾', '文創', '婚禮活動', '科技', '其他']
   },
 
@@ -230,7 +243,7 @@ window.CATALOG = {
 
   revisions: 2,          // 含修改次數
   revisionFee: 2000,     // 超出每次
-  minFee: 8000,          // 單次合作最低金額
+  minFee: 5000,          // 單次合作最低金額（Yen 2026-11-11 改 5000）
   depositRate: 0.5,      // 訂金比例
   invoiceTax: 0.05,      // 代開發票營業稅
   validDays: 15,         // 報價有效天數

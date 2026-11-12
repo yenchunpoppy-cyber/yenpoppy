@@ -1,13 +1,13 @@
 {
-  "logoWordmark": "/uploads/yenpoppy-logo-lockup.svg",
+  "logoWordmark": "/uploads/yenpoppy-wordmark.svg",
   "decorations": [],
   "homeBg": "",
   "titleFont": "brand",
-  "siteBg": "#FFFFFF",
+  "siteBg": "#FCFDFE",
   "bodyFont": "brand",
-  "headerBg": "#FFFFFF",
+  "headerBg": "#FCFDFE",
   "favicon": "/uploads/yenpoppy-favicon.png",
   "textColor": "#000000",
-  "logoMark": "",
+  "logoMark": "/uploads/yenpoppy-mark.svg",
   "formEndpoint": "https://script.google.com/macros/s/AKfycbwBJt8EozmEyS6LmEmQHCMMiVv3EwbQQPYHLljdT3sL7G_J9qG9Q3sNxosdfigaCP5H/exec"
 }

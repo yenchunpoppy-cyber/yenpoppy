@@ -1,9 +1,13 @@
 {
-  "heroTitle": "YENPOPPY",
-  "heroSub": "LET'S MAKE SOMETHING UNEXPECTED.",
+  "heroTitle": "",
+  "heroSub": "從 LOGO、包裝到上架，陪品牌把商品做出來。",
   "heroYears": "2013 — 2026",
   "heroImages": [],
   "selected": [
+    {
+      "id": "sing-to-the-moon",
+      "statement": "把中秋禮盒做成一台唱盤，\n用 AI 生成的專屬歌曲傳遞心意。"
+    },
     {
       "id": "et-seq-nail",
       "statement": "從產品意象延伸到包裝與展示的整合創意。"
@@ -14,7 +18,7 @@
     },
     {
       "id": "disney-princess",
-      "statement": "把品牌視覺延伸到真實空間，走進櫥窗與門市陳列。"
+      "statement": "把品牌視覺延伸到真實空間，\n走進櫥窗與門市陳列。"
     },
     {
       "id": "heath-forest",
@@ -23,10 +27,6 @@
     {
       "id": "aluxe-passport",
       "statement": "婚戒品牌 ALUXE 送給新人的婚禮護照，陪伴一整年的婚禮準備。"
-    },
-    {
-      "id": "kite-flying",
-      "statement": "樂團 Kite Flying Band 的標誌與專輯包裝。"
     }
   ],
   "heroInfo": [
@@ -36,10 +36,18 @@
   ],
   "heroLine": "好點子，值得被好好實現。",
   "heroIntro": [
-    "嗨，我是劉姸，一位喜歡發想、實驗，也喜歡把不一樣的想法組合在一起的設計師。",
-    "從品牌、包裝到數位體驗，我喜歡和人一起思考，找到那些原本沒想到、卻很適合你的創意可能。"
+    "好點子，值得被好好實現。"
   ],
   "ctaTitle": "你的品牌，最近有什麼新想法嗎？",
-  "ctaText": "不管你現在只有一個模糊的概念，還是已經有明確的方向，都歡迎來找我聊聊。也許我們可以一起把它變成一件很棒的事。",
-  "ctaButton": "和我聊聊你的想法"
+  "ctaText": "不論只是一個模糊的念頭，還是已經有明確的方向，都可以從這裡開始。",
+  "ctaButton": "和我聊聊",
+  "featured": [
+    "et-seq-nail",
+    "sing-to-the-moon",
+    "daan-eco-fair"
+  ],
+  "heroLink": {
+    "text": "看起步方案 →",
+    "href": "/quote/?cat=starter#h1"
+  }
 }

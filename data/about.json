@@ -1,199 +1,345 @@
 {
   "seoTitle": "ABOUT",
-  "seoDesc": "YENPOPPY：品牌識別、包裝設計、UI/UX、網頁設計、社群視覺、動態影像、插畫與展示陳列設計，來自台灣。服務過珠寶、美妝、金融、觀光與醫療等產業。",
+  "seoDesc": "YENPOPPY 是設計師劉姸的獨立創意設計工作室，提供品牌識別與視覺設計、包裝與產品設計、網站與數位介面設計、展示陳列與展覽設計，來自台灣。",
   "heroEn": "Hi, I'm Yen. Nice to meet you!",
   "heroZh": "",
-  "introImage": "/uploads/about-brand-graphic.svg",
-  "introImageAlt": "",
-  "intro": "品牌識別、包裝、數位介面與展示設計。依照每個專案的需求，找到適合的設計方向與呈現方式。服務過珠寶、美妝、金融、觀光與醫療等產業。",
+  "introImage": "/uploads/yen-liu-portrait-2.jpg",
+  "introImageAlt": "設計師劉姸",
+  "intro": "我是劉姸／YEN，從工業設計出發，做過*品牌識別*、*包裝*、*門市陳列*與*網站*。\n我不追求一眼就認出的個人風格，而是幫每個品牌找到自己的樣子。",
   "stats": [
     {
       "value": "13",
       "unit": "年",
       "label": "跨領域設計經驗"
+    },
+    {
+      "value": "20",
+      "unit": "+",
+      "label": "參與品牌"
     }
   ],
   "awards": [
     {
       "title": "2025 DesignBIZ 永續實踐獎",
-      "work": "大安森林公園生態博覽會｜團隊獲獎專案，參與主視覺與周邊視覺設計"
+      "work": "大安森林公園生態嘉年華｜主視覺設計",
+      "link": "daan-eco-fair",
+      "image": "/uploads/designbiz-award-2025-bright.jpg"
     }
-  ],
-  "featured": [
-    "disney-princess",
-    "aluxe-passport",
-    "et-seq-nail",
-    "coexist-popup-shop",
-    "heath-forest",
-    "kite-flying"
   ],
   "services": [
     {
-      "en": "Brand Identity",
-      "zh": "品牌識別",
-      "desc": "從品牌個性與定位出發，找到適合它的視覺語言，讓品牌有自己的樣子。",
+      "en": "Brand Identity & Visual Design",
+      "zh": "品牌識別 & 視覺設計",
+      "desc": "讓品牌好認，也能一路延伸。",
       "tags": [
-        "Branding"
+        "Branding",
+        "Social Media",
+        "Art Direction"
       ],
-      "work": "vacs",
-      "icon": "/uploads/icon-branding.svg"
+      "icon": "/uploads/icon-branding.svg",
+      "items": [
+        "Logo 與品牌識別",
+        "品牌視覺系統",
+        "品牌應用與延伸",
+        "廣告與社群視覺"
+      ]
     },
     {
-      "en": "Packaging & Product",
-      "zh": "包裝與產品設計",
-      "desc": "讓產品不只好看，也能透過包裝、結構與細節，創造更完整的體驗。",
+      "en": "Packaging & Product Design",
+      "zh": "包裝 & 產品設計",
+      "desc": "從產品出發，兼顧外觀與結構。",
       "tags": [
-        "Packaging"
-      ],
-      "work": "kite-flying",
-      "icon": "/uploads/icon-packaging.svg"
-    },
-    {
-      "en": "Creative Direction",
-      "zh": "創意企劃與整合",
-      "desc": "如果你有一個還沒成形的想法，我們可以一起討論、發展概念，找到有趣又可行的方向。",
-      "tags": [
-        "Art Direction",
-        "Exhibition",
+        "Packaging",
         "Illustration"
       ],
-      "work": "disney-princess",
-      "icon": "/uploads/icon-display.svg"
+      "icon": "/uploads/icon-packaging.svg",
+      "items": [
+        "產品包裝設計",
+        "禮盒與套組設計",
+        "印刷品與編輯設計",
+        "周邊商品與產品視覺"
+      ]
     },
     {
-      "en": "Digital & Visual",
-      "zh": "網站與數位視覺",
-      "desc": "讓品牌從實體延伸到數位世界，保持一致又有個性的視覺體驗。",
+      "en": "Website & Digital Design",
+      "zh": "網站 & 數位設計",
+      "desc": "把品牌帶到線上，好看也好用。",
       "tags": [
-        "UI/UX",
         "Web Design",
-        "Social Media",
+        "UI/UX",
         "Motion Graphics"
       ],
-      "work": "heath-forest",
-      "icon": "/uploads/icon-digital.svg"
-    }
-  ],
-  "clientGroups": [
-    {
-      "industry": "珠寶",
-      "clients": [
-        {
-          "name": "ALUXE 亞立詩",
-          "logo": ""
-        },
-        {
-          "name": "ALUXE x Disney",
-          "logo": ""
-        },
-        {
-          "name": "LOVERS",
-          "logo": ""
-        },
-        {
-          "name": "acredo",
-          "logo": ""
-        },
-        {
-          "name": "逸歡",
-          "logo": ""
-        }
+      "icon": "/uploads/icon-digital.svg",
+      "items": [
+        "品牌網站與網頁設計",
+        "UI 介面設計",
+        "數位視覺設計",
+        "數位互動與內容呈現"
       ]
     },
     {
-      "industry": "美妝",
-      "clients": [
-        {
-          "name": "ANESSA",
-          "logo": ""
-        },
-        {
-          "name": "專科 SENKA",
-          "logo": ""
-        },
-        {
-          "name": "et seq.",
-          "logo": ""
-        }
-      ]
-    },
-    {
-      "industry": "金融",
-      "clients": [
-        {
-          "name": "台新金控",
-          "logo": ""
-        }
-      ]
-    },
-    {
-      "industry": "觀光與公部門",
-      "clients": [
-        {
-          "name": "觀傳局",
-          "logo": ""
-        }
-      ]
-    },
-    {
-      "industry": "醫療",
-      "clients": [
-        {
-          "name": "台灣女中醫師協會",
-          "logo": ""
-        }
-      ]
-    },
-    {
-      "industry": "生活與文創",
-      "clients": [
-        {
-          "name": "CLUB Panasonic",
-          "logo": ""
-        },
-        {
-          "name": "VACS",
-          "logo": ""
-        },
-        {
-          "name": "Kite Flying Band",
-          "logo": ""
-        },
-        {
-          "name": "w/f flower",
-          "logo": ""
-        },
-        {
-          "name": "Lazy Point",
-          "logo": ""
-        }
+      "en": "Display & Exhibition Design",
+      "zh": "展示陳列 & 展覽設計",
+      "desc": "讓設計從平面走進真實空間。",
+      "tags": [
+        "Exhibition"
+      ],
+      "icon": "/uploads/icon-display.svg",
+      "items": [
+        "品牌櫥窗與門市陳列",
+        "商品展示設計",
+        "展覽與活動視覺",
+        "空間視覺整合"
       ]
     }
   ],
   "process": [
     {
-      "en": "Research",
-      "zh": "了解",
-      "desc": "聊品牌、看產品和通路，整理競品與目標客群。"
+      "en": "Talk",
+      "zh": "先聊聊",
+      "desc": "聽你說品牌和想解決的問題。"
     },
     {
-      "en": "Strategy",
-      "zh": "策略",
-      "desc": "定出要傳達的重點，提出 2～3 個視覺方向。"
+      "en": "Explore",
+      "zh": "找方向",
+      "desc": "整理重點，提出視覺方向。"
     },
     {
-      "en": "Design",
-      "zh": "設計",
-      "desc": "提案、討論、修改，細節到材質和工法。"
+      "en": "Create",
+      "zh": "做設計",
+      "desc": "做成完整設計，隨時對焦。"
     },
     {
-      "en": "Delivery",
-      "zh": "落地",
-      "desc": "依照專案需求，協助打樣、印製與後續視覺延伸，讓設計更完整地落實。"
+      "en": "Deliver",
+      "zh": "交付落地",
+      "desc": "交付檔案，陪你打樣到上線。"
     }
   ],
-  "ctaTitle": "想一起合作嗎？",
-  "ctaPrimary": "聯絡我",
+  "ctaTitle": "Have an idea in mind?",
+  "ctaPrimary": "開始合作",
   "ctaSecondary": "看作品",
-  "heroMicro": "TAIWAN — SINCE 2013"
+  "heroMicro": "TAIWAN — SINCE 2013",
+  "heroLine": "我是劉姸／YEN，一位喜歡探索不同可能性的設計師。",
+  "brandsTitle": "從指甲油到婚戒，從金控到兒童劇團。",
+  "brandsDesc": "",
+  "brands": [
+    {
+      "name": "Panasonic",
+      "logo": "/uploads/logo-panasonic.png",
+      "industry": "Lifestyle",
+      "work": "",
+      "logoColor": "/uploads/logo-panasonic-color.png",
+      "scale": 0.79
+    },
+    {
+      "name": "ANESSA",
+      "logo": "/uploads/logo-anessa.png",
+      "industry": "Beauty",
+      "work": "",
+      "logoColor": "/uploads/logo-anessa-color.png",
+      "scale": 1.18
+    },
+    {
+      "name": "SENKA 專科",
+      "logo": "/uploads/logo-senka.png",
+      "industry": "Beauty",
+      "work": "",
+      "logoColor": "/uploads/logo-senka-color.png",
+      "scale": 1.25
+    },
+    {
+      "name": "台新新光金控",
+      "logo": "/uploads/logo-ts-holdings.png",
+      "industry": "Finance",
+      "work": "",
+      "logoColor": "/uploads/logo-ts-holdings-color.png",
+      "scale": 0.94
+    },
+    {
+      "name": "LCY 李長榮集團",
+      "logo": "/uploads/logo-lcy.png",
+      "industry": "Corporate",
+      "work": "",
+      "scale": 0.89
+    },
+    {
+      "name": "ALUXE 亞立詩",
+      "logo": "/uploads/logo-aluxe.png",
+      "industry": "Jewelry",
+      "work": "aluxe-passport",
+      "scale": 0.81
+    },
+    {
+      "name": "紙風車劇團",
+      "logo": "/uploads/logo-paperwindmill.png",
+      "industry": "Culture",
+      "work": "",
+      "logoColor": "/uploads/logo-paperwindmill-color.png",
+      "scale": 1.01
+    },
+    {
+      "name": "大安森林公園之友基金會",
+      "logo": "/uploads/logo-daan-park-foundation.png",
+      "industry": "Nature",
+      "work": "daan-eco-fair",
+      "logoColor": "/uploads/logo-daan-park-foundation-color.png",
+      "scale": 1.15
+    },
+    {
+      "name": "Hibertek",
+      "logo": "/uploads/logo-hibertek.png",
+      "industry": "Technology",
+      "work": "computer-show",
+      "scale": 0.68
+    },
+    {
+      "name": "et seq.",
+      "logo": "/uploads/logo-et-seq.png",
+      "industry": "Beauty",
+      "work": "et-seq-nail",
+      "logoColor": "/uploads/logo-et-seq-color.png",
+      "scale": 0.97
+    },
+    {
+      "name": "天主教中華聖母基金會",
+      "logo": "/uploads/logo-holy-mother-foundation.png",
+      "industry": "Nonprofit",
+      "work": "",
+      "logoColor": "/uploads/logo-holy-mother-foundation-color.png",
+      "scale": 0.91
+    },
+    {
+      "name": "BALL SOCKS",
+      "logo": "/uploads/logo-ball-socks.png",
+      "industry": "Lifestyle",
+      "work": "ice-cream-ballsocks",
+      "logoColor": "/uploads/logo-ball-socks-color.png",
+      "scale": 0.9
+    },
+    {
+      "name": "oribagu 摺紙包",
+      "logo": "/uploads/logo-oribagu.png",
+      "industry": "Lifestyle",
+      "work": "mesh-collection",
+      "scale": 0.89
+    },
+    {
+      "name": "VACS",
+      "logo": "/uploads/logo-vacs.png",
+      "industry": "Lifestyle",
+      "work": "vacs",
+      "scale": 1.05
+    },
+    {
+      "name": "Knock Knock Heaven",
+      "logo": "/uploads/logo-knock-knock-heaven.png",
+      "industry": "Restaurant",
+      "work": "",
+      "scale": 1.15,
+      "logoColor": "/uploads/logo-knock-knock-heaven-color.png"
+    },
+    {
+      "name": "w/f flower",
+      "logo": "/uploads/logo-wf-flower.png",
+      "industry": "Lifestyle",
+      "work": "wf-flower",
+      "scale": 1.1
+    },
+    {
+      "name": "AHA Brand Agency",
+      "logo": "/uploads/logo-aha.png",
+      "industry": "Branding",
+      "work": "made-by-aha",
+      "scale": 1.18
+    },
+    {
+      "name": "E.e branding",
+      "logo": "/uploads/logo-ee-branding.png",
+      "industry": "Branding",
+      "work": "ee-branding",
+      "scale": 1.05,
+      "logoColor": "/uploads/logo-ee-branding-color.png"
+    },
+    {
+      "name": "天一愛 TIANYIAI",
+      "logo": "/uploads/logo-tianyiai.png",
+      "industry": "Healthcare",
+      "work": "tianyi-tcm",
+      "logoColor": "/uploads/logo-tianyiai-color.png",
+      "scale": 1.0
+    },
+    {
+      "name": "LAZY POINT",
+      "logo": "/uploads/logo-lazy-point.png",
+      "industry": "Lifestyle",
+      "work": "lazy-point",
+      "scale": 0.85
+    }
+  ],
+  "journey": [
+    {
+      "year": "",
+      "period": "Select Shop",
+      "zh": "從選物店開始，學會看設計",
+      "desc": "七年間從商品開發、門市與展覽視覺，做到商品攝影與出貨，明白品牌每一步都需要設計。",
+      "works": [
+        "et-seq-nail",
+        "ice-cream-ballsocks"
+      ]
+    },
+    {
+      "year": "",
+      "period": "Jewelry Brand",
+      "zh": "走進現場，把細節做出來",
+      "desc": "負責型錄、包裝、櫥窗與門市陳列，和廠商一次次確認打樣，讓設計從畫面真正走進現場。",
+      "works": [
+        "aluxe-passport",
+        "disney-princess"
+      ]
+    },
+    {
+      "year": "",
+      "period": "Creative Tech",
+      "zh": "從平面畫面，走向數位體驗",
+      "desc": "參與大型品牌提案，和工程師把創意做成能運作的體驗，也開始用 AI 讓設計成為系統。",
+      "works": [
+        "sing-to-the-moon",
+        "daan-eco-fair"
+      ]
+    },
+    {
+      "year": "",
+      "period": "Now",
+      "zh": "現在，用設計做自己的事",
+      "desc": "以 YENPOPPY 接案，和 AI 協作、自己開發工具，把經驗帶進每一次品牌合作。",
+      "works": []
+    }
+  ],
+  "ctaText": "不論是剛萌芽的品牌想法，\n還是想找新方向的既有品牌，都歡迎一起聊聊。",
+  "servicesTitle": "從 Logo 開始，延伸到*品牌的每個角落*。",
+  "servicesDesc": "先想清楚品牌需要什麼，再選適合的形式與媒材，一路跟到成品完成。",
+  "brandsNote": "部分品牌與專案為任職期間參與之合作成果，實際負責內容依各專案說明為準。",
+  "journeyTitle": "從選物店到品牌現場，再走進數位體驗。",
+  "processTitle": "先聊清楚，再動手做。",
+  "ctaZh": "有想實現的點子嗎？",
+  "introQuote": "",
+  "journeyDesc": "",
+  "brandsIndustries": [
+    "珠寶",
+    "美妝",
+    "家電",
+    "金融",
+    "石化",
+    "電腦科技",
+    "藝文",
+    "公益",
+    "服飾",
+    "花藝",
+    "醫療",
+    "餐飲",
+    "攝影",
+    "品牌顧問",
+    "藝人經紀"
+  ],
+  "motto": "比起我的風格，我更在乎==你的品牌被記住==。"
 }

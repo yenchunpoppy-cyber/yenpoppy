@@ -1,2 +1,9 @@
 /admin /admin/index.html 200
+/pages/contact /quote/ 301
+/works/coexist-packaging /works/coexist-popup-shop 301
+/works/ballsocks-website /works/ballsocks-catalog 301
+/works/lovers-video /works/lovers-ad 301
+/works/aluxe-showcase /works/aluxe-display 301
+/works/aluxe-rollup /works/aluxe-display 301
+/works/disney-frozen-window /works/disney-princess 301
 /* /index.html 200

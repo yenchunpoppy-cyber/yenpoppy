@@ -1,25 +1,23 @@
 {
   "items": [
     {
-      "label": "WORKS",
-      "type": "works",
-      "page": null
-    },
-    {
       "label": "ABOUT",
       "type": "page",
-      "page": "about"
+      "page": "about",
+      "zh": "關於我"
     },
     {
-      "label": "ESTIMATE",
-      "type": "link",
+      "label": "WORKS",
+      "type": "works",
       "page": null,
-      "url": "/quote/"
+      "zh": "作品"
     },
     {
       "label": "CONTACT",
-      "type": "page",
-      "page": "contact"
+      "zh": "合作洽詢",
+      "type": "link",
+      "page": null,
+      "url": "/quote/"
     }
   ]
 }

@@ -22,7 +22,7 @@ function fixUtf8(val) {
     try {
       const b = new Uint8Array(val.length);
       for (let i = 0; i < val.length; i++) b[i] = val.charCodeAt(i) & 0xFF;
-      return new TextDecoder('utf-8').decode(b);
+      return new TextDecoder('utf-8', { fatal: true }).decode(b);  // 不是亂碼（例如 ×）就保留原字
     } catch(e) { return val; }
   }
   if (Array.isArray(val)) return val.map(fixUtf8);
@@ -52,6 +52,7 @@ async function fetchJSON(path) {
   const res = await fetch(path);
   if (!res.ok) throw new Error(`fetch ${path} â ${res.status}`);
   const data = fixUtf8(await res.json());
+  if (path.endsWith('/works.json') && Array.isArray(data.works)) data.works = data.works.filter(w => !w.hidden);  // 勾「隱藏」的作品不出現在網站
   Cache[path] = data;
   return data;
 }
@@ -148,7 +149,9 @@ async function renderNav() {
 
     const a = document.createElement('a');
     a.href = href;
-    a.textContent = item.label;
+    if (item.zh) {
+      a.innerHTML = `<span class="nv-zh">${escHTML(item.zh)}</span><span class="nv-en">${escHTML(item.label)}</span>`;
+    } else a.textContent = item.label;
     if (isActive) a.classList.add('active');
 
     nav.appendChild(a.cloneNode(true));
@@ -158,6 +161,15 @@ async function renderNav() {
       mobileNav.appendChild(ma);
     }
   });
+  // 手機選單下方：行動按鈕＋聯絡方式
+  if (mobileNav && !mobileNav.querySelector('.mn-foot')) {
+    const c = await fetchJSON('/data/contact.json').catch(() => ({}));
+    const foot = document.createElement('div');
+    foot.className = 'mn-foot';
+    foot.innerHTML = `<p class="mn-links">${c.email ? `<a href="mailto:${escHTML(c.email)}">${escHTML(c.email)}</a>` : ''}${c.instagram ? `<a href="${escHTML(c.instagram)}" target="_blank" rel="noopener">Instagram ↗</a>` : ''}</p>`;
+    foot.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
+    mobileNav.appendChild(foot);
+  }
 }
 
 // æ¼¢å ¡é¸å®
@@ -169,6 +181,8 @@ function initHamburger() {
   btn.addEventListener('click', () => {
     const open = btn.classList.toggle('open');
     if (open) {
+      const hd = document.getElementById('site-header');
+      if (hd) mobileNav.style.setProperty('--mn-top', Math.round(hd.getBoundingClientRect().bottom) + 'px');
       mobileNav.classList.add('open');
       // éµç¤ç¦é»éå®å¨é¢æ¿å§ï¼è¦æ ¼æ¸ Â§5.5ï¼
       mobileNav.setAttribute('tabindex', '-1');
@@ -241,42 +255,61 @@ async function renderWorksGrid() {
 
   const allWorks = worksData.works || [];
   await renderHomeIntro(grid, allWorks).catch(console.warn);
+  // 精選：放在作品牆最前面、兩格寬（只在 ALL 時）
+  const homeData = await fetchJSON('/data/home.json').catch(() => ({}));
+  const featIds = [];  // 2026-11-11：不再另外放主打區，主打作品直接排在列表最前面（works.json 順序）
+  let featRow = null;
+  if (featIds.length) {
+    featRow = document.createElement('div');
+    featRow.className = 'feat-row';
+    featIds.forEach(id => featRow.appendChild(createWorkCard(allWorks.find(w => w.id === id))));
+    grid.parentElement.insertBefore(featRow, grid);
+  }
   const tagsData = await fetchJSON('/data/tags.json').catch(() => ({ tags: [] }));
   let works = allWorks;
   let offset = 0;
 
-  // Tag filter bar: ALL + tags that have at least one work
-  const usedTags = (tagsData.tags || [])
-    .map(t => t.name)
-    .filter(name => allWorks.some(w => (w.tags || []).includes(name)));
-  let activeTag = new URLSearchParams(location.search).get('tag');
-  if (!usedTags.includes(activeTag)) activeTag = null;
+  // 篩選列：ALL ＋ 四項服務（對應規則來自 About 服務卡的 tags；作品可用 services 欄位單獨指定）
+  const aboutData = await fetchJSON('/data/about.json').catch(() => ({}));
+  const svcMap = serviceMap(aboutData);
+  const usedSvc = SERVICE_KEYS.filter(k => allWorks.some(w => workServices(w, svcMap).includes(k)));
+  const qs = new URLSearchParams(location.search);
+  let activeTag = (qs.get('service') || '').toUpperCase() || null;
+  if (!activeTag && qs.get('tag')) activeTag = svcMap[qs.get('tag')] || null;  // 舊連結 ?tag= 相容
+  if (!usedSvc.includes(activeTag)) activeTag = null;
 
-  if (usedTags.length) {
+  if (usedSvc.length) {
     const bar = document.createElement('nav');
     bar.className = 'tag-filter';
-    bar.setAttribute('aria-label', 'Filter works by tag');
-    [null, ...usedTags].forEach(name => {
+    bar.setAttribute('aria-label', 'Filter works by service');
+    [null, ...usedSvc].forEach(name => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.textContent = name || 'ALL';
+      if (SERVICE_ZH[name]) { const z = document.createElement('span'); z.className = 'tf-zh'; z.textContent = SERVICE_ZH[name]; btn.appendChild(z); }
       btn.dataset.tag = name || '';
       btn.addEventListener('click', () => applyFilter(name));
       bar.appendChild(btn);
     });
+    const lbl = document.createElement('p');
+    lbl.className = 'tf-label';
+    lbl.textContent = '依類別篩選';
+    grid.parentElement.insertBefore(lbl, grid);
     grid.parentElement.insertBefore(bar, grid);
   }
 
   function applyFilter(name) {
     activeTag = name;
-    works = name ? allWorks.filter(w => (w.tags || []).includes(name)) : allWorks;
+    works = name ? allWorks.filter(w => workServices(w, svcMap).includes(name)) : allWorks.filter(w => !featIds.includes(w.id));
+    if (featRow) featRow.hidden = !!name;
     document.querySelectorAll('.tag-filter button').forEach(b => {
       const on = b.dataset.tag === (name || '');
       b.classList.toggle('active', on);
       b.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
     const url = new URL(location.href);
-    if (name) url.searchParams.set('tag', name); else url.searchParams.delete('tag');
+    url.searchParams.delete('tag');
+    if (name) url.searchParams.set('service', name.toLowerCase()); else url.searchParams.delete('service');
     history.replaceState(null, '', url);
     grid.innerHTML = '';
     offset = 0;
@@ -313,6 +346,19 @@ async function renderWorksGrid() {
   if (activeTag) document.getElementById('index')?.scrollIntoView();
 }
 
+// 四項服務：順序和 About 服務卡相同
+const SERVICE_KEYS = ['BRAND', 'PACKAGING', 'DIGITAL', 'DISPLAY'];
+const SERVICE_ZH = { BRAND: '品牌', PACKAGING: '包裝', DIGITAL: '數位', DISPLAY: '展示' };
+function serviceMap(about) {
+  const m = {};
+  (about.services || []).forEach((s, i) => (s.tags || []).forEach(t => { if (SERVICE_KEYS[i]) m[t] = SERVICE_KEYS[i]; }));
+  return m;
+}
+function workServices(w, map) {
+  if ((w.services || []).length) return w.services;
+  return [...new Set((w.tags || []).map(t => map[t]).filter(Boolean))];
+}
+
 function createWorkCard(work) {
   const card = document.createElement('div');
   card.className = 'work-card';
@@ -343,10 +389,16 @@ function createWorkCard(work) {
     tit.textContent = work.title;
     card.appendChild(tit);
   }
-  if (work.caption) {
+  const capText = work.subtitle || work.caption;  // 中文副標「是什麼｜做了什麼」，沒填就用英文圖說
+  if (capText) {
     const cap = document.createElement('div');
     cap.className = 'card-caption';
-    cap.textContent = work.caption;
+    const parts = String(capText).split('｜');
+    if (parts.length > 1) {  // 手機只顯示「做了什麼」，桌機顯示全部
+      const a = document.createElement('span'); a.className = 'cap-a'; a.textContent = parts[0] + '｜';
+      const b = document.createElement('span'); b.className = 'cap-b'; b.textContent = parts.slice(1).join('｜');
+      cap.append(a, b);
+    } else cap.textContent = capText;
     card.appendChild(cap);
   }
   if ((work.tags || []).length) {
@@ -474,22 +526,36 @@ async function renderWorkPage() {
   const sel = (home.selected || []).find(x => x.id === work.id);
   const tagLine = (work.tags || []).map(t => `<a href="/?tag=${encodeURIComponent(t)}#index">[ ${esc(t)} ]</a>`).join(' ');
   header.className = 'work-header work-header--hero';
-  header.innerHTML = pageHero({
+  // 作品資訊小字清單：客戶／合作團隊／年份／網站（有填才顯示）
+  const metaRows = [
+    ['CLIENT', work.client], ['AGENCY', work.agency], ['YEAR', work.year],
+  ].filter(r => r[1]).map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`);
+  if (link) metaRows.push(`<div><dt>WEBSITE</dt><dd><a href="${esc(link)}" target="_blank" rel="noopener">${esc(link.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></dd></div>`);
+  header.innerHTML = pageHead({
+    en: `<a href="/#index">← 所有作品</a>`,
     title: work.title,
-    sub: work.caption || '',
-    line: (sel && sel.statement) || '',
-    info: [tagLine, ...meta].filter(Boolean),
-    meta: `<a href="/#index">← INDEX</a><br>( ${pad(idx + 1)} / ${pad(all.length)} )`,
-    small: true,
-  }) + `
-    ${work.description ? `<p class="work-header__desc">${esc(work.description)}</p>` : ''}
-    ${link ? `<a class="work-header__link" href="${esc(link)}" target="_blank" rel="noopener">VIEW PROJECT ↗</a>` : ''}`;
+    lead: work.subtitle || work.caption || '',
+  });
   container.appendChild(header);
 
-  (work.modules || []).forEach(mod => {
+  // 閱讀順序：標題副標 → 主圖 → 概念文字 → 作品圖 → 專案資訊（客戶／合作團隊／年份／網站）
+  const mods = (work.modules || []).slice();
+  const first = mods[0];
+  if (first && first.type === 'module_a' && (first.images || []).length) {
+    mods.splice(0, 1,
+      { type: 'module_b', columns: '1', gutter: 'default', bg: '', images: first.images, isHero: true },
+      Object.assign({}, first, { images: [], columns: '0' }));
+  }
+  mods.forEach(mod => {
     const el = renderModule(mod, settings, '');
-    if (el) container.appendChild(el);
+    if (el) { if (mod.isHero) el.classList.add('wk-hero'); container.appendChild(el); }
   });
+  if (metaRows.length) {
+    const info = document.createElement('section');
+    info.className = 'module-wrap wk-info';
+    info.innerHTML = `<dl class="wk-meta">${metaRows.join('')}</dl>`;
+    container.appendChild(info);
+  }
 
   // 上一件／下一件
   const prev = all[(idx - 1 + all.length) % all.length];
@@ -518,6 +584,7 @@ function renderModule(mod, settings, pageBg) {
 function renderModuleA(mod, settings, pageBg) {
   const wrap = document.createElement('div');
   wrap.className = 'module-wrap';
+  if (mod.narrow) wrap.classList.add(mod.narrow === 'phone' ? 'is-phone' : 'is-narrow');  // 長條圖（整頁長圖、切片網頁）縮窄置中，避免頁面過長
 
   const cols    = mod.columns || '1';
   const gutter  = resolveGutter(mod.gutter, settings);
@@ -613,13 +680,38 @@ function renderModuleA(mod, settings, pageBg) {
 }
 
 // å¨ imgWrap å§å»ºåç + çå­
-function appendImg(imgWrap, imgData, fallbackAlt) {
-  if (!imgData.src) return;
-
+// 圖片或影片（.mp4/.webm 會自動播放、靜音、循環）
+function mediaEl(imgData) {
+  if (imgData.youtube) {
+    const f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(imgData.youtube) + '?rel=0';
+    f.title = imgData.alt || 'video';
+    f.loading = 'lazy';
+    f.allow = 'accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+    f.allowFullscreen = true;
+    f.className = 'yt-embed';
+    return f;
+  }
+  if (/\.(mp4|webm)(\?|$)/i.test(imgData.src)) {
+    const v = document.createElement('video');
+    v.src = fixImgUrl(imgData.src);
+    v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true;
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.preload = 'metadata';
+    if (imgData.poster) v.poster = fixImgUrl(imgData.poster);
+    if (imgData.alt) v.setAttribute('aria-label', imgData.alt);
+    return v;
+  }
   const img = document.createElement('img');
   img.src = fixImgUrl(imgData.src);
-  img.alt = imgData.alt || fallbackAlt || '';
+  img.alt = imgData.alt || '';
   img.loading = 'lazy';
+  return img;
+}
+
+function appendImg(imgWrap, imgData, fallbackAlt) {
+  if (!imgData.src && !imgData.youtube) return;
+
+  const img = mediaEl({ ...imgData, alt: imgData.alt || fallbackAlt || '' });
   imgWrap.appendChild(img);
 
   if (imgData.overlayText) {
@@ -639,6 +731,7 @@ function appendImg(imgWrap, imgData, fallbackAlt) {
 function renderModuleB(mod, settings, pageBg) {
   const wrap = document.createElement('div');
   wrap.className = 'module-wrap';
+  if (mod.narrow) wrap.classList.add(mod.narrow === 'phone' ? 'is-phone' : 'is-narrow');  // 長條圖（整頁長圖、切片網頁）縮窄置中，避免頁面過長
 
   const section = document.createElement('section');
   section.className = 'module-b';
@@ -648,22 +741,29 @@ function renderModuleB(mod, settings, pageBg) {
   const gutter  = resolveGutter(mod.gutter, settings);
   const images  = mod.images || [];
 
+  // 合併作品的段落小標（例：包裝設計／社群貼文）
+  if (mod.headline) {
+    const lb = document.createElement('h2');
+    lb.className = 'module-b__label';
+    lb.textContent = mod.headline;
+    section.appendChild(lb);
+  }
+
   const grid = document.createElement('div');
   grid.className = 'module-b__grid';
   // Masonry columns: images keep their full aspect ratio (no cropping)
   grid.style.setProperty('--cols', cols);
   grid.style.setProperty('--gap', `${gutter}px`);
   grid.dataset.cols = cols;
+  grid.dataset.gap = gutter;
+  if (mod.rows) grid.classList.add('is-rows');  // 依列排序（相簿跨頁要照頁序）
+  if (mod.crop) grid.classList.add('is-crop');  // 同列照片裁成一致比例，高度對齊
 
   images.forEach(imgData => {
     const imgWrap = document.createElement('div');
     imgWrap.className = 'img-wrap';
-    if (imgData.src) {
-      const img = document.createElement('img');
-      img.src = fixImgUrl(imgData.src);
-      img.alt     = imgData.alt || '';
-      img.loading = 'lazy';
-      imgWrap.appendChild(img);
+    if (imgData.src || imgData.youtube) {
+      imgWrap.appendChild(mediaEl(imgData));
     }
     grid.appendChild(imgWrap);
   });
@@ -708,8 +808,12 @@ async function init() {
     await applySettings().catch(console.warn);
     await renderNav().catch(console.warn);
     initHamburger();
+    await renderQuoteExtras().catch(console.warn);
+    await renderFooter().catch(console.warn);
     return;
   }
+  // 舊的聯絡頁已併入合作洽詢
+  if (path.startsWith('/pages/contact')) { location.replace('/quote/' + location.hash); return; }
   if (path.startsWith('/works/')) document.body.dataset.page = 'work';
   else if (path.startsWith('/pages/')) document.body.dataset.page = 'page';
   else document.body.dataset.page = 'works';
@@ -728,6 +832,7 @@ async function init() {
   } else if (page === 'work') {
     await renderWorkPage().catch(console.error);
   }
+  await renderFooter().catch(console.warn);
   initReveal();
   if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
 }
@@ -758,87 +863,98 @@ async function renderAboutPage() {
   const countTag = t => works.filter(w => (w.tags || []).includes(t)).length;
   const stats = (d.stats || []).filter(s => s.value);
   const awards = (d.awards || []).filter(a => a.title);
-  const featured = [].map(byId).filter(Boolean);
-  const groups = (d.clientGroups || []).map(g => ({ ...g, clients: (g.clients || []).filter(c => c && c.name) })).filter(g => g.clients.length);
-  const thumb = w => w && w.thumbnail ? escHTML(fixImgUrl(w.thumbnail)) : '';
+  const brands = (d.brands || []).filter(c => c && c.name);
+  const paras = String(d.intro || '').split(/\n\s*\n/).map(t => t.trim()).filter(Boolean);
+  const pad2 = i => String(i + 1).padStart(2, '0');
 
   const el = document.createElement('div');
-  el.className = 'info-page about-page';
+  el.className = 'info-page about-page ab2';
+  const head = (label, zh, title, desc) => `
+      <header class="ab2-head">
+        <p class="ab2-eyebrow">${escHTML(zh || label)}</p>
+        ${title && title !== zh ? `<h2 class="ab2-h2">${clauses(escHTML(title).replace(/\*(.+?)\*/g, '<mark>$1</mark>'))}</h2>` : ''}
+        ${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}
+      </header>`;
+  const svcMap = serviceMap(d);
+  const svcCount = k => works.filter(w => workServices(w, svcMap).includes(k)).length;
   el.innerHTML = `
-    ${pageHero({
-      title: 'ABOUT',
-      sub: d.heroEn,
-      line: d.heroLine || '',
-      info: [escHTML(d.heroMicro || 'TAIWAN')],
-      meta: 'PROFILE<br>( 01 )',
-    })}
+    ${pageHead({ en: 'ABOUT', title: d.motto || '關於我' })}
 
-    <section class="hm-row ab-introrow">
-      ${d.introImage ? `<div class="hm-row__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : ''}
-      <div class="hm-row__panel">
-        <p class="micro">( INTRODUCTION )</p>
-        <p class="hm-row__statement">${escHTML(d.intro)}</p>
-        ${stats.length || awards.length ? `<dl class="ab-facts">
-          ${stats.map(s => `<div><dt>${escHTML(s.label)}</dt><dd><b>${escHTML(s.value)}</b>${escHTML(s.unit)}</dd></div>`).join('')}
-          ${awards.map(a => `<div><dt>得獎</dt><dd>${escHTML(a.title)}${a.work ? `<span>｜${escHTML(a.work)}</span>` : ''}</dd></div>`).join('')}
-        </dl>` : ''}
+    <section class="ab2-sec ab2-profile">
+      <div class="ab2-profile__grid">
+        ${d.introImage ? `<div class="ab2-profile__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : '<div></div>'}
+        <div class="ab2-profile__text">
+          <div class="ab2-body">${paras.map(t => `<p>${escHTML(t).replace(/\*(.+?)\*/g, '<mark>$1</mark>').replace(/\n/g, '<br class="ab2-br">')}</p>`).join('')}</div>
+          ${stats.length ? `<dl class="ab2-facts">
+            ${stats.map(s => `<div class="ab2-fact--big"><dd><b>${escHTML(s.value)}</b>${s.unit ? `<span>${escHTML(s.unit)}</span>` : ''}</dd><dt>${escHTML(s.label)}</dt></div>`).join('')}
+          </dl>` : ''}
+        </div>
       </div>
+      ${d.introQuote ? `<blockquote class="ab2-quote"><p>${escHTML(d.introQuote)}</p></blockquote>` : ''}
     </section>
 
-    ${featured.length ? `<section class="info-sec">
-      <h2 class="info-h"><span>SELECTED WORKS</span>精選作品</h2>
-      <div class="ab-featured">${featured.map(w => `
-        <a class="ab-work" href="/works/${encodeURIComponent(w.id)}">
-          <div class="ab-work__img"><img src="${thumb(w)}" alt="${escHTML(w.thumbnailAlt || w.title)}" loading="lazy"></div>
-          <h3>${escHTML(w.title)}</h3>
-          ${w.caption ? `<p>${escHTML(w.caption)}</p>` : ''}
-        </a>`).join('')}
-      </div>
-    </section>` : ''}
-
-    <section class="info-sec">
-      <h2 class="info-h"><span>SERVICES</span>服務項目</h2>
-      <div class="ab-services">${(d.services || []).map(s => {
-        const tags = (s.tags || []).filter(t => countTag(t));
-        const w = byId(s.work);
+    <section class="ab2-sec">
+      ${head('DESIGN CAPABILITIES', '設計能力', d.servicesTitle, d.servicesDesc)}
+      <div class="ab2-cards">${(d.services || []).map((s, i) => {
+        const key = SERVICE_KEYS[i];
+        const n = key ? svcCount(key) : 0;
         return `
-        <div class="ab-service">
-          ${s.icon ? `<img class="ab-service__icon" src="${escHTML(fixImgUrl(s.icon))}" alt="" aria-hidden="true">`
-            : w ? `<a class="ab-service__img" href="/?tag=${encodeURIComponent(tags[0] || '')}" tabindex="-1" aria-hidden="true"><img src="${thumb(w)}" alt="" loading="lazy"></a>` : ''}
-          <p class="ab-service__en">${escHTML(s.en)}</p>
-          <h3>${escHTML(s.zh)}</h3>
-          <p class="ab-service__desc">${escHTML(s.desc)}</p>
-          <p class="ab-service__tags">${tags.map(t =>
-            `<a href="/?tag=${encodeURIComponent(t)}">${escHTML(t)} <span>${countTag(t)}</span></a>`).join('')}</p>
-        </div>`;
+        <article class="ab2-card">
+          <div class="ab2-card__top"><span class="ab2-big">${pad2(i)}</span>
+            ${s.icon ? `<img src="${escHTML(fixImgUrl(s.icon))}" alt="" aria-hidden="true">` : ''}</div>
+          <h3 class="ab2-h3">${escHTML(s.zh)}</h3>
+          <p class="ab2-desc">${escHTML(s.desc)}</p>
+          ${(s.items || []).length ? `<ul class="ab2-items">${s.items.map(t => `<li>${escHTML(t)}</li>`).join('')}</ul>` : ''}
+          ${n ? `<a class="ab2-btn-line ab2-card__btn" href="/?service=${key.toLowerCase()}#index">相關作品 ${n} 件 →</a>` : ''}
+        </article>`;
       }).join('')}
       </div>
     </section>
 
-    ${groups.length ? `<section class="info-sec">
-      <h2 class="info-h"><span>CLIENTS</span>合作品牌</h2>
-      <dl class="ab-clients">${groups.map(g => `
-        <div><dt>${escHTML(g.industry)}</dt><dd>${g.clients.map(c => c.logo
-          ? `<img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" loading="lazy">`
-          : `<span>${escHTML(c.name)}</span>`).join('')}</dd></div>`).join('')}
-      </dl>
+    ${brands.length ? `<section class="ab2-sec">
+      ${head('BRANDS &amp; PROJECTS', '參與品牌與專案', d.brandsTitle, d.brandsDesc)}
+      ${(d.brandsIndustries || []).length ? `<ul class="ab2-ind" aria-label="合作產業">${d.brandsIndustries.map(t => `<li><mark>${escHTML(t)}</mark></li>`).join('')}</ul>` : ''}
+      <div class="ab2-marquee"><ul class="ab2-logos">${brands.map(c => {
+        const w = byId(c.work);
+        const z = c.scale ? ` style="--z:${Number(c.scale) || 1}"` : '';
+        const img = c.logo ? `<span class="lg"><img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" title="${escHTML(c.name)}" loading="lazy"${z}>${c.logoColor ? `<img class="lg-c" src="${escHTML(fixImgUrl(c.logoColor))}" alt="" aria-hidden="true" loading="lazy">` : ''}</span>` : `<b>${escHTML(c.name)}</b>`;
+        return `<li>${w ? `<a href="/works/${encodeURIComponent(w.id)}" aria-label="${escHTML(c.name)}：${escHTML(w.title)}">${img}</a>` : img}</li>`;
+      }).join('')}
+      </ul></div>
+      ${d.brandsNote ? `<p class="ab2-caption">${escHTML(d.brandsNote)}</p>` : ''}
     </section>` : ''}
 
-    <section class="info-sec">
-      <h2 class="info-h"><span>PROCESS</span>設計方法</h2>
-      <ol class="ab-process">${(d.process || []).map((p, i) => `
-        <li><span class="no">0${i + 1}</span><p class="ab-process__en">${escHTML(p.en)}</p>
-          <h3>${escHTML(p.zh)}</h3><p>${escHTML(p.desc)}</p></li>`).join('')}
+    ${(d.journey || []).length || awards.length ? `<section class="ab2-sec">
+      ${head('EXPERIENCE &amp; RECOGNITION', '經歷與肯定', d.journeyTitle, d.journeyDesc)}
+      <ol class="ab2-chrono">${(d.journey || []).map((p, i) => {
+        const ws = (p.works || []).map(byId).filter(Boolean);
+        return `
+        <li>
+          <div class="ab2-chrono__when">${p.year ? `<b>${escHTML(p.year)}</b>` : `<b class="is-no">${pad2(i)}</b>`}<span>${escHTML(p.period || '')}</span></div>
+          <div class="ab2-chrono__what">
+            ${(p.org || p.en) ? `<p class="ab2-en">${escHTML(p.org || p.en)}</p>` : ''}
+            <h3 class="ab2-h3">${escHTML(p.zh)}</h3>
+            <p class="ab2-desc">${escHTML(p.desc)}</p>
+          </div>
+        </li>`;
+      }).join('')}
       </ol>
-    </section>
-
-    <section class="info-cta">
-      <h2>${escHTML(d.ctaTitle)}</h2>
-      <div class="info-cta__btns">
-        <a class="btn btn--primary" href="/pages/contact">${escHTML(d.ctaPrimary)}</a>
-        <a class="btn" href="/">${escHTML(d.ctaSecondary)}</a>
-      </div>
-    </section>`;
+      ${awards.map(a => {
+        const w = byId(a.link);
+        const yr = (a.title.match(/^\d{4}/) || [''])[0];
+        return `<div class="ab2-award${a.image ? ' has-img' : ''}">
+          ${a.image ? `<img class="ab2-award__img" src="${escHTML(fixImgUrl(a.image))}" alt="${escHTML(a.title)} 獎座" loading="lazy">` : ''}
+          <div class="ab2-award__body"><p class="ab2-eyebrow">獲獎</p>
+            <p class="ab2-award__yr">${escHTML(yr)}</p><h3 class="ab2-h3"><mark>${escHTML(a.title.replace(/^\d{4}\s*/, ''))}</mark></h3>
+            ${a.work ? `<p class="ab2-desc">${escHTML(a.work)}</p>` : ''}
+            ${w ? `<a class="ab2-btn-line" href="/works/${encodeURIComponent(w.id)}">看作品 →</a>` : ''}</div></div>`;
+      }).join('')}
+    </section>` : ''}`;
+  // logo 視覺平衡：依長寬比調高度，讓每個 logo 面積接近（寬的矮一點、方的高一點）
+  el.querySelectorAll('.ab2-logos img').forEach(img => {
+    const fit = () => { if (img.naturalHeight) img.style.setProperty('--s', (1 / Math.sqrt(img.naturalWidth / img.naturalHeight)).toFixed(3)); };
+    img.complete ? fit() : img.addEventListener('load', fit);
+  });
   container.appendChild(el);
 
   // 結構化資料：讓搜尋引擎認得這是設計服務
@@ -854,41 +970,31 @@ async function renderAboutPage() {
 }
 
 async function renderContactPage() {
-  const [d, settings, tagsData] = await Promise.all([
+  const [d, settings, tagsData, about] = await Promise.all([
     fetchJSON('/data/contact.json'), fetchJSON('/data/settings.json'), fetchJSON('/data/tags.json'),
+    fetchJSON('/data/about.json').catch(() => ({})),
   ]);
   setPageMeta(d.seoTitle || 'CONTACT', d.seoDesc);
   const container = document.getElementById('page-content');
-  const tags = (tagsData.tags || []).map(t => t.name).filter(Boolean);
   const email = d.email || '';
+  const pad2 = i => String(i + 1).padStart(2, '0');
 
   const el = document.createElement('div');
-  el.className = 'info-page contact-page';
+  el.className = 'info-page contact-page ab2';
+  const svcs = ['品牌識別 & 視覺設計', '包裝 & 產品設計', '網站 & 數位設計', '展示陳列 & 展覽設計', '還不確定'];
+  const head = (label, zh, title, desc) => `<header class="ab2-head"><p class="ab2-eyebrow">${escHTML(zh)}</p>
+        ${title ? `<h2 class="ab2-h2">${escHTML(title)}</h2>` : ''}${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}</header>`;
   el.innerHTML = `
-    ${pageHero({
-      title: 'CONTACT',
-      sub: "LET'S WORK TOGETHER",
-      line: d.title,
-      info: ['TAIWAN'],
-      meta: 'GET IN TOUCH<br><a href="#contact-form">( FORM ↓ )</a>',
-    })}
+    ${pageHead({ en: 'CONTACT', title: '聯絡我', lead: '填好下面的表單，我會在確認內容後回覆你。', extra: `<p class="pg-head__mail">還不確定預算？可以先用<a href="/quote/">費用估算</a>看看大概的價格和時間。${email ? `<br>也可以直接寫信：<a href="mailto:${escHTML(email)}">${escHTML(email)}</a>` : ''}</p>` })}
 
-    <section class="ct-paths">${(d.paths || []).map(p => `
-      <a class="ct-path" href="${escHTML(p.href)}">
-        <h2>${escHTML(p.title)}</h2>
-        <p>${escHTML(p.desc)}</p>
-        <span class="ct-path__go">${escHTML(p.button)} →</span>
-      </a>`).join('')}
-    </section>
 
-    <section class="info-sec" id="contact-form">
-      <h2 class="info-h"><span>FORM</span>聯絡表單</h2>
+    <section class="ab2-sec ct-sec" id="contact-form">
       <form class="ct-form" novalidate>
         <p class="hp" aria-hidden="true"><label>請勿填寫 <input name="website" tabindex="-1" autocomplete="off"></label></p>
         <div class="f"><label for="cf-name">怎麼稱呼你</label><input id="cf-name" name="name" required maxlength="60" autocomplete="name"></div>
         <div class="f"><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" required maxlength="120" autocomplete="email"></div>
         <div class="f f--full"><span class="lbl" id="cf-svc-l">想做什麼 <small>可複選</small></span>
-          <div class="ct-chips" role="group" aria-labelledby="cf-svc-l">${tags.map(t =>
+          <div class="ct-chips" role="group" aria-labelledby="cf-svc-l">${svcs.map(t =>
             `<button type="button" aria-pressed="false" data-svc="${escHTML(t)}">${escHTML(t)}</button>`).join('')}</div>
           <p class="ct-err" id="cf-svc-err" hidden>請至少選一項</p></div>
         <div class="f"><label for="cf-budget">預算範圍 <small class="opt">選填</small></label>
@@ -903,18 +1009,17 @@ async function renderContactPage() {
       <div class="ct-sent" hidden></div>
     </section>
 
-    <section class="info-sec">
-      <h2 class="info-h"><span>ELSEWHERE</span>其他聯絡方式</h2>
-      <ul class="ct-links">
-        ${email ? `<li><span class="k">EMAIL</span><a href="mailto:${escHTML(email)}">${escHTML(email)}</a><button type="button" class="ct-copy" data-copy="${escHTML(email)}">複製</button></li>` : ''}
-        ${d.instagram ? `<li><span class="k">INSTAGRAM</span><a href="${escHTML(d.instagram)}" target="_blank" rel="noopener">${escHTML(d.instagram.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
-        ${d.linkedin ? `<li><span class="k">LINKEDIN</span><a href="${escHTML(d.linkedin)}" target="_blank" rel="noopener">${escHTML(d.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
-        ${d.behance ? `<li><span class="k">BEHANCE</span><a href="${escHTML(d.behance)}" target="_blank" rel="noopener">${escHTML(d.behance.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))} ↗</a></li>` : ''}
-      </ul>
+    <section class="ab2-sec ct-sec">
+      ${head('HOW I WORK', '合作流程', '', '')}
+      <ol class="ab2-steps">${(about.process || []).map((p, i, arr) => `
+        <li style="--p:${(i + 1) / arr.length}"><div class="ab2-steps__top"><span class="ab2-big">${pad2(i)}</span>${i < arr.length - 1 ? '<span class="ab2-steps__arrow" aria-hidden="true">→</span>' : ''}</div>
+          <span class="ab2-steps__bar" aria-hidden="true"></span>
+          <h3 class="ab2-h3">${escHTML(p.zh)}</h3><p class="ab2-desc">${escHTML(p.desc)}</p></li>`).join('')}
+      </ol>
     </section>
 
-    ${(d.faq || []).length ? `<section class="info-sec">
-      <h2 class="info-h"><span>FAQ</span>常見問題</h2>
+    ${(d.faq || []).length ? `<section class="ab2-sec ct-sec">
+      ${head('FAQ', '常見問題', '', '')}
       <div class="ct-faq">${d.faq.map(f => `
         <details><summary>${escHTML(f.q)}</summary><p>${inlineLinks(f.a)}</p></details>`).join('')}
       </div>
@@ -991,60 +1096,24 @@ async function renderHomeIntro(grid, works) {
   const img = w => w && w.thumbnail ? escHTML(fixImgUrl(w.thumbnail)) : '';
   const heroWorks = (d.heroImages || []).map(byId).filter(Boolean);
   const selected = (d.selected || []).map(s => ({ ...s, w: byId(s.id) })).filter(s => s.w);
-  const total = String(selected.length).padStart(2, '0');
 
   const wrap = document.createElement('div');
   wrap.className = 'home-intro';
   wrap.innerHTML = `
-    <section class="hm-hero">
-      <div class="hm-hero__text">
-        <h1 class="hm-hero__title">${escHTML(d.heroTitle || 'YENPOPPY')}</h1>
-        <p class="hm-hero__sub">${escHTML(d.heroSub)}</p>
-        ${d.heroLine ? `<p class="hm-hero__note">${escHTML(d.heroLine)}</p>` : ''}
-        ${(d.heroIntro || []).map(t => `<p class="hm-hero__intro">${escHTML(t)}</p>`).join('')}
-        <p class="hm-hero__cta"><a class="hm-btn" href="#index">看看我的作品</a><a class="hm-btn hm-btn--line" href="/pages/about">認識我</a></p>
-      </div>
-      <p class="hm-hero__info">${(d.heroInfo || []).map(l => /@/.test(l)
-        ? `<a href="mailto:${escHTML(l)}">${escHTML(l)}</a>` : escHTML(l)).join('<br>')}</p>
-      <p class="hm-hero__meta micro">PORTFOLIO<br>${escHTML(d.heroYears)}<br><a href="#index">( INDEX ↓ )</a></p>
-      ${heroWorks.length ? `<div class="hm-hero__imgs">${heroWorks.map((w, i) => `
-        <a href="/works/${encodeURIComponent(w.id)}" style="--i:${i}" aria-label="${escHTML(w.title)}">
-          <img src="${img(w)}" alt="${escHTML(w.thumbnailAlt || w.title)}">
-        </a>`).join('')}
-      </div>` : ''}
+    ${!(d.heroIntro || []).length && !d.heroTitle ? '<h1 class="sr-only">YENPOPPY 作品</h1>' : ''}<section class="hm2"${!(d.heroIntro || []).length && !d.heroTitle ? ' hidden' : ''}>
+      <h1 class="hm2__title hm2__title--line">${(d.heroIntro || []).slice(0, 1).map(t => `<span class="hm2__zh">${escHTML(t)}</span>`).join('')}${d.heroTitle ? `<span class="hm2__en">${escHTML(d.heroTitle)}</span>` : ''}</h1>
+      ${d.heroSub ? `<p class="hm2__sub">${escHTML(d.heroSub)}</p>` : ''}
+      ${d.heroLink && d.heroLink.text ? `<a class="hm2__link" href="${escHTML(d.heroLink.href || '/quote/')}">${escHTML(d.heroLink.text)}</a>` : ''}
     </section>
-
-    ${selected.length ? `<section class="hm-sel" aria-labelledby="hm-sel-h">
-      <h2 class="vlabel" id="hm-sel-h"><span>SELECTED</span>精選作品</h2>
-      <div class="hm-sel__list">${selected.map((s, i) => `
-        <a class="hm-row reveal${i % 2 ? ' hm-row--alt' : ''}" href="/works/${encodeURIComponent(s.w.id)}">
-          <div class="hm-row__img"><img src="${img(s.w)}" alt="${escHTML(s.w.thumbnailAlt || s.w.title)}" loading="lazy"></div>
-          <div class="hm-row__panel">
-            <p class="micro">( ${String(i + 1).padStart(2, '0')} / ${total} )</p>
-            <p class="hm-row__statement">${escHTML(s.statement)}</p>
-            <div class="hm-row__foot">
-              <div>
-                <p class="hm-row__title">${escHTML(s.w.title)}</p>
-                <p class="micro">${escHTML(s.w.caption || (s.w.tags || []).join(', '))}</p>
-              </div>
-              <span class="micro hm-row__view">VIEW →</span>
-            </div>
-          </div>
-        </a>`).join('')}
-      </div>
-    </section>` : ''}
-
-    ${d.ctaTitle ? `<section class="hm-cta">
-      <h2 class="hm-cta__title">${escHTML(d.ctaTitle)}</h2>
-      <p class="hm-cta__text">${escHTML(d.ctaText || '')}</p>
-      <a class="hm-btn" href="/pages/contact">${escHTML(d.ctaButton || 'CONTACT')} →</a>
-    </section>` : ''}
-
-    <div class="hm-index-h" id="index">
-      <h2 class="vlabel vlabel--row"><span>INDEX</span>作品總覽</h2>
-      <p class="micro">${works.length} PROJECTS</p>
-    </div>`;
+    <div id="index" class="hm2-anchor"></div>`;
   grid.parentElement.insertBefore(wrap, grid);
+}
+
+// 句尾最後幾個字不要單獨掉到下一行（例：「設計師。」）
+function keepTail(t, n = 4) {
+  const s = String(t || '');
+  if (s.length <= n * 2) return escHTML(s);
+  return `${escHTML(s.slice(0, -n))}<span class="nobr">${escHTML(s.slice(-n))}</span>`;
 }
 
 // ─────────────────────────────────────────────
@@ -1066,6 +1135,7 @@ function initReveal() {
 }
 
 function renderRails() {
+  return; // 2026-11-11 精簡：拿掉兩側直排字
   if (document.querySelector('.rail')) return;
   const l = document.createElement('div');
   l.className = 'rail rail--l'; l.setAttribute('aria-hidden', 'true');
@@ -1089,4 +1159,143 @@ function pageHero({ title, sub, line, info = [], meta = '', small = false }) {
       ${info.length ? `<p class="hm-hero__info">${info.join('<br>')}</p>` : ''}
       ${meta ? `<p class="hm-hero__meta micro">${meta}</p>` : ''}
     </section>`;
+}
+
+
+// ─────────────────────────────────────────────
+// 全站頁尾：唯一的「和我聊聊」＋聯絡方式（各頁不再重複放）
+// ─────────────────────────────────────────────
+async function renderFooter() {
+  if (document.querySelector('.sf')) return;
+  const [c, h] = await Promise.all([
+    fetchJSON('/data/contact.json').catch(() => ({})),
+    fetchJSON('/data/home.json').catch(() => ({})),
+  ]);
+  const onContact = /^\/(pages\/contact|quote)/.test(location.pathname);
+  const links = [
+    c.email && `<a href="mailto:${escHTML(c.email)}">${escHTML(c.email)}</a>`,
+    c.instagram && `<a href="${escHTML(c.instagram)}" target="_blank" rel="noopener">Instagram ↗</a>`,
+    c.behance && `<a href="${escHTML(c.behance)}" target="_blank" rel="noopener">Behance ↗</a>`,
+    c.linkedin && `<a href="${escHTML(c.linkedin)}" target="_blank" rel="noopener">LinkedIn ↗</a>`,
+  ].filter(Boolean);
+  const f = document.createElement('footer');
+  f.className = 'sf';
+  f.innerHTML = `
+    ${onContact ? '' : `<div class="sf__cta">
+      <h2 class="sf__title">${escHTML(h.ctaTitle || '有想法嗎？和我聊聊。')}</h2>
+      ${h.ctaText ? `<p class="sf__text">${escHTML(h.ctaText)}</p>` : ''}
+      <a class="hm-btn" href="/quote/#h4">${escHTML(h.ctaButton || '和我聊聊')} →</a>
+    </div>`}
+    <div class="sf__bar">
+      <p class="sf__links">${links.join('<span aria-hidden="true">/</span>')}</p>
+      <p class="sf__copy">© ${new Date().getFullYear()} YENPOPPY</p>
+    </div>
+    <a class="sf__logo" href="/" aria-label="YENPOPPY 首頁"><img src="/public/uploads/yenpoppy-wordmark.svg" alt="YENPOPPY" loading="lazy"></a>`;
+  const main = document.getElementById('page-content') || document.getElementById('main');
+  (main ? main.parentElement : document.body).insertBefore(f, main ? main.nextSibling : null);
+}
+
+// 內頁開場：一行中文標題＋一句說明（2026-11-11 精簡版）
+function pageHead({ en = '', title, lead = '', extra = '' }) {
+  return `
+    <header class="pg-head">
+      ${en ? `<p class="pg-head__en">${en}</p>` : ''}
+      <h1 class="pg-head__title">${clauses(escHTML(title).replace(/==(.+?)==/g, '<mark>$1</mark>'))}</h1>
+      ${lead ? `<p class="pg-head__lead">${escHTML(lead)}</p>` : ''}
+      ${extra}
+    </header>`;
+}
+
+
+// 合作洽詢頁（/quote/）最後補上合作流程與常見問題（資料沿用 about.json、contact.json）
+async function renderQuoteExtras() {
+  const steps = document.querySelector('.steps');
+  if (!steps || document.querySelector('.q-extra')) return;
+  const [about, c] = await Promise.all([
+    fetchJSON('/data/about.json').catch(() => ({})),
+    fetchJSON('/data/contact.json').catch(() => ({})),
+  ]);
+  const pad2 = i => String(i + 1).padStart(2, '0');
+  const wrap = document.createElement('div');
+  wrap.className = 'q-extra';
+  wrap.innerHTML = `
+    ${(about.process || []).length ? `<section class="q-extra__sec">
+      <div class="step-h"><h2>合作流程</h2></div>
+      <ol class="ab2-steps">${about.process.map((p, i, arr) => `
+        <li style="--p:${(i + 1) / arr.length}"><div class="ab2-steps__top"><span class="ab2-big">${pad2(i)}</span>${i < arr.length - 1 ? '<span class="ab2-steps__arrow" aria-hidden="true">→</span>' : ''}</div>
+          <span class="ab2-steps__bar" aria-hidden="true"></span>
+          <h3 class="ab2-h3">${escHTML(p.zh)}</h3><p class="ab2-desc">${escHTML(p.desc)}</p></li>`).join('')}
+      </ol>
+    </section>` : ''}
+    ${(c.faq || []).length ? `<section class="q-extra__sec">
+      <div class="step-h"><h2>常見問題</h2></div>
+      <div class="ct-faq">${c.faq.map(f => `
+        <details><summary>${escHTML(f.q)}</summary><p>${inlineLinks(f.a)}</p></details>`).join('')}
+      </div>
+    </section>` : ''}`;
+  steps.appendChild(wrap);
+}
+
+
+// 頁首：往下滑隱藏、往上滑出現（沿用舊站動態）
+(function () {
+  let last = window.scrollY, ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY, h = document.getElementById('site-header');
+      const menuOpen = document.getElementById('mobile-nav')?.classList.contains('open');
+      if (h && !menuOpen) {
+        if (y > last + 4 && y > 160) h.classList.add('hd-hide');
+        else if (y < last - 4 || y < 160) h.classList.remove('hd-hide');
+      }
+      last = y; ticking = false;
+    });
+  }, { passive: true });
+})();
+
+// About 合作品牌：一整排自動左右輪播、輪流亮起（滑鼠移上暫停）
+function initLogoMarquee() {
+  const box = document.querySelector('.ab2-marquee');
+  if (!box || box.dataset.ready) return;
+  box.dataset.ready = '1';
+  const ul = box.querySelector('.ab2-logos');
+  const copy = ul.cloneNode(true);
+  copy.setAttribute('aria-hidden', 'true');
+  copy.querySelectorAll('a').forEach(a => a.tabIndex = -1);
+  box.appendChild(copy);
+  box.classList.add('is-scroll');
+  // 自動往左捲；手指／滑鼠可以左右拖，放開 1.5 秒後繼續
+  let pos = 0, last = performance.now(), hold = 0, hover = false;
+  const pause = () => { hold = performance.now() + 1500; };
+  ['touchstart', 'touchmove', 'wheel', 'pointerdown'].forEach(ev => box.addEventListener(ev, pause, { passive: true }));
+  box.addEventListener('mouseenter', () => { hover = true; });
+  box.addEventListener('mouseleave', () => { hover = false; });
+  box.addEventListener('scroll', () => { if (Math.abs(box.scrollLeft - pos) > 2) { pos = box.scrollLeft; pause(); } }, { passive: true });
+  // 經過中間的那個 logo 亮起
+  const all = [...ul.children, ...copy.children];
+  const tick = (now) => {
+    const dt = Math.min(64, now - last); last = now;
+    const w = ul.offsetWidth;
+    if (w && !hover && now > hold) {
+      pos += w / 70000 * dt;
+      if (pos >= w) pos -= w;
+      box.scrollLeft = pos;
+    } else if (w && box.scrollLeft >= w) { pos = box.scrollLeft - w; box.scrollLeft = pos; }
+    const r = box.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < innerHeight) {
+      const mid = r.left + r.width / 2;
+      let best = null, bd = Infinity;
+      all.forEach(li => { const b = li.getBoundingClientRect(); const d = Math.abs(b.left + b.width / 2 - mid); if (d < bd) { bd = d; best = li; } });
+      all.forEach(li => li.classList.toggle('is-on', li === best));
+    }
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+new MutationObserver(() => initLogoMarquee()).observe(document.documentElement, { childList: true, subtree: true });
+
+// 標題只在逗號後換行：每個子句包成不斷行的區塊（避免「在／乎」被拆開）
+function clauses(html) {
+  return String(html).split(/(?<=[，、；：])/).map(t => `<span class="clause">${t}</span>`).join('');
 }
