@@ -395,7 +395,18 @@ function createWorkCard(work) {
 
   const imgAlt = work.thumbnailAlt || work.title;
 
-  if (work.thumbnail) {
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (work.thumbnailVideo && !reduceMotion) {
+    // 封面影片：靜音自動循環播放，載入前先顯示封面圖
+    const v = document.createElement('video');
+    v.className = 'card-video';
+    v.src = fixImgUrl(work.thumbnailVideo);
+    if (work.thumbnail) v.poster = fixImgUrl(work.thumbnail);
+    v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true;
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-label', imgAlt);
+    v.preload = 'metadata';
+    card.appendChild(v);
+  } else if (work.thumbnail) {
     const img = document.createElement('img');
     img.src = fixImgUrl(work.thumbnail);
     img.alt = imgAlt;
