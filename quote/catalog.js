@@ -163,10 +163,12 @@ window.CATALOG = {
     {
       id: 'social', name: '社群經營', intro: 'IG、FB 的日常素材',
       items: [
-        { id: 'p-post', name: '社群貼文', desc: '每篇封面＋內頁 3 張', options: [
-          { id: 'one', name: '單篇', unit: '篇', price: 4200, min: 3500, max: 5000, days: 5 },
-          { id: 'month', name: '月包 8 篇', unit: '月', price: 27000, min: 24000, max: 30000, days: 20, desc: '每月固定排程' }
-        ] }
+        { id: 'p-post', name: '社群圖片', unit: '張', price: 1200, min: 1000, max: 1500, days: 3,
+          desc: '單張或輪播都按張數計，輪播 5 張就算 5 張' },
+        { id: 'p-reels', name: 'Reels 短影音', unit: '支', price: 5000, min: 4500, max: 6000, days: 5,
+          desc: '15～30 秒剪輯、字幕與片頭片尾，影片素材由品牌提供' },
+        { id: 'p-tpl', name: '社群版型組', unit: '組', price: 12000, min: 10800, max: 13800, days: 10,
+          desc: '5 款版型，交付可編輯檔，之後可以自己換字換圖' }
         // LINE 圖文選單 2026-11-12 Yen 決定不放
       ]
     },
