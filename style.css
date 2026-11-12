@@ -2294,3 +2294,10 @@ body[data-page="work"] .pg-head { padding-bottom: 24px; }
   .q-extra__sec .ab2-steps .ab2-h3 { display: block; font-size: 16px; }
   .q-extra__sec .ab2-steps .ab2-desc { margin: 6px 0 0 !important; font-size: 13px !important; line-height: 1.7; }
 }
+/* 首頁篩選（手機）：ALL 佔左側兩列＋四類 2×2，左右對齊、不留缺角 */
+@media (max-width: 599px) {
+  .tag-filter { display: grid !important; grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1fr); gap: 8px !important; overflow: visible !important; margin-right: 0 !important; padding-right: 0 !important; }
+  .tag-filter button { width: 100%; padding: 10px 4px !important; display: flex; align-items: center; justify-content: center; gap: 4px; white-space: nowrap; font-size: 12px !important; letter-spacing: .08em !important; }
+  .tag-filter button:first-child { grid-row: span 2; }
+}
+@media (max-width: 380px) { .tag-filter { grid-template-columns: 52px minmax(0, 1fr) minmax(0, 1fr) !important; gap: 6px !important; } .tag-filter button { font-size: 11px !important; letter-spacing: .04em !important; } }
