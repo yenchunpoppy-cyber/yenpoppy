@@ -535,15 +535,27 @@ async function renderWorkPage() {
     en: `<a href="/#index">← 所有作品</a>`,
     title: work.title,
     lead: work.subtitle || work.caption || '',
-    extra: (work.description && !/[\u4e00-\u9fff]/.test(work.description) ? `<p class="wk-tagline">${esc(work.description)}</p>` : '') +
-      (metaRows.length ? `<dl class="wk-meta">${metaRows.join('')}</dl>` : ''),
   });
   container.appendChild(header);
 
-  (work.modules || []).forEach(mod => {
+  // 閱讀順序：標題副標 → 主圖 → 概念文字 → 作品圖 → 專案資訊（客戶／合作團隊／年份／網站）
+  const mods = (work.modules || []).slice();
+  const first = mods[0];
+  if (first && first.type === 'module_a' && (first.images || []).length) {
+    mods.splice(0, 1,
+      { type: 'module_b', columns: '1', gutter: 'default', bg: '', images: first.images, isHero: true },
+      Object.assign({}, first, { images: [], columns: '0' }));
+  }
+  mods.forEach(mod => {
     const el = renderModule(mod, settings, '');
-    if (el) container.appendChild(el);
+    if (el) { if (mod.isHero) el.classList.add('wk-hero'); container.appendChild(el); }
   });
+  if (metaRows.length) {
+    const info = document.createElement('section');
+    info.className = 'module-wrap wk-info';
+    info.innerHTML = `<dl class="wk-meta">${metaRows.join('')}</dl>`;
+    container.appendChild(info);
+  }
 
   // 上一件／下一件
   const prev = all[(idx - 1 + all.length) % all.length];
