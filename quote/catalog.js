@@ -126,7 +126,7 @@ window.CATALOG = {
           { id: 'full', name: '完整識別', unit: '式', price: 60000, min: 54000, max: 69000, days: 25, desc: '標誌＋標準字＋配色、字型與規範手冊' }
         ] },
         { id: 'p-card', name: '品牌延伸物', unit: '款', price: 7500, min: 6500, max: 9000, days: 10, print: true,
-          desc: '名片、吊牌、貼紙等小物，用新 LOGO 延伸' }
+          desc: '名片、吊牌、貼紙等，用新 LOGO 延伸設計' }
       ]
     },
     {
@@ -187,9 +187,9 @@ window.CATALOG = {
       id: 'starter', name: '起步方案', intro: '剛起步的品牌，從這裡開始最划算',
       items: [
         { id: 'b-brand', name: '品牌起步組', unit: '組', price: 40000, min: 36000, max: 45000, days: 25, print: true,
-          desc: 'LOGO 基本＋1 款平面包材＋1 個小物延伸' },
+          desc: 'LOGO 基本＋1 款平面包材＋名片、吊牌或貼紙擇 1' },
         { id: 'b-open', name: '開店宣傳組', unit: '組', price: 38000, min: 33000, max: 43000, days: 25, print: true,
-          desc: 'LOGO 基本＋1 個小物延伸＋社群版型 5 款' },
+          desc: 'LOGO 基本＋名片、吊牌或貼紙擇 1＋社群版型 5 款' },
         { id: 'b-launch', name: '新品上市組', unit: '組', price: 46000, min: 40000, max: 52000, days: 25, print: true,
           desc: '單一盒袋包裝＋1 款延伸款＋社群圖片 6 張' }
         // 品牌健檢（3,500）2026-11-12 Yen 決定先下架，等有口碑再上
