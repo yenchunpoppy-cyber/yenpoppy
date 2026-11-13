@@ -2317,3 +2317,14 @@ body[data-page="work"] .pg-head { padding-bottom: 24px; }
 /* 2026-11-13 About 拿掉個人照：介紹文字改單欄 */
 .ab2-profile__grid.no-img { grid-template-columns: minmax(0, 1fr); }
 .ab2-profile__grid.no-img .ab2-profile__text { max-width: 760px; }
+
+/* 全站標題規範（2026-11-13）：頁首小標「中文 ENGLISH」；區塊小標「編號 中文 ENGLISH」；區塊之間細線；About 品牌區淺底色 */
+.pg-head__en span { margin-left: 8px; }
+.info-page.ab2 > .ab2-sec + .ab2-sec { margin-top: 96px; padding-top: 48px !important; border-top: 1px solid #E2E2E2; }
+.about-page.ab2 > .ab2-sec--band { border-top: 0; padding-bottom: 64px; background: #FDFAEA; box-shadow: 0 0 0 100vmax #FDFAEA; clip-path: inset(0 -100vmax); }
+.about-page.ab2 > .ab2-sec--band + .ab2-sec { border-top: 0; }
+.ab2-sec-no { font-style: normal; font-family: var(--font-title); color: var(--text-color, #000); letter-spacing: .1em; margin-right: 4px; }
+@media (max-width: 599px) {
+  .info-page.ab2 > .ab2-sec + .ab2-sec { margin-top: 56px; padding-top: 32px !important; }
+  .about-page.ab2 > .ab2-sec--band { padding-bottom: 40px; }
+}

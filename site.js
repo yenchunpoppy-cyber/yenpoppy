@@ -910,16 +910,16 @@ async function renderAboutPage() {
 
   const el = document.createElement('div');
   el.className = 'info-page about-page ab2';
-  const head = (label, zh, title, desc) => `
+  const head = (label, zh, title, desc, no) => `
       <header class="ab2-head">
-        <p class="ab2-eyebrow">${escHTML(zh || label)}</p>
+        <p class="ab2-eyebrow">${no ? `<em class="ab2-sec-no">${no}</em>` : ''}${escHTML(zh)}<span>${label}</span></p>
         ${title && title !== zh ? `<h2 class="ab2-h2">${clauses(escHTML(title).replace(/\*(.+?)\*/g, '<mark>$1</mark>'))}</h2>` : ''}
         ${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}
       </header>`;
   const svcMap = serviceMap(d);
   const svcCount = k => works.filter(w => workServices(w, svcMap).includes(k)).length;
   el.innerHTML = `
-    ${pageHead({ en: 'ABOUT', title: d.motto || '關於我' })}
+    ${pageHead({ en: '關於我 <span>ABOUT</span>', title: d.motto || '關於我' })}
 
     <section class="ab2-sec ab2-profile">
       <div class="ab2-profile__grid${d.introImage ? '' : ' no-img'}">
@@ -935,7 +935,7 @@ async function renderAboutPage() {
     </section>
 
     <section class="ab2-sec">
-      ${head('DESIGN CAPABILITIES', '設計能力', d.servicesTitle, d.servicesDesc)}
+      ${head('CAPABILITIES', '設計能力', d.servicesTitle, d.servicesDesc, '01')}
       <div class="ab2-cards">${(d.services || []).map((s, i) => {
         const key = SERVICE_KEYS[i];
         const n = key ? svcCount(key) : 0;
@@ -952,8 +952,8 @@ async function renderAboutPage() {
       </div>
     </section>
 
-    ${brands.length ? `<section class="ab2-sec">
-      ${head('BRANDS &amp; PROJECTS', '參與品牌與專案', d.brandsTitle, d.brandsDesc)}
+    ${brands.length ? `<section class="ab2-sec ab2-sec--band">
+      ${head('BRANDS', '參與品牌與專案', d.brandsTitle, d.brandsDesc, '02')}
       ${(d.brandsIndustries || []).length ? `<ul class="ab2-ind" aria-label="合作產業">${d.brandsIndustries.map(t => `<li><mark>${escHTML(t)}</mark></li>`).join('')}</ul>` : ''}
       ${(window.matchMedia('(max-width: 599px)').matches ? [brands.slice(0, Math.ceil(brands.length / 2)), brands.slice(Math.ceil(brands.length / 2))] : [brands]).map((row, ri) => `<div class="ab2-marquee"${ri ? ' data-dir="-1"' : ''}><ul class="ab2-logos">${row.map(c => {
         const w = byId(c.work);
@@ -966,7 +966,7 @@ async function renderAboutPage() {
     </section>` : ''}
 
     ${(d.journey || []).length || awards.length ? `<section class="ab2-sec">
-      ${head('EXPERIENCE &amp; RECOGNITION', '經歷與肯定', d.journeyTitle, d.journeyDesc)}
+      ${head('EXPERIENCE', '經歷與肯定', d.journeyTitle, d.journeyDesc, '03')}
       <ol class="ab2-chrono">${(d.journey || []).map((p, i) => {
         const ws = (p.works || []).map(byId).filter(Boolean);
         return `
@@ -985,7 +985,7 @@ async function renderAboutPage() {
         const yr = (a.title.match(/^\d{4}/) || [''])[0];
         return `<div class="ab2-award${a.image ? ' has-img' : ''}">
           ${a.image ? `<img class="ab2-award__img" src="${escHTML(fixImgUrl(a.image))}" alt="${escHTML(a.title)} 獎座" loading="lazy">` : ''}
-          <div class="ab2-award__body"><p class="ab2-eyebrow">獲獎</p>
+          <div class="ab2-award__body"><p class="ab2-eyebrow">獲獎<span>AWARD</span></p>
             <p class="ab2-award__yr">${escHTML(yr)}</p><h3 class="ab2-h3"><mark>${escHTML(a.title.replace(/^\d{4}\s*/, ''))}</mark></h3>
             ${a.work ? `<p class="ab2-desc">${escHTML(a.work)}</p>` : ''}
             ${w ? `<a class="ab2-btn-line" href="/works/${encodeURIComponent(w.id)}">看作品 →</a>` : ''}</div></div>`;
@@ -1023,10 +1023,10 @@ async function renderContactPage() {
   const el = document.createElement('div');
   el.className = 'info-page contact-page ab2';
   const svcs = ['品牌識別 & 視覺設計', '包裝 & 產品設計', '網站 & 數位設計', '展示陳列 & 展覽設計', '還不確定'];
-  const head = (label, zh, title, desc) => `<header class="ab2-head"><p class="ab2-eyebrow">${escHTML(zh)}</p>
+  const head = (label, zh, title, desc, no) => `<header class="ab2-head"><p class="ab2-eyebrow">${no ? `<em class="ab2-sec-no">${no}</em>` : ''}${escHTML(zh)}<span>${label}</span></p>
         ${title ? `<h2 class="ab2-h2">${escHTML(title)}</h2>` : ''}${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}</header>`;
   el.innerHTML = `
-    ${pageHead({ en: 'CONTACT', title: '聯絡我', lead: '填好下面的表單，我會在確認內容後回覆你。', extra: `<p class="pg-head__mail">還不確定預算？可以先用<a href="/quote/">費用估算</a>看看大概的價格和時間。${email ? `<br>也可以直接寫信：<a href="mailto:${escHTML(email)}">${escHTML(email)}</a>` : ''}</p>` })}
+    ${pageHead({ en: '聯絡我 <span>CONTACT</span>', title: '聯絡我', lead: '填好下面的表單，我會在確認內容後回覆你。', extra: `<p class="pg-head__mail">還不確定預算？可以先用<a href="/quote/">費用估算</a>看看大概的價格和時間。${email ? `<br>也可以直接寫信：<a href="mailto:${escHTML(email)}">${escHTML(email)}</a>` : ''}</p>` })}
 
 
     <section class="ab2-sec ct-sec" id="contact-form">
@@ -1051,7 +1051,7 @@ async function renderContactPage() {
     </section>
 
     <section class="ab2-sec ct-sec">
-      ${head('HOW I WORK', '合作流程', '', '')}
+      ${head('PROCESS', '合作流程', '', '', '01')}
       <ol class="ab2-steps">${(about.process || []).map((p, i, arr) => `
         <li style="--p:${(i + 1) / arr.length}"><div class="ab2-steps__top"><span class="ab2-big">${pad2(i)}</span>${i < arr.length - 1 ? '<span class="ab2-steps__arrow" aria-hidden="true">→</span>' : ''}</div>
           <span class="ab2-steps__bar" aria-hidden="true"></span>
@@ -1060,7 +1060,7 @@ async function renderContactPage() {
     </section>
 
     ${(d.faq || []).length ? `<section class="ab2-sec ct-sec">
-      ${head('FAQ', '常見問題', '', '')}
+      ${head('FAQ', '常見問題', '', '', '02')}
       <div class="ct-faq">${d.faq.map(f => `
         <details><summary>${escHTML(f.q)}</summary><p>${inlineLinks(f.a)}</p></details>`).join('')}
       </div>
