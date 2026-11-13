@@ -1091,10 +1091,11 @@ async function renderContactPage() {
       budget: form.budget.value, date: form.date.value, brand: form.brand.value.trim(),
       message: form.message.value.trim(), link: form.link.value.trim(),
     };
+    const row = (k, v) => v ? [`${k}：${v}`] : [];
     const summary = [
-      `稱呼：${data.name}`, `Email：${data.email}`, `想做什麼：${data.services}`,
-      `預算範圍：${data.budget || '—'}`, `希望完成：${data.date || '—'}`, `公司／品牌：${data.brand || '—'}`,
-      `參考連結：${data.link || '—'}`, '', data.message || '',
+      '■ 聯絡資料', ...row('稱呼', data.name), ...row('Email', data.email), ...row('公司／品牌', data.brand),
+      '', '■ 需求', ...row('想做什麼', data.services), ...row('預算範圍', data.budget), ...row('希望完成', data.date), ...row('參考連結', data.link),
+      ...(data.message ? ['', '■ 想說的話', data.message] : []),
     ].join('\n');
 
     const btn = form.querySelector('[type="submit"]');
