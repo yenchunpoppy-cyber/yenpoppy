@@ -286,7 +286,7 @@ async function renderWorksGrid() {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.textContent = name || 'ALL';
-      if (SERVICE_ZH[name]) { const z = document.createElement('span'); z.className = 'tf-zh'; z.textContent = SERVICE_ZH[name]; btn.appendChild(z); }
+      if (SERVICE_ZH[name]) { const z = document.createElement('span'); z.className = 'tf-zh'; z.textContent = SERVICE_ZH[name]; btn.prepend(z); }
       btn.dataset.tag = name || '';
       btn.addEventListener('click', () => applyFilter(name));
       bar.appendChild(btn);
@@ -1143,7 +1143,7 @@ async function renderHomeIntro(grid, works) {
   wrap.className = 'home-intro';
   wrap.innerHTML = `
     ${!(d.heroIntro || []).length && !d.heroTitle ? '<h1 class="sr-only">YENPOPPY 作品</h1>' : ''}<section class="hm2"${!(d.heroIntro || []).length && !d.heroTitle ? ' hidden' : ''}>
-      <h1 class="hm2__title hm2__title--line">${(d.heroIntro || []).slice(0, 1).map(t => `<span class="hm2__zh">${escHTML(t)}</span>`).join('')}${d.heroTitle ? `<span class="hm2__en">${escHTML(d.heroTitle)}</span>` : ''}</h1>
+      <h1 class="hm2__title hm2__title--line">${(d.heroIntro || []).slice(0, 1).map(t => `<span class="hm2__zh">${escHTML(t).replace(/==(.+?)==/g, '<mark>$1</mark>')}</span>`).join('')}${d.heroTitle ? `<span class="hm2__en">${escHTML(d.heroTitle)}</span>` : ''}</h1>
       ${d.heroSub ? `<p class="hm2__sub">${escHTML(d.heroSub)}</p>` : ''}
       ${d.heroLink && d.heroLink.text ? `<a class="hm2__link" href="${escHTML(d.heroLink.href || '/quote/')}">${escHTML(d.heroLink.text)}</a>` : ''}
     </section>
@@ -1263,7 +1263,7 @@ async function renderQuoteExtras() {
   wrap.className = 'q-extra';
   wrap.innerHTML = `
     ${(about.process || []).length ? `<section class="q-extra__sec">
-      <div class="step-h"><h2>合作流程</h2></div>
+      <header class="ab2-head"><p class="ab2-eyebrow">合作流程<span>PROCESS</span></p></header>
       <ol class="ab2-steps">${about.process.map((p, i, arr) => `
         <li style="--p:${(i + 1) / arr.length}"><div class="ab2-steps__top"><span class="ab2-big">${pad2(i)}</span>${i < arr.length - 1 ? '<span class="ab2-steps__arrow" aria-hidden="true">→</span>' : ''}</div>
           <span class="ab2-steps__bar" aria-hidden="true"></span>
@@ -1271,7 +1271,7 @@ async function renderQuoteExtras() {
       </ol>
     </section>` : ''}
     ${(c.faq || []).length ? `<section class="q-extra__sec">
-      <div class="step-h"><h2>常見問題</h2></div>
+      <header class="ab2-head"><p class="ab2-eyebrow">常見問題<span>FAQ</span></p></header>
       <div class="ct-faq">${c.faq.map(f => `
         <details><summary>${escHTML(f.q)}</summary><p>${inlineLinks(f.a)}</p></details>`).join('')}
       </div>

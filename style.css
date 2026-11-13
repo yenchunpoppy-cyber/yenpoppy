@@ -2366,3 +2366,15 @@ body[data-page="work"] .pg-head__en { color: #8a8a8a !important; }
   .about-page.ab2 .ab2-chrono li:not(:last-child) .ab2-chrono__when::after { content: '\2192'; margin-left: auto; padding-right: 8px; font-size: 18px; color: var(--gold); }
 }
 @media (max-width: 899px) { .about-page.ab2 .ab2-chrono li { padding: 12px 0 !important; } }
+
+/* 設計規範 v1 修正（2026-11-13） */
+/* 頁尾 CTA：整條淡黃底，與內容區分 */
+.sf__cta { border-top: 0 !important; background: #FDFAEA; box-shadow: 0 0 0 100vmax #FDFAEA; clip-path: inset(0 -100vmax); }
+.sf__cta + .sf__bar { border-top: 0; }
+/* 首頁主標螢光 */
+.hm2__zh mark { background: linear-gradient(transparent 58%, var(--cream) 58%); color: inherit; padding: 0 2px; }
+/* 首頁篩選：中文在前 */
+.tf-btn .tf-zh, .tag-filter .tf-zh { margin: 0 .5em 0 0 !important; }
+/* 作品內頁：圖組小標也用金線，字級比段落標題小一級 */
+body[data-page="work"] .module-b__label { border-top: 0; padding: 0 0 0 16px; margin-left: auto; border-left: 2px solid var(--gold); font-size: 18px; font-weight: 400; letter-spacing: .04em; }
+@media (min-width: 1000px) { body[data-page="work"] .module-b__label { position: relative; left: -18px; } }

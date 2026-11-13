@@ -638,7 +638,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   function renderResult() {
     const r = calc();
     if (!r.ls.length) {
-      $('#result').innerHTML = `<div class="eyebrow">YOUR ESTIMATE</div>
+      $('#result').innerHTML = `<div class="eyebrow">試算結果 ESTIMATE</div>
         <div class="range">NT$ —<small>選好項目後，這裡會顯示試算結果</small></div>
         <p class="note">目前最快 ${C.leadDays} 個工作天後可以開始。</p>`;
       $('#mbar').innerHTML = '<span>還沒有選項目</span>';
@@ -648,7 +648,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
     $('#send').disabled = false;
     if (!st.revealed) { // 先藏金額：按「看試算結果」才顯示，同時記一筆試算紀錄
       const miss = []; // 2026-11-12 Yen：按「看試算結果」才顯示金額，不需先選身分產業
-      $('#result').innerHTML = `<div class="eyebrow">YOUR ESTIMATE</div>
+      $('#result').innerHTML = `<div class="eyebrow">試算結果 ESTIMATE</div>
         <div class="range locked">選好後就能看到金額<small>已選 ${r.ls.length} 個項目</small></div>
         <ul class="picked">${r.ls.map(l => `<li><span>${esc(l.name)} × ${l.qty}</span></li>`).join('')}</ul>
         ${miss.length ? `<div class="status${st.nudge ? ' warn' : ''}">再選一下上方的${miss.join('和')}，就能看到試算結果。</div>` : ''}
@@ -661,7 +661,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
     if (r.want && r.fit === true) status += `<div class="status ok">時間來得及，${Y.short(r.want)} 前可以完成。</div>`;
     if (r.floor) status += `<div class="status">單次合作 NT$${Y.num(C.minFee)} 起，可以再加幾個項目一起做。</div>`;
     if (r.want && r.fit === false) status += `<div class="status warn">這個日期比較趕，需要以急件處理，已加上急件費（設計費 +${Math.round(r.rush * 100)}%）。日期能往後一點的話就不用。</div>`;
-    $('#result').innerHTML = `<div class="eyebrow">YOUR ESTIMATE</div>
+    $('#result').innerHTML = `<div class="eyebrow">試算結果 ESTIMATE</div>
       <div class="range">${rng(r)}<small>${r.tax ? '含 5% 營業稅，' : ''}${esc(r.plan.name)}方案，風格：${esc(r.style.name)}</small></div>
       <dl class="kv">
         <dt>最快開始</dt><dd>${Y.short(r.start)}</dd>
