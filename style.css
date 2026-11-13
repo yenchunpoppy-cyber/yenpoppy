@@ -2339,8 +2339,10 @@ body[data-page="work"] .pg-head__en { color: #8a8a8a !important; }
 /* About 開場：電腦版左文右數字（無照片時） */
 .about-page .pg-head { padding-bottom: 24px; }
 @media (min-width: 900px) {
-  .about-page.ab2 .ab2-profile__grid.no-img { grid-template-columns: minmax(0, 1fr) auto; gap: 0 80px; align-items: center; }
-  .about-page.ab2 .no-img > .ab2-facts { flex-direction: column; flex-wrap: nowrap; gap: 28px; margin: 0 !important; padding: 8px 0 8px 56px !important; border-top: 0; border-left: 1px solid var(--line); }
+  .about-page.ab2 .ab2-profile__grid.no-img { grid-template-columns: minmax(0, 700px) max-content; justify-content: start; gap: 0 64px; align-items: stretch; }
+  .about-page.ab2 .no-img .ab2-profile__text { max-width: 700px; }
+  .about-page.ab2 .no-img > .ab2-facts { display: flex !important; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: flex-start; gap: 56px !important; margin: 0 !important; padding: 0 0 0 56px !important; border-top: 0; border-left: 1px solid var(--line); }
+  .about-page.ab2 .ab2-profile + .ab2-sec { margin-top: 72px !important; }
 }
 
 /* 產業標籤：只在電腦版顯示，不做螢光 */
@@ -2353,3 +2355,4 @@ body[data-page="work"] .pg-head__en { color: #8a8a8a !important; }
 .sf__btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 0; }
 @media (max-width: 599px) { .sf__btns { justify-content: flex-start; } }
 .ct-privacy { margin: 12px 0 0; font-size: 12px; color: #888; letter-spacing: .04em; }
+@media (max-width: 1199px) { .about-page .ab2-br { display: none; } }
