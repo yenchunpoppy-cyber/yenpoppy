@@ -2378,3 +2378,10 @@ body[data-page="work"] .pg-head__en { color: #8a8a8a !important; }
 /* 作品內頁：圖組小標也用金線，字級比段落標題小一級 */
 body[data-page="work"] .module-b__label { border-top: 0; padding: 0 0 0 16px; margin-left: auto; border-left: 2px solid var(--gold); font-size: 18px; font-weight: 400; letter-spacing: .04em; }
 @media (min-width: 1000px) { body[data-page="work"] .module-b__label { position: relative; left: -18px; } }
+
+/* 品牌 logo 無縫循環（2026-11-13）：JS 等速滑動，可拖曳，第二排反方向 */
+.about-page.ab2 .ab2-marquee.is-loop { overflow: hidden !important; cursor: grab; touch-action: pan-y; user-select: none; }
+.about-page.ab2 .ab2-marquee.is-drag { cursor: grabbing; }
+.ab2-track { display: flex; width: max-content; will-change: transform; }
+.about-page.ab2 .ab2-marquee.is-loop .ab2-logos { animation: none !important; }
+.ab2-marquee img { -webkit-user-drag: none; pointer-events: none; }

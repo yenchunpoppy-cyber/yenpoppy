@@ -955,7 +955,7 @@ async function renderAboutPage() {
     ${brands.length ? `<section class="ab2-sec ab2-sec--band">
       ${head('BRANDS', '參與品牌與專案', d.brandsTitle, d.brandsDesc, '02')}
       ${(d.brandsIndustries || []).length ? `<ul class="ab2-ind" aria-label="合作產業">${d.brandsIndustries.map(t => `<li><mark>${escHTML(t)}</mark></li>`).join('')}</ul>` : ''}
-      ${[brands.slice(0, Math.ceil(brands.length / 2)), brands.slice(Math.ceil(brands.length / 2))].map((row, ri) => `<div class="ab2-marquee"${ri ? ' data-dir="-1"' : ''}><ul class="ab2-logos">${row.map(c => {
+      ${[brands.filter((_, i) => i % 2 === 0), brands.filter((_, i) => i % 2 === 1)].map((row, ri) => `<div class="ab2-marquee"${ri ? ' data-dir="-1"' : ''}><ul class="ab2-logos">${row.map(c => {
         const w = byId(c.work);
         const z = c.scale ? ` style="--z:${Number(c.scale) || 1}"` : '';
         const img = c.logo ? `<span class="lg"><img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" title="${escHTML(c.name)}" loading="lazy"${z}>${c.logoColor ? `<img class="lg-c" src="${escHTML(fixImgUrl(c.logoColor))}" alt="" aria-hidden="true" loading="lazy">` : ''}</span>` : `<b>${escHTML(c.name)}</b>`;
@@ -1302,32 +1302,34 @@ function initLogoMarquee() {
   document.querySelectorAll('.ab2-marquee:not([data-ready])').forEach(initOneMarquee);
 }
 function initOneMarquee(box) {
-  const dir = box.dataset.dir === '-1' ? -1 : 1;  // 第二排反方向
+  // 無縫循環：兩份 logo 接在一起，等速一直滑，每個品牌出現時間相同；第二排反方向。
+  // 電腦用滑鼠拖、手機用手指滑都可以，放開 1.5 秒後繼續自動滑。
   box.dataset.ready = '1';
+  const dir = box.dataset.dir === '-1' ? -1 : 1;
   const ul = box.querySelector('.ab2-logos');
   const copy = ul.cloneNode(true);
   copy.setAttribute('aria-hidden', 'true');
   copy.querySelectorAll('a').forEach(a => a.tabIndex = -1);
-  box.appendChild(copy);
-  box.classList.add('is-scroll');
-  // 自動往左捲；手指／滑鼠可以左右拖，放開 1.5 秒後繼續
-  let pos = 0, last = performance.now(), hold = 0, hover = false;
-  const pause = () => { hold = performance.now() + 1500; };
-  ['touchstart', 'touchmove', 'wheel', 'pointerdown'].forEach(ev => box.addEventListener(ev, pause, { passive: true }));
+  const track = document.createElement('div');
+  track.className = 'ab2-track';
+  box.insertBefore(track, ul);
+  track.append(ul, copy);
+  box.classList.add('is-loop');
+  const SPEED = 0.04;  // px / ms
+  let pos = 0, last = performance.now(), hold = 0, hover = false, drag = null, moved = 0;
+  const wrap = () => { const w = ul.offsetWidth; if (w) { pos = ((pos % w) + w) % w; } };
   box.addEventListener('mouseenter', () => { hover = true; });
   box.addEventListener('mouseleave', () => { hover = false; });
-  box.addEventListener('scroll', () => { if (Math.abs(box.scrollLeft - pos) > 2) { pos = box.scrollLeft; pause(); } }, { passive: true });
-  // 經過中間的那個 logo 亮起
+  box.addEventListener('pointerdown', e => { drag = { x: e.clientX, p: pos }; moved = 0; box.classList.add('is-drag'); });
+  addEventListener('pointermove', e => { if (!drag) return; const dx = e.clientX - drag.x; moved = Math.max(moved, Math.abs(dx)); pos = drag.p - dx; wrap(); });
+  addEventListener('pointerup', () => { if (!drag) return; drag = null; hold = performance.now() + 1500; box.classList.remove('is-drag'); });
+  box.addEventListener('click', e => { if (moved > 5) { e.preventDefault(); e.stopPropagation(); } }, true);
+  box.addEventListener('dragstart', e => e.preventDefault());
   const all = [...ul.children, ...copy.children];
   const tick = (now) => {
     const dt = Math.min(64, now - last); last = now;
-    const w = ul.offsetWidth;
-    if (w && !hover && now > hold) {
-      pos += dir * w / 70000 * dt;
-      if (pos >= w) pos -= w;
-      if (pos < 0) pos += w;
-      box.scrollLeft = pos;
-    } else if (w && box.scrollLeft >= w) { pos = box.scrollLeft - w; box.scrollLeft = pos; }
+    if (!drag && !hover && now > hold) { pos += dir * SPEED * dt; wrap(); }
+    track.style.transform = `translate3d(${-pos}px,0,0)`;
     const r = box.getBoundingClientRect();
     if (r.bottom > 0 && r.top < innerHeight) {
       const mid = r.left + r.width / 2;
