@@ -163,7 +163,7 @@ collections:
           - { label: 黃底標語, name: heroLine, widget: string, required: false }
           - { label: 介紹圖片（作品局部照）, name: introImage, widget: image, required: false }
           - { label: 介紹圖片替代文字, name: introImageAlt, widget: string, required: false }
-          - { label: 核心理念（關於我最上方一句）, name: motto, widget: string, required: false }
+          - { label: 核心理念（關於我最上方一句；用 ==字== 加螢光）, name: motto, widget: string, required: false }
           - { label: 自我介紹（段落之間空一行）, name: intro, widget: text }
           - label: 數字
             name: stats
@@ -181,7 +181,8 @@ collections:
               - { label: 獎項名稱（含年份）, name: title, widget: string }
               - { label: 得獎作品, name: work, widget: string, required: false }
               - { label: 連到作品 ID, name: link, widget: string, required: false }
-          - { label: 設計能力標題, name: servicesTitle, widget: string, required: false }
+              - { label: 獎座照片, name: image, widget: image, required: false }
+          - { label: 設計能力標題（用 *字* 加螢光）, name: servicesTitle, widget: string, required: false }
           - { label: 設計能力說明, name: servicesDesc, widget: text, required: false }
           - label: 服務項目
             name: services
@@ -198,20 +199,23 @@ collections:
                 widget: select
                 multiple: true
                 options: ["Branding", "Packaging", "UI/UX", "Web Design", "Motion Graphics", "Illustration", "Art Direction", "Exhibition", "Social Media"]
-          - { label: 品牌區標題, name: brandsTitle, widget: string, required: false }
+          - { label: 品牌區標題（用 *字* 加螢光）, name: brandsTitle, widget: string, required: false }
           - { label: 品牌區說明, name: brandsDesc, widget: text, required: false }
           - { label: 品牌區小字, name: brandsNote, widget: string, required: false }
+          - { label: 合作產業（只在電腦版顯示）, name: brandsIndustries, widget: list, required: false }
           - label: 參與品牌與專案
             name: brands
             widget: list
             summary: "{{fields.name}}"
-            hint: "Logo 用白底或透明背景 PNG，會顯示成灰階、滑過變彩色；沒有 logo 會顯示品牌名稱"
+            hint: "排序規則：兩排輪流分配（第 1、3、5…個在上排，第 2、4、6…個在下排）。請照「大、大、小、小、大、大…」排，每排就會大小品牌交錯；最前面兩個會在開場時置中。Logo 用透明背景 PNG。"
             fields:
               - { label: 品牌名稱, name: name, widget: string }
-              - { label: Logo, name: logo, widget: image, required: false }
+              - { label: Logo（灰階版）, name: logo, widget: image, required: false }
+              - { label: Logo（彩色版，經過中間時顯示）, name: logoColor, widget: image, required: false }
+              - { label: Logo 大小微調（1 = 原本，0.8 = 小一點）, name: scale, widget: number, value_type: float, required: false }
               - { label: 領域（英文，如 Beauty）, name: industry, widget: string, required: false }
               - { label: 連到作品 ID, name: work, widget: string, required: false }
-          - { label: 經歷標題, name: journeyTitle, widget: string, required: false }
+          - { label: 經歷標題（用 *字* 加螢光）, name: journeyTitle, widget: string, required: false }
           - { label: 經歷說明, name: journeyDesc, widget: text, required: false }
           - label: 設計歷程
             name: journey
@@ -219,7 +223,7 @@ collections:
             summary: "{{fields.zh}}"
             fields:
               - { label: 年份（可留空，留空顯示編號）, name: year, widget: string, required: false }
-              - { label: 英文小標, name: period, widget: string, required: false }
+              - { label: 小標（中文＋英文，例：選物店 Select Shop）, name: period, widget: string, required: false }
               - { label: 中文標題, name: zh, widget: string }
               - { label: 內容, name: desc, widget: text }
               - { label: 相關作品（作品 id）, name: works, widget: list, required: false }
@@ -232,11 +236,37 @@ collections:
               - { label: 英文, name: en, widget: string }
               - { label: 中文, name: zh, widget: string }
               - { label: 說明, name: desc, widget: string }
-          - { label: 結尾標題, name: ctaTitle, widget: string }
-          - { label: 結尾中文標題, name: ctaZh, widget: string, required: false }
-          - { label: 結尾說明, name: ctaText, widget: text, required: false }
-          - { label: 主要按鈕文字（連到 Contact）, name: ctaPrimary, widget: string }
-          - { label: 次要按鈕文字（連到作品）, name: ctaSecondary, widget: string }
+
+      - name: home
+        label: 首頁與頁尾
+        file: data/home.json
+        fields:
+          - { label: 首頁主標（用 ==字== 加螢光）, name: heroIntro, widget: list, max: 1 }
+          - { label: 首頁副標, name: heroSub, widget: string, required: false }
+          - label: 首頁主標下方連結
+            name: heroLink
+            widget: object
+            required: false
+            fields:
+              - { label: 文字, name: text, widget: string, required: false }
+              - { label: 網址, name: href, widget: string, required: false }
+          - label: 精選作品說明（作品頁開頭會用到）
+            name: selected
+            widget: list
+            required: false
+            summary: "{{fields.id}}"
+            fields:
+              - { label: 作品 ID, name: id, widget: string }
+              - { label: 一句話說明, name: statement, widget: text, required: false }
+          - { label: 精選作品 ID（舊欄位）, name: featured, widget: list, required: false }
+          - { label: 英文標題（舊欄位，可留空）, name: heroTitle, widget: string, required: false }
+          - { label: 年份範圍（舊欄位）, name: heroYears, widget: string, required: false }
+          - { label: 資訊行（舊欄位）, name: heroInfo, widget: list, required: false }
+          - { label: 黃底標語（舊欄位）, name: heroLine, widget: string, required: false }
+          - { label: 開場圖片作品 ID（舊欄位）, name: heroImages, widget: list, required: false }
+          - { label: 頁尾結尾標題（全站共用）, name: ctaTitle, widget: string }
+          - { label: 頁尾結尾說明, name: ctaText, widget: text, required: false }
+          - { label: 頁尾主要按鈕文字, name: ctaButton, widget: string, required: false }
 
       - name: contact
         label: CONTACT 頁
@@ -518,6 +548,16 @@ collections:
               - label: 客戶／品牌
                 name: client
                 widget: string
+                required: false
+
+              - label: 合作團隊（AGENCY）
+                name: agency
+                widget: string
+                required: false
+
+              - label: 封面影片（選填，mp4，有填就在列表播放）
+                name: thumbnailVideo
+                widget: file
                 required: false
 
               - label: 作品說明（中文 1～3 句，100 字內）

@@ -2317,3 +2317,71 @@ body[data-page="work"] .pg-head { padding-bottom: 24px; }
 /* 2026-11-13 About 拿掉個人照：介紹文字改單欄 */
 .ab2-profile__grid.no-img { grid-template-columns: minmax(0, 1fr); }
 .ab2-profile__grid.no-img .ab2-profile__text { max-width: 760px; }
+
+/* 全站標題規範（2026-11-13）
+   頁首小標「中文 ENGLISH」、區塊小標「編號 中文 ENGLISH」：同字體同大小、不加粗、整條深金。
+   金色統一用 --gold（Yen 2026-11-13：現有金夠清楚）。 */
+:root { --gold-text: var(--gold); }
+.pg-head__en, .ab2-eyebrow, .about-page.ab2 .ab2-eyebrow {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;
+  font-family: var(--font-title); font-weight: 400 !important; font-size: 14px !important;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--gold-text) !important; }
+.pg-head__en span, .ab2-eyebrow span, .ab2-eyebrow .ab2-sec-no {
+  margin: 0; font-family: var(--font-title); font-style: normal; font-weight: 400 !important;
+  font-size: 1.08em !important; letter-spacing: .16em; color: inherit !important; }
+body[data-page="work"] .pg-head__en { color: #8a8a8a !important; }
+@media (max-width: 599px) { .pg-head__en, .ab2-eyebrow, .about-page.ab2 .ab2-eyebrow { font-size: 12px !important; } }
+
+/* 區塊之間細線 */
+.info-page.ab2 > .ab2-sec + .ab2-sec { margin-top: 96px; padding-top: 48px !important; border-top: 1px solid #E2E2E2; }
+@media (max-width: 599px) { .info-page.ab2 > .ab2-sec + .ab2-sec { margin-top: 56px; padding-top: 32px !important; } }
+
+/* About 開場：電腦版左文右數字（無照片時） */
+.about-page .pg-head { padding-bottom: 24px; }
+@media (min-width: 900px) {
+  .about-page.ab2 .ab2-profile__grid.no-img { grid-template-columns: minmax(0, 700px) max-content; justify-content: start; gap: 0 64px; align-items: stretch; }
+  .about-page.ab2 .no-img .ab2-profile__text { max-width: 700px; }
+  .about-page.ab2 .no-img > .ab2-facts { display: flex !important; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: flex-start; gap: 56px !important; margin: 0 !important; padding: 0 0 0 56px !important; border-top: 0; border-left: 1px solid var(--line); }
+  .about-page.ab2 .ab2-profile + .ab2-sec { margin-top: 72px !important; }
+}
+
+/* 產業標籤：只在電腦版顯示，不做螢光 */
+@media (min-width: 900px) {
+  .ab2-ind { display: flex !important; gap: 8px 20px; margin: -16px 0 40px; font-size: 14px; color: #666; }
+  .ab2-ind mark { background: none; padding: 0; }
+}
+
+/* 頁尾兩顆按鈕、表單隱私小字 */
+.sf__btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 0; }
+@media (max-width: 599px) { .sf__btns { justify-content: flex-start; } }
+.ct-privacy { margin: 12px 0 0; font-size: 12px; color: #888; letter-spacing: .04em; }
+@media (max-width: 1199px) { .about-page .ab2-br { display: none; } }
+/* 經歷：不用分隔線，改用箭頭表示 1→4 順序（2026-11-13） */
+.about-page.ab2 .ab2-chrono, .about-page.ab2 .ab2-chrono li { border-top: 0 !important; border-bottom: 0 !important; }
+@media (min-width: 900px) {
+  .about-page.ab2 .ab2-chrono li { padding-top: 8px !important; }
+  .about-page.ab2 .ab2-chrono__when { flex-wrap: wrap; align-items: center !important; row-gap: 10px !important; }
+  .about-page.ab2 .ab2-chrono__when span { order: 3; flex-basis: 100%; }
+  .about-page.ab2 .ab2-chrono__when::after { order: 2; }
+  .about-page.ab2 .ab2-chrono li:not(:last-child) .ab2-chrono__when::after { content: '\2192'; margin-left: auto; padding-right: 8px; font-size: 18px; color: var(--gold); }
+}
+@media (max-width: 899px) { .about-page.ab2 .ab2-chrono li { padding: 12px 0 !important; } }
+
+/* 設計規範 v1 修正（2026-11-13） */
+/* 頁尾 CTA：整條淡黃底，與內容區分 */
+.sf__cta { border-top: 0 !important; background: #FDFAEA; box-shadow: 0 0 0 100vmax #FDFAEA; clip-path: inset(0 -100vmax); }
+.sf__cta + .sf__bar { border-top: 0; }
+/* 首頁主標螢光 */
+.hm2__zh mark { background: linear-gradient(transparent 58%, var(--cream) 58%); color: inherit; padding: 0 2px; }
+/* 首頁篩選：中文在前 */
+.tf-btn .tf-zh, .tag-filter .tf-zh { margin: 0 .5em 0 0 !important; }
+/* 作品內頁：圖組小標也用金線，字級比段落標題小一級 */
+body[data-page="work"] .module-b__label { border-top: 0; padding: 0 0 0 16px; margin-left: auto; border-left: 2px solid var(--gold); font-size: 18px; font-weight: 400; letter-spacing: .04em; }
+@media (min-width: 1000px) { body[data-page="work"] .module-b__label { position: relative; left: -18px; } }
+
+/* 品牌 logo 無縫循環（2026-11-13）：JS 等速滑動，可拖曳，第二排反方向 */
+.about-page.ab2 .ab2-marquee.is-loop { overflow: hidden !important; cursor: grab; touch-action: pan-y; user-select: none; }
+.about-page.ab2 .ab2-marquee.is-drag { cursor: grabbing; }
+.ab2-track { display: flex; width: max-content; will-change: transform; }
+.about-page.ab2 .ab2-marquee.is-loop .ab2-logos { animation: none !important; }
+.ab2-marquee img { -webkit-user-drag: none; pointer-events: none; }

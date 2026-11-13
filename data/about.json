@@ -5,7 +5,7 @@
   "heroZh": "",
   "introImage": "",
   "introImageAlt": "設計師劉姸",
-  "intro": "我是劉姸／YEN，從工業設計出發，做過*品牌識別*、*包裝*、*門市陳列*與*網站*。\n我不追求一眼就認出的個人風格，而是幫每個品牌找到自己的樣子。",
+  "intro": "我是劉姸／YEN，從工業設計出發，做過品牌識別、包裝、門市陳列與網站。\n我不追求一眼就認出的個人風格，而是幫每個品牌找到自己的樣子。",
   "stats": [
     {
       "value": "13",
@@ -120,7 +120,7 @@
   "ctaSecondary": "看作品",
   "heroMicro": "TAIWAN — SINCE 2013",
   "heroLine": "我是劉姸／YEN，一位喜歡探索不同可能性的設計師。",
-  "brandsTitle": "從指甲油到婚戒，從金控到兒童劇團。",
+  "brandsTitle": "從*指甲油*到*婚戒*，從*金控*到*兒童劇團*。",
   "brandsDesc": "",
   "brands": [
     {
@@ -140,6 +140,22 @@
       "scale": 1.18
     },
     {
+      "name": "天主教中華聖母基金會",
+      "logo": "/uploads/logo-holy-mother-foundation.png",
+      "industry": "Nonprofit",
+      "work": "",
+      "logoColor": "/uploads/logo-holy-mother-foundation-color.png",
+      "scale": 0.91
+    },
+    {
+      "name": "BALL SOCKS",
+      "logo": "/uploads/logo-ball-socks.png",
+      "industry": "Lifestyle",
+      "work": "ice-cream-ballsocks",
+      "logoColor": "/uploads/logo-ball-socks-color.png",
+      "scale": 0.9
+    },
+    {
       "name": "SENKA 專科",
       "logo": "/uploads/logo-senka.png",
       "industry": "Beauty",
@@ -156,6 +172,20 @@
       "scale": 0.94
     },
     {
+      "name": "oribagu 摺紙包",
+      "logo": "/uploads/logo-oribagu.png",
+      "industry": "Lifestyle",
+      "work": "mesh-collection",
+      "scale": 0.89
+    },
+    {
+      "name": "VACS",
+      "logo": "/uploads/logo-vacs.png",
+      "industry": "Lifestyle",
+      "work": "vacs",
+      "scale": 1.05
+    },
+    {
       "name": "LCY 李長榮集團",
       "logo": "/uploads/logo-lcy.png",
       "industry": "Corporate",
@@ -168,6 +198,21 @@
       "industry": "Jewelry",
       "work": "aluxe-passport",
       "scale": 0.81
+    },
+    {
+      "name": "Knock Knock Heaven",
+      "logo": "/uploads/logo-knock-knock-heaven.png",
+      "industry": "Restaurant",
+      "work": "",
+      "scale": 1.15,
+      "logoColor": "/uploads/logo-knock-knock-heaven-color.png"
+    },
+    {
+      "name": "w/f flower",
+      "logo": "/uploads/logo-wf-flower.png",
+      "industry": "Lifestyle",
+      "work": "wf-flower",
+      "scale": 1.1
     },
     {
       "name": "紙風車劇團",
@@ -186,66 +231,6 @@
       "scale": 1.15
     },
     {
-      "name": "Hibertek",
-      "logo": "/uploads/logo-hibertek.png",
-      "industry": "Technology",
-      "work": "computer-show",
-      "scale": 0.68
-    },
-    {
-      "name": "et seq.",
-      "logo": "/uploads/logo-et-seq.png",
-      "industry": "Beauty",
-      "work": "et-seq-nail",
-      "logoColor": "/uploads/logo-et-seq-color.png",
-      "scale": 0.97
-    },
-    {
-      "name": "天主教中華聖母基金會",
-      "logo": "/uploads/logo-holy-mother-foundation.png",
-      "industry": "Nonprofit",
-      "work": "",
-      "logoColor": "/uploads/logo-holy-mother-foundation-color.png",
-      "scale": 0.91
-    },
-    {
-      "name": "BALL SOCKS",
-      "logo": "/uploads/logo-ball-socks.png",
-      "industry": "Lifestyle",
-      "work": "ice-cream-ballsocks",
-      "logoColor": "/uploads/logo-ball-socks-color.png",
-      "scale": 0.9
-    },
-    {
-      "name": "oribagu 摺紙包",
-      "logo": "/uploads/logo-oribagu.png",
-      "industry": "Lifestyle",
-      "work": "mesh-collection",
-      "scale": 0.89
-    },
-    {
-      "name": "VACS",
-      "logo": "/uploads/logo-vacs.png",
-      "industry": "Lifestyle",
-      "work": "vacs",
-      "scale": 1.05
-    },
-    {
-      "name": "Knock Knock Heaven",
-      "logo": "/uploads/logo-knock-knock-heaven.png",
-      "industry": "Restaurant",
-      "work": "",
-      "scale": 1.15,
-      "logoColor": "/uploads/logo-knock-knock-heaven-color.png"
-    },
-    {
-      "name": "w/f flower",
-      "logo": "/uploads/logo-wf-flower.png",
-      "industry": "Lifestyle",
-      "work": "wf-flower",
-      "scale": 1.1
-    },
-    {
       "name": "AHA Brand Agency",
       "logo": "/uploads/logo-aha.png",
       "industry": "Branding",
@@ -259,6 +244,21 @@
       "work": "ee-branding",
       "scale": 1.05,
       "logoColor": "/uploads/logo-ee-branding-color.png"
+    },
+    {
+      "name": "et seq.",
+      "logo": "/uploads/logo-et-seq.png",
+      "industry": "Beauty",
+      "work": "et-seq-nail",
+      "logoColor": "/uploads/logo-et-seq-color.png",
+      "scale": 0.97
+    },
+    {
+      "name": "Hibertek",
+      "logo": "/uploads/logo-hibertek.png",
+      "industry": "Technology",
+      "work": "computer-show",
+      "scale": 0.68
     },
     {
       "name": "天一愛 TIANYIAI",
@@ -279,7 +279,7 @@
   "journey": [
     {
       "year": "",
-      "period": "Select Shop",
+      "period": "選物店 Select Shop",
       "zh": "從選物店開始，學會看設計",
       "desc": "七年間從商品開發、門市與展覽視覺，做到商品攝影與出貨，明白品牌每一步都需要設計。",
       "works": [
@@ -289,7 +289,7 @@
     },
     {
       "year": "",
-      "period": "Jewelry Brand",
+      "period": "珠寶品牌 Jewelry Brand",
       "zh": "走進現場，把細節做出來",
       "desc": "負責型錄、包裝、櫥窗與門市陳列，和廠商一次次確認打樣，讓設計從畫面真正走進現場。",
       "works": [
@@ -299,7 +299,7 @@
     },
     {
       "year": "",
-      "period": "Creative Tech",
+      "period": "創意科技 Creative Tech",
       "zh": "從平面畫面，走向數位體驗",
       "desc": "參與大型品牌提案，和工程師把創意做成能運作的體驗，也開始用 AI 讓設計成為系統。",
       "works": [
@@ -309,7 +309,7 @@
     },
     {
       "year": "",
-      "period": "Now",
+      "period": "現在 Now",
       "zh": "現在，用設計做自己的事",
       "desc": "以 YENPOPPY 接案，和 AI 協作、自己開發工具，把經驗帶進每一次品牌合作。",
       "works": []
@@ -319,7 +319,7 @@
   "servicesTitle": "從 Logo 開始，延伸到*品牌的每個角落*。",
   "servicesDesc": "先想清楚品牌需要什麼，再選適合的形式與媒材，一路跟到成品完成。",
   "brandsNote": "部分品牌與專案為任職期間參與之合作成果，實際負責內容依各專案說明為準。",
-  "journeyTitle": "從選物店到品牌現場，再走進數位體驗。",
+  "journeyTitle": "從*選物店*到*品牌現場*，再走進*數位體驗*。",
   "processTitle": "先聊清楚，再動手做。",
   "ctaZh": "有想實現的點子嗎？",
   "introQuote": "",

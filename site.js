@@ -286,7 +286,7 @@ async function renderWorksGrid() {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.textContent = name || 'ALL';
-      if (SERVICE_ZH[name]) { const z = document.createElement('span'); z.className = 'tf-zh'; z.textContent = SERVICE_ZH[name]; btn.appendChild(z); }
+      if (SERVICE_ZH[name]) { const z = document.createElement('span'); z.className = 'tf-zh'; z.textContent = SERVICE_ZH[name]; btn.prepend(z); }
       btn.dataset.tag = name || '';
       btn.addEventListener('click', () => applyFilter(name));
       bar.appendChild(btn);
@@ -910,32 +910,32 @@ async function renderAboutPage() {
 
   const el = document.createElement('div');
   el.className = 'info-page about-page ab2';
-  const head = (label, zh, title, desc) => `
+  const head = (label, zh, title, desc, no) => `
       <header class="ab2-head">
-        <p class="ab2-eyebrow">${escHTML(zh || label)}</p>
+        <p class="ab2-eyebrow">${no ? `<em class="ab2-sec-no">${no}</em>` : ''}${escHTML(zh)}<span>${label}</span></p>
         ${title && title !== zh ? `<h2 class="ab2-h2">${clauses(escHTML(title).replace(/\*(.+?)\*/g, '<mark>$1</mark>'))}</h2>` : ''}
         ${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}
       </header>`;
   const svcMap = serviceMap(d);
   const svcCount = k => works.filter(w => workServices(w, svcMap).includes(k)).length;
   el.innerHTML = `
-    ${pageHead({ en: 'ABOUT', title: d.motto || '關於我' })}
+    ${pageHead({ en: '關於我 <span>ABOUT</span>', title: d.motto || '關於我' })}
 
     <section class="ab2-sec ab2-profile">
       <div class="ab2-profile__grid${d.introImage ? '' : ' no-img'}">
         ${d.introImage ? `<div class="ab2-profile__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : ''}
         <div class="ab2-profile__text">
           <div class="ab2-body">${paras.map(t => `<p>${escHTML(t).replace(/\*(.+?)\*/g, '<mark>$1</mark>').replace(/\n/g, '<br class="ab2-br">')}</p>`).join('')}</div>
+        </div>
           ${stats.length ? `<dl class="ab2-facts">
             ${stats.map(s => `<div class="ab2-fact--big"><dd><b>${escHTML(s.value)}</b>${s.unit ? `<span>${escHTML(s.unit)}</span>` : ''}</dd><dt>${escHTML(s.label)}</dt></div>`).join('')}
           </dl>` : ''}
-        </div>
       </div>
       ${d.introQuote ? `<blockquote class="ab2-quote"><p>${escHTML(d.introQuote)}</p></blockquote>` : ''}
     </section>
 
     <section class="ab2-sec">
-      ${head('DESIGN CAPABILITIES', '設計能力', d.servicesTitle, d.servicesDesc)}
+      ${head('CAPABILITIES', '設計能力', d.servicesTitle, d.servicesDesc, '01')}
       <div class="ab2-cards">${(d.services || []).map((s, i) => {
         const key = SERVICE_KEYS[i];
         const n = key ? svcCount(key) : 0;
@@ -952,10 +952,10 @@ async function renderAboutPage() {
       </div>
     </section>
 
-    ${brands.length ? `<section class="ab2-sec">
-      ${head('BRANDS &amp; PROJECTS', '參與品牌與專案', d.brandsTitle, d.brandsDesc)}
+    ${brands.length ? `<section class="ab2-sec ab2-sec--band">
+      ${head('BRANDS', '參與品牌與專案', d.brandsTitle, d.brandsDesc, '02')}
       ${(d.brandsIndustries || []).length ? `<ul class="ab2-ind" aria-label="合作產業">${d.brandsIndustries.map(t => `<li><mark>${escHTML(t)}</mark></li>`).join('')}</ul>` : ''}
-      ${(window.matchMedia('(max-width: 599px)').matches ? [brands.slice(0, Math.ceil(brands.length / 2)), brands.slice(Math.ceil(brands.length / 2))] : [brands]).map((row, ri) => `<div class="ab2-marquee"${ri ? ' data-dir="-1"' : ''}><ul class="ab2-logos">${row.map(c => {
+      ${[brands.filter((_, i) => i % 2 === 0), brands.filter((_, i) => i % 2 === 1)].map((row, ri) => `<div class="ab2-marquee"${ri ? ' data-dir="-1"' : ''}><ul class="ab2-logos">${row.map(c => {
         const w = byId(c.work);
         const z = c.scale ? ` style="--z:${Number(c.scale) || 1}"` : '';
         const img = c.logo ? `<span class="lg"><img src="${escHTML(fixImgUrl(c.logo))}" alt="${escHTML(c.name)}" title="${escHTML(c.name)}" loading="lazy"${z}>${c.logoColor ? `<img class="lg-c" src="${escHTML(fixImgUrl(c.logoColor))}" alt="" aria-hidden="true" loading="lazy">` : ''}</span>` : `<b>${escHTML(c.name)}</b>`;
@@ -966,7 +966,7 @@ async function renderAboutPage() {
     </section>` : ''}
 
     ${(d.journey || []).length || awards.length ? `<section class="ab2-sec">
-      ${head('EXPERIENCE &amp; RECOGNITION', '經歷與肯定', d.journeyTitle, d.journeyDesc)}
+      ${head('EXPERIENCE', '經歷與肯定', d.journeyTitle, d.journeyDesc, '03')}
       <ol class="ab2-chrono">${(d.journey || []).map((p, i) => {
         const ws = (p.works || []).map(byId).filter(Boolean);
         return `
@@ -985,7 +985,7 @@ async function renderAboutPage() {
         const yr = (a.title.match(/^\d{4}/) || [''])[0];
         return `<div class="ab2-award${a.image ? ' has-img' : ''}">
           ${a.image ? `<img class="ab2-award__img" src="${escHTML(fixImgUrl(a.image))}" alt="${escHTML(a.title)} 獎座" loading="lazy">` : ''}
-          <div class="ab2-award__body"><p class="ab2-eyebrow">獲獎</p>
+          <div class="ab2-award__body"><p class="ab2-eyebrow">獲獎<span>AWARD</span></p>
             <p class="ab2-award__yr">${escHTML(yr)}</p><h3 class="ab2-h3"><mark>${escHTML(a.title.replace(/^\d{4}\s*/, ''))}</mark></h3>
             ${a.work ? `<p class="ab2-desc">${escHTML(a.work)}</p>` : ''}
             ${w ? `<a class="ab2-btn-line" href="/works/${encodeURIComponent(w.id)}">看作品 →</a>` : ''}</div></div>`;
@@ -1023,10 +1023,10 @@ async function renderContactPage() {
   const el = document.createElement('div');
   el.className = 'info-page contact-page ab2';
   const svcs = ['品牌識別 & 視覺設計', '包裝 & 產品設計', '網站 & 數位設計', '展示陳列 & 展覽設計', '還不確定'];
-  const head = (label, zh, title, desc) => `<header class="ab2-head"><p class="ab2-eyebrow">${escHTML(zh)}</p>
+  const head = (label, zh, title, desc, no) => `<header class="ab2-head"><p class="ab2-eyebrow">${no ? `<em class="ab2-sec-no">${no}</em>` : ''}${escHTML(zh)}<span>${label}</span></p>
         ${title ? `<h2 class="ab2-h2">${escHTML(title)}</h2>` : ''}${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}</header>`;
   el.innerHTML = `
-    ${pageHead({ en: 'CONTACT', title: '聯絡我', lead: '填好下面的表單，我會在確認內容後回覆你。', extra: `<p class="pg-head__mail">還不確定預算？可以先用<a href="/quote/">費用估算</a>看看大概的價格和時間。${email ? `<br>也可以直接寫信：<a href="mailto:${escHTML(email)}">${escHTML(email)}</a>` : ''}</p>` })}
+    ${pageHead({ en: '聯絡我 <span>CONTACT</span>', title: '聯絡我', lead: '填好下面的表單，我會在確認內容後回覆你。', extra: `<p class="pg-head__mail">還不確定預算？可以先用<a href="/quote/">費用估算</a>看看大概的價格和時間。${email ? `<br>也可以直接寫信：<a href="mailto:${escHTML(email)}">${escHTML(email)}</a>` : ''}</p>` })}
 
 
     <section class="ab2-sec ct-sec" id="contact-form">
@@ -1045,13 +1045,13 @@ async function renderContactPage() {
         <div class="f f--full"><label for="cf-brand">公司／品牌名稱 <small class="opt">選填</small></label><input id="cf-brand" name="brand" maxlength="80" autocomplete="organization"></div>
         <div class="f f--full"><label for="cf-msg">想說的話 <small class="opt">選填</small></label><textarea id="cf-msg" name="message" rows="5" maxlength="2000" placeholder="品牌介紹、想做的內容、使用情境都可以寫"></textarea></div>
         <div class="f f--full"><label for="cf-link">參考資料連結 <small class="opt">選填</small></label><input id="cf-link" name="link" type="url" maxlength="300" placeholder="Google 雲端、Pinterest、品牌網站等"></div>
-        <div class="f f--full"><button class="btn btn--primary" type="submit">送出</button></div>
+        <div class="f f--full"><button class="btn btn--primary" type="submit">送出</button><p class="ct-privacy">資料只用來回覆你的詢問，不會提供給第三方。</p></div>
       </form>
       <div class="ct-sent" hidden></div>
     </section>
 
     <section class="ab2-sec ct-sec">
-      ${head('HOW I WORK', '合作流程', '', '')}
+      ${head('PROCESS', '合作流程', '', '', '01')}
       <ol class="ab2-steps">${(about.process || []).map((p, i, arr) => `
         <li style="--p:${(i + 1) / arr.length}"><div class="ab2-steps__top"><span class="ab2-big">${pad2(i)}</span>${i < arr.length - 1 ? '<span class="ab2-steps__arrow" aria-hidden="true">→</span>' : ''}</div>
           <span class="ab2-steps__bar" aria-hidden="true"></span>
@@ -1060,7 +1060,7 @@ async function renderContactPage() {
     </section>
 
     ${(d.faq || []).length ? `<section class="ab2-sec ct-sec">
-      ${head('FAQ', '常見問題', '', '')}
+      ${head('FAQ', '常見問題', '', '', '02')}
       <div class="ct-faq">${d.faq.map(f => `
         <details><summary>${escHTML(f.q)}</summary><p>${inlineLinks(f.a)}</p></details>`).join('')}
       </div>
@@ -1143,7 +1143,7 @@ async function renderHomeIntro(grid, works) {
   wrap.className = 'home-intro';
   wrap.innerHTML = `
     ${!(d.heroIntro || []).length && !d.heroTitle ? '<h1 class="sr-only">YENPOPPY 作品</h1>' : ''}<section class="hm2"${!(d.heroIntro || []).length && !d.heroTitle ? ' hidden' : ''}>
-      <h1 class="hm2__title hm2__title--line">${(d.heroIntro || []).slice(0, 1).map(t => `<span class="hm2__zh">${escHTML(t)}</span>`).join('')}${d.heroTitle ? `<span class="hm2__en">${escHTML(d.heroTitle)}</span>` : ''}</h1>
+      <h1 class="hm2__title hm2__title--line">${(d.heroIntro || []).slice(0, 1).map(t => `<span class="hm2__zh">${escHTML(t).replace(/==(.+?)==/g, '<mark>$1</mark>')}</span>`).join('')}${d.heroTitle ? `<span class="hm2__en">${escHTML(d.heroTitle)}</span>` : ''}</h1>
       ${d.heroSub ? `<p class="hm2__sub">${escHTML(d.heroSub)}</p>` : ''}
       ${d.heroLink && d.heroLink.text ? `<a class="hm2__link" href="${escHTML(d.heroLink.href || '/quote/')}">${escHTML(d.heroLink.text)}</a>` : ''}
     </section>
@@ -1215,6 +1215,7 @@ async function renderFooter() {
   ]);
   const onContact = /^\/(pages\/contact|quote)/.test(location.pathname);
   const links = [
+    `<a href="/quote/">費用估算</a>`,
     c.email && `<a href="mailto:${escHTML(c.email)}">${escHTML(c.email)}</a>`,
     c.instagram && `<a href="${escHTML(c.instagram)}" target="_blank" rel="noopener">Instagram ↗</a>`,
     c.behance && `<a href="${escHTML(c.behance)}" target="_blank" rel="noopener">Behance ↗</a>`,
@@ -1226,7 +1227,7 @@ async function renderFooter() {
     ${onContact ? '' : `<div class="sf__cta">
       <h2 class="sf__title">${escHTML(h.ctaTitle || '有想法嗎？和我聊聊。')}</h2>
       ${h.ctaText ? `<p class="sf__text">${escHTML(h.ctaText)}</p>` : ''}
-      <a class="hm-btn" href="/quote/#h4">${escHTML(h.ctaButton || '和我聊聊')} →</a>
+      <p class="sf__btns"><a class="hm-btn" href="/quote/#h4">${escHTML(h.ctaButton || '和我聊聊')} →</a><a class="hm-btn hm-btn--line" href="/quote/">看費用估算 →</a></p>
     </div>`}
     <div class="sf__bar">
       <p class="sf__links">${links.join('<span aria-hidden="true">/</span>')}</p>
@@ -1262,7 +1263,7 @@ async function renderQuoteExtras() {
   wrap.className = 'q-extra';
   wrap.innerHTML = `
     ${(about.process || []).length ? `<section class="q-extra__sec">
-      <div class="step-h"><h2>合作流程</h2></div>
+      <header class="ab2-head"><p class="ab2-eyebrow">合作流程<span>PROCESS</span></p></header>
       <ol class="ab2-steps">${about.process.map((p, i, arr) => `
         <li style="--p:${(i + 1) / arr.length}"><div class="ab2-steps__top"><span class="ab2-big">${pad2(i)}</span>${i < arr.length - 1 ? '<span class="ab2-steps__arrow" aria-hidden="true">→</span>' : ''}</div>
           <span class="ab2-steps__bar" aria-hidden="true"></span>
@@ -1270,7 +1271,7 @@ async function renderQuoteExtras() {
       </ol>
     </section>` : ''}
     ${(c.faq || []).length ? `<section class="q-extra__sec">
-      <div class="step-h"><h2>常見問題</h2></div>
+      <header class="ab2-head"><p class="ab2-eyebrow">常見問題<span>FAQ</span></p></header>
       <div class="ct-faq">${c.faq.map(f => `
         <details><summary>${escHTML(f.q)}</summary><p>${inlineLinks(f.a)}</p></details>`).join('')}
       </div>
@@ -1301,32 +1302,39 @@ function initLogoMarquee() {
   document.querySelectorAll('.ab2-marquee:not([data-ready])').forEach(initOneMarquee);
 }
 function initOneMarquee(box) {
-  const dir = box.dataset.dir === '-1' ? -1 : 1;  // 第二排反方向
+  // 無縫循環：兩份 logo 接在一起，等速一直滑，每個品牌出現時間相同；第二排反方向。
+  // 電腦用滑鼠拖、手機用手指滑都可以，放開 1.5 秒後繼續自動滑。
   box.dataset.ready = '1';
+  const dir = box.dataset.dir === '-1' ? -1 : 1;
   const ul = box.querySelector('.ab2-logos');
   const copy = ul.cloneNode(true);
   copy.setAttribute('aria-hidden', 'true');
   copy.querySelectorAll('a').forEach(a => a.tabIndex = -1);
-  box.appendChild(copy);
-  box.classList.add('is-scroll');
-  // 自動往左捲；手指／滑鼠可以左右拖，放開 1.5 秒後繼續
-  let pos = 0, last = performance.now(), hold = 0, hover = false;
-  const pause = () => { hold = performance.now() + 1500; };
-  ['touchstart', 'touchmove', 'wheel', 'pointerdown'].forEach(ev => box.addEventListener(ev, pause, { passive: true }));
+  const track = document.createElement('div');
+  track.className = 'ab2-track';
+  box.insertBefore(track, ul);
+  track.append(ul, copy);
+  box.classList.add('is-loop');
+  const SPEED = 0.04;  // px / ms
+  let pos = 0, last = performance.now(), hold = 0, hover = false, drag = null, moved = 0;
+  const wrap = () => { const w = ul.offsetWidth; if (w) { pos = ((pos % w) + w) % w; } };
   box.addEventListener('mouseenter', () => { hover = true; });
   box.addEventListener('mouseleave', () => { hover = false; });
-  box.addEventListener('scroll', () => { if (Math.abs(box.scrollLeft - pos) > 2) { pos = box.scrollLeft; pause(); } }, { passive: true });
-  // 經過中間的那個 logo 亮起
+  box.addEventListener('pointerdown', e => { drag = { x: e.clientX, p: pos }; moved = 0; box.classList.add('is-drag'); });
+  addEventListener('pointermove', e => { if (!drag) return; const dx = e.clientX - drag.x; moved = Math.max(moved, Math.abs(dx)); pos = drag.p - dx; wrap(); });
+  addEventListener('pointerup', () => { if (!drag) return; drag = null; hold = performance.now() + 1500; box.classList.remove('is-drag'); });
+  box.addEventListener('click', e => { if (moved > 5) { e.preventDefault(); e.stopPropagation(); } }, true);
+  box.addEventListener('dragstart', e => e.preventDefault());
   const all = [...ul.children, ...copy.children];
+  // 一開始讓第一個（最知名）品牌停在正中間；捲到這一區、看得到之後才開始滑
+  let started = false;
+  const center = () => { const li = ul.children[0]; if (li) { pos = li.offsetLeft + li.offsetWidth / 2 - box.clientWidth / 2; wrap(); } };
+  center(); addEventListener('load', () => { if (!started) center(); });
+  new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { hold = performance.now() + 1200; started = true; io.disconnect(); } }, { threshold: 0.6 }).observe(box);
   const tick = (now) => {
     const dt = Math.min(64, now - last); last = now;
-    const w = ul.offsetWidth;
-    if (w && !hover && now > hold) {
-      pos += dir * w / 70000 * dt;
-      if (pos >= w) pos -= w;
-      if (pos < 0) pos += w;
-      box.scrollLeft = pos;
-    } else if (w && box.scrollLeft >= w) { pos = box.scrollLeft - w; box.scrollLeft = pos; }
+    if (started && !drag && !hover && now > hold) { pos += dir * SPEED * dt; wrap(); }
+    track.style.transform = `translate3d(${-pos}px,0,0)`;
     const r = box.getBoundingClientRect();
     if (r.bottom > 0 && r.top < innerHeight) {
       const mid = r.left + r.width / 2;
