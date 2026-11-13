@@ -922,8 +922,8 @@ async function renderAboutPage() {
     ${pageHead({ en: 'ABOUT', title: d.motto || '關於我' })}
 
     <section class="ab2-sec ab2-profile">
-      <div class="ab2-profile__grid">
-        ${d.introImage ? `<div class="ab2-profile__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : '<div></div>'}
+      <div class="ab2-profile__grid${d.introImage ? '' : ' no-img'}">
+        ${d.introImage ? `<div class="ab2-profile__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : ''}
         <div class="ab2-profile__text">
           <div class="ab2-body">${paras.map(t => `<p>${escHTML(t).replace(/\*(.+?)\*/g, '<mark>$1</mark>').replace(/\n/g, '<br class="ab2-br">')}</p>`).join('')}</div>
           ${stats.length ? `<dl class="ab2-facts">
