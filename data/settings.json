@@ -9,5 +9,6 @@
   "favicon": "/uploads/yenpoppy-favicon.png",
   "textColor": "#000000",
   "logoMark": "/uploads/yenpoppy-mark.svg",
-  "formEndpoint": "https://script.google.com/macros/s/AKfycbwBJt8EozmEyS6LmEmQHCMMiVv3EwbQQPYHLljdT3sL7G_J9qG9Q3sNxosdfigaCP5H/exec"
+  "formEndpoint": "https://script.google.com/macros/s/AKfycbwBJt8EozmEyS6LmEmQHCMMiVv3EwbQQPYHLljdT3sL7G_J9qG9Q3sNxosdfigaCP5H/exec",
+  "trackViews": true
 }
