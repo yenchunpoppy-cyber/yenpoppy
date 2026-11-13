@@ -5,7 +5,7 @@
  * 層級：分類 → 項目 → 規格（options）。有 options 的項目，價格與天數以所選規格為準。
  */
 window.CATALOG = {
-  version: '2026-11-12l', // 改價後更新，舊草稿會改用範例重新開始
+  version: '2026-11-13a', // 改價後更新，舊草稿會改用範例重新開始
   // 報價單產生器「完整細項」用；group = 清單裡的小標
   categories: [
     {
@@ -210,7 +210,7 @@ window.CATALOG = {
   ],
 
   // 客戶估價頁的風格選項：可複選 2 種搭配，倍率取兩者中較高的區間 [低, 高]
-  // 風格本身不分貴賤；只有原創插畫因為工時多，區間較高
+  // 2026-11-13 Yen：風格只是讓客戶先想方向，全部不影響試算金額（插畫費用洽談時再依內容估）
   styles: [
     { id: 'minimal', name: '極簡現代', en: 'MINIMAL', level: 1, rate: [1, 1],
       desc: '留白多、配色少', eg: '科技、顧問、精品品牌' },
@@ -222,8 +222,8 @@ window.CATALOG = {
       desc: '紋樣與燙金', eg: '禮盒、婚禮、高單價商品' },
     { id: 'playful', name: '活潑親和', en: 'PLAYFUL', level: 3, rate: [1, 1],
       desc: '明亮又親近', eg: '零食、親子、年輕品牌' },
-    { id: 'illus', name: '插畫手繪', en: 'ILLUSTRATION', level: 4, rate: [1.3, 1.6],
-      desc: '原創插畫，費用較高', eg: '插畫包裝、角色、插畫主視覺' },
+    { id: 'illus', name: '插畫手繪', en: 'ILLUSTRATION', level: 4, rate: [1, 1],
+      desc: '原創手繪插畫', eg: '插畫包裝、角色、插畫主視覺' },
     { id: 'unsure', name: '還不確定', en: 'NOT SURE', level: 0, rate: [1, 1],
       desc: '上傳參考圖，再一起找', eg: '' }
   ],

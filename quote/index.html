@@ -679,25 +679,22 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   function summary() {
     const r = calc();
     const f = id => $('#' + id).value.trim();
+    const row = (k, v) => v ? [`${k}：${v}`] : [];
+    const extra = [$('#needPrint').checked && '需要協助印刷', $('#needInvoice').checked && '需要開發票'].filter(Boolean).join('、');
     return [
-      `【YENPOPPY 合作意向】`,
-      `稱呼：${f('name')}　品牌：${f('brand') || '—'}`,
-      `身分：${st.role || '—'}　產業：${st.industry || '—'}`,
-      `聯絡方式：${f('contact')}`,
+      `■ 聯絡資料`,
+      ...row('稱呼', f('name')), ...row('品牌', f('brand')), ...row('身分', st.role), ...row('產業', st.industry), ...row('聯絡方式', f('contact')),
       ``,
-      `需要項目：`,
-      ...(r.ls.length ? r.ls.map(l => `・${l.name} × ${l.qty} ${l.unit}`) : ['（沒有使用估價）']),
-      `其他想做的：${$('#otherNeed').value.trim() || '—'}`,
-      `風格：${r.style.name}`,
-      `提案與修改：${r.plan.name}（提案 ${r.plan.proposals} 款，修改 ${r.plan.revisions} 次）`,
-      `參考圖：${refs.length ? refs.map(f => f.name).join('、') : '無'}　參考連結：${$('#refLinks').value.trim() || '無'}`,
-      `希望交件：${r.want ? Y.short(r.want) : '未指定'}`,
-      `其他：${[$('#needAi').checked && '原始檔', $('#needPrint').checked && '印刷發包', $('#needInvoice').checked && '需要發票'].filter(Boolean).join('、') || '無'}`,
+      `■ 想做的項目`,
+      ...(r.ls.length ? r.ls.map(l => `・${l.name} × ${l.qty} ${l.unit}`) : ['・（沒有使用估價）']),
+      ...row('其他想做的', $('#otherNeed').value.trim()),
       ``,
-      `試算範圍：${rng(r)}${r.tax ? '（含稅）' : ''}`,
-      `最快交件：${r.earliest ? Y.short(r.earliest) : '—'}`,
-      ``,
-      `專案說明：${f('msg') || '—'}`
+      `■ 需求細節`,
+      ...row('風格', r.style.name), `提案與修改：${r.plan.name}，提案 ${r.plan.proposals} 款、修改 ${r.plan.revisions} 次`,
+      `希望完成：${r.want ? Y.short(r.want) : '未指定'}`,
+      ...row('參考圖', refs.map(f => f.name).join('、')), ...row('參考連結', $('#refLinks').value.trim()), ...row('其他需求', extra),
+      ...(r.ls.length ? [``, `■ 試算結果`, `試算範圍：${rng(r)}`, `最快完成：${r.earliest ? Y.short(r.earliest) : '—'}`, `（試算僅供參考，實際金額以正式報價為準）`] : []),
+      ...(f('msg') ? [``, `■ 專案說明`, f('msg')] : [])
     ].join('\n');
   }
 

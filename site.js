@@ -922,8 +922,8 @@ async function renderAboutPage() {
     ${pageHead({ en: 'ABOUT', title: d.motto || '關於我' })}
 
     <section class="ab2-sec ab2-profile">
-      <div class="ab2-profile__grid">
-        ${d.introImage ? `<div class="ab2-profile__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : '<div></div>'}
+      <div class="ab2-profile__grid${d.introImage ? '' : ' no-img'}">
+        ${d.introImage ? `<div class="ab2-profile__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : ''}
         <div class="ab2-profile__text">
           <div class="ab2-body">${paras.map(t => `<p>${escHTML(t).replace(/\*(.+?)\*/g, '<mark>$1</mark>').replace(/\n/g, '<br class="ab2-br">')}</p>`).join('')}</div>
           ${stats.length ? `<dl class="ab2-facts">
@@ -1091,10 +1091,11 @@ async function renderContactPage() {
       budget: form.budget.value, date: form.date.value, brand: form.brand.value.trim(),
       message: form.message.value.trim(), link: form.link.value.trim(),
     };
+    const row = (k, v) => v ? [`${k}：${v}`] : [];
     const summary = [
-      `稱呼：${data.name}`, `Email：${data.email}`, `想做什麼：${data.services}`,
-      `預算範圍：${data.budget || '—'}`, `希望完成：${data.date || '—'}`, `公司／品牌：${data.brand || '—'}`,
-      `參考連結：${data.link || '—'}`, '', data.message || '',
+      '■ 聯絡資料', ...row('稱呼', data.name), ...row('Email', data.email), ...row('公司／品牌', data.brand),
+      '', '■ 需求', ...row('想做什麼', data.services), ...row('預算範圍', data.budget), ...row('希望完成', data.date), ...row('參考連結', data.link),
+      ...(data.message ? ['', '■ 想說的話', data.message] : []),
     ].join('\n');
 
     const btn = form.querySelector('[type="submit"]');
