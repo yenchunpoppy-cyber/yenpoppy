@@ -2318,13 +2318,38 @@ body[data-page="work"] .pg-head { padding-bottom: 24px; }
 .ab2-profile__grid.no-img { grid-template-columns: minmax(0, 1fr); }
 .ab2-profile__grid.no-img .ab2-profile__text { max-width: 760px; }
 
-/* 全站標題規範（2026-11-13）：頁首小標「中文 ENGLISH」；區塊小標「編號 中文 ENGLISH」；區塊之間細線；About 品牌區淺底色 */
-.pg-head__en span { margin-left: 8px; }
+/* 全站標題規範（2026-11-13）
+   頁首小標「中文 ENGLISH」、區塊小標「編號 中文 ENGLISH」：同字體同大小、不加粗、整條深金。
+   金色統一用 --gold（Yen 2026-11-13：現有金夠清楚）。 */
+:root { --gold-text: var(--gold); }
+.pg-head__en, .ab2-eyebrow, .about-page.ab2 .ab2-eyebrow {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;
+  font-family: var(--font-title); font-weight: 400 !important; font-size: 14px !important;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--gold-text) !important; }
+.pg-head__en span, .ab2-eyebrow span, .ab2-eyebrow .ab2-sec-no {
+  margin: 0; font-family: var(--font-title); font-style: normal; font-weight: 400 !important;
+  font-size: 1.08em !important; letter-spacing: .16em; color: inherit !important; }
+body[data-page="work"] .pg-head__en { color: #8a8a8a !important; }
+@media (max-width: 599px) { .pg-head__en, .ab2-eyebrow, .about-page.ab2 .ab2-eyebrow { font-size: 12px !important; } }
+
+/* 區塊之間細線 */
 .info-page.ab2 > .ab2-sec + .ab2-sec { margin-top: 96px; padding-top: 48px !important; border-top: 1px solid #E2E2E2; }
-.about-page.ab2 > .ab2-sec--band { border-top: 0; padding-bottom: 64px; background: #FDFAEA; box-shadow: 0 0 0 100vmax #FDFAEA; clip-path: inset(0 -100vmax); }
-.about-page.ab2 > .ab2-sec--band + .ab2-sec { border-top: 0; }
-.ab2-sec-no { font-style: normal; font-family: var(--font-title); color: var(--text-color, #000); letter-spacing: .1em; margin-right: 4px; }
-@media (max-width: 599px) {
-  .info-page.ab2 > .ab2-sec + .ab2-sec { margin-top: 56px; padding-top: 32px !important; }
-  .about-page.ab2 > .ab2-sec--band { padding-bottom: 40px; }
+@media (max-width: 599px) { .info-page.ab2 > .ab2-sec + .ab2-sec { margin-top: 56px; padding-top: 32px !important; } }
+
+/* About 開場：電腦版左文右數字（無照片時） */
+.about-page .pg-head { padding-bottom: 24px; }
+@media (min-width: 900px) {
+  .about-page.ab2 .ab2-profile__grid.no-img { grid-template-columns: minmax(0, 1fr) auto; gap: 0 80px; align-items: center; }
+  .about-page.ab2 .no-img > .ab2-facts { flex-direction: column; flex-wrap: nowrap; gap: 28px; margin: 0 !important; padding: 8px 0 8px 56px !important; border-top: 0; border-left: 1px solid var(--line); }
 }
+
+/* 產業標籤：只在電腦版顯示，不做螢光 */
+@media (min-width: 900px) {
+  .ab2-ind { display: flex !important; gap: 8px 20px; margin: -16px 0 40px; font-size: 14px; color: #666; }
+  .ab2-ind mark { background: none; padding: 0; }
+}
+
+/* 頁尾兩顆按鈕、表單隱私小字 */
+.sf__btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 0; }
+@media (max-width: 599px) { .sf__btns { justify-content: flex-start; } }
+.ct-privacy { margin: 12px 0 0; font-size: 12px; color: #888; letter-spacing: .04em; }

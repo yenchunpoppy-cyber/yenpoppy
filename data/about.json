@@ -279,7 +279,7 @@
   "journey": [
     {
       "year": "",
-      "period": "Select Shop",
+      "period": "選物店 Select Shop",
       "zh": "從選物店開始，學會看設計",
       "desc": "七年間從商品開發、門市與展覽視覺，做到商品攝影與出貨，明白品牌每一步都需要設計。",
       "works": [
@@ -289,7 +289,7 @@
     },
     {
       "year": "",
-      "period": "Jewelry Brand",
+      "period": "珠寶品牌 Jewelry Brand",
       "zh": "走進現場，把細節做出來",
       "desc": "負責型錄、包裝、櫥窗與門市陳列，和廠商一次次確認打樣，讓設計從畫面真正走進現場。",
       "works": [
@@ -299,7 +299,7 @@
     },
     {
       "year": "",
-      "period": "Creative Tech",
+      "period": "創意科技 Creative Tech",
       "zh": "從平面畫面，走向數位體驗",
       "desc": "參與大型品牌提案，和工程師把創意做成能運作的體驗，也開始用 AI 讓設計成為系統。",
       "works": [
@@ -309,7 +309,7 @@
     },
     {
       "year": "",
-      "period": "Now",
+      "period": "現在 Now",
       "zh": "現在，用設計做自己的事",
       "desc": "以 YENPOPPY 接案，和 AI 協作、自己開發工具，把經驗帶進每一次品牌合作。",
       "works": []

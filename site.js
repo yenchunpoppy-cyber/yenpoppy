@@ -926,10 +926,10 @@ async function renderAboutPage() {
         ${d.introImage ? `<div class="ab2-profile__img"><img src="${escHTML(fixImgUrl(d.introImage))}" alt="${escHTML(d.introImageAlt)}" loading="lazy"></div>` : ''}
         <div class="ab2-profile__text">
           <div class="ab2-body">${paras.map(t => `<p>${escHTML(t).replace(/\*(.+?)\*/g, '<mark>$1</mark>').replace(/\n/g, '<br class="ab2-br">')}</p>`).join('')}</div>
+        </div>
           ${stats.length ? `<dl class="ab2-facts">
             ${stats.map(s => `<div class="ab2-fact--big"><dd><b>${escHTML(s.value)}</b>${s.unit ? `<span>${escHTML(s.unit)}</span>` : ''}</dd><dt>${escHTML(s.label)}</dt></div>`).join('')}
           </dl>` : ''}
-        </div>
       </div>
       ${d.introQuote ? `<blockquote class="ab2-quote"><p>${escHTML(d.introQuote)}</p></blockquote>` : ''}
     </section>
@@ -1045,7 +1045,7 @@ async function renderContactPage() {
         <div class="f f--full"><label for="cf-brand">公司／品牌名稱 <small class="opt">選填</small></label><input id="cf-brand" name="brand" maxlength="80" autocomplete="organization"></div>
         <div class="f f--full"><label for="cf-msg">想說的話 <small class="opt">選填</small></label><textarea id="cf-msg" name="message" rows="5" maxlength="2000" placeholder="品牌介紹、想做的內容、使用情境都可以寫"></textarea></div>
         <div class="f f--full"><label for="cf-link">參考資料連結 <small class="opt">選填</small></label><input id="cf-link" name="link" type="url" maxlength="300" placeholder="Google 雲端、Pinterest、品牌網站等"></div>
-        <div class="f f--full"><button class="btn btn--primary" type="submit">送出</button></div>
+        <div class="f f--full"><button class="btn btn--primary" type="submit">送出</button><p class="ct-privacy">資料只用來回覆你的詢問，不會提供給第三方。</p></div>
       </form>
       <div class="ct-sent" hidden></div>
     </section>
@@ -1215,6 +1215,7 @@ async function renderFooter() {
   ]);
   const onContact = /^\/(pages\/contact|quote)/.test(location.pathname);
   const links = [
+    `<a href="/quote/">費用估算</a>`,
     c.email && `<a href="mailto:${escHTML(c.email)}">${escHTML(c.email)}</a>`,
     c.instagram && `<a href="${escHTML(c.instagram)}" target="_blank" rel="noopener">Instagram ↗</a>`,
     c.behance && `<a href="${escHTML(c.behance)}" target="_blank" rel="noopener">Behance ↗</a>`,
@@ -1226,7 +1227,7 @@ async function renderFooter() {
     ${onContact ? '' : `<div class="sf__cta">
       <h2 class="sf__title">${escHTML(h.ctaTitle || '有想法嗎？和我聊聊。')}</h2>
       ${h.ctaText ? `<p class="sf__text">${escHTML(h.ctaText)}</p>` : ''}
-      <a class="hm-btn" href="/quote/#h4">${escHTML(h.ctaButton || '和我聊聊')} →</a>
+      <p class="sf__btns"><a class="hm-btn" href="/quote/#h4">${escHTML(h.ctaButton || '和我聊聊')} →</a><a class="hm-btn hm-btn--line" href="/quote/">看費用估算 →</a></p>
     </div>`}
     <div class="sf__bar">
       <p class="sf__links">${links.join('<span aria-hidden="true">/</span>')}</p>
