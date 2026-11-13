@@ -1326,9 +1326,14 @@ function initOneMarquee(box) {
   box.addEventListener('click', e => { if (moved > 5) { e.preventDefault(); e.stopPropagation(); } }, true);
   box.addEventListener('dragstart', e => e.preventDefault());
   const all = [...ul.children, ...copy.children];
+  // 一開始讓第一個（最知名）品牌停在正中間；捲到這一區、看得到之後才開始滑
+  let started = false;
+  const center = () => { const li = ul.children[0]; if (li) { pos = li.offsetLeft + li.offsetWidth / 2 - box.clientWidth / 2; wrap(); } };
+  center(); addEventListener('load', () => { if (!started) center(); });
+  new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { hold = performance.now() + 1200; started = true; io.disconnect(); } }, { threshold: 0.6 }).observe(box);
   const tick = (now) => {
     const dt = Math.min(64, now - last); last = now;
-    if (!drag && !hover && now > hold) { pos += dir * SPEED * dt; wrap(); }
+    if (started && !drag && !hover && now > hold) { pos += dir * SPEED * dt; wrap(); }
     track.style.transform = `translate3d(${-pos}px,0,0)`;
     const r = box.getBoundingClientRect();
     if (r.bottom > 0 && r.top < innerHeight) {
