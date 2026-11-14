@@ -575,7 +575,9 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
     let lo = round100((min + ai) * (1 + rush)), hi = round100((max + ai) * (1 + rush));
     const floor = ls.some(l => !l.fixed) && lo < C.minFee; if (floor) { lo = C.minFee; hi = Math.max(hi, C.minFee); }
     const tax = 0; // 發票費用改為洽談時確認，不在試算加價
-    lo = round100(lo * (1 + tax)); hi = round100(hi * (1 + tax));
+    lo = round100(lo * (1 + tax));
+    // 2026-11-14：試算顯示小區間，上限約為下限 +18%（取整到千），實際報價依需求確認
+    hi = Math.max(lo, Math.round(lo * 1.18 / 1000) * 1000);
     return { ls, style, plan, lo, hi, floor, earliest, workdays, start: d, want, fit, rush, ai, tax };
   }
 
@@ -594,7 +596,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
         ${it.options ? `<div class="opts" role="group" aria-label="${esc(it.name)}規格">${it.options.map(o =>
           `<button type="button" data-opt="${it.id}" data-o="${o.id}" aria-pressed="${o.id === r.optId}"${st.qty[`${it.id}::${o.id}`] > 0 ? ' class="has"' : ''}>${esc(o.name)}${st.qty[`${it.id}::${o.id}`] > 0 ? `<i class="oq">×${st.qty[`${it.id}::${o.id}`]}</i>` : ''}</button>`).join('')}</div>${on ? '<p class="oh">點其他規格，可以一起加入</p>' : ''}` : ''}
         ${r.desc ? `<p class="d">${esc(r.desc)}</p>` : ''}
-        <div class="foot"><div class="pr">${st.revealed ? `${Y.money(r.min)}${r.max > r.min ? ' – ' + Y.num(r.max) : ''} / ${esc(r.unit)}` : ''}<small>約 ${r.days} 個工作天</small></div>
+        <div class="foot"><div class="pr">${st.revealed ? (r.from ? `${Y.money(r.price)} 起 / ${esc(r.unit)}` : `${Y.money(r.min)}${r.max > r.min ? ' – ' + Y.num(r.max) : ''} / ${esc(r.unit)}`) : ''}<small>約 ${r.days} 個工作天</small></div>
           ${n ? `<span class="stepper" aria-label="數量"><button type="button" data-dec="${k}" aria-label="${n > 1 ? '減少' : '移除'}">${n > 1 ? '−' : '×'}</button><output>${n}</output><button type="button" data-inc="${k}" aria-label="增加">＋</button></span>`
               : `<button class="add" type="button" data-inc="${k}">＋ 加入</button>`}
         </div></article>`;
@@ -662,7 +664,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
     if (r.floor) status += `<div class="status">單次合作 NT$${Y.num(C.minFee)} 起，可以再加幾個項目一起做。</div>`;
     if (r.want && r.fit === false) status += `<div class="status warn">這個日期比較趕，需要以急件處理，已加上急件費（設計費 +${Math.round(r.rush * 100)}%）。日期能往後一點的話就不用。</div>`;
     $('#result').innerHTML = `<div class="eyebrow">試算結果 ESTIMATE</div>
-      <div class="range">${rng(r)}<small>${r.tax ? '含 5% 營業稅，' : ''}${esc(r.plan.name)}方案，風格：${esc(r.style.name)}</small></div>
+      <div class="range">${rng(r)}<small>${r.tax ? '含 5% 營業稅，' : ''}${esc(r.plan.name)}方案，風格：${esc(r.style.name)}</small><small>實際報價依需求確認後提供</small></div>
       <dl class="kv">
         <dt>最快開始</dt><dd>${Y.short(r.start)}</dd>
         <dt>最快完成</dt><dd>${Y.short(r.earliest)}</dd>
@@ -670,7 +672,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
         <dt>訂金</dt><dd>${Math.round(C.depositRate * 100)}%，付款後開始製作</dd>
       </dl>
       ${status}
-      <ul class="picked">${r.ls.map(l => `<li><span>${esc(l.name)} × ${l.qty}</span><span>${Y.num(l.min * l.qty)}${l.max > l.min ? '–' + Y.num(l.max * l.qty) : ''}</span></li>`).join('')}
+      <ul class="picked">${r.ls.map(l => `<li><span>${esc(l.name)} × ${l.qty}</span><span>${l.from ? Y.num(l.price * l.qty) + ' 起' : Y.num(l.min * l.qty) + (l.max > l.min ? '–' + Y.num(l.max * l.qty) : '')}</span></li>`).join('')}
         ${r.ai ? `<li><span>原始檔</span><span>${Y.num(r.ai)}</span></li>` : ''}</ul>
       <p class="note">提案 ${r.plan.proposals} 款，含 ${r.plan.revisions} 次修改，之後每次 NT$${Y.num(C.revisionFee)}。工作天不含週末，付訂並收到素材隔天起算。不含印刷、商品攝影和文案。</p>
       <a href="#h4" class="primary" style="text-decoration:none">想合作，留下聯絡方式</a>`;
@@ -693,7 +695,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
       ...row('風格', r.style.name), `提案與修改：${r.plan.name}，提案 ${r.plan.proposals} 款、修改 ${r.plan.revisions} 次`,
       `希望完成：${r.want ? Y.short(r.want) : '未指定'}`,
       ...row('參考圖', refs.map(f => f.name).join('、')), ...row('參考連結', $('#refLinks').value.trim()), ...row('其他需求', extra),
-      ...(r.ls.length ? [``, `■ 試算結果`, `試算範圍：${rng(r)}`, `最快完成：${r.earliest ? Y.short(r.earliest) : '—'}`, `（試算僅供參考，實際金額以正式報價為準）`] : []),
+      ...(r.ls.length ? [``, `■ 試算結果`, `試算範圍：${rng(r)}`, `最快完成：${r.earliest ? Y.short(r.earliest) : '—'}`, `（實際報價依需求確認後提供）`] : []),
       ...(f('msg') ? [``, `■ 專案說明`, f('msg')] : [])
     ].join('\n');
   }
