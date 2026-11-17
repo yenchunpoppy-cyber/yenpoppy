@@ -1022,7 +1022,7 @@ async function renderContactPage() {
 
   const el = document.createElement('div');
   el.className = 'info-page contact-page ab2';
-  const svcs = ['品牌識別 & 視覺設計', '包裝 & 產品設計', '網站 & 數位設計', '展示陳列 & 展覽設計', '還不確定'];
+  const svcs = ['品牌識別 & 視覺設計', '包裝 & 印刷設計', '網站 & 數位設計', '展示陳列 & 展覽設計', '還不確定'];
   const head = (label, zh, title, desc, no) => `<header class="ab2-head"><p class="ab2-eyebrow">${no ? `<em class="ab2-sec-no">${no}</em>` : ''}${escHTML(zh)}<span>${label}</span></p>
         ${title ? `<h2 class="ab2-h2">${escHTML(title)}</h2>` : ''}${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}</header>`;
   el.innerHTML = `
