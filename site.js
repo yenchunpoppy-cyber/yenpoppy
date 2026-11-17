@@ -345,12 +345,7 @@ async function renderWorksGrid() {
 
   function loadMore() {
     const batch = works.slice(offset, offset + WORKS_PAGE_SIZE);
-    batch.forEach((work, i) => {
-      const c = createWorkCard(work);
-      // 全部作品時，第一件放大成代表作
-      if (!activeTag && offset === 0 && i === 0) c.classList.add('work-card--lead');
-      grid.appendChild(c);
-    });
+    batch.forEach(work => grid.appendChild(createWorkCard(work)));
     offset += batch.length;
 
     // ç§»é¤èå¨åµ
