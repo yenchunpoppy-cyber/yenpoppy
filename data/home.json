@@ -1,6 +1,6 @@
 {
   "heroTitle": "",
-  "heroSub": "從 LOGO、包裝到上架，陪品牌把商品做出來。",
+  "heroSub": "從 LOGO 到包裝，幫小品牌找到屬於它的視覺語言。",
   "heroYears": "2013 — 2026",
   "heroImages": [],
   "selected": [
@@ -34,9 +34,9 @@
     "TAIWAN",
     "yenchunpoppy@gmail.com"
   ],
-  "heroLine": "好點子，值得被好好實現。",
+  "heroLine": "每個品牌，都有自己的樣子。",
   "heroIntro": [
-    "好點子，值得被==好好實現==。"
+    "每個品牌，都有==自己的樣子==。"
   ],
   "ctaTitle": "你的品牌，最近有什麼新想法嗎？",
   "ctaText": "不論只是一個模糊的念頭，還是已經有明確的方向，都可以從這裡開始。",
@@ -49,5 +49,6 @@
   "heroLink": {
     "text": "看起步方案 →",
     "href": "/quote/?cat=starter#h1"
-  }
+  },
+  "heroEyebrow": "EVERY BRAND HAS ITS OWN LOOK"
 }

@@ -2385,3 +2385,26 @@ body[data-page="work"] .module-b__label { border-top: 0; padding: 0 0 0 16px; ma
 .ab2-track { display: flex; width: max-content; will-change: transform; }
 .about-page.ab2 .ab2-marquee.is-loop .ab2-logos { animation: none !important; }
 .ab2-marquee img { -webkit-user-drag: none; pointer-events: none; }
+
+/* ═══ 2026-11-17 首頁開場加強、第一件代表作放大 ═══ */
+.hm2__eyebrow { margin: 0 0 20px; font-family: Montserrat, sans-serif; font-weight: 400; font-size: 13px; letter-spacing: .3em; color: var(--gold); }
+.hm2__title--line { font-size: clamp(30px, 3.2vw, 46px) !important; line-height: 1.4; }
+.hm2__title--line .hm2__zh { font-weight: 300; letter-spacing: .08em; }
+.hm2__sub { margin-top: 20px; font-size: 16px; }
+@media (max-width: 599px) {
+  .hm2__eyebrow { font-size: 11px; letter-spacing: .2em; margin-bottom: 12px; }
+  .hm2__title--line { font-size: 26px !important; }
+  .hm2__sub { margin-top: 12px; font-size: 14px; }
+}
+@media (min-width: 900px) {
+  #works-grid .work-card--lead { grid-column: span 2; grid-row: span 2; display: flex; flex-direction: column; }
+  #works-grid .work-card--lead > img, #works-grid .work-card--lead > .card-video { flex: 1 1 auto; height: 0; min-height: 0; aspect-ratio: auto !important; object-fit: cover; }
+  #works-grid .work-card--lead .card-title { font-size: 18px; }
+}
+.hm2 { padding-top: 64px !important; }
+.hm2__zh mark { white-space: nowrap; }
+@media (max-width: 599px) { .hm2 { padding-top: 36px !important; } .hm2__title--line { font-size: 24px !important; } }
+/* About：大標收字距、和自我介紹的距離縮一半 */
+.about-page.ab2 .pg-head__title { letter-spacing: .05em; }
+.about-page.ab2 > .pg-head { padding-bottom: 12px !important; }
+.about-page.ab2 > .pg-head + .ab2-profile { padding-top: 8px !important; }

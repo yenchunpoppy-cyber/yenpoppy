@@ -345,7 +345,12 @@ async function renderWorksGrid() {
 
   function loadMore() {
     const batch = works.slice(offset, offset + WORKS_PAGE_SIZE);
-    batch.forEach(work => grid.appendChild(createWorkCard(work)));
+    batch.forEach((work, i) => {
+      const c = createWorkCard(work);
+      // 全部作品時，第一件放大成代表作
+      if (!activeTag && offset === 0 && i === 0) c.classList.add('work-card--lead');
+      grid.appendChild(c);
+    });
     offset += batch.length;
 
     // ç§»é¤èå¨åµ
@@ -1143,8 +1148,9 @@ async function renderHomeIntro(grid, works) {
   wrap.className = 'home-intro';
   wrap.innerHTML = `
     ${!(d.heroIntro || []).length && !d.heroTitle ? '<h1 class="sr-only">YENPOPPY 作品</h1>' : ''}<section class="hm2"${!(d.heroIntro || []).length && !d.heroTitle ? ' hidden' : ''}>
+      ${d.heroEyebrow ? `<p class="hm2__eyebrow">${escHTML(d.heroEyebrow)}</p>` : ''}
       <h1 class="hm2__title hm2__title--line">${(d.heroIntro || []).slice(0, 1).map(t => `<span class="hm2__zh">${escHTML(t).replace(/==(.+?)==/g, '<mark>$1</mark>')}</span>`).join('')}${d.heroTitle ? `<span class="hm2__en">${escHTML(d.heroTitle)}</span>` : ''}</h1>
-      ${d.heroSub ? `<p class="hm2__sub">${escHTML(d.heroSub)}</p>` : ''}
+      ${d.heroSub ? `<p class="hm2__sub">${keepTail(d.heroSub, 6)}</p>` : ''}
       ${d.heroLink && d.heroLink.text ? `<a class="hm2__link" href="${escHTML(d.heroLink.href || '/quote/')}">${escHTML(d.heroLink.text)}</a>` : ''}
     </section>
     <div id="index" class="hm2-anchor"></div>`;
