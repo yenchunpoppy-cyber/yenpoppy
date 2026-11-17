@@ -241,6 +241,7 @@ collections:
         label: 首頁與頁尾
         file: data/home.json
         fields:
+          - { label: 首頁英文小標（主標上方金色小字）, name: heroEyebrow, widget: string, required: false }
           - { label: 首頁主標（用 ==字== 加螢光）, name: heroIntro, widget: list, max: 1 }
           - { label: 首頁副標, name: heroSub, widget: string, required: false }
           - label: 首頁主標下方連結

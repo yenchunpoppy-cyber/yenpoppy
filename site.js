@@ -1022,7 +1022,7 @@ async function renderContactPage() {
 
   const el = document.createElement('div');
   el.className = 'info-page contact-page ab2';
-  const svcs = ['品牌識別 & 視覺設計', '包裝 & 產品設計', '網站 & 數位設計', '展示陳列 & 展覽設計', '還不確定'];
+  const svcs = ['品牌識別 & 視覺設計', '包裝 & 印刷設計', '網站 & 數位設計', '展示陳列 & 展覽設計', '還不確定'];
   const head = (label, zh, title, desc, no) => `<header class="ab2-head"><p class="ab2-eyebrow">${no ? `<em class="ab2-sec-no">${no}</em>` : ''}${escHTML(zh)}<span>${label}</span></p>
         ${title ? `<h2 class="ab2-h2">${escHTML(title)}</h2>` : ''}${desc ? `<p class="ab2-lead">${escHTML(desc)}</p>` : ''}</header>`;
   el.innerHTML = `
@@ -1143,8 +1143,9 @@ async function renderHomeIntro(grid, works) {
   wrap.className = 'home-intro';
   wrap.innerHTML = `
     ${!(d.heroIntro || []).length && !d.heroTitle ? '<h1 class="sr-only">YENPOPPY 作品</h1>' : ''}<section class="hm2"${!(d.heroIntro || []).length && !d.heroTitle ? ' hidden' : ''}>
+      ${d.heroEyebrow ? `<p class="hm2__eyebrow">${escHTML(d.heroEyebrow)}</p>` : ''}
       <h1 class="hm2__title hm2__title--line">${(d.heroIntro || []).slice(0, 1).map(t => `<span class="hm2__zh">${escHTML(t).replace(/==(.+?)==/g, '<mark>$1</mark>')}</span>`).join('')}${d.heroTitle ? `<span class="hm2__en">${escHTML(d.heroTitle)}</span>` : ''}</h1>
-      ${d.heroSub ? `<p class="hm2__sub">${escHTML(d.heroSub)}</p>` : ''}
+      ${d.heroSub ? `<p class="hm2__sub">${keepTail(d.heroSub, 6)}</p>` : ''}
       ${d.heroLink && d.heroLink.text ? `<a class="hm2__link" href="${escHTML(d.heroLink.href || '/quote/')}">${escHTML(d.heroLink.text)}</a>` : ''}
     </section>
     <div id="index" class="hm2-anchor"></div>`;
