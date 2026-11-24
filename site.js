@@ -3,6 +3,38 @@
  * è¦æ ¼æ¸ v1 å®æ´å°æ
  */
 
+// ─────────────────────────────────────────────
+// 訪客辨識（2026-11-24）：網址加 ?me=1 把這個瀏覽器標成「本人」（?me=0 取消）；
+// 每個瀏覽器一組訪客編號，記第一次進站的來源，送表單和紀錄時一起帶上
+// ─────────────────────────────────────────────
+function ypMeta() {
+  const get = k => { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } };
+  const set = (k, v) => { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} };
+  let vid = get('yp-vid');
+  if (!vid) { vid = 'V' + Date.now().toString(36).slice(-4).toUpperCase() + Math.random().toString(36).slice(2, 5).toUpperCase(); set('yp-vid', vid); }
+  let src = get('yp-src');
+  if (!src) {
+    const p = new URLSearchParams(location.search);
+    const h = document.referrer ? new URL(document.referrer).hostname : '';
+    const map = [[/instagram/, 'IG'], [/threads/, 'Threads'], [/facebook|fb\./, 'Facebook'], [/line\.me|line\.naver/, 'LINE'], [/google/, 'Google'], [/bing|yahoo/, '搜尋引擎'], [/behance/, 'Behance'], [/linkedin/, 'LinkedIn']];
+    src = p.get('utm_source') || (h && h !== location.hostname ? ((map.find(([r]) => r.test(h)) || [0, h])[1]) : '直接進站');
+    set('yp-src', src);
+  }
+  const dev = matchMedia('(max-width: 599px)').matches ? '手機' : matchMedia('(max-width: 1024px)').matches ? '平板' : '電腦';
+  return { vid, src, dev, me: get('yp-me') === '1' };
+}
+(function () {
+  const q = new URLSearchParams(location.search).get('me');
+  if (q !== '1' && q !== '0') return;
+  try { if (q === '1') localStorage.setItem('yp-me', '1'); else localStorage.removeItem('yp-me'); } catch (e) { return; }
+  const t = document.createElement('div');
+  t.textContent = q === '1' ? '這個瀏覽器已標記為「本人」，瀏覽和試算不會再被記錄。' : '已取消「本人」標記。';
+  t.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9999;background:#000;color:#fff;padding:12px 18px;font-size:14px;max-width:90vw';
+  const show = () => { document.documentElement.appendChild(t); setTimeout(() => t.remove(), 4000); };
+  if (document.body) show(); else document.addEventListener('DOMContentLoaded', show);
+})();
+
+
 'use strict';
 
 // âââââââââââââââââââââââââââââââââââââââââââââ
@@ -1104,7 +1136,7 @@ async function renderContactPage() {
     if (settings.formEndpoint) {
       try {
         const res = await fetch(settings.formEndpoint, {
-          method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ...data, summary }),
+          method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ...data, summary, ...ypMeta() }),
         });
         ok = res.ok && (await res.text()).trim().startsWith('ok');
       } catch (err) { ok = false; }
@@ -1377,10 +1409,10 @@ function clauses(html) {
   const send = () => {
     pause();
     const sec = Math.round(total / 1000);
-    if (sent || !ep || sec < 10) return;
+    if (sent || !ep || sec < 10 || ypMeta().me) return;
     sent = true;
     const data = JSON.stringify({ type: 'view', path: location.pathname + location.search, title: document.title, sec,
-      ref: document.referrer ? new URL(document.referrer).hostname : '', mobile: matchMedia('(max-width: 599px)').matches });
+      ref: document.referrer ? new URL(document.referrer).hostname : '', mobile: matchMedia('(max-width: 599px)').matches, ...ypMeta() });
     try { navigator.sendBeacon(ep, new Blob([data], { type: 'text/plain' })); } catch (e) {}
   };
   document.addEventListener('visibilitychange', () => {

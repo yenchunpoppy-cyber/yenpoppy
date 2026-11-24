@@ -731,13 +731,13 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
   const sid = Math.random().toString(36).slice(2, 10);
   let dirty = false;
   function track(submitted) {
-    if (!C.statsEndpoint) return;
+    if (!C.statsEndpoint || ypMeta().me) return;
     const r = calc(); if (!r.ls.length) return;
     const data = JSON.stringify({
       sid, submitted: !!submitted, nick: $('#name').value.trim(), role: st.role, industry: st.industry,
       items: r.ls.map(l => `${l.name}×${l.qty}`).join('、'), cats: [...new Set(r.ls.map(l => l.cat))].join(','),
       style: r.style.name, plan: r.plan.name, other: $('#otherNeed').value.trim(), want: r.want ? Y.iso(r.want) : '', rush: !!r.rush, lo: r.lo, hi: r.hi,
-      ref: document.referrer ? new URL(document.referrer).hostname : ''
+      ref: document.referrer ? new URL(document.referrer).hostname : '', ...ypMeta()
     });
     try { navigator.sendBeacon(C.statsEndpoint, new Blob([data], { type: 'text/plain' })); } catch (err) {}
   }
@@ -798,7 +798,7 @@ section[aria-labelledby="h4"] input, section[aria-labelledby="h4"] textarea { ba
         const f = id => $('#' + id).value.trim();
         const res = await fetch(ep, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({
           type: 'quote', name: f('name'), brand: f('brand'), contact: f('contact'), message: f('msg'),
-          role: st.role, industry: st.industry, links: f('refLinks'), summary: text, files }) });
+          role: st.role, industry: st.industry, links: f('refLinks'), summary: text, files, ...ypMeta() }) });
         ok = res.ok && (await res.text()).trim().startsWith('ok');
       }
     } catch (err) { ok = false; }
